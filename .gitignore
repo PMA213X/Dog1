@@ -1,0 +1,32 @@
+# 编译产物
+*.o
+*.so
+*.a
+*.out
+*.exe
+
+# Qt 编译产物
+Makefile
+.qmake.stash
+*.pro.user
+moc_*.cpp
+ui_*.h
+
+# socketServer 编译输出
+socketServer/socketServer
+socketServer/*.o
+socketServer/Makefile
+socketServer/.qmake.stash
+socketServer/moc_*
+socketServer/ui_*.h
+socketServer/*.pro.user
+
+# macOS
+.DS_Store
+
+# 临时文件
+*.tmp
+*~
+
+# 探测结果
+scripts/robot_explore_result.txt
