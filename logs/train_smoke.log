@@ -1,0 +1,51 @@
+============================================================
+【配置】PPO 训练四足机器狗行走
+============================================================
+  观测维度        : 42
+  动作维度        : 12  (范围 [-1.0, 1.0])
+  策略网络        : MlpPolicy  net_arch=[256, 256]
+  n_steps        : 2048
+  batch_size     : 256
+  n_epochs       : 10
+  gamma          : 0.99
+  gae_lambda     : 0.95
+  learning_rate  : 0.0003
+  ent_coef       : 0.0
+  clip_range     : 0.2
+------------------------------------------------------------
+  训练总步数      : 2048
+  计算设备        : cpu
+  阶段标签        : （未设置）
+  日志目录        : runs/ppo_walk[_tag]_<时间戳>
+  checkpoint 目录 : checkpoints
+  checkpoint 间隔 : 10000
+  评估间隔        : 0  (每 10 集)
+  继续训练        : （否）
+  随机种子        : （未设置）
+============================================================
+【训练】日志目录 = runs/ppo_walk_20260926-020446
+【训练】checkpoint 目录 = checkpoints
+【自检】创建环境并执行 reset/step ...
+【自检】通过：reset / step 接口正常
+【自检】耗时 1.37s
+【训练】训练环境已创建，观测维度=42，动作维度=12
+【训练】每 10000 步保存 checkpoint → checkpoints/ppo_walk_<step>.zip
+【训练】已关闭定期评估
+【训练】创建新 PPO 模型 ...
+Using cpu device
+【训练】模型已创建：policy=MlpPolicy, net_arch=[256, 256], device=cpu
+【训练】开始训练：本次运行 2048 步（目标总步数 2048）
+Logging to runs/ppo_walk_20260926-020446/PPO_1
+---------------------------------
+| rollout/           |          |
+|    ep_len_mean     | 1e+03    |
+|    ep_rew_mean     | 658      |
+| time/              |          |
+|    fps             | 29       |
+|    iterations      | 1        |
+|    time_elapsed    | 68       |
+|    total_timesteps | 2048     |
+---------------------------------
+【训练】完成：本次 2048 步，耗时 1.2 分钟（约 29.6 steps/s）
+【训练】累计总步数 = 2048
+【训练】最终模型已保存：checkpoints/ppo_walk_final.zip

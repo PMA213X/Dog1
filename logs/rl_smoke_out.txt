@@ -1,0 +1,12 @@
+WARNING: “/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/webots-sim/worlds/parkour_dev.wbt”：发现重复 Viewpoint 节点。
+INFO: rl_agent: Starting controller: python3 -u rl_agent.py
+[smoke] timestep=4 ms, obs_dim=42, action_dim=12
+[smoke] step=  0 obs.shape=(42,) roll=+0.0000 pitch=+0.0000 z=0.2600 fallen=False
+[smoke] step= 10 obs.shape=(42,) roll=+0.0000 pitch=+0.0000 z=0.2599 fallen=False
+[smoke] step= 20 obs.shape=(42,) roll=+0.0000 pitch=+0.0000 z=0.2599 fallen=False
+[smoke] step= 30 obs.shape=(42,) roll=+0.0000 pitch=+0.0000 z=0.2599 fallen=False
+[smoke] step= 40 obs.shape=(42,) roll=+0.0000 pitch=+0.0000 z=0.2599 fallen=False
+[smoke] step= 49 obs.shape=(42,) roll=+0.0000 pitch=+0.0000 z=0.2599 fallen=False
+[smoke] 完成 50 步，最终 obs.shape=(42,)
+[smoke] reset 后 obs.shape=(42,) roll=+0.0000 pitch=+0.0000 z=0.2600 fallen=False
+INFO: rl_agent: Terminating.

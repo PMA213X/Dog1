@@ -34,3 +34,9 @@ webots-sim/controllers/*/mini_cheetah_controller
 
 # 探测结果
 scripts/robot_explore_result.txt
+
+_pdf_pages/
+frame_preview/
+__pycache__/
+*.pyc
+webots-sim/rl/.mock_test/

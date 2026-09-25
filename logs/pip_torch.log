@@ -1,0 +1,30 @@
+Looking in indexes: https://download.pytorch.org/whl/cu130
+Collecting torch
+  Using cached https://download-r2.pytorch.org/whl/cu130/torch-2.14.0%2Bcu130-cp314-cp314-manylinux_2_28_x86_64.whl.metadata (37 kB)
+Collecting filelock (from torch)
+  Using cached filelock-3.32.3-py3-none-any.whl.metadata (2.0 kB)
+Requirement already satisfied: typing-extensions>=4.10.0 in /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/venvs/rl/lib/python3.14/site-packages (from torch) (4.16.0)
+Requirement already satisfied: setuptools>=77.0.3 in /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/venvs/rl/lib/python3.14/site-packages (from torch) (78.1.0)
+Requirement already satisfied: sympy>=1.13.3 in /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/venvs/rl/lib/python3.14/site-packages (from torch) (1.14.0)
+Collecting networkx>=2.5.1 (from torch)
+  Using cached networkx-3.6.1-py3-none-any.whl.metadata (6.8 kB)
+Collecting jinja2 (from torch)
+  Using cached https://download.pytorch.org/whl/jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+Collecting fsspec>=0.8.5 (from torch)
+  Using cached fsspec-2026.7.0-py3-none-any.whl.metadata (10 kB)
+Collecting cuda-toolkit==13.0.3 (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.3; platform_system == "Linux"->torch)
+  Downloading https://pypi.nvidia.com/cuda-toolkit/cuda_toolkit-13.0.3.0-py2.py3-none-any.whl (2.5 kB)
+Collecting cuda-bindings<14,>=13.0.3 (from torch)
+  Using cached cuda_bindings-13.3.1-cp314-cp314-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (2.5 kB)
+Collecting nvidia-cudnn-cu13==9.24.0.43 (from torch)
+  Downloading https://pypi.nvidia.com/nvidia-cudnn-cu13/nvidia_cudnn_cu13-9.24.0.43-py3-none-manylinux_2_27_x86_64.whl (553.1 MB)
+ERROR: Could not install packages due to an OSError: [Errno 122] 超出磁盘配额
+
+     ━━━━━━━━━━━━━━━━━━━━━╸                  308.3/553.1 MB 4.2 MB/s eta 0:00:59
+Exception ignored while calling deallocator <function _TemporaryFileCloser.__del__ at 0x71798c9bf320>:
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/tempfile.py", line 482, in __del__
+    self.cleanup()
+  File "/usr/lib/python3.14/tempfile.py", line 461, in cleanup
+    self.file.close()
+OSError: [Errno 122] 超出磁盘配额
