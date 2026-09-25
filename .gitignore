@@ -28,5 +28,9 @@ socketServer/*.pro.user
 *.tmp
 *~
 
+# webots-sim 编译产物
+webots-sim/**/build/
+webots-sim/controllers/*/mini_cheetah_controller
+
 # 探测结果
 scripts/robot_explore_result.txt

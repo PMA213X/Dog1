@@ -1,0 +1,613 @@
+#VRML_SIM R2025a utf8
+
+# Mini Cheetah quadruped robot simulation
+# Built for Webots R2025a
+
+WorldInfo {
+  info [
+    "Mini Cheetah quadruped robot simulation"
+    "PD standing controller with trot gait capability"
+  ]
+  title "Mini Cheetah Simulation"
+  basicTimeStep 4
+  FPS 60
+}
+Viewpoint {
+  orientation -0.1 0.2 0 0.98
+  position 1.2 -0.8 0.8
+  follow "ON"
+  followType "GLOBAL_ROTATION"
+  followSmoothness 2
+}
+Background {
+  skyColor [0.7 0.8 1]
+}
+Floor {
+  size 10 10
+  tileSize 1 1
+}
+
+# ============================================================
+# Mini Cheetah Robot
+# ============================================================
+# Coordinate system: X=forward, Y=left, Z=up
+# Joint naming convention:
+#   [leg]_[joint]_motor / [leg]_[joint]_sensor
+#   leg: fr (front right), fl (front left), hr (hind right), hl (hind left)
+#   joint: abd (abduction), hip, kn (knee)
+
+Robot {
+  translation 0 0 0.38
+  name "mini_cheetah"
+  children [
+    # ---- IMU sensors on body ----
+    InertialUnit {
+      name "inertial unit"
+      coordinateSystem "NUE"
+    }
+    Gyro {
+      name "gyro"
+    }
+    Accelerometer {
+      name "accelerometer"
+    }
+
+    # ---- Body visual ----
+    PBRAppearance {
+      baseColor 0.15 0.15 0.15
+      roughness 0.8
+      metalness 0.2
+    }
+    Box {
+      size 0.38 0.1 0.06
+    }
+
+    # ---- Front Right Leg ----
+    # Abduction joint (hip roll) - rotates around X axis
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        anchor 0.19 -0.049 0
+        axis 1 0 0
+        dampingConstant 1.0
+        stopSpringDamper 100 1
+      }
+      device [
+        RotationalMotor {
+          name "fr_abd_motor"
+          maxTorque 20.0
+        }
+        PositionSensor {
+          name "fr_abd_sensor"
+        }
+      ]
+      child Solid {
+        translation 0 -0.062 0
+        children [
+          PBRAppearance {
+            baseColor 0.2 0.2 0.2
+            roughness 0.8
+          }
+          Box {
+            size 0.03 0.124 0.03
+          }
+        ]
+        name "fr_abd_link"
+        physics Physics {
+          mass 0.54
+          centerOfMass 0 -0.026 0
+          inertiaMatrix [
+            3.81e-04, 5.8e-05, 4.5e-07,
+            5.8e-05, 5.60e-04, 9.5e-07,
+            4.5e-07, 9.5e-07, 4.44e-04
+          ]
+          density -1
+        }
+        # Hip joint (hip pitch) - rotates around -Y axis
+        HingeJoint {
+          jointParameters HingeJointParameters {
+            anchor 0 0 0
+            axis 0 -1 0
+            dampingConstant 1.0
+            stopSpringDamper 100 1
+          }
+          device [
+            RotationalMotor {
+              name "fr_hip_motor"
+              maxTorque 20.0
+            }
+            PositionSensor {
+              name "fr_hip_sensor"
+            }
+          ]
+          child Solid {
+            translation 0 0 -0.1045
+            children [
+              PBRAppearance {
+                baseColor 0.25 0.25 0.25
+                roughness 0.7
+              }
+              Box {
+                size 0.04 0.04 0.209
+              }
+            ]
+            name "fr_thigh_link"
+            physics Physics {
+              mass 0.634
+              centerOfMass 0 0.016 -0.02
+              inertiaMatrix [
+                1.983e-03, 2.45e-04, 1.3e-05,
+                2.45e-04, 2.103e-03, 1.5e-06,
+                1.3e-05, 1.5e-06, 4.08e-04
+              ]
+              density -1
+            }
+            # Knee joint (knee pitch) - rotates around -Y axis
+            HingeJoint {
+              jointParameters HingeJointParameters {
+                anchor 0 0 -0.1045
+                axis 0 -1 0
+                dampingConstant 1.0
+                stopSpringDamper 100 1
+              }
+              device [
+                RotationalMotor {
+                  name "fr_kn_motor"
+                  maxTorque 20.0
+                }
+                PositionSensor {
+                  name "fr_kn_sensor"
+                }
+              ]
+              child Solid {
+                translation 0 0 -0.09
+                children [
+                  PBRAppearance {
+                    baseColor 0.3 0.3 0.3
+                    roughness 0.6
+                  }
+                  Box {
+                    size 0.03 0.03 0.18
+                  }
+                  # Toe sphere for contact
+                  PBRAppearance {
+                    baseColor 0.1 0.1 0.1
+                    roughness 0.9
+                  }
+                  Sphere {
+                    radius 0.015
+                    subdivision 4
+                  }
+                ]
+                name "fr_shank_link"
+                physics Physics {
+                  mass 0.214
+                  centerOfMass 0 0 0
+                  inertiaMatrix [
+                    2.70e-04, 0, 0,
+                    0, 2.73e-04, 0,
+                    0, 0, 3.1e-05
+                  ]
+                  density -1
+                }
+                contactMaterial "fr_toe"
+              }
+            }
+          }
+        }
+      }
+    }
+
+    # ---- Front Left Leg ----
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        anchor 0.19 0.049 0
+        axis 1 0 0
+        dampingConstant 1.0
+        stopSpringDamper 100 1
+      }
+      device [
+        RotationalMotor {
+          name "fl_abd_motor"
+          maxTorque 20.0
+        }
+        PositionSensor {
+          name "fl_abd_sensor"
+        }
+      ]
+      child Solid {
+        translation 0 0.062 0
+        children [
+          PBRAppearance {
+            baseColor 0.2 0.2 0.2
+            roughness 0.8
+          }
+          Box {
+            size 0.03 0.124 0.03
+          }
+        ]
+        name "fl_abd_link"
+        physics Physics {
+          mass 0.54
+          centerOfMass 0 0.026 0
+          inertiaMatrix [
+            3.81e-04, 5.8e-05, 4.5e-07,
+            5.8e-05, 5.60e-04, 9.5e-07,
+            4.5e-07, 9.5e-07, 4.44e-04
+          ]
+          density -1
+        }
+        HingeJoint {
+          jointParameters HingeJointParameters {
+            anchor 0 0 0
+            axis 0 -1 0
+            dampingConstant 1.0
+            stopSpringDamper 100 1
+          }
+          device [
+            RotationalMotor {
+              name "fl_hip_motor"
+              maxTorque 20.0
+            }
+            PositionSensor {
+              name "fl_hip_sensor"
+            }
+          ]
+          child Solid {
+            translation 0 0 -0.1045
+            children [
+              PBRAppearance {
+                baseColor 0.25 0.25 0.25
+                roughness 0.7
+              }
+              Box {
+                size 0.04 0.04 0.209
+              }
+            ]
+            name "fl_thigh_link"
+            physics Physics {
+              mass 0.634
+              centerOfMass 0 -0.016 -0.02
+              inertiaMatrix [
+                1.983e-03, 2.45e-04, 1.3e-05,
+                2.45e-04, 2.103e-03, 1.5e-06,
+                1.3e-05, 1.5e-06, 4.08e-04
+              ]
+              density -1
+            }
+            HingeJoint {
+              jointParameters HingeJointParameters {
+                anchor 0 0 -0.1045
+                axis 0 -1 0
+                dampingConstant 1.0
+                stopSpringDamper 100 1
+              }
+              device [
+                RotationalMotor {
+                  name "fl_kn_motor"
+                  maxTorque 20.0
+                }
+                PositionSensor {
+                  name "fl_kn_sensor"
+                }
+              ]
+              child Solid {
+                translation 0 0 -0.09
+                children [
+                  PBRAppearance {
+                    baseColor 0.3 0.3 0.3
+                    roughness 0.6
+                  }
+                  Box {
+                    size 0.03 0.03 0.18
+                  }
+                  PBRAppearance {
+                    baseColor 0.1 0.1 0.1
+                    roughness 0.9
+                  }
+                  Sphere {
+                    radius 0.015
+                    subdivision 4
+                  }
+                ]
+                name "fl_shank_link"
+                physics Physics {
+                  mass 0.214
+                  centerOfMass 0 0 0
+                  inertiaMatrix [
+                    2.70e-04, 0, 0,
+                    0, 2.73e-04, 0,
+                    0, 0, 3.1e-05
+                  ]
+                  density -1
+                }
+                contactMaterial "fl_toe"
+              }
+            }
+          }
+        }
+      }
+    }
+
+    # ---- Hind Right Leg ----
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        anchor -0.19 -0.049 0
+        axis 1 0 0
+        dampingConstant 1.0
+        stopSpringDamper 100 1
+      }
+      device [
+        RotationalMotor {
+          name "hr_abd_motor"
+          maxTorque 20.0
+        }
+        PositionSensor {
+          name "hr_abd_sensor"
+        }
+      ]
+      child Solid {
+        translation 0 -0.062 0
+        children [
+          PBRAppearance {
+            baseColor 0.2 0.2 0.2
+            roughness 0.8
+          }
+          Box {
+            size 0.03 0.124 0.03
+          }
+        ]
+        name "hr_abd_link"
+        physics Physics {
+          mass 0.54
+          centerOfMass 0 -0.026 0
+          inertiaMatrix [
+            3.81e-04, 5.8e-05, 4.5e-07,
+            5.8e-05, 5.60e-04, 9.5e-07,
+            4.5e-07, 9.5e-07, 4.44e-04
+          ]
+          density -1
+        }
+        HingeJoint {
+          jointParameters HingeJointParameters {
+            anchor 0 0 0
+            axis 0 -1 0
+            dampingConstant 1.0
+            stopSpringDamper 100 1
+          }
+          device [
+            RotationalMotor {
+              name "hr_hip_motor"
+              maxTorque 20.0
+            }
+            PositionSensor {
+              name "hr_hip_sensor"
+            }
+          ]
+          child Solid {
+            translation 0 0 -0.1045
+            children [
+              PBRAppearance {
+                baseColor 0.25 0.25 0.25
+                roughness 0.7
+              }
+              Box {
+                size 0.04 0.04 0.209
+              }
+            ]
+            name "hr_thigh_link"
+            physics Physics {
+              mass 0.634
+              centerOfMass 0 0.016 -0.02
+              inertiaMatrix [
+                1.983e-03, 2.45e-04, 1.3e-05,
+                2.45e-04, 2.103e-03, 1.5e-06,
+                1.3e-05, 1.5e-06, 4.08e-04
+              ]
+              density -1
+            }
+            HingeJoint {
+              jointParameters HingeJointParameters {
+                anchor 0 0 -0.1045
+                axis 0 -1 0
+                dampingConstant 1.0
+                stopSpringDamper 100 1
+              }
+              device [
+                RotationalMotor {
+                  name "hr_kn_motor"
+                  maxTorque 20.0
+                }
+                PositionSensor {
+                  name "hr_kn_sensor"
+                }
+              ]
+              child Solid {
+                translation 0 0 -0.09
+                children [
+                  PBRAppearance {
+                    baseColor 0.3 0.3 0.3
+                    roughness 0.6
+                  }
+                  Box {
+                    size 0.03 0.03 0.18
+                  }
+                  PBRAppearance {
+                    baseColor 0.1 0.1 0.1
+                    roughness 0.9
+                  }
+                  Sphere {
+                    radius 0.015
+                    subdivision 4
+                  }
+                ]
+                name "hr_shank_link"
+                physics Physics {
+                  mass 0.214
+                  centerOfMass 0 0 0
+                  inertiaMatrix [
+                    2.70e-04, 0, 0,
+                    0, 2.73e-04, 0,
+                    0, 0, 3.1e-05
+                  ]
+                  density -1
+                }
+                contactMaterial "hr_toe"
+              }
+            }
+          }
+        }
+      }
+    }
+
+    # ---- Hind Left Leg ----
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        anchor -0.19 0.049 0
+        axis 1 0 0
+        dampingConstant 1.0
+        stopSpringDamper 100 1
+      }
+      device [
+        RotationalMotor {
+          name "hl_abd_motor"
+          maxTorque 20.0
+        }
+        PositionSensor {
+          name "hl_abd_sensor"
+        }
+      ]
+      child Solid {
+        translation 0 0.062 0
+        children [
+          PBRAppearance {
+            baseColor 0.2 0.2 0.2
+            roughness 0.8
+          }
+          Box {
+            size 0.03 0.124 0.03
+          }
+        ]
+        name "hl_abd_link"
+        physics Physics {
+          mass 0.54
+          centerOfMass 0 0.026 0
+          inertiaMatrix [
+            3.81e-04, 5.8e-05, 4.5e-07,
+            5.8e-05, 5.60e-04, 9.5e-07,
+            4.5e-07, 9.5e-07, 4.44e-04
+          ]
+          density -1
+        }
+        HingeJoint {
+          jointParameters HingeJointParameters {
+            anchor 0 0 0
+            axis 0 -1 0
+            dampingConstant 1.0
+            stopSpringDamper 100 1
+          }
+          device [
+            RotationalMotor {
+              name "hl_hip_motor"
+              maxTorque 20.0
+            }
+            PositionSensor {
+              name "hl_hip_sensor"
+            }
+          ]
+          child Solid {
+            translation 0 0 -0.1045
+            children [
+              PBRAppearance {
+                baseColor 0.25 0.25 0.25
+                roughness 0.7
+              }
+              Box {
+                size 0.04 0.04 0.209
+              }
+            ]
+            name "hl_thigh_link"
+            physics Physics {
+              mass 0.634
+              centerOfMass 0 -0.016 -0.02
+              inertiaMatrix [
+                1.983e-03, 2.45e-04, 1.3e-05,
+                2.45e-04, 2.103e-03, 1.5e-06,
+                1.3e-05, 1.5e-06, 4.08e-04
+              ]
+              density -1
+            }
+            HingeJoint {
+              jointParameters HingeJointParameters {
+                anchor 0 0 -0.1045
+                axis 0 -1 0
+                dampingConstant 1.0
+                stopSpringDamper 100 1
+              }
+              device [
+                RotationalMotor {
+                  name "hl_kn_motor"
+                  maxTorque 20.0
+                }
+                PositionSensor {
+                  name "hl_kn_sensor"
+                }
+              ]
+              child Solid {
+                translation 0 0 -0.09
+                children [
+                  PBRAppearance {
+                    baseColor 0.3 0.3 0.3
+                    roughness 0.6
+                  }
+                  Box {
+                    size 0.03 0.03 0.18
+                  }
+                  PBRAppearance {
+                    baseColor 0.1 0.1 0.1
+                    roughness 0.9
+                  }
+                  Sphere {
+                    radius 0.015
+                    subdivision 4
+                  }
+                ]
+                name "hl_shank_link"
+                physics Physics {
+                  mass 0.214
+                  centerOfMass 0 0 0
+                  inertiaMatrix [
+                    2.70e-04, 0, 0,
+                    0, 2.73e-04, 0,
+                    0, 0, 3.1e-05
+                  ]
+                  density -1
+                }
+                contactMaterial "hl_toe"
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+  physics Physics {
+    mass 3.3
+    centerOfMass 0 0 0
+    inertiaMatrix [
+      0.011253, 0, 0,
+      0, 0.036203, 0,
+      0, 0, 0.042673
+    ]
+    density -1
+    frictionMaterial ContactProperties {
+      coulombFriction [
+        0.8
+      ]
+      bounceVelocity 0.01
+    }
+  }
+  controller "mini_cheetah_controller"
+  controllerArgs []
+  selfCollision TRUE
+  contactMaterial "body"
+}
