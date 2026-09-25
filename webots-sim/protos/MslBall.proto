@@ -1,0 +1,44 @@
+#VRML_SIM R2025a utf8
+
+PROTO MslBall [
+  field SFVec3f translation 0 0 0.11
+  field SFRotation rotation 0 0 1 0
+  field SFString name "msl_ball"
+]
+{
+  Solid {
+    name IS name
+    translation IS translation
+    rotation IS rotation
+    children [
+      Shape {
+        appearance PBRAppearance {
+          baseColor 0.9 0.35 0.1
+          roughness 0.85
+          metalness 0
+        }
+        geometry Sphere {
+          radius 0.11
+        }
+      }
+    ]
+    boundingObject Sphere {
+      radius 0.11
+    }
+    physics Physics {
+      density -1
+      mass 0.43
+      centerOfMass [
+        0 0 0
+      ]
+      inertiaMatrix [
+        0.0021 0.0021 0.0021
+        0 0 0
+      ]
+      damping Damping {
+        linear 0.5
+        angular 0.5
+      }
+    }
+  }
+}

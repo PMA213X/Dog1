@@ -1,0 +1,1443 @@
+#VRML_SIM R2025a utf8
+PROTO MslField [
+  field SFVec3f translation 0 0 0
+  field SFRotation rotation 0 0 1 0
+  field SFString name "msl_field"
+]
+{
+  Transform {
+    translation IS translation
+    rotation IS rotation
+    children [
+      Solid {
+        name IS name
+        translation 0 0 -0.01
+        children [
+          Shape {
+            appearance PBRAppearance {
+              baseColor 0.12 0.48 0.18
+              roughness 1
+              metalness 0
+            }
+            geometry Box { size 22 14 0.02 }
+          }
+        ]
+        boundingObject Box { size 22 14 0.02 }
+      }
+      Transform {
+        children [
+          # (a) touchline +Y
+          Transform {
+            translation 0 6.9375 0
+            children [
+              Shape {
+                appearance DEF LINE_MAT PBRAppearance {
+                  baseColor 1 1 1
+                  roughness 0.9
+                  metalness 0
+                }
+                geometry Box { size 22 0.125 0.002 }
+              }
+            ]
+          }
+          # (a) touchline -Y
+          Transform {
+            translation 0 -6.9375 0
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 22 0.125 0.002 }
+              }
+            ]
+          }
+          # (b) goal line +X
+          Transform {
+            translation 10.9375 0 0
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.125 14 0.002 }
+              }
+            ]
+          }
+          # (b) goal line -X
+          Transform {
+            translation -10.9375 0 0
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.125 14 0.002 }
+              }
+            ]
+          }
+          # (c) halfway line
+          Transform {
+            translation 0 0 0
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.125 14 0.002 }
+              }
+            ]
+          }
+          # (d) center spot
+          Transform {
+            translation 0 0 0
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Cylinder { height 0.002 radius 0.075 }
+              }
+            ]
+          }
+          # (e) center circle seg 0
+          Transform {
+            translation 1.9375 0 0
+            rotation 0 0 1 1.570796
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 1.930127 0.168864 0
+            rotation 0 0 1 1.658063
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 1.908065 0.336443 0
+            rotation 0 0 1 1.745329
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 1.871481 0.501462 0
+            rotation 0 0 1 1.832596
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 1.820654 0.662664 0
+            rotation 0 0 1 1.919862
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 1.755971 0.818823 0
+            rotation 0 0 1 2.007129
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 1.677924 0.96875 0
+            rotation 0 0 1 2.094395
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 1.587107 1.111304 0
+            rotation 0 0 1 2.181662
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 1.484211 1.245401 0
+            rotation 0 0 1 2.268928
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 1.370019 1.370019 0
+            rotation 0 0 1 2.356194
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 1.245401 1.484211 0
+            rotation 0 0 1 2.443461
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 1.111304 1.587107 0
+            rotation 0 0 1 2.530727
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 0.96875 1.677924 0
+            rotation 0 0 1 2.617994
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 0.818823 1.755971 0
+            rotation 0 0 1 2.70526
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 0.662664 1.820654 0
+            rotation 0 0 1 2.792527
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 0.501462 1.871481 0
+            rotation 0 0 1 2.879793
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 0.336443 1.908065 0
+            rotation 0 0 1 2.96706
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 0.168864 1.930127 0
+            rotation 0 0 1 3.054326
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 0 1.9375 0
+            rotation 0 0 1 3.141593
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -0.168864 1.930127 0
+            rotation 0 0 1 3.228859
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -0.336443 1.908065 0
+            rotation 0 0 1 3.316126
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -0.501462 1.871481 0
+            rotation 0 0 1 3.403392
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -0.662664 1.820654 0
+            rotation 0 0 1 3.490659
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -0.818823 1.755971 0
+            rotation 0 0 1 3.577925
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -0.96875 1.677924 0
+            rotation 0 0 1 3.665191
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -1.111304 1.587107 0
+            rotation 0 0 1 3.752458
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -1.245401 1.484211 0
+            rotation 0 0 1 3.839724
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -1.370019 1.370019 0
+            rotation 0 0 1 3.926991
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -1.484211 1.245401 0
+            rotation 0 0 1 4.014257
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -1.587107 1.111304 0
+            rotation 0 0 1 4.101524
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -1.677924 0.96875 0
+            rotation 0 0 1 4.18879
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -1.755971 0.818823 0
+            rotation 0 0 1 4.276057
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -1.820654 0.662664 0
+            rotation 0 0 1 4.363323
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -1.871481 0.501462 0
+            rotation 0 0 1 4.45059
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -1.908065 0.336443 0
+            rotation 0 0 1 4.537856
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -1.930127 0.168864 0
+            rotation 0 0 1 4.625123
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -1.9375 0 0
+            rotation 0 0 1 4.712389
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -1.930127 -0.168864 0
+            rotation 0 0 1 4.799655
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -1.908065 -0.336443 0
+            rotation 0 0 1 4.886922
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -1.871481 -0.501462 0
+            rotation 0 0 1 4.974188
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -1.820654 -0.662664 0
+            rotation 0 0 1 5.061455
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -1.755971 -0.818823 0
+            rotation 0 0 1 5.148721
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -1.677924 -0.96875 0
+            rotation 0 0 1 5.235988
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -1.587107 -1.111304 0
+            rotation 0 0 1 5.323254
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -1.484211 -1.245401 0
+            rotation 0 0 1 5.410521
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -1.370019 -1.370019 0
+            rotation 0 0 1 5.497787
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -1.245401 -1.484211 0
+            rotation 0 0 1 5.585054
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -1.111304 -1.587107 0
+            rotation 0 0 1 5.67232
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -0.96875 -1.677924 0
+            rotation 0 0 1 5.759587
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -0.818823 -1.755971 0
+            rotation 0 0 1 5.846853
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -0.662664 -1.820654 0
+            rotation 0 0 1 5.934119
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -0.501462 -1.871481 0
+            rotation 0 0 1 6.021386
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -0.336443 -1.908065 0
+            rotation 0 0 1 6.108652
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -0.168864 -1.930127 0
+            rotation 0 0 1 6.195919
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 0 -1.9375 0
+            rotation 0 0 1 6.283185
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 0.168864 -1.930127 0
+            rotation 0 0 1 6.370452
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 0.336443 -1.908065 0
+            rotation 0 0 1 6.457718
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 0.501462 -1.871481 0
+            rotation 0 0 1 6.544985
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 0.662664 -1.820654 0
+            rotation 0 0 1 6.632251
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 0.818823 -1.755971 0
+            rotation 0 0 1 6.719518
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 0.96875 -1.677924 0
+            rotation 0 0 1 6.806784
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 1.111304 -1.587107 0
+            rotation 0 0 1 6.894051
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 1.245401 -1.484211 0
+            rotation 0 0 1 6.981317
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 1.370019 -1.370019 0
+            rotation 0 0 1 7.068583
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 1.484211 -1.245401 0
+            rotation 0 0 1 7.15585
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 1.587107 -1.111304 0
+            rotation 0 0 1 7.243116
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 1.677924 -0.96875 0
+            rotation 0 0 1 7.330383
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 1.755971 -0.818823 0
+            rotation 0 0 1 7.417649
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 1.820654 -0.662664 0
+            rotation 0 0 1 7.504916
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 1.871481 -0.501462 0
+            rotation 0 0 1 7.592182
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 1.908065 -0.336443 0
+            rotation 0 0 1 7.679449
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          # (e) center circle end
+          Transform {
+            translation 1.930127 -0.168864 0
+            rotation 0 0 1 7.766715
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.177476 0.125 0.002 }
+              }
+            ]
+          }
+          # (f) goal area side +Y +X
+          Transform {
+            translation 10.625 1.97 0
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.75 0.125 0.002 }
+              }
+            ]
+          }
+          # (f) goal area side -Y +X
+          Transform {
+            translation 10.625 -1.97 0
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.75 0.125 0.002 }
+              }
+            ]
+          }
+          # (f) goal area front +X
+          Transform {
+            translation 10.25 0 0
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.125 3.94 0.002 }
+              }
+            ]
+          }
+          # (f) goal area side +Y -X
+          Transform {
+            translation -10.625 1.97 0
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.75 0.125 0.002 }
+              }
+            ]
+          }
+          # (f) goal area side -Y -X
+          Transform {
+            translation -10.625 -1.97 0
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.75 0.125 0.002 }
+              }
+            ]
+          }
+          # (f) goal area front -X
+          Transform {
+            translation -10.25 0 0
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.125 3.94 0.002 }
+              }
+            ]
+          }
+          # (g) penalty area side +Y +X
+          Transform {
+            translation 9.875 3.47 0
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 2.25 0.125 0.002 }
+              }
+            ]
+          }
+          # (g) penalty area side -Y +X
+          Transform {
+            translation 9.875 -3.47 0
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 2.25 0.125 0.002 }
+              }
+            ]
+          }
+          # (g) penalty area front +X
+          Transform {
+            translation 8.75 0 0
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.125 6.94 0.002 }
+              }
+            ]
+          }
+          # (g) penalty area side +Y -X
+          Transform {
+            translation -9.875 3.47 0
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 2.25 0.125 0.002 }
+              }
+            ]
+          }
+          # (g) penalty area side -Y -X
+          Transform {
+            translation -9.875 -3.47 0
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 2.25 0.125 0.002 }
+              }
+            ]
+          }
+          # (g) penalty area front -X
+          Transform {
+            translation -8.75 0 0
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.125 6.94 0.002 }
+              }
+            ]
+          }
+          # (h) penalty mark +X
+          Transform {
+            translation 7.4 0 0
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Cylinder { height 0.002 radius 0.075 }
+              }
+            ]
+          }
+          # (h) penalty mark -X
+          Transform {
+            translation -7.4 0 0
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Cylinder { height 0.002 radius 0.075 }
+              }
+            ]
+          }
+          # (i) corner arc (+1,+1)
+          Transform {
+            translation 10.313972 6.955035 0
+            rotation 0 0 1 4.777839
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.094426 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 10.32571 6.865875 0
+            rotation 0 0 1 4.908739
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.094426 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 10.348986 6.77901 0
+            rotation 0 0 1 5.039638
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.094426 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 10.3834 6.695927 0
+            rotation 0 0 1 5.170538
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.094426 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 10.428365 6.618045 0
+            rotation 0 0 1 5.301438
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.094426 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 10.48311 6.5467 0
+            rotation 0 0 1 5.432337
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.094426 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 10.5467 6.48311 0
+            rotation 0 0 1 5.563237
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.094426 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 10.618045 6.428365 0
+            rotation 0 0 1 5.694137
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.094426 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 10.695927 6.3834 0
+            rotation 0 0 1 5.825036
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.094426 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 10.77901 6.348986 0
+            rotation 0 0 1 5.955936
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.094426 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 10.865875 6.32571 0
+            rotation 0 0 1 6.086836
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.094426 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 10.955035 6.313972 0
+            rotation 0 0 1 6.217735
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.094426 0.125 0.002 }
+              }
+            ]
+          }
+          # (i) corner arc (+1,-1)
+          Transform {
+            translation 10.955035 -6.313972 0
+            rotation 0 0 1 3.207043
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.094426 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 10.865875 -6.32571 0
+            rotation 0 0 1 3.337942
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.094426 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 10.77901 -6.348986 0
+            rotation 0 0 1 3.468842
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.094426 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 10.695927 -6.3834 0
+            rotation 0 0 1 3.599742
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.094426 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 10.618045 -6.428365 0
+            rotation 0 0 1 3.730641
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.094426 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 10.5467 -6.48311 0
+            rotation 0 0 1 3.861541
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.094426 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 10.48311 -6.5467 0
+            rotation 0 0 1 3.992441
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.094426 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 10.428365 -6.618045 0
+            rotation 0 0 1 4.12334
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.094426 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 10.3834 -6.695927 0
+            rotation 0 0 1 4.25424
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.094426 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 10.348986 -6.77901 0
+            rotation 0 0 1 4.38514
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.094426 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 10.32571 -6.865875 0
+            rotation 0 0 1 4.516039
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.094426 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation 10.313972 -6.955035 0
+            rotation 0 0 1 4.646939
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.094426 0.125 0.002 }
+              }
+            ]
+          }
+          # (i) corner arc (-1,+1)
+          Transform {
+            translation -10.955035 6.313972 0
+            rotation 0 0 1 6.348635
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.094426 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -10.865875 6.32571 0
+            rotation 0 0 1 6.479535
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.094426 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -10.77901 6.348986 0
+            rotation 0 0 1 6.610435
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.094426 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -10.695927 6.3834 0
+            rotation 0 0 1 6.741334
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.094426 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -10.618045 6.428365 0
+            rotation 0 0 1 6.872234
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.094426 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -10.5467 6.48311 0
+            rotation 0 0 1 7.003134
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.094426 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -10.48311 6.5467 0
+            rotation 0 0 1 7.134033
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.094426 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -10.428365 6.618045 0
+            rotation 0 0 1 7.264933
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.094426 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -10.3834 6.695927 0
+            rotation 0 0 1 7.395833
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.094426 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -10.348986 6.77901 0
+            rotation 0 0 1 7.526732
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.094426 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -10.32571 6.865875 0
+            rotation 0 0 1 7.657632
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.094426 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -10.313972 6.955035 0
+            rotation 0 0 1 7.788532
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.094426 0.125 0.002 }
+              }
+            ]
+          }
+          # (i) corner arc (-1,-1)
+          Transform {
+            translation -10.313972 -6.955035 0
+            rotation 0 0 1 1.636246
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.094426 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -10.32571 -6.865875 0
+            rotation 0 0 1 1.767146
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.094426 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -10.348986 -6.77901 0
+            rotation 0 0 1 1.898046
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.094426 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -10.3834 -6.695927 0
+            rotation 0 0 1 2.028945
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.094426 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -10.428365 -6.618045 0
+            rotation 0 0 1 2.159845
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.094426 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -10.48311 -6.5467 0
+            rotation 0 0 1 2.290745
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.094426 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -10.5467 -6.48311 0
+            rotation 0 0 1 2.421644
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.094426 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -10.618045 -6.428365 0
+            rotation 0 0 1 2.552544
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.094426 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -10.695927 -6.3834 0
+            rotation 0 0 1 2.683444
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.094426 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -10.77901 -6.348986 0
+            rotation 0 0 1 2.814343
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.094426 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -10.865875 -6.32571 0
+            rotation 0 0 1 2.945243
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.094426 0.125 0.002 }
+              }
+            ]
+          }
+          Transform {
+            translation -10.955035 -6.313972 0
+            rotation 0 0 1 3.076143
+            children [
+              Shape {
+                appearance USE LINE_MAT
+                geometry Box { size 0.094426 0.125 0.002 }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,611 @@
+#VRML_SIM R2025a utf8
+# MSL soccer goal (RoboCup Middle Size League)
+# Modeled facing -X (opening toward the field). Goal line is x=0 in the local
+# frame; the net volume extends backward to x=+0.5.
+# Place at (11 0 0) for the +X goal and (-11 0 0) with rotation 0 0 1 3.14159265
+# for the mirrored -X goal.
+#
+# Key dimensions (rules 2.4 / spec S2.3):
+#   inner width between posts : 2.44 m
+#   crossbar underside height: 2.0 m
+#   post / crossbar section  : 0.10 m square
+#   goal depth (net)         : 0.50 m
+#   net bottom coverage      : 0.40 m on the ground (rules: 0.30-0.40 m)
+PROTO MslGoal [
+  field SFVec3f translation 0 0 0
+  field SFRotation rotation 0 0 1 0
+  field SFString name "msl_goal"
+]
+{
+  Transform {
+    translation IS translation
+    rotation IS rotation
+    children [
+      Solid {
+        name IS name
+        children [
+          # ===================== posts (white matte) =====================
+          # Post cross-section 0.10 x 0.10, height 2.05 (z: 0 .. 2.05).
+          # Inner faces at y = +/-1.22  ->  centers at y = +/-1.27.
+          Transform {
+            translation 0 -1.27 1.025
+            children [
+              Shape {
+                appearance DEF WHITE PBRAppearance {
+                  baseColor 1 1 1
+                  roughness 0.9
+                  metalness 0
+                }
+                geometry Box {
+                  size 0.1 0.1 2.05
+                }
+              }
+            ]
+          }
+          Transform {
+            translation 0 1.27 1.025
+            children [
+              Shape {
+                appearance USE WHITE
+                geometry Box {
+                  size 0.1 0.1 2.05
+                }
+              }
+            ]
+          }
+          # ===================== crossbar (white matte) =====================
+          # Length 2.64 = 2.44 + 2*0.10, spans y: -1.32 .. +1.32.
+          # Center z = 2.05  ->  underside at z = 2.0 (rule).
+          Transform {
+            translation 0 0 2.05
+            children [
+              Shape {
+                appearance USE WHITE
+                geometry Box {
+                  size 0.1 2.64 0.1
+                }
+              }
+            ]
+          }
+          # ===================== back frame (structure) =====================
+          # Two vertical bars at x = 0.5 (y = +/-1.295) and a top bar.
+          Transform {
+            translation 0.5 -1.295 1.025
+            children [
+              Shape {
+                appearance USE WHITE
+                geometry Box {
+                  size 0.05 0.05 2.05
+                }
+              }
+            ]
+          }
+          Transform {
+            translation 0.5 1.295 1.025
+            children [
+              Shape {
+                appearance USE WHITE
+                geometry Box {
+                  size 0.05 0.05 2.05
+                }
+              }
+            ]
+          }
+          Transform {
+            translation 0.5 0 2.05
+            children [
+              Shape {
+                appearance USE WHITE
+                geometry Box {
+                  size 0.05 2.64 0.05
+                }
+              }
+            ]
+          }
+          # ===================== net lattice appearance =====================
+          # Thin white bars, slight transparency for a net look.
+          # (appearance node is DEF'd on the first net bar below)
+          # ===================== net: back face (x = 0.5) =====================
+          # 5 vertical bars (y = -1.32 .. +1.32), each 0.02 thick.
+          Transform {
+            translation 0.5 -1.32 1.025
+            children [
+              Shape {
+                appearance DEF NET PBRAppearance {
+                  baseColor 1 1 1
+                  roughness 0.9
+                  metalness 0
+                  transparency 0.3
+                }
+                geometry Box {
+                  size 0.02 0.02 2.05
+                }
+              }
+            ]
+          }
+          Transform {
+            translation 0.5 -0.66 1.025
+            children [
+              Shape {
+                appearance USE NET
+                geometry Box {
+                  size 0.02 0.02 2.05
+                }
+              }
+            ]
+          }
+          Transform {
+            translation 0.5 0 1.025
+            children [
+              Shape {
+                appearance USE NET
+                geometry Box {
+                  size 0.02 0.02 2.05
+                }
+              }
+            ]
+          }
+          Transform {
+            translation 0.5 0.66 1.025
+            children [
+              Shape {
+                appearance USE NET
+                geometry Box {
+                  size 0.02 0.02 2.05
+                }
+              }
+            ]
+          }
+          Transform {
+            translation 0.5 1.32 1.025
+            children [
+              Shape {
+                appearance USE NET
+                geometry Box {
+                  size 0.02 0.02 2.05
+                }
+              }
+            ]
+          }
+          # 4 horizontal bars (z = 0.01 .. 2.04), each 0.02 thick.
+          Transform {
+            translation 0.5 0 0.01
+            children [
+              Shape {
+                appearance USE NET
+                geometry Box {
+                  size 0.02 2.64 0.02
+                }
+              }
+            ]
+          }
+          Transform {
+            translation 0.5 0 0.69
+            children [
+              Shape {
+                appearance USE NET
+                geometry Box {
+                  size 0.02 2.64 0.02
+                }
+              }
+            ]
+          }
+          Transform {
+            translation 0.5 0 1.37
+            children [
+              Shape {
+                appearance USE NET
+                geometry Box {
+                  size 0.02 2.64 0.02
+                }
+              }
+            ]
+          }
+          Transform {
+            translation 0.5 0 2.04
+            children [
+              Shape {
+                appearance USE NET
+                geometry Box {
+                  size 0.02 2.64 0.02
+                }
+              }
+            ]
+          }
+          # ===================== net: left side face (y = -1.32) =====================
+          # 5 vertical bars along z (x = 0 .. 0.5).
+          Transform {
+            translation 0 -1.32 1.025
+            children [
+              Shape {
+                appearance USE NET
+                geometry Box {
+                  size 0.02 0.02 2.05
+                }
+              }
+            ]
+          }
+          Transform {
+            translation 0.125 -1.32 1.025
+            children [
+              Shape {
+                appearance USE NET
+                geometry Box {
+                  size 0.02 0.02 2.05
+                }
+              }
+            ]
+          }
+          Transform {
+            translation 0.25 -1.32 1.025
+            children [
+              Shape {
+                appearance USE NET
+                geometry Box {
+                  size 0.02 0.02 2.05
+                }
+              }
+            ]
+          }
+          Transform {
+            translation 0.375 -1.32 1.025
+            children [
+              Shape {
+                appearance USE NET
+                geometry Box {
+                  size 0.02 0.02 2.05
+                }
+              }
+            ]
+          }
+          Transform {
+            translation 0.5 -1.32 1.025
+            children [
+              Shape {
+                appearance USE NET
+                geometry Box {
+                  size 0.02 0.02 2.05
+                }
+              }
+            ]
+          }
+          # 4 horizontal bars along x (z = 0.01 .. 2.04).
+          Transform {
+            translation 0.25 -1.32 0.01
+            children [
+              Shape {
+                appearance USE NET
+                geometry Box {
+                  size 0.5 0.02 0.02
+                }
+              }
+            ]
+          }
+          Transform {
+            translation 0.25 -1.32 0.69
+            children [
+              Shape {
+                appearance USE NET
+                geometry Box {
+                  size 0.5 0.02 0.02
+                }
+              }
+            ]
+          }
+          Transform {
+            translation 0.25 -1.32 1.37
+            children [
+              Shape {
+                appearance USE NET
+                geometry Box {
+                  size 0.5 0.02 0.02
+                }
+              }
+            ]
+          }
+          Transform {
+            translation 0.25 -1.32 2.04
+            children [
+              Shape {
+                appearance USE NET
+                geometry Box {
+                  size 0.5 0.02 0.02
+                }
+              }
+            ]
+          }
+          # ===================== net: right side face (y = +1.32) =====================
+          # 5 vertical bars along z (x = 0 .. 0.5).
+          Transform {
+            translation 0 1.32 1.025
+            children [
+              Shape {
+                appearance USE NET
+                geometry Box {
+                  size 0.02 0.02 2.05
+                }
+              }
+            ]
+          }
+          Transform {
+            translation 0.125 1.32 1.025
+            children [
+              Shape {
+                appearance USE NET
+                geometry Box {
+                  size 0.02 0.02 2.05
+                }
+              }
+            ]
+          }
+          Transform {
+            translation 0.25 1.32 1.025
+            children [
+              Shape {
+                appearance USE NET
+                geometry Box {
+                  size 0.02 0.02 2.05
+                }
+              }
+            ]
+          }
+          Transform {
+            translation 0.375 1.32 1.025
+            children [
+              Shape {
+                appearance USE NET
+                geometry Box {
+                  size 0.02 0.02 2.05
+                }
+              }
+            ]
+          }
+          Transform {
+            translation 0.5 1.32 1.025
+            children [
+              Shape {
+                appearance USE NET
+                geometry Box {
+                  size 0.02 0.02 2.05
+                }
+              }
+            ]
+          }
+          # 4 horizontal bars along x (z = 0.01 .. 2.04).
+          Transform {
+            translation 0.25 1.32 0.01
+            children [
+              Shape {
+                appearance USE NET
+                geometry Box {
+                  size 0.5 0.02 0.02
+                }
+              }
+            ]
+          }
+          Transform {
+            translation 0.25 1.32 0.69
+            children [
+              Shape {
+                appearance USE NET
+                geometry Box {
+                  size 0.5 0.02 0.02
+                }
+              }
+            ]
+          }
+          Transform {
+            translation 0.25 1.32 1.37
+            children [
+              Shape {
+                appearance USE NET
+                geometry Box {
+                  size 0.5 0.02 0.02
+                }
+              }
+            ]
+          }
+          Transform {
+            translation 0.25 1.32 2.04
+            children [
+              Shape {
+                appearance USE NET
+                geometry Box {
+                  size 0.5 0.02 0.02
+                }
+              }
+            ]
+          }
+          # ===================== net: top face (z = 2.05) =====================
+          # 5 bars along x (spaced in y).
+          Transform {
+            translation 0.25 -1.32 2.05
+            children [
+              Shape {
+                appearance USE NET
+                geometry Box {
+                  size 0.5 0.02 0.02
+                }
+              }
+            ]
+          }
+          Transform {
+            translation 0.25 -0.66 2.05
+            children [
+              Shape {
+                appearance USE NET
+                geometry Box {
+                  size 0.5 0.02 0.02
+                }
+              }
+            ]
+          }
+          Transform {
+            translation 0.25 0 2.05
+            children [
+              Shape {
+                appearance USE NET
+                geometry Box {
+                  size 0.5 0.02 0.02
+                }
+              }
+            ]
+          }
+          Transform {
+            translation 0.25 0.66 2.05
+            children [
+              Shape {
+                appearance USE NET
+                geometry Box {
+                  size 0.5 0.02 0.02
+                }
+              }
+            ]
+          }
+          Transform {
+            translation 0.25 1.32 2.05
+            children [
+              Shape {
+                appearance USE NET
+                geometry Box {
+                  size 0.5 0.02 0.02
+                }
+              }
+            ]
+          }
+          # 4 bars along y (spaced in x).
+          Transform {
+            translation 0 0 2.05
+            children [
+              Shape {
+                appearance USE NET
+                geometry Box {
+                  size 0.02 2.64 0.02
+                }
+              }
+            ]
+          }
+          Transform {
+            translation 0.167 0 2.05
+            children [
+              Shape {
+                appearance USE NET
+                geometry Box {
+                  size 0.02 2.64 0.02
+                }
+              }
+            ]
+          }
+          Transform {
+            translation 0.333 0 2.05
+            children [
+              Shape {
+                appearance USE NET
+                geometry Box {
+                  size 0.02 2.64 0.02
+                }
+              }
+            ]
+          }
+          Transform {
+            translation 0.5 0 2.05
+            children [
+              Shape {
+                appearance USE NET
+                geometry Box {
+                  size 0.02 2.64 0.02
+                }
+              }
+            ]
+          }
+          # ===================== faint solid backing =====================
+          # Semi-transparent back plane just behind the lattice (transparency 0.7).
+          Transform {
+            translation 0.51 0 1.025
+            children [
+              Shape {
+                appearance DEF FAINT PBRAppearance {
+                  baseColor 0.9 0.9 0.9
+                  roughness 1
+                  metalness 0
+                  transparency 0.7
+                }
+                geometry Box {
+                  size 0.01 2.64 2.05
+                }
+              }
+            ]
+          }
+          # Faint ground overhang of the net: 0.40 m coverage on the ground
+          # (rules require 0.30-0.40 m bottom coverage).
+          Transform {
+            translation 0.2 0 0.005
+            children [
+              Shape {
+                appearance USE FAINT
+                geometry Box {
+                  size 0.4 2.64 0.01
+                }
+              }
+            ]
+          }
+        ]
+        boundingObject Group {
+          children [
+            # posts
+            Transform {
+              translation 0 -1.27 1.025
+              children [
+                Box {
+                  size 0.1 0.1 2.05
+                }
+              ]
+            }
+            Transform {
+              translation 0 1.27 1.025
+              children [
+                Box {
+                  size 0.1 0.1 2.05
+                }
+              ]
+            }
+            # crossbar
+            Transform {
+              translation 0 0 2.05
+              children [
+                Box {
+                  size 0.1 2.64 0.1
+                }
+              ]
+            }
+            # back frame: two verticals + top bar
+            Transform {
+              translation 0.5 -1.295 1.025
+              children [
+                Box {
+                  size 0.05 0.05 2.05
+                }
+              ]
+            }
+            Transform {
+              translation 0.5 1.295 1.025
+              children [
+                Box {
+                  size 0.05 0.05 2.05
+                }
+              ]
+            }
+            Transform {
+              translation 0.5 0 2.05
+              children [
+                Box {
+                  size 0.05 2.64 0.05
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
