@@ -1,6 +1,6 @@
 # Webots 仿真使用指南
 
-Mini Cheetah 四足机器人 Webots 仿真项目：PD 站立 + trot 步态，C++ 控制器，无需 ROS。包含两个世界：步态试验台与 MSL 标准比赛场地。
+四足机器人 Webots 仿真项目：PD 站立 + trot 步态，C++ 控制器，无需 ROS。包含两个世界：步态试验台（Mini Cheetah 盒模型）与 MSL 标准比赛场地（**YoboGo-10S 实机规格模型** + 前置相机，见 [第 9 节](#9-yobogo-10s-实机模型与相机)）。
 
 - **Webots 版本**：R2025a（apt 包 `webots 2025a`）
 - **安装路径**：`/usr/local/webots`
@@ -20,6 +20,7 @@ Mini Cheetah 四足机器人 Webots 仿真项目：PD 站立 + trot 步态，C++
 6. [中文界面设置](#6-中文界面设置)
 7. [常见问题](#7-常见问题)
 8. [MSL 比赛场地](#8-msl-比赛场地msl_matchwbt)
+9. [YoboGo-10S 实机模型与相机](#9-yobogo-10s-实机模型与相机)
 
 ---
 
@@ -65,11 +66,13 @@ webots-sim/
 ├── urdf/
 │   ├── mini_cheetah.urdf           # Mini Cheetah URDF（参考模型）
 │   └── meshes/                     # 网格（.dae，4 个连杆）
-└── protos/                         # 自定义 PROTO（MSL 场地，见第 8 节）
-    ├── MslField.proto              # 场地地毯 + 全部标线
-    ├── MslGoal.proto               # 球门框架 + 球网
-    ├── MslBall.proto               # FIFA 5 号球
-    └── MslEnvironment.proto        # 安全挡板 + 旗杆
+├── protos/                         # 自定义 PROTO（MSL 场地，见第 8 节）
+│   ├── MslField.proto              # 场地地毯 + 全部标线
+│   ├── MslGoal.proto               # 球门框架 + 球网
+│   ├── MslBall.proto               # FIFA 5 号球
+│   └── MslEnvironment.proto        # 安全挡板 + 旗杆
+└── tools/
+    └── gen_yobogo_robot.py         # YoboGo-10S 机器人段生成脚本（见第 9 节）
 ```
 
 ### 2.1 世界文件要点
@@ -78,7 +81,7 @@ webots-sim/
 - `basicTimeStep 4` —— 4ms 步长，对应控制器 250Hz 控制周期
 - 机器人使用 **Webots 内置节点**（`Robot` + 内置 `RotationalMotor` / `PositionSensor` / `Gyro` / `Accelerometer` / `InertialUnit`），**不依赖外部 PROTO**，克隆仓库后可直接打开
 - 关节命名：`{fr,fl,hr,hl}_{abd,hip,kn}_motor` / 对应 `_sensor`；`controller "mini_cheetah_controller"` 绑定本项目控制器
-- 初始高度 `translation 0 0 0.38`
+- 初始高度：`mini_cheetah.wbt` 为 `translation 0 0 0.38`；`msl_match.wbt` 的 YoboGo-10S 为 `translation 8 0 0.26`（站立机身高，见 [第 9 节](#9-yobogo-10s-实机模型与相机)）
 
 ### 2.2 URDF 说明
 
@@ -175,7 +178,7 @@ torque = KP[j] * (q_des - q) + KD[j] * (qd_des - qd)
 | abd 关节 | 全程保持 0（简化 trot 无侧向运动） |
 | 膝关节摆动 | `swing_knee = -LIFT / L_KNEE * sin(π * p)`，`L_KNEE = 0.18` |
 
-腿长常量（正运动学参考）：`L_ABD=0.062`、`L_HIP=0.209`、`L_KNEE=0.18`；髋部位置 ±0.19m（前后）× ±0.111m（左右）。
+腿长常量（正运动学参考）：`L_ABD=0.062`、`L_HIP=0.209`、`L_KNEE=0.18`；髋部位置 ±0.19m（前后）× ±0.111m（左右）。这些是**控制器源码内**的 Mini Cheetah 尺寸常量；`msl_match.wbt` 的 YoboGo-10S 世界模型几何与之不同（大腿 0.14 / 小腿 0.12 等，见 [第 9 节](#9-yobogo-10s-实机模型与相机)），trot 中的 `swing_knee` 仍按控制器常量计算。
 
 ### 4.5 坐标系
 
@@ -271,7 +274,7 @@ make
 
 ## 8. MSL 比赛场地（msl_match.wbt）
 
-新增世界 `webots-sim/worlds/msl_match.wbt`（Webots R2025a），按 `docs/features/robocup-midsize-rules.md`（MSL Rulebook 2025 v26.0）渲染官方 MSL 比赛场地，并搭载同一 inline mini_cheetah 机器人模型。
+新增世界 `webots-sim/worlds/msl_match.wbt`（Webots R2025a），按 `docs/features/robocup-midsize-rules.md`（MSL Rulebook 2025 v26.0）渲染官方 MSL 比赛场地，并搭载 inline **YoboGo-10S 实机规格机器人模型**（含前置相机，见 [第 9 节](#9-yobogo-10s-实机模型与相机)）。
 
 ### 8.1 打开方式
 
@@ -290,7 +293,7 @@ make
 | 安全挡板 | 1 圈 | 黑色，24 m × 16 m 围合 |
 | 旗杆 | 6 | 4 角 + 中线与边线交点 2 处 |
 | 灯光 | 2 | DirectionalLight（写在 world 文件顶层） |
-| 机器人 | 1 | inline mini_cheetah，出生点 `8 0 0.38`，绕 Z 轴旋转 180°（面向 -X，朝向场地中心） |
+| 机器人 | 1 | inline YoboGo-10S（`yobogo_10s`），出生点 `8 0 0.26`，绕 Z 轴旋转 180°（面向 -X，朝向场地中心），见 [第 9 节](#9-yobogo-10s-实机模型与相机) |
 
 **场地标线**：
 
@@ -343,11 +346,91 @@ world 文件通过 `EXTERNPROTO "../protos/X.proto"` 引用下列自定义 PROTO
 | 定位 | 站立 / trot 算法的空白试验台 | 完整 MSL 比赛场地场景 |
 | 场景内容 | 无场地元素 | 场地、标线、球门、球、挡板、旗杆、灯光 |
 | 自定义 PROTO | 无 | 4 个（见 8.3） |
-| 机器人模型语法 | 仍保留 Gazebo 风格写法 | 已修复为 R2025a 兼容语法 |
+| 机器人模型 | Mini Cheetah 盒模型（Gazebo 风格语法） | YoboGo-10S 实机规格模型 + 前置相机（R2025a 兼容语法，见第 9 节） |
 
-机器人模型在 `msl_match.wbt` 中的语法修复包括：`child Solid` → `endPoint Solid`、移除 `stopSpringDamper`、appearance 包入 `Shape {}`、`inertiaMatrix` 两行写法、移除 `frictionMaterial`、补上腿部 `boundingObject`。修复后 12 个电机 / 传感器全部找到，机器人可稳定站立。**该修复仅在新 world 中，未同步回 `mini_cheetah.wbt`。**
+机器人模型在 `msl_match.wbt` 中已重建为 **YoboGo-10S 实机规格模型**（由 `webots-sim/tools/gen_yobogo_robot.py` 生成，详见 [第 9 节](#9-yobogo-10s-实机模型与相机)），采用 R2025a 兼容语法（`child Solid` → `endPoint Solid`、appearance 包入 `Shape {}`、`inertiaMatrix` 两行写法、带 `boundingObject` 等）。12 个电机 / 传感器全部找到，机器人可稳定站立。**`mini_cheetah.wbt` 仍保留旧 Mini Cheetah 盒模型与 Gazebo 风格语法，未同步重建。**
 
 ### 8.6 注意事项
 
 - **灯光必须写在 world 顶层**：Webots 禁止在 `Group` / `Pose` 子节点中放置 `DirectionalLight`，因此两盏灯直接写在 `msl_match.wbt` 顶层，而不是 `MslEnvironment.proto` 内。
 - **旋转朝向**：`rotation 0 0 1 π` 表示绕 Z 轴转 180°（面向 -X）；若误写为 `0 1 0 π`，会把机器人 / 球门上下颠倒。
+
+---
+
+## 9. YoboGo-10S 实机模型与相机
+
+`msl_match.wbt` 中的机器人已由 **Mini Cheetah 盒模型** 重建为 **YoboGo-10S 实机规格模型**（方案 A：按包络缩放运动学链），并新增前置相机 `front_camera`。机器人段由脚本生成，可重新生成覆盖；`mini_cheetah.wbt` 仍保留旧盒模型。
+
+### 9.1 模型变更说明
+
+- **几何 / 质量**：按说明书包络 **485×275×300 mm**、总质量 **10.5 kg** 缩放运动学链；站立机身高取实机控制器参数 **0.26 m**
+- **动力学**：机身惯量直接取控制器模型 `RPC_inertia`；关节力矩上限对齐 CAN 协议 **±18 N·m**
+- **相机**：机身前上方新增 `Camera`（640×480），供视觉 / 巡线等算法接入
+- **关节命名不变**：`{fr,fl,hr,hl}_{abd,hip,kn}_motor` / 对应 `_sensor`，仍绑定 `mini_cheetah_controller`
+- **机器人名**：`yobogo_10s`（出生点 `translation 8 0 0.26`，绕 Z 轴 180° 朝向场地中心）
+
+### 9.2 参数溯源
+
+可信度标记：**A** 说明书 / 官方文档 · **B** 实机 yaml / 代码 · **C** 估算（按包络缩放，非实测）
+
+| 参数 | 值 | 来源 | 可信度 |
+|------|-----|------|--------|
+| 包络（站立） | 485×275×300 mm | `YoboGo-control/YoboGo-10S使用说明书(开源).docx` §1.3 | A |
+| 总质量 | 10.5 kg | 同上 §1.3 | A |
+| 关节力矩上限 | 18 N·m | 同上 §六 CAN 协议（±18 N·m） | A |
+| 站立机身高 | 0.26 m | `YoboGo-control/robot-software/config/mc-mit-ctrl-user-parameters.yaml` `des_p[2]` | B |
+| 机身惯量（主惯量） | [0.07, 0.26, 0.242] kg·m² | 同 yaml `RPC_inertia` | B |
+| 机身质量 RPC_mass | 9 kg | 同 yaml `RPC_mass` | B |
+| 关节 Kp | [3, 3, 3] | 同 yaml `Kp_joint` | B |
+| 关节 Kd | [1, 0.2, 0.2] | 同 yaml `Kd_joint` | B |
+| 抬腿高度 Swing_traj_height | 0.07 m | 同 yaml `Swing_traj_height` | B |
+| 期望速度上限 des_dp_max | [1.0, 0.5, 0] | 同 yaml `des_dp_max` | B |
+| 步态周期 gait_period_time | 0.5 s | 同 yaml `gait_period_time` | B |
+| 相机分辨率 | 640×480 | `YoboGo-control/track1.6/track/main.cpp:24` | B |
+| 视觉仅用上半图 | rows 0–149 | 同 `main.cpp:168`（`i < frame.rows/2.0`，作用于 :203 缩放后的 400×300 图） | B |
+| 目标中线 goalAverage | 200 | 同 `main.cpp:201`（同义默认 `average=200` 见 `:138`） | B |
+| 机身盒尺寸 | 0.40×0.13×0.10 m | 按包络缩放估算 | C |
+| 髋安装位置 | (±0.18, ±0.052) m | 按包络缩放估算 | C |
+| abd 偏置 | ±0.065 m | 按包络缩放估算 | C |
+| 大腿 / 小腿长 | 0.14 / 0.12 m（和 = 0.26 = 站立高） | 按包络缩放估算 | C |
+| 足端球半径 | 0.02 m | 按包络缩放估算 | C |
+| 质量分配 | body 3.92 + 4 腿×1.644 ≈ 10.5 kg | 按总质量估算分配 | C |
+| 腿段惯量 | 见生成脚本常量（abd / thigh / shank） | 细长杆量级估算，products 全 0 | C |
+| 相机 `fieldOfView` | 1.05 rad（≈60°） | 视觉需求推断 | C（推断） |
+| 相机俯仰 | -35°（`rotation 0 1 0 0.61`） | 视觉需求推断 | C（推断） |
+| 相机安装位 | `translation 0.2 0 0.055`（前上） | 布局约定 | C |
+
+### 9.3 相机参数与可调范围
+
+Webots R2025a 中 Camera 的视场角字段名是 **`fieldOfView`**（**不是** `fov`），取值范围 (0, π)，单位弧度；光轴为相机局部 **+X** 轴（实测验证：+Y / 正角度绕 Y 轴右手旋转 = 低头）。
+
+| 参数 | 字段 | 当前值 | 可调范围 | 说明 |
+|------|------|--------|----------|------|
+| 水平视场角 | `fieldOfView` | 1.05（≈60°） | 0.96–1.22（≈55°–70°） | 推断值，可按视觉算法需求调整 |
+| 俯仰角 | `rotation 0 1 0 θ` | θ=0.61（低头 35°） | θ=0.52–0.70（低头 30°–40°） | 绕 +Y 右手旋转，正值 = 低头 |
+| 安装位置 | `translation` | `0.2 0 0.055` | — | 机身坐标系：+X 前、+Z 上 |
+| 分辨率 | `width` / `height` | 640×480 | — | 与实机视觉代码一致 |
+| 设备名 | `name` | `front_camera` | — | 控制器按此名取像 |
+
+> 相机世界高度 ≈ 0.26 + 0.055 ≈ 0.315 m。修改俯仰或 FOV 时，可直接改 world 中 `Camera` 节点，或改生成脚本顶部 `CAMERA_*` 常量后重新生成（见 9.4）。
+
+### 9.4 重新生成机器人段
+
+```bash
+python3 webots-sim/tools/gen_yobogo_robot.py <输出>
+# 不带参数时打印到 stdout
+```
+
+脚本内每个数值常量均带来源标注（`[说明书]` / `[yaml]` / `[估算]` / `[合同]`），并内置自检（总质量 ≈10.5 kg、`fieldOfView` 字段名等）；修改参数后重新生成即可覆盖 world 中的机器人段。
+
+### 9.5 与旧模型的差异
+
+| 对比项 | 旧（Mini Cheetah 盒模型） | 新（YoboGo-10S） |
+|--------|--------------------------|------------------|
+| 总质量 | 8.85 kg | **10.5 kg** |
+| 出生点 z | 0.38 m（`translation 0 0 0.38`） | **0.26 m**（`translation 8 0 0.26`） |
+| 电机 `maxTorque` | 20 N·m | **18 N·m** |
+| 相机 | 无 | `front_camera`，640×480 |
+| 参数来源 | URDF / 估算 | 说明书 + 实机 yaml + 估算（见 9.2） |
+
+> 控制器软件限幅 `MAX_TORQUE = 15.0` N·m 不变（见 4.1），低于电机能力 18 N·m，属正常保护。
