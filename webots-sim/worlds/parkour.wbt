@@ -1,0 +1,1191 @@
+#VRML_SIM R2025a utf8
+# =============================================================================
+# YoboGo-10S 障碍跑酷世界 (parkour)
+# =============================================================================
+# 障碍布局来源（借用开源布局思路 + 官方 PROTO 重摆，未整仓拷贝）：
+#   DDTRobot/ddt_ros2_control
+#   https://github.com/DDTRobot/ddt_ros2_control
+#   文件: simulation/webots_bridge/worlds/stairs.wbt
+#   Raw:  https://raw.githubusercontent.com/DDTRobot/ddt_ros2_control/main/simulation/webots_bridge/worlds/stairs.wbt
+#   本地参考快照: ../protos/parkour/src_stairs_reference.wbt
+#   该仓库无 LICENSE —— 只借 StraightStairs×2 / 斜坡 / Landing / WoodenBox 金字塔的
+#   布局思路，障碍实体全部改用 cyberbotics 官方 PROTO 或基础 Box 重新参数化摆放。
+#
+# 按 YoboGo-10S 改造的尺寸（站立高 0.30 m，说明书实机爬坡 ≤30°）：
+#   台阶   : 级高 0.12 m（原版 0.23 偏高）、踏面 0.30 m、宽 0.80 m，3 级上 + 3 级下
+#   箱台   : 0.4×0.4×0.2 m（可跳上）
+#   斜坡   : 15° 与 25° 两段帐篷式（原版 Ramp30deg 固定 30°，改为两段更低缓）
+#   窄道   : 宽 0.4 m × 长 2.0 m（原版无，按需求补）
+#   土坑   : 宽 0.35 m 沟，两侧台地高 0.15 m（原版无，按需求补）
+#   起点   : 2×2 m 平地，机器人 translation 0 0 0.26 朝 +X
+#   挡板   : 场地四周黑色 Box 高 0.3 m
+#
+# 路线（+X 前进）：起点 → 台阶上 → 高台 → 台阶下 → 箱台 → 土坑 → 窄道 →
+#                 15° 斜坡 → 25° 斜坡 → WoodenBox 金字塔 → 终点
+# =============================================================================
+
+# ---- 官方 PROTO（cyberbotics/webots R2025a，与 stairs.wbt 同源、版本升级）----
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/floors/protos/RectangleArena.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/stairs/protos/StraightStairs.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/stairs/protos/StraightStairsLanding.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/factory/containers/protos/WoodenBox.proto"
+
+WorldInfo {
+  info [
+    "YoboGo-10S parkour obstacle course"
+    "布局借自 DDTRobot/ddt_ros2_control stairs.wbt，尺寸按 YoboGo 狗高 0.30 m 重摆"
+    "控制器: manual_control（键盘/手柄手动控制）"
+  ]
+  title "YoboGo Parkour"
+  basicTimeStep 4
+  FPS 60
+}
+
+# ==== 观察视角（GUI: 视图 → 视角 切换）====
+# 1) 第三人称·全景：看清整条障碍路线
+Viewpoint {
+  orientation -0.35 0.2 0.1 1.1
+  position -3 -10 8
+  follow "OFF"
+}
+# 2) 第三人称·跟随机器人：镜头随狗走，便于观察步态
+Viewpoint {
+  position 0 -2.2 1.0
+  follow "ON"
+  followType "Mounted Shot"
+  followSmoothness 2
+}
+# 3) 起点近景：看清出发姿态与第一段台阶
+Viewpoint {
+  orientation -0.25 0.5 0 0.9
+  position -1.6 -1.8 1.1
+  follow "OFF"
+}
+# 4) 终点俯视：金字塔与终点区
+Viewpoint {
+  orientation -0.9 0.15 0 0.6
+  position 13 -1 7
+  follow "OFF"
+}
+# 5) 侧面低角度：看台阶 / 斜坡剖面
+Viewpoint {
+  orientation -0.15 0.9 0 1.3
+  position 6 -6 1.4
+  follow "OFF"
+}
+
+# 注意：Background 与 TexturedBackground 二选一，同时出现会 WARNING
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+
+# ---- 灯光：DirectionalLight 只能挂在 world 顶层（不能进 Group/Transform）----
+DirectionalLight {
+  direction -0.4 0.25 -0.9
+  intensity 0.85
+  color 1 1 1
+  castShadows TRUE
+  on TRUE
+}
+DirectionalLight {
+  direction 0.35 -0.2 -0.85
+  intensity 0.35
+  color 0.95 0.95 1
+  castShadows FALSE
+  on TRUE
+}
+
+# ---- 场地：矩形地面 + 四周黑色挡板（高 0.3 m，防走出）----
+# 注：RectangleArena 墙体即挡板；appearance 用纯色，避免贴图下载 WARNING
+RectangleArena {
+  translation 7 0 0
+  floorSize 18 8
+  floorTileSize 1 1
+  floorAppearance PBRAppearance { baseColor 0.55 0.55 0.55 roughness 0.9 metalness 0 }
+  wallThickness 0.08
+  wallHeight 0.3
+  wallAppearance PBRAppearance { baseColor 0.05 0.05 0.05 roughness 0.9 metalness 0 }
+}
+
+# ---- 起点平台 2×2 m 平地（视觉标记，碰撞由地面承担）----
+Transform {
+  translation 0 0 0.003
+  children [
+    Shape {
+      appearance PBRAppearance { baseColor 0.2 0.6 0.35 roughness 0.8 metalness 0 }
+      geometry Box { size 2 2 0.006 }
+    }
+  ]
+}
+
+# ---- [1] 台阶 A：3 级上（借 stairs.wbt 的 StraightStairs 摆法，级高改 0.12）----
+# stepSize = 踏面深 0.30 × 宽 0.80 × 板厚 0.03；stepRise=0.12 → 顶高 0.36
+# appearance 纯色（默认 VarnishedPine 需下载贴图）
+StraightStairs {
+  translation 1.2 0 0
+  stepSize 0.3 0.8 0.03
+  stepRise 0.12
+  nSteps 3
+  name "stairs_up"
+  stepAppearance PBRAppearance { baseColor 0.62 0.5 0.38 roughness 0.7 metalness 0 }
+  stringerAppearance PBRAppearance { baseColor 0.45 0.35 0.28 roughness 0.7 metalness 0 }
+  leftRail []
+  rightRail []
+  startingStairs FALSE
+}
+
+# ---- [2] 高台：借 stairs.wbt 的 StraightStairsLanding，高度改 0.345 ----
+# 顶面 ≈ 0.36，与台阶 A 顶齐平；台面 1.2 × 0.8
+StraightStairsLanding {
+  translation 2.5 0 0
+  landingSize 1.2 0.8 0.03
+  height 0.345
+  name "landing_mid"
+  appearance PBRAppearance { baseColor 0.55 0.42 0.32 roughness 0.7 metalness 0 }
+  floorAppearance PBRAppearance { baseColor 0.6 0.48 0.36 roughness 0.75 metalness 0 }
+  stringerLeft FALSE
+  stringerRight FALSE
+  stringerBack FALSE
+}
+
+# ---- [3] 台阶 B：3 级下（借 stairs.wbt 的 up/down 对摆，rotation π）----
+StraightStairs {
+  translation 3.85 0 0
+  rotation 0 0 1 3.14159265
+  stepSize 0.3 0.8 0.03
+  stepRise 0.12
+  nSteps 3
+  name "stairs_down"
+  stepAppearance PBRAppearance { baseColor 0.62 0.5 0.38 roughness 0.7 metalness 0 }
+  stringerAppearance PBRAppearance { baseColor 0.45 0.35 0.28 roughness 0.7 metalness 0 }
+  leftRail []
+  rightRail []
+  startingStairs FALSE
+}
+
+# ---- [4] 箱台 0.4×0.4×0.2（可跳上；借 stairs.wbt WoodenBox 金字塔的盒体）----
+WoodenBox {
+  translation 4.8 0 0.1
+  name "box_platform"
+  size 0.4 0.4 0.2
+}
+
+# ---- [5] 土坑/沟 宽 0.35（两侧台地，可跳过；按 YoboGo 需求新增）----
+# 台地顶高 0.15，中间留 0.35 空隙
+Solid {
+  translation 5.7 0 0.075
+  name "pit_ledge_1"
+  children [
+    Shape {
+      appearance PBRAppearance { baseColor 0.55 0.45 0.3 roughness 0.7 metalness 0 }
+      geometry Box { size 1 1 0.15 }
+    }
+  ]
+  boundingObject Box { size 1 1 0.15 }
+}
+Solid {
+  translation 7.05 0 0.075
+  name "pit_ledge_2"
+  children [
+    Shape {
+      appearance PBRAppearance { baseColor 0.55 0.45 0.3 roughness 0.7 metalness 0 }
+      geometry Box { size 1 1 0.15 }
+    }
+  ]
+  boundingObject Box { size 1 1 0.15 }
+}
+# 沟底暗色垫（视觉，低于地面）
+Solid {
+  translation 6.375 0 -0.08
+  name "pit_bottom"
+  children [
+    Shape {
+      appearance PBRAppearance { baseColor 0.15 0.12 0.1 roughness 0.7 metalness 0 }
+      geometry Box { size 0.37 1 0.06 }
+    }
+  ]
+  boundingObject Box { size 0.37 1 0.06 }
+}
+
+# ---- [6] 窄道 宽 0.4 × 长 2.0（两侧挡条；按 YoboGo 需求新增）----
+Solid {
+  translation 8.2 0.3 0.075
+  name "narrow_wall_L"
+  children [
+    Shape {
+      appearance PBRAppearance { baseColor 0.75 0.7 0.65 roughness 0.7 metalness 0 }
+      geometry Box { size 2 0.2 0.15 }
+    }
+  ]
+  boundingObject Box { size 2 0.2 0.15 }
+}
+Solid {
+  translation 8.2 -0.3 0.075
+  name "narrow_wall_R"
+  children [
+    Shape {
+      appearance PBRAppearance { baseColor 0.75 0.7 0.65 roughness 0.7 metalness 0 }
+      geometry Box { size 2 0.2 0.15 }
+    }
+  ]
+  boundingObject Box { size 2 0.2 0.15 }
+}
+
+# ---- [7] 斜坡 15°（帐篷式两段，借 Ramp30deg 的倾斜板做法，角度改 15°）----
+Solid {
+  translation 10.2 0 0
+  name "ramp_15deg"
+  children [
+    # 左坡（-X 低 → 峰）：rotation 0 -1 0 +0.261799
+    Pose {
+      translation -0.5796 0 0.1939
+      rotation 0 -1 0 0.261799
+      children [
+        Shape {
+          appearance PBRAppearance { baseColor 0.6 0.5 0.4 roughness 0.6 metalness 0 }
+          geometry Box { size 1.2 0.8 0.08 }
+        }
+      ]
+    }
+    # 右坡（峰 → +X 低）：rotation 0 -1 0 -0.261799
+    Pose {
+      translation 0.5796 0 0.1939
+      rotation 0 -1 0 -0.261799
+      children [
+        Shape {
+          appearance PBRAppearance { baseColor 0.6 0.5 0.4 roughness 0.6 metalness 0 }
+          geometry Box { size 1.2 0.8 0.08 }
+        }
+      ]
+    }
+  ]
+  boundingObject Group {
+    children [
+      Pose {
+        translation -0.5796 0 0.1939
+        rotation 0 -1 0 0.261799
+        children [ Box { size 1.2 0.8 0.08 } ]
+      }
+      Pose {
+        translation 0.5796 0 0.1939
+        rotation 0 -1 0 -0.261799
+        children [ Box { size 1.2 0.8 0.08 } ]
+      }
+    ]
+  }
+}
+
+# ---- [8] 斜坡 25°（角度改 25°，说明书实机 ≤30°）----
+Solid {
+  translation 12 0 0
+  name "ramp_25deg"
+  children [
+    # 左坡（-X 低 → 峰）：rotation 0 -1 0 +0.436332
+    Pose {
+      translation -0.4532 0 0.2476
+      rotation 0 -1 0 0.436332
+      children [
+        Shape {
+          appearance PBRAppearance { baseColor 0.55 0.4 0.3 roughness 0.6 metalness 0 }
+          geometry Box { size 1 0.8 0.08 }
+        }
+      ]
+    }
+    # 右坡（峰 → +X 低）：rotation 0 -1 0 -0.436332
+    Pose {
+      translation 0.4532 0 0.2476
+      rotation 0 -1 0 -0.436332
+      children [
+        Shape {
+          appearance PBRAppearance { baseColor 0.55 0.4 0.3 roughness 0.6 metalness 0 }
+          geometry Box { size 1 0.8 0.08 }
+        }
+      ]
+    }
+  ]
+  boundingObject Group {
+    children [
+      Pose {
+        translation -0.4532 0 0.2476
+        rotation 0 -1 0 0.436332
+        children [ Box { size 1 0.8 0.08 } ]
+      }
+      Pose {
+        translation 0.4532 0 0.2476
+        rotation 0 -1 0 -0.436332
+        children [ Box { size 1 0.8 0.08 } ]
+      }
+    ]
+  }
+}
+
+# ---- [9] WoodenBox 金字塔（借 stairs.wbt 金字塔摆法，盒体改 0.4×0.4×0.2）----
+# 底层 3 盒 + 中层 2 盒 + 顶层 1 盒 + 引导盒 1 = 7 盒
+WoodenBox {
+  translation 13.4 -0.4 0.1
+  name "pyr_base_1"
+  size 0.4 0.4 0.2
+}
+WoodenBox {
+  translation 13.4 0 0.1
+  name "pyr_base_2"
+  size 0.4 0.4 0.2
+}
+WoodenBox {
+  translation 13.4 0.4 0.1
+  name "pyr_base_3"
+  size 0.4 0.4 0.2
+}
+WoodenBox {
+  translation 13.4 -0.2 0.3
+  name "pyr_mid_1"
+  size 0.4 0.4 0.2
+}
+WoodenBox {
+  translation 13.4 0.2 0.3
+  name "pyr_mid_2"
+  size 0.4 0.4 0.2
+}
+WoodenBox {
+  translation 13.4 0 0.5
+  name "pyr_top"
+  size 0.4 0.4 0.2
+}
+WoodenBox {
+  translation 12.9 0 0.1
+  name "pyr_step"
+  size 0.4 0.4 0.2
+}
+
+# ---- [10] 终点平台 ----
+Solid {
+  translation 14.6 0 0.01
+  name "finish_pad"
+  children [
+    Shape {
+      appearance PBRAppearance { baseColor 0.85 0.75 0.2 roughness 0.7 metalness 0 }
+      geometry Box { size 1.2 1.2 0.02 }
+    }
+  ]
+  boundingObject Box { size 1.2 1.2 0.02 }
+}
+
+# ---- 机器人：REAL YoboGo-10S（由 tools/gen_yobogo_robot.py 生成）----
+# 出生点在起点平台中心 translation 0 0 0.26，面向 +X（rotation 0 0 1 0）
+# 控制器绑定 manual_control
+
+Robot {
+  translation 0 0 0.26   # 起点平台中心，站立高 0.26（面向 +X）
+  rotation 0 0 1 0   # 朝向 +X，对准障碍路线
+  name "yobogo_10s"
+  children [
+    # ---- 机体上的 IMU 传感器 ----
+    InertialUnit {
+      name "inertial unit"
+    }
+    Gyro {
+      name "gyro"
+    }
+    Accelerometer {
+      name "accelerometer"
+    }
+  # ==== 相机可调参数 (Camera tunable) ====
+  # fov_rad: 水平FOV（弧度）。0.96~1.22 对应 55°~70°，推荐 1.05 (60°)
+  # pitch_rad: 俯仰角（弧度，负值=低头）。-0.52~-0.70 对应 -30°~-40°，推荐 -0.61 (-35°)
+  # 注：Webots R2025a 字段名是 fieldOfView（不是 fov）— 见 Camera.wrl
+  # Webots Camera 光轴 = 相机局部 +X（实测验证：原点朝 +X 时画面中心为 +X 处色标）。
+  # 俯仰低头 pitch_rad 弧度 => 父 Transform 绕 +Y 轴右手旋转 -pitch_rad。
+  # 当前: fov=1.05 (60.2°), pitch=-0.44 (-25.2°)
+  Transform {
+    translation 0.2 0 0.055
+    # pitch 由父 Transform 的 rotation 实现（绕 +Y，低头为正角）
+    rotation 0 1 0 0.44
+    # 备选（错误用法，仅记录）：rotation 1 0 0 -0.44
+    #   —— 绕前向 X 轴是横滚(roll)，不是俯仰；勿用
+    children [
+      Camera {
+        name "front_camera"
+        width 640
+        height 480
+        fieldOfView 1.05
+        # pitch 由父 Transform 的 rotation 实现，见上
+        noise 0
+        motionBlur 0
+      }
+    ]
+  }
+    # ---- 机体视觉件（L x W x H = 0.40 x 0.13 x 0.10）[合同] ----
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.15 0.15 0.15
+        roughness 0.8
+        metalness 0.1
+      }
+      geometry Box {
+        size 0.4 0.13 0.1
+      }
+    }
+    # ---- FR 腿（原点在关节处）----
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        anchor 0.18 -0.052 0
+        axis 1 0 0
+        dampingConstant 1.0
+      }
+      device [
+        RotationalMotor {
+          name "fr_abd_motor"
+          maxTorque 18
+        }
+        PositionSensor {
+          name "fr_abd_sensor"
+        }
+      ]
+      endPoint Solid {
+        translation 0.18 -0.052 0   # 必须与 joint anchor 一致
+        children [
+          Transform {
+            translation 0 -0.0325 0
+            children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0.2 0.2 0.2
+                roughness 0.8
+                metalness 0.1
+              }
+              geometry Box {
+                size 0.04 0.065 0.04
+              }
+            }
+            ]
+          }
+            HingeJoint {
+              jointParameters HingeJointParameters {
+                anchor 0 -0.065 0
+                axis 0 -1 0
+                dampingConstant 1.0
+              }
+              device [
+                RotationalMotor {
+                  name "fr_hip_motor"
+                  maxTorque 18
+                }
+                PositionSensor {
+                  name "fr_hip_sensor"
+                }
+              ]
+              endPoint Solid {
+                translation 0 -0.065 0   # 必须与 joint anchor 一致
+                children [
+                  Transform {
+                    translation 0 0 -0.07
+                    children [
+                    Shape {
+                      appearance PBRAppearance {
+                        baseColor 0.2 0.2 0.2
+                        roughness 0.8
+                        metalness 0.1
+                      }
+                      geometry Box {
+                        size 0.05 0.05 0.14
+                      }
+                    }
+                    ]
+                  }
+                    HingeJoint {
+                      jointParameters HingeJointParameters {
+                        anchor 0 0 -0.14
+                        axis 0 -1 0
+                        dampingConstant 1.0
+                      }
+                      device [
+                        RotationalMotor {
+                          name "fr_kn_motor"
+                          maxTorque 18
+                        }
+                        PositionSensor {
+                          name "fr_kn_sensor"
+                        }
+                      ]
+                      endPoint Solid {
+                        translation 0 0 -0.14   # 必须与 joint anchor 一致
+                        children [
+                          Transform {
+                            translation 0 0 -0.06
+                            children [
+                            Shape {
+                              appearance PBRAppearance {
+                                baseColor 0.2 0.2 0.2
+                                roughness 0.8
+                                metalness 0.1
+                              }
+                              geometry Box {
+                                size 0.04 0.04 0.12
+                              }
+                            }
+                            ]
+                          }
+                          Transform {
+                            translation 0 0 -0.12
+                            children [
+                            Shape {
+                              appearance PBRAppearance {
+                                baseColor 0.1 0.1 0.1
+                                roughness 0.8
+                                metalness 0.1
+                              }
+                              geometry Sphere {
+                                radius 0.02
+                              }
+                            }
+                            ]
+                          }
+                        ]
+                        name "fr_shank_link"
+                        boundingObject Transform {
+                          translation 0 0 -0.06
+                          children [
+                            Box { size 0.04 0.04 0.12 }
+                          ]
+                        }
+                        physics Physics {
+                          mass 0.254
+                          centerOfMass 0 0 -0.06
+                          inertiaMatrix [
+                            0.001 0.001 0.0002
+                            0 0 0
+                          ]
+                          density -1
+                          damping Damping {
+                            linear 0.5
+                            angular 0.5
+                          }
+                        }
+                      }
+                    }
+                ]
+                name "fr_thigh_link"
+                boundingObject Transform {
+                  translation 0 0 -0.07
+                  children [
+                    Box { size 0.05 0.05 0.14 }
+                  ]
+                }
+                physics Physics {
+                  mass 0.75
+                  centerOfMass 0 0.01 -0.07
+                  inertiaMatrix [
+                    0.003 0.0032 0.0006
+                    0 0 0
+                  ]
+                  density -1
+                  damping Damping {
+                    linear 0.5
+                    angular 0.5
+                  }
+                }
+              }
+            }
+        ]
+        name "fr_abd_link"
+        boundingObject Transform {
+          translation 0 -0.0325 0
+          children [
+            Box { size 0.04 0.065 0.04 }
+          ]
+        }
+        physics Physics {
+          mass 0.64
+          centerOfMass 0 -0.03 0
+          inertiaMatrix [
+            0.001 0.0012 0.001
+            0 0 0
+          ]
+          density -1
+          damping Damping {
+            linear 0.5
+            angular 0.5
+          }
+        }
+      }
+    }
+    # ---- FL 腿（原点在关节处）----
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        anchor 0.18 0.052 0
+        axis 1 0 0
+        dampingConstant 1.0
+      }
+      device [
+        RotationalMotor {
+          name "fl_abd_motor"
+          maxTorque 18
+        }
+        PositionSensor {
+          name "fl_abd_sensor"
+        }
+      ]
+      endPoint Solid {
+        translation 0.18 0.052 0   # 必须与 joint anchor 一致
+        children [
+          Transform {
+            translation 0 0.0325 0
+            children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0.2 0.2 0.2
+                roughness 0.8
+                metalness 0.1
+              }
+              geometry Box {
+                size 0.04 0.065 0.04
+              }
+            }
+            ]
+          }
+            HingeJoint {
+              jointParameters HingeJointParameters {
+                anchor 0 0.065 0
+                axis 0 -1 0
+                dampingConstant 1.0
+              }
+              device [
+                RotationalMotor {
+                  name "fl_hip_motor"
+                  maxTorque 18
+                }
+                PositionSensor {
+                  name "fl_hip_sensor"
+                }
+              ]
+              endPoint Solid {
+                translation 0 0.065 0   # 必须与 joint anchor 一致
+                children [
+                  Transform {
+                    translation 0 0 -0.07
+                    children [
+                    Shape {
+                      appearance PBRAppearance {
+                        baseColor 0.2 0.2 0.2
+                        roughness 0.8
+                        metalness 0.1
+                      }
+                      geometry Box {
+                        size 0.05 0.05 0.14
+                      }
+                    }
+                    ]
+                  }
+                    HingeJoint {
+                      jointParameters HingeJointParameters {
+                        anchor 0 0 -0.14
+                        axis 0 -1 0
+                        dampingConstant 1.0
+                      }
+                      device [
+                        RotationalMotor {
+                          name "fl_kn_motor"
+                          maxTorque 18
+                        }
+                        PositionSensor {
+                          name "fl_kn_sensor"
+                        }
+                      ]
+                      endPoint Solid {
+                        translation 0 0 -0.14   # 必须与 joint anchor 一致
+                        children [
+                          Transform {
+                            translation 0 0 -0.06
+                            children [
+                            Shape {
+                              appearance PBRAppearance {
+                                baseColor 0.2 0.2 0.2
+                                roughness 0.8
+                                metalness 0.1
+                              }
+                              geometry Box {
+                                size 0.04 0.04 0.12
+                              }
+                            }
+                            ]
+                          }
+                          Transform {
+                            translation 0 0 -0.12
+                            children [
+                            Shape {
+                              appearance PBRAppearance {
+                                baseColor 0.1 0.1 0.1
+                                roughness 0.8
+                                metalness 0.1
+                              }
+                              geometry Sphere {
+                                radius 0.02
+                              }
+                            }
+                            ]
+                          }
+                        ]
+                        name "fl_shank_link"
+                        boundingObject Transform {
+                          translation 0 0 -0.06
+                          children [
+                            Box { size 0.04 0.04 0.12 }
+                          ]
+                        }
+                        physics Physics {
+                          mass 0.254
+                          centerOfMass 0 0 -0.06
+                          inertiaMatrix [
+                            0.001 0.001 0.0002
+                            0 0 0
+                          ]
+                          density -1
+                          damping Damping {
+                            linear 0.5
+                            angular 0.5
+                          }
+                        }
+                      }
+                    }
+                ]
+                name "fl_thigh_link"
+                boundingObject Transform {
+                  translation 0 0 -0.07
+                  children [
+                    Box { size 0.05 0.05 0.14 }
+                  ]
+                }
+                physics Physics {
+                  mass 0.75
+                  centerOfMass 0 -0.01 -0.07
+                  inertiaMatrix [
+                    0.003 0.0032 0.0006
+                    0 0 0
+                  ]
+                  density -1
+                  damping Damping {
+                    linear 0.5
+                    angular 0.5
+                  }
+                }
+              }
+            }
+        ]
+        name "fl_abd_link"
+        boundingObject Transform {
+          translation 0 0.0325 0
+          children [
+            Box { size 0.04 0.065 0.04 }
+          ]
+        }
+        physics Physics {
+          mass 0.64
+          centerOfMass 0 0.03 0
+          inertiaMatrix [
+            0.001 0.0012 0.001
+            0 0 0
+          ]
+          density -1
+          damping Damping {
+            linear 0.5
+            angular 0.5
+          }
+        }
+      }
+    }
+    # ---- HR 腿（原点在关节处）----
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        anchor -0.18 -0.052 0
+        axis 1 0 0
+        dampingConstant 1.0
+      }
+      device [
+        RotationalMotor {
+          name "hr_abd_motor"
+          maxTorque 18
+        }
+        PositionSensor {
+          name "hr_abd_sensor"
+        }
+      ]
+      endPoint Solid {
+        translation -0.18 -0.052 0   # 必须与 joint anchor 一致
+        children [
+          Transform {
+            translation 0 -0.0325 0
+            children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0.2 0.2 0.2
+                roughness 0.8
+                metalness 0.1
+              }
+              geometry Box {
+                size 0.04 0.065 0.04
+              }
+            }
+            ]
+          }
+            HingeJoint {
+              jointParameters HingeJointParameters {
+                anchor 0 -0.065 0
+                axis 0 -1 0
+                dampingConstant 1.0
+              }
+              device [
+                RotationalMotor {
+                  name "hr_hip_motor"
+                  maxTorque 18
+                }
+                PositionSensor {
+                  name "hr_hip_sensor"
+                }
+              ]
+              endPoint Solid {
+                translation 0 -0.065 0   # 必须与 joint anchor 一致
+                children [
+                  Transform {
+                    translation 0 0 -0.07
+                    children [
+                    Shape {
+                      appearance PBRAppearance {
+                        baseColor 0.2 0.2 0.2
+                        roughness 0.8
+                        metalness 0.1
+                      }
+                      geometry Box {
+                        size 0.05 0.05 0.14
+                      }
+                    }
+                    ]
+                  }
+                    HingeJoint {
+                      jointParameters HingeJointParameters {
+                        anchor 0 0 -0.14
+                        axis 0 -1 0
+                        dampingConstant 1.0
+                      }
+                      device [
+                        RotationalMotor {
+                          name "hr_kn_motor"
+                          maxTorque 18
+                        }
+                        PositionSensor {
+                          name "hr_kn_sensor"
+                        }
+                      ]
+                      endPoint Solid {
+                        translation 0 0 -0.14   # 必须与 joint anchor 一致
+                        children [
+                          Transform {
+                            translation 0 0 -0.06
+                            children [
+                            Shape {
+                              appearance PBRAppearance {
+                                baseColor 0.2 0.2 0.2
+                                roughness 0.8
+                                metalness 0.1
+                              }
+                              geometry Box {
+                                size 0.04 0.04 0.12
+                              }
+                            }
+                            ]
+                          }
+                          Transform {
+                            translation 0 0 -0.12
+                            children [
+                            Shape {
+                              appearance PBRAppearance {
+                                baseColor 0.1 0.1 0.1
+                                roughness 0.8
+                                metalness 0.1
+                              }
+                              geometry Sphere {
+                                radius 0.02
+                              }
+                            }
+                            ]
+                          }
+                        ]
+                        name "hr_shank_link"
+                        boundingObject Transform {
+                          translation 0 0 -0.06
+                          children [
+                            Box { size 0.04 0.04 0.12 }
+                          ]
+                        }
+                        physics Physics {
+                          mass 0.254
+                          centerOfMass 0 0 -0.06
+                          inertiaMatrix [
+                            0.001 0.001 0.0002
+                            0 0 0
+                          ]
+                          density -1
+                          damping Damping {
+                            linear 0.5
+                            angular 0.5
+                          }
+                        }
+                      }
+                    }
+                ]
+                name "hr_thigh_link"
+                boundingObject Transform {
+                  translation 0 0 -0.07
+                  children [
+                    Box { size 0.05 0.05 0.14 }
+                  ]
+                }
+                physics Physics {
+                  mass 0.75
+                  centerOfMass 0 0.01 -0.07
+                  inertiaMatrix [
+                    0.003 0.0032 0.0006
+                    0 0 0
+                  ]
+                  density -1
+                  damping Damping {
+                    linear 0.5
+                    angular 0.5
+                  }
+                }
+              }
+            }
+        ]
+        name "hr_abd_link"
+        boundingObject Transform {
+          translation 0 -0.0325 0
+          children [
+            Box { size 0.04 0.065 0.04 }
+          ]
+        }
+        physics Physics {
+          mass 0.64
+          centerOfMass 0 -0.03 0
+          inertiaMatrix [
+            0.001 0.0012 0.001
+            0 0 0
+          ]
+          density -1
+          damping Damping {
+            linear 0.5
+            angular 0.5
+          }
+        }
+      }
+    }
+    # ---- HL 腿（原点在关节处）----
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        anchor -0.18 0.052 0
+        axis 1 0 0
+        dampingConstant 1.0
+      }
+      device [
+        RotationalMotor {
+          name "hl_abd_motor"
+          maxTorque 18
+        }
+        PositionSensor {
+          name "hl_abd_sensor"
+        }
+      ]
+      endPoint Solid {
+        translation -0.18 0.052 0   # 必须与 joint anchor 一致
+        children [
+          Transform {
+            translation 0 0.0325 0
+            children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0.2 0.2 0.2
+                roughness 0.8
+                metalness 0.1
+              }
+              geometry Box {
+                size 0.04 0.065 0.04
+              }
+            }
+            ]
+          }
+            HingeJoint {
+              jointParameters HingeJointParameters {
+                anchor 0 0.065 0
+                axis 0 -1 0
+                dampingConstant 1.0
+              }
+              device [
+                RotationalMotor {
+                  name "hl_hip_motor"
+                  maxTorque 18
+                }
+                PositionSensor {
+                  name "hl_hip_sensor"
+                }
+              ]
+              endPoint Solid {
+                translation 0 0.065 0   # 必须与 joint anchor 一致
+                children [
+                  Transform {
+                    translation 0 0 -0.07
+                    children [
+                    Shape {
+                      appearance PBRAppearance {
+                        baseColor 0.2 0.2 0.2
+                        roughness 0.8
+                        metalness 0.1
+                      }
+                      geometry Box {
+                        size 0.05 0.05 0.14
+                      }
+                    }
+                    ]
+                  }
+                    HingeJoint {
+                      jointParameters HingeJointParameters {
+                        anchor 0 0 -0.14
+                        axis 0 -1 0
+                        dampingConstant 1.0
+                      }
+                      device [
+                        RotationalMotor {
+                          name "hl_kn_motor"
+                          maxTorque 18
+                        }
+                        PositionSensor {
+                          name "hl_kn_sensor"
+                        }
+                      ]
+                      endPoint Solid {
+                        translation 0 0 -0.14   # 必须与 joint anchor 一致
+                        children [
+                          Transform {
+                            translation 0 0 -0.06
+                            children [
+                            Shape {
+                              appearance PBRAppearance {
+                                baseColor 0.2 0.2 0.2
+                                roughness 0.8
+                                metalness 0.1
+                              }
+                              geometry Box {
+                                size 0.04 0.04 0.12
+                              }
+                            }
+                            ]
+                          }
+                          Transform {
+                            translation 0 0 -0.12
+                            children [
+                            Shape {
+                              appearance PBRAppearance {
+                                baseColor 0.1 0.1 0.1
+                                roughness 0.8
+                                metalness 0.1
+                              }
+                              geometry Sphere {
+                                radius 0.02
+                              }
+                            }
+                            ]
+                          }
+                        ]
+                        name "hl_shank_link"
+                        boundingObject Transform {
+                          translation 0 0 -0.06
+                          children [
+                            Box { size 0.04 0.04 0.12 }
+                          ]
+                        }
+                        physics Physics {
+                          mass 0.254
+                          centerOfMass 0 0 -0.06
+                          inertiaMatrix [
+                            0.001 0.001 0.0002
+                            0 0 0
+                          ]
+                          density -1
+                          damping Damping {
+                            linear 0.5
+                            angular 0.5
+                          }
+                        }
+                      }
+                    }
+                ]
+                name "hl_thigh_link"
+                boundingObject Transform {
+                  translation 0 0 -0.07
+                  children [
+                    Box { size 0.05 0.05 0.14 }
+                  ]
+                }
+                physics Physics {
+                  mass 0.75
+                  centerOfMass 0 -0.01 -0.07
+                  inertiaMatrix [
+                    0.003 0.0032 0.0006
+                    0 0 0
+                  ]
+                  density -1
+                  damping Damping {
+                    linear 0.5
+                    angular 0.5
+                  }
+                }
+              }
+            }
+        ]
+        name "hl_abd_link"
+        boundingObject Transform {
+          translation 0 0.0325 0
+          children [
+            Box { size 0.04 0.065 0.04 }
+          ]
+        }
+        physics Physics {
+          mass 0.64
+          centerOfMass 0 0.03 0
+          inertiaMatrix [
+            0.001 0.0012 0.001
+            0 0 0
+          ]
+          density -1
+          damping Damping {
+            linear 0.5
+            angular 0.5
+          }
+        }
+      }
+    }
+  ]
+  boundingObject Transform {
+    translation 0 0 0
+    children [
+      Box { size 0.4 0.13 0.1 }
+    ]
+  }
+  physics Physics {
+    mass 3.92
+    centerOfMass 0 0 0
+    inertiaMatrix [
+      0.07 0.26 0.242
+      0 0 0
+    ]
+    density -1
+    damping Damping {
+      linear 0.5
+      angular 0.5
+    }
+  }
+  controller "manual_control"
+  controllerArgs []
+  selfCollision TRUE
+  contactMaterial "body"
+}

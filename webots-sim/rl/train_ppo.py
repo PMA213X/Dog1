@@ -44,6 +44,8 @@ from config import (  # noqa: E402
     EVAL_INTERVAL,
     NET_ARCH,
     OBS_DIM,
+    OBS_DIM_TURN,
+    OBS_DIM_STAIRS,
     PPO_PARAMS,
     PPO_POLICY,
     set_phase,
@@ -60,17 +62,31 @@ except ImportError as _walk_env_exc:  # pragma: no cover - 取决于另一模块
 else:
     WALK_ENV_IMPORT_ERROR = None
 
+# P3 转向环境（可选）
+try:
+    from walk_env_turn import QuadrupedTurnEnv  # noqa: F401
+except ImportError:
+    QuadrupedTurnEnv = None  # type: ignore[assignment,misc]
+
+# P4 台阶环境（可选）
+try:
+    from walk_env_stairs import QuadrupedStairsEnv  # noqa: F401
+except ImportError:
+    QuadrupedStairsEnv = None  # type: ignore[assignment,misc]
+
 # ---------------------------------------------------------------------------
 # 第三方依赖：仅在真正训练时强制要求，便于 --dry-run 无依赖自检
 # ---------------------------------------------------------------------------
 try:
     import gymnasium as gym
+    import torch
     from stable_baselines3 import PPO
     from stable_baselines3.common.callbacks import BaseCallback, CheckpointCallback
     from stable_baselines3.common.monitor import Monitor
     from stable_baselines3.common.vec_env import DummyVecEnv
 except ImportError as _sb3_exc:  # pragma: no cover - 无 SB3 时只影响训练路径
     gym = None  # type: ignore[assignment]
+    torch = None  # type: ignore[assignment]
     PPO = None  # type: ignore[assignment,misc]
     BaseCallback = object  # type: ignore[assignment,misc]
     CheckpointCallback = None  # type: ignore[assignment,misc]
@@ -143,7 +159,20 @@ def parse_args(argv: Optional[list] = None) -> argparse.Namespace:
         "--tag",
         type=str,
         default=None,
-        help="阶段标签（如 phase1_stand / phase2_walk），决定奖励权重与日志/ckpt 命名",
+        help="阶段标签（如 phase1_stand / phase2_walk / phase3_turn），决定奖励权重与日志/ckpt 命名",
+    )
+    parser.add_argument(
+        "--ckpt-prefix",
+        type=str,
+        default=None,
+        help="checkpoint 文件名前缀（默认取 --tag，或 ppo_walk）",
+    )
+    parser.add_argument(
+        "--env",
+        type=str,
+        default=None,
+        choices=["walk", "turn", "stairs"],
+        help="环境类型：walk=42 维行走，turn=45 维转向，stairs=51 维台阶；默认按 --tag 自动选择",
     )
     parser.add_argument(
         "--seed",
@@ -173,10 +202,12 @@ def make_logdir(explicit: Optional[str], tag: Optional[str] = None) -> Path:
 
 def print_config(args: argparse.Namespace) -> None:
     """以中文打印当前生效的超参数 / 路径。"""
+    env_kind = resolve_env_kind(args)
     print("=" * 60)
     print("【配置】PPO 训练四足机器狗行走")
     print("=" * 60)
-    print(f"  观测维度        : {OBS_DIM}")
+    print(f"  环境类型        : {env_kind}")
+    print(f"  观测维度        : {resolve_obs_dim(env_kind)}")
     print(f"  动作维度        : {ACTION_DIM}  (范围 [{ACTION_LOW}, {ACTION_HIGH}])")
     print(f"  策略网络        : {PPO_POLICY}  net_arch={NET_ARCH}")
     for key, value in PPO_PARAMS.items():
@@ -210,38 +241,76 @@ def require_deps() -> None:
         )
 
 
-def make_env_fn(render_mode: Optional[str] = None) -> Callable[[], Any]:
-    """返回一个创建 QuadrupedWalkEnv 的工厂函数（兼容是否接受 render_mode）。"""
+def resolve_env_kind(args: argparse.Namespace) -> str:
+    """决定用哪个环境：'walk'（42 维）/ 'turn'（45 维）/ 'stairs'（51 维）。"""
+    if args.env:
+        return args.env
+    tag = (args.tag or "").lower()
+    if "stair" in tag or "phase4" in tag or "p4" in tag:
+        return "stairs"
+    if "turn" in tag or "phase3" in tag or "p3" in tag:
+        return "turn"
+    return "walk"
+
+
+def resolve_obs_dim(env_kind: str) -> int:
+    return {
+        "turn": OBS_DIM_TURN,
+        "stairs": OBS_DIM_STAIRS,
+    }.get(env_kind, OBS_DIM)
+
+
+def make_env_fn(
+    render_mode: Optional[str] = None, env_kind: str = "walk"
+) -> Callable[[], Any]:
+    """返回一个创建环境的工厂函数（walk / turn / stairs）。"""
 
     def _factory() -> Any:
-        assert QuadrupedWalkEnv is not None
+        if env_kind == "stairs":
+            assert QuadrupedStairsEnv is not None, "walk_env_stairs.QuadrupedStairsEnv 不可用"
+            cls = QuadrupedStairsEnv
+        elif env_kind == "turn":
+            assert QuadrupedTurnEnv is not None, "walk_env_turn.QuadrupedTurnEnv 不可用"
+            cls = QuadrupedTurnEnv
+        else:
+            assert QuadrupedWalkEnv is not None
+            cls = QuadrupedWalkEnv
         if render_mode is None:
             try:
-                env = QuadrupedWalkEnv()
+                env = cls()
             except TypeError:
-                env = QuadrupedWalkEnv(render_mode=None)
+                env = cls(render_mode=None)
         else:
             try:
-                env = QuadrupedWalkEnv(render_mode=render_mode)
+                env = cls(render_mode=render_mode)
             except TypeError:
                 # 构造函数不接受 render_mode 时退化为无参构造
-                env = QuadrupedWalkEnv()
+                env = cls()
         return Monitor(env)
 
     return _factory
 
 
-def self_check_env() -> None:
+def self_check_env(env_kind: str = "walk") -> None:
     """创建环境做一次快速自检：reset / step / 维度检查。"""
-    print("【自检】创建环境并执行 reset/step ...")
+    obs_dim = resolve_obs_dim(env_kind)
+    print(f"【自检】创建环境（{env_kind}）并执行 reset/step ...")
     t0 = time.time()
-    env = QuadrupedWalkEnv()  # type: ignore[misc]
+    if env_kind == "stairs":
+        assert QuadrupedStairsEnv is not None
+        env = QuadrupedStairsEnv()  # type: ignore[misc]
+    elif env_kind == "turn":
+        assert QuadrupedTurnEnv is not None
+        env = QuadrupedTurnEnv()  # type: ignore[misc]
+    else:
+        assert QuadrupedWalkEnv is not None
+        env = QuadrupedWalkEnv()  # type: ignore[misc]
     try:
         reset_out = env.reset()
         obs = reset_out[0] if isinstance(reset_out, tuple) else reset_out
         if hasattr(obs, "shape"):
-            assert obs.shape[-1] == OBS_DIM, (
-                f"观测维度不匹配：期望 {OBS_DIM}，实际 {obs.shape}"
+            assert obs.shape[-1] == obs_dim, (
+                f"观测维度不匹配：期望 {obs_dim}，实际 {obs.shape}"
             )
         action = _dummy_action(env)
         step_out = env.step(action)
@@ -355,11 +424,112 @@ else:  # pragma: no cover - SB3 缺失时的占位
 
 
 # ===========================================================================
+# 热启动：obs 维度不一致时扩展首层后拷贝权重
+# ===========================================================================
+def _expand_first_layer(state_dict, old_sd, prefix: str):
+    """把旧网络首层权重复制到新网络：新增的输入列置零。"""
+    w_key, b_key = f"{prefix}.weight", f"{prefix}.bias"
+    if w_key not in state_dict or w_key not in old_sd:
+        return False
+    old_w, new_w = old_sd[w_key], state_dict[w_key]
+    if old_w.shape == new_w.shape:
+        state_dict[w_key] = old_w.clone()
+        if b_key in state_dict and b_key in old_sd:
+            state_dict[b_key] = old_sd[b_key].clone()
+        return True
+    if old_w.shape[0] == new_w.shape[0] and old_w.shape[1] < new_w.shape[1]:
+        # 输入维变大：右侧新增列置零（新观测通道初始不干扰）
+        w = torch.zeros_like(new_w)
+        w[:, : old_w.shape[1]] = old_w
+        state_dict[w_key] = w
+        if b_key in state_dict and b_key in old_sd:
+            state_dict[b_key] = old_sd[b_key].clone()
+        return True
+    return False
+
+
+def load_resume_model(resume_path: Path, train_env: Any, device: str, logdir: Path):
+    """加载旧模型做热启动。
+
+    obs 维度一致 → 直接 PPO.load；
+    obs 维度不一致（如 42 → 45）→ 新建模型后逐层拷贝可迁移权重，
+    首层输入维扩展处用 0 填充新增通道。
+    """
+    import torch  # noqa: F811 - 显式导入，函数内也可独立使用
+    from stable_baselines3 import PPO as _PPO
+
+    print(f"【训练】从 {resume_path} 继续训练 ...")
+    # 先不带 env 加载，读出旧策略参数
+    old_model = _PPO.load(str(resume_path), device=device)
+    old_obs_dim = int(old_model.observation_space.shape[0])
+    new_obs_dim = int(train_env.observation_space.shape[0])
+    print(f"【训练】旧模型 obs_dim={old_obs_dim}，新环境 obs_dim={new_obs_dim}")
+
+    if old_obs_dim == new_obs_dim:
+        model = _PPO.load(
+            str(resume_path),
+            env=train_env,
+            device=device,
+            tensorboard_log=str(logdir),
+        )
+        print(f"【训练】已加载模型，当前累计步数 = {model.num_timesteps}")
+        return model
+
+    # 维度不一致：新建模型 + 权重迁移
+    print("【训练】obs 维度不一致，执行首层扩展热启动 ...")
+    model = _PPO(
+        policy=PPO_POLICY,
+        env=train_env,
+        learning_rate=PPO_PARAMS["learning_rate"],
+        n_steps=PPO_PARAMS["n_steps"],
+        batch_size=PPO_PARAMS["batch_size"],
+        n_epochs=PPO_PARAMS["n_epochs"],
+        gamma=PPO_PARAMS["gamma"],
+        gae_lambda=PPO_PARAMS["gae_lambda"],
+        clip_range=PPO_PARAMS["clip_range"],
+        ent_coef=PPO_PARAMS["ent_coef"],
+        policy_kwargs=dict(net_arch=NET_ARCH),
+        tensorboard_log=str(logdir),
+        device=device,
+        verbose=1,
+    )
+    old_sd = old_model.policy.state_dict()
+    new_sd = model.policy.state_dict()
+    copied, expanded = 0, 0
+    for key in new_sd:
+        if key not in old_sd:
+            continue
+        if old_sd[key].shape == new_sd[key].shape:
+            new_sd[key] = old_sd[key].clone().to(new_sd[key].device)
+            copied += 1
+        elif key.endswith(".weight") and old_sd[key].dim() == 2 and new_sd[key].dim() == 2:
+            # 可能是首层 Linear(obs_dim → hidden)
+            prefix = key[: -len(".weight")]
+            if _expand_first_layer(new_sd, old_sd, prefix):
+                expanded += 1
+    model.policy.load_state_dict(new_sd)
+    print(
+        f"【训练】热启动完成：同形状拷贝 {copied} 个参数张量，"
+        f"首层扩展 {expanded} 处（新增输入通道置零）"
+    )
+    return model
+
+
+# ===========================================================================
 # 训练主流程
 # ===========================================================================
 def train(args: argparse.Namespace) -> Path:
     """执行训练，返回最终模型保存路径。"""
     require_deps()
+
+    # 环境类型：walk（42 维）/ turn（45 维）/ stairs（51 维）
+    env_kind = resolve_env_kind(args)
+    obs_dim = resolve_obs_dim(env_kind)
+    if env_kind == "turn" and QuadrupedTurnEnv is None:
+        raise SystemExit("【错误】需要 walk_env_turn.QuadrupedTurnEnv，但导入失败")
+    if env_kind == "stairs" and QuadrupedStairsEnv is None:
+        raise SystemExit("【错误】需要 walk_env_stairs.QuadrupedStairsEnv，但导入失败")
+    print(f"【训练】环境类型 = {env_kind}，观测维度 = {obs_dim}")
 
     # 按阶段标签切换奖励权重
     if args.tag:
@@ -372,15 +542,17 @@ def train(args: argparse.Namespace) -> Path:
     print(f"【训练】日志目录 = {logdir}")
     print(f"【训练】checkpoint 目录 = {ckptdir}")
 
-    # checkpoint 文件名前缀：带阶段标签便于区分
-    name_prefix = args.tag if args.tag else CKPT_NAME_PREFIX
+    # checkpoint 文件名前缀：显式 --ckpt-prefix 优先，其次 --tag，最后默认前缀
+    name_prefix = (
+        args.ckpt_prefix or args.tag or CKPT_NAME_PREFIX
+    )
 
     # 环境自检（--dry-run 不会走到这里）
-    self_check_env()
+    self_check_env(env_kind)
 
     # 训练环境
-    train_env = DummyVecEnv([make_env_fn()])
-    print(f"【训练】训练环境已创建，观测维度={OBS_DIM}，动作维度={ACTION_DIM}")
+    train_env = DummyVecEnv([make_env_fn(env_kind=env_kind)])
+    print(f"【训练】训练环境已创建，观测维度={obs_dim}，动作维度={ACTION_DIM}")
 
     # 回调：定期保存 checkpoint + 定期评估
     callbacks = []
@@ -400,7 +572,7 @@ def train(args: argparse.Namespace) -> Path:
     if args.eval_interval and args.eval_interval > 0 and args.eval_episodes > 0:
         callbacks.append(
             EvaluateCallback(
-                eval_env_fn=make_env_fn(),
+                eval_env_fn=make_env_fn(env_kind=env_kind),
                 eval_freq=args.eval_interval,
                 eval_episodes=args.eval_episodes,
             )
@@ -417,13 +589,7 @@ def train(args: argparse.Namespace) -> Path:
         resume_path = Path(args.resume)
         if not resume_path.is_file():
             raise SystemExit(f"【错误】找不到要继续训练的模型：{resume_path}")
-        print(f"【训练】从 {resume_path} 继续训练 ...")
-        model = PPO.load(  # type: ignore[union-attr]
-            str(resume_path),
-            env=train_env,
-            device=args.device,
-            tensorboard_log=str(logdir),
-        )
+        model = load_resume_model(resume_path, train_env, args.device, logdir)
         print(f"【训练】已加载模型，当前累计步数 = {model.num_timesteps}")
     else:
         print("【训练】创建新 PPO 模型 ...")

@@ -68,7 +68,13 @@ WORLDS_DIR = WEBOTS_SIM_DIR / "worlds"
 DEFAULT_WORLD = WORLDS_DIR / "parkour_dev.wbt"       # 平地 + 矮箱开发世界
 # 运行时生成的 RL 世界（controller=rl_agent + supervisor TRUE），放在 worlds/ 下
 # 以便 Webots 能按项目结构找到 controllers/rl_agent/
+# 命名规则：.{源世界 stem}_rl.wbt，多世界（parkour_dev / parkour）互不覆盖
 GENERATED_WORLD = WORLDS_DIR / ".parkour_dev_rl.wbt"
+
+
+def _generated_world_path(src_world: Path) -> Path:
+    """由源世界名推导 RL 生成世界路径（隐藏文件，避免与手维护世界冲突）。"""
+    return WORLDS_DIR / f".{src_world.stem}_rl.wbt"
 
 # 关节顺序：fr / fl / hr / hl ，每条腿 abd → hip → kn
 # （与 gen_yobogo_robot.py 生成的电机/传感器命名一致）
@@ -208,7 +214,7 @@ class QuadrupedWalkEnv(gym.Env):
     def _start_bridge(self) -> None:
         """生成 RL 世界、监听端口、启动 Webots，等待 rl_agent 连入。"""
         webots_bin = _find_webots()
-        world = _patch_rl_world(self.world_path, GENERATED_WORLD)
+        world = _patch_rl_world(self.world_path, _generated_world_path(self.world_path))
 
         self._server_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self._server_sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -233,6 +239,10 @@ class QuadrupedWalkEnv(gym.Env):
         if self.render_mode == "human":
             # 有界面时去掉 batch/minimize/no-rendering
             cmd = [webots_bin, "--mode=fast"]
+        elif self.render_mode == "rgb_array":
+            # 录视频需要相机出图：--no-rendering 会禁用 Camera 传感器，
+            # 这里去掉该选项，保留 batch/minimize 仍为无窗口运行
+            cmd = [webots_bin, "--batch", "--minimize", "--mode=fast"]
         cmd.append(str(world))
 
         self._webots_proc = subprocess.Popen(

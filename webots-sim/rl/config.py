@@ -20,6 +20,8 @@ from typing import Any, Dict, List
 # 环境常量：观测 / 动作
 # ---------------------------------------------------------------------------
 OBS_DIM: int = 42          # 观测向量维度
+OBS_DIM_TURN: int = 45     # P3 转向观测维度 = 42 + yaw_err + wz + vx
+OBS_DIM_STAIRS: int = 51   # P4 台阶观测维度 = 45 + 6 维前下方地形采样
 ACTION_DIM: int = 12       # 动作向量维度（12 个关节）
 ACTION_LOW: float = -1.0   # 动作下界
 ACTION_HIGH: float = 1.0   # 动作上界
@@ -63,15 +65,18 @@ DEFAULT_DEVICE: str = "cuda"         # 默认计算设备（无 GPU 时可 --dev
 # 奖励公式：r = alive_bonus + forward_vel*vx
 #           + roll_penalty*|roll| + pitch_penalty*|pitch|
 #           + action_sq*||a||^2
-#           + heading_to_goal*朝向目标 + yaw_dev_penalty*|yaw偏差|   （P3）
-#           + climb_reward*爬升 + on_step_reward*站上台阶指示        （P4）
+#           + heading_cos*cos(yaw_err) + yaw_rate_penalty*|wz|
+#           + heading_bonus*[|yaw_err|<0.2]                   （P3）
+#           + climb_reward*爬升 + on_step_reward*站上台阶指示
+#           + drop_penalty*从台阶掉下指示                        （P4）
 #           ；摔倒再加 fall_penalty
 #
 # 分阶段权重（PHASE_REWARD_WEIGHTS），用 set_phase() 切换：
 #   P1 站立 : alive+1, -2|roll|, -2|pitch|, -10 fallen
 #   P2 行走 : P1 + 3*vx - 0.05*||a||²
-#   P3 转向 : P2 + 1*朝向目标 - 0.5*|yaw偏差|
-#   P4 台阶 : P2 + 2*爬升 + 1*站上台阶
+#   P3 转向 : P2 + 2*cos(yaw_err) - 0.5*|wz| + 1*(|yaw_err|<0.2)
+#   P4 台阶 : P3 + 2*爬升 + 1*站上台阶 - 3*从台阶掉下（stairs）
+#             另有 step = P2 + 爬升（无转向，供对照）
 # ---------------------------------------------------------------------------
 REWARD_WEIGHTS: Dict[str, float] = {
     "alive_bonus": 1.00,       # 每步存活奖励
@@ -81,11 +86,13 @@ REWARD_WEIGHTS: Dict[str, float] = {
     "action_sq": -0.05,        # ||a||^2 动作能耗惩罚系数（任务默认 = -0.05）
     "fall_penalty": -10.00,    # 摔倒（提前终止）惩罚
     # ---- P3 转向（默认关闭）----
-    "heading_to_goal": 0.00,   # 朝向目标奖励（P3 = 1.0）
-    "yaw_dev_penalty": 0.00,   # |yaw 偏差| 惩罚（P3 = -0.5）
+    "heading_cos": 0.00,       # cos(yaw_err) 朝向目标奖励（P3 = 2.0）
+    "yaw_rate_penalty": 0.00,  # |wz| 转向平滑惩罚（P3 = -0.5）
+    "heading_bonus": 0.00,     # |yaw_err|<0.2 指示奖励（P3 = 1.0）
     # ---- P4 台阶（默认关闭）----
     "climb_reward": 0.00,      # 爬升高度奖励（P4 = 2.0）
     "on_step_reward": 0.00,    # 站上台阶指示奖励（P4 = 1.0）
+    "drop_penalty": 0.00,      # 从台阶掉下惩罚（P4 = -3.0）
 }
 
 # 各阶段完整权重表（set_phase 会先清零 P3/P4 可选项再合并，避免残留）
@@ -109,6 +116,7 @@ PHASE_REWARD_WEIGHTS: Dict[str, Dict[str, float]] = {
         "fall_penalty": -10.00,
     },
     # Phase 3 转向：行走 + 朝向目标
+    # r = 原奖励 + 2.0*cos(yaw_err) - 0.5*|wz| + 1.0*(|yaw_err|<0.2)
     "turn": {
         "alive_bonus": 1.00,
         "forward_vel": 3.00,
@@ -116,10 +124,11 @@ PHASE_REWARD_WEIGHTS: Dict[str, Dict[str, float]] = {
         "pitch_penalty": -2.00,
         "action_sq": -0.05,
         "fall_penalty": -10.00,
-        "heading_to_goal": 1.00,
-        "yaw_dev_penalty": -0.50,
+        "heading_cos": 2.00,
+        "yaw_rate_penalty": -0.50,
+        "heading_bonus": 1.00,
     },
-    # Phase 4 台阶：行走 + 爬升
+    # Phase 4 台阶：行走 + 爬升（不含转向塑形，供纯爬台阶对照）
     "step": {
         "alive_bonus": 1.00,
         "forward_vel": 3.00,
@@ -129,6 +138,24 @@ PHASE_REWARD_WEIGHTS: Dict[str, Dict[str, float]] = {
         "fall_penalty": -10.00,
         "climb_reward": 2.00,
         "on_step_reward": 1.00,
+        "drop_penalty": -3.00,
+    },
+    # Phase 4 台阶（P4 正式）：行走 + 转向 + 爬台阶
+    # r = 原奖励 + 2.0*cos(yaw_err) - 0.5*|wz| + 1.0*(|yaw_err|<0.2)
+    #     + 2.0*max(Δz,0) + 1.0*站上台阶 - 3.0*从台阶掉下
+    "stairs": {
+        "alive_bonus": 1.00,
+        "forward_vel": 3.00,
+        "roll_penalty": -2.00,
+        "pitch_penalty": -2.00,
+        "action_sq": -0.05,
+        "fall_penalty": -10.00,
+        "heading_cos": 2.00,
+        "yaw_rate_penalty": -0.50,
+        "heading_bonus": 1.00,
+        "climb_reward": 2.00,
+        "on_step_reward": 1.00,
+        "drop_penalty": -3.00,
     },
 }
 
@@ -142,10 +169,13 @@ def set_phase(phase: str) -> Dict[str, float]:
     phase 取值：stand / walk / turn / step（兼容 phase1_stand 等别名）。
     """
     aliases = {
+        # P0 冒烟：权重与 P1 站立一致，仅用于验证训练管线
+        "phase0": "stand", "phase0_smoke": "stand", "smoke": "stand",
         "phase1": "stand", "phase1_stand": "stand", "stand": "stand",
         "phase2": "walk", "phase2_walk": "walk", "walk": "walk",
         "phase3": "turn", "phase3_turn": "turn", "turn": "turn",
-        "phase4": "step", "phase4_step": "step", "step": "step",
+        "phase4": "stairs", "phase4_step": "step", "step": "step",
+        "phase4_stairs": "stairs", "stairs": "stairs", "p4": "stairs",
     }
     key = aliases.get(phase, phase)
     if key not in PHASE_REWARD_WEIGHTS:
@@ -153,7 +183,8 @@ def set_phase(phase: str) -> Dict[str, float]:
     global CURRENT_PHASE
     CURRENT_PHASE = key
     for k in (
-        "heading_to_goal", "yaw_dev_penalty", "climb_reward", "on_step_reward",
+        "heading_cos", "yaw_rate_penalty", "heading_bonus",
+        "climb_reward", "on_step_reward", "drop_penalty",
     ):
         REWARD_WEIGHTS[k] = 0.0
     REWARD_WEIGHTS.update(PHASE_REWARD_WEIGHTS[key])
