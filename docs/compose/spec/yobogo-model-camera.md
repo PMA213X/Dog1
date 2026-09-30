@@ -1,7 +1,7 @@
 ---
 feature: yobogo-model-camera
 status: delivered
-updated: 2026-09-25
+updated: 2026-10-01
 branch: master
 ---
 
@@ -9,11 +9,13 @@ branch: master
 
 ## Report
 
-**What was built** — `webots-sim/worlds/msl_match.wbt` 中的 MiniCheetah 盒模型（8.85 kg / 无相机）已替换为 **YoboGo-10S 实机规格模型**（`yobogo_10s`）：按 **Scheme A 包络缩放**重建 12 DOF 运动学链（说明书 **10.5 kg / 485×275×300 mm**），站立高与出生 z 对齐 yaml `des_p` **0.26**，机身惯量直接取 **RPC_inertia** [0.07, 0.26, 0.242]，电机 `maxTorque` 对齐 CAN 协议 ±18 N·m。几何由 `webots-sim/tools/gen_yobogo_robot.py` 作为**单一真源**生成（常量带 `[说明书]/[yaml]/[估算]` 来源标注 + 内置自检），world 内机器人段可一键重生成覆盖；`mini_cheetah.wbt` 旧盒模型保留不动。腿段（大腿 **0.14** / 小腿 **0.12** m）等 C 级缺失项按包络缩放**估算**，不编造实测值。
+**What was built（2026-09-25 初版）** — `webots-sim/worlds/msl_match.wbt` 中的 MiniCheetah 盒模型（8.85 kg / 无相机）已替换为 **YoboGo-10S 实机规格模型**（`yobogo_10s`）：按 **Scheme A 包络缩放**重建 12 DOF 运动学链（说明书 **10.5 kg / 485×275×300 mm**），站立高与出生 z 对齐 yaml `des_p` **0.26**，机身惯量直接取 **RPC_inertia** [0.07, 0.26, 0.242]，电机 `maxTorque` 对齐 CAN 协议 ±18 N·m。几何由 `webots-sim/tools/gen_yobogo_robot.py` 作为**单一真源**生成（常量带来源标注 + 内置自检），world 机器人段通过受控替换流程更新；`mini_cheetah.wbt` 旧盒模型保留不动。初版腿段（大腿 **0.14** / 小腿 **0.12** m）为包络缩放估算，不编造实测值。
 
-相机方面新增前置 `front_camera`（**640×480**），`fieldOfView` 与俯仰 pitch 为**一眼可见可改**的显式参数（推荐 1.05 rad / −35°，注释标明范围 0.96–1.22 rad / −30°~−40°），改动生成脚本顶部 `CAMERA_*` 常量或 world 字段后重新生成即可。质量合计 3.92 + 4×1.644 = **10.496** kg（≈ A 级 10.5）。溯源分级见 S2.1：A = 说明书原文，B = 官方 yaml / 代码（`des_p`、`RPC_inertia`、Kp/Kd、`main.cpp` 视觉参数），C = 包络缩放估算（腿段 0.14/0.12 等）。
+**2026-09-30 修订 / 2026-10-01 验收** — 上述 `0.14/0.12 m` 方案暴露出“腿段和恰好等于站高 → 模型零位直腿”的几何问题。本轮依据同款机器人课件改为**等效三关节屈膝模型**：保留每腿 `abd/hip/kn` 三驱动关节，采用工程暂定 `0.15/0.15 m` 与约 `120°` 膝部内角，补全显式限位、足端碰撞和四连杆外观；四连杆只作外观，不增加闭链。生成器、三个源 world、静态检查和 Webots 加载验收均已完成，详见 S4.5；精确杆长、真实限位和数值零位仍待 CAD/实机确认。
 
-**Verification** — `python3 webots-sim/tools/gen_yobogo_robot.py` 内置断言 **PASS**（总质量 10.496、12 关节 `endPoint==anchor`、`fieldOfView` 字段名正确）；`webots --batch --minimize --stderr --stdout webots-sim/worlds/msl_match.wbt` 冒烟加载 **0 ERROR、0 Motor/Sensor not found**，12 电机 + 12 传感器全部就绪，控制器启动后各关节角稳定在 **≈0**（站立不抖动）。质量合计 3.92 + 4×1.644 = **10.496** kg（`<0.02` 容差对齐 10.5）；包络 ≈ 485×275×300 mm 由脚本几何常量约束。
+相机方面新增前置 `front_camera`（**640×480**），`fieldOfView` 与俯仰 pitch 为**一眼可见可改**的显式参数；当前为 **1.05 rad / −0.44 rad（约 −25°）**，生成器注释仍保留初始推荐 1.05 rad / −35° 与调参范围。质量合计 3.92 + 4×1.644 = **10.496** kg（≈ A 级 10.5）。溯源分级见 S2.1；当前模型参数另按说明书、课件、现有代码、图片比例、工程估算和待 CAD 确认分级。
+
+**Verification（2026-10-01 新屈膝模型）** — 生成器自检 **PASS**：12 关节 `endPoint==anchor`、总质量 10.496 kg、`0.15/0.15 m`、膝内角 120°、足端球最低点约 z=0、12 组硬限位与 12 组软限位。静态检查 **PASS**；`msl_match.wbt`、`parkour.wbt`、`parkour_dev.wbt` 批处理加载均退出码 0、0 ERROR、0 Motor/Sensor not found；`parkour_dev` 另完成 50 步 `obs_dim=42/action_dim=12` 冒烟。2026-09-25 的旧直腿验证仅保留为历史记录。
 
 **Journey log**
 1. 腿段长度/质量在仓库内**缺失**（无 CAD / 实测），按用户决策采用 **Scheme A 包络缩放**工程估计（大腿 0.14 / 小腿 0.12 m），并在 S2.2 标注「估算」——C 级缺失项禁止编造真实值。
@@ -63,6 +65,8 @@ C 级缺失项对应几何一律按 **Scheme A 包络缩放工程估计**，并�
 
 ### S2.2 几何（Scheme A 包络缩放 — 估算）
 
+> **2026-09-30 注**：本节保留为 2026-09-25 初版历史。`thigh=0.14 m`、`shank=0.12 m` 的直腿零位方案已由 S4 已验收的 `0.15/0.15 m + 约120°屈膝` 结果取代；不得同时把两套数值当作当前参数。
+
 按 485×275×300 mm 包络 + 10.5 kg 总重反推分配（**估算**，无 C 级真实腿段数据）。质量/惯量取 B 级官方值（RPC_inertia / RPC_mass 直接沿用）：
 
 | 部件 | 数值 | 来源 |
@@ -88,13 +92,15 @@ C 级缺失项对应几何一律按 **Scheme A 包络缩放工程估计**，并�
 |---|---|---|
 | 分辨率 | 640×480 | **B 级** `main.cpp:24` |
 | fov | **1.05 rad ≈ 60°** | 推断（UVC 摄像头常见 55–70°）；**易调** |
-| pitch | **-35°（≈ -0.61 rad）** | 推断：视觉仅用上半图 rows 0–149（`main.cpp:168`）→ 画面顶行必须看到地面，故下俯；**易调** |
+| pitch | 初始推荐 **-35°（≈ -0.61 rad）**；当前 **-0.44 rad（≈ -25°）** | 初始按视觉上半图推断；当前为看到 3 m 外球体而抬高，**易调** |
 | translation | `0.20 0 0.055`（前上方） | 推断：机身长 485 mm / 站立高 0.30（`main.cpp:31`）→ 前上位置 |
 
 **易调要求**：`fov` 与 `pitch` 必须写成一眼可见可改的显式参数（生成脚本顶部常量 / 世界文件内带注释字段），注释标明：
 
 - `fov` 推荐 1.05 rad，范围 **0.96–1.22 rad**（≈55°–70°）；
 - `pitch` 推荐 -0.61 rad（-35°），范围 **-0.52 ~ -0.70 rad**（≈ -30° ~ -40°）。
+
+> **当前值限定**：生成器与三个源 world 的实际 pitch 为 `-0.44 rad`（约 -25°），低于上述初始建议范围；`fieldOfView` 当前仍为 1.05 rad。初始范围是调参建议，不是本轮模型验收条件。
 
 其余（translation / 分辨率）同为显式参数，但优先级低于 fov/pitch。
 
@@ -103,8 +109,8 @@ C 级缺失项对应几何一律按 **Scheme A 包络缩放工程估计**，并�
 | 项 | 官方值 | 现 Webots 值 | 处置 |
 |---|---|---|---|
 | 关节 PD | Kp=[3,3,3], Kd=[1,0.2,0.2]（yaml:5,4） | 控制器 `KP[3]={3,3,3}`, `KD[3]={1,0.2,0.2}`（`mini_cheetah_controller.cpp:40-41`） | **已一致，不动** |
-| 电机力矩上限 | 协议 ±18 N·m（说明书 §六） | `maxTorque 20.0`（`msl_match.wbt` 各 Motor 节点） | **20 → 18** |
-| 站立高度 | des_p z = 0.26（yaml:87） | 出生 z = 0.38（`msl_match.wbt:70`） | **0.38 → 0.26** |
+| 电机力矩上限 | 协议 ±18 N·m（说明书 §六） | 当前 `maxTorque 18.0` | **已对齐** |
+| 站立高度 | des_p z = 0.26（yaml:87） | 当前出生 z = 0.26 | **已对齐** |
 
 控制器侧 `MAX_TORQUE = 15.0`（`mini_cheetah_controller.cpp:42`）为软件限幅，本特性不改控制器逻辑。
 
@@ -124,9 +130,74 @@ C 级缺失项对应几何一律按 **Scheme A 包络缩放工程估计**，并�
 - 实机 CAD 级腿段真实值（仓库无数据，仅 Scheme A 估算）。
 - 多相机 / 深度相机 / T265 等其它传感器。
 
+## [S4] 2026-09-30 等效三关节模型重构（已交付）
+
+### S4.1 目标与不变边界
+
+- 修复旧模型 `0.14 + 0.12 = 0.26 m` 导致的零位直腿、视觉腿长失真和足端由小腿盒边触地；
+- 保留 12 个 `HingeJoint`、12 个 `RotationalMotor`、12 个 `PositionSensor`，设备名 `{fr,fl,hr,hl}_{abd,hip,kn}_motor/_sensor`、腿序和关节序不变；
+- 保持 `X=前、Y=左、Z=上`，课件坐标先转换到 Webots 坐标；
+- 不修改 `rl_agent.py`、`walk_env*.py`、PPO 配置、TCP `state/act` 或 C++ 控制器；
+- `OBS_DIM=42/45/51`、`ACTION_DIM=12` 不变；
+- 不重建 `mini_cheetah.wbt`，不手改 `.parkour*_rl.wbt`、`.parkour_view*.wbt`；
+- 旧 checkpoint 标记为旧模型资产，不承诺继续有效。
+
+### S4.2 参数与来源分级
+
+| 参数 | 本轮值 / 结论 | 来源分级 |
+|---|---|---|
+| 整机 | 485×275×300 mm、约 10.5 kg、12 DOF | **说明书原文** |
+| 拓扑、膝结构、足端、定性零位 | 横滚+两俯仰、平行四边形膝、柔性足弧面、`Touch Sensor`、摆到限位的零位描述 | **课件原文** |
+| 站立高度 0.26 m | 仅作操作参考 | **现有代码** |
+| `thigh/shank` | **0.15 / 0.15 m** | **工程暂定** |
+| 膝部内角 | 约 **120°** | **工程暂定** |
+| 髋安装点 | `(±0.18, ±0.052)` m | **现有代码 + 工程估算** |
+| 限位 | `abd ±0.6`、`hip ±1.0`、`kn ±1.0 rad` | **工程暂定** |
+| 屈膝方向、四连杆比例、足底形状 | 只作定性核对 | **图片比例测量** |
+| 精确腿长、四连杆杆长、真实机械限位、数值零位偏置 | 未确认 | **待实机/CAD确认** |
+
+课件未提供三关节数值机械限位、四连杆杆长或数值零位，因此上述 `0.15/0.15 m`、约 `120°`、限位均必须明确标为工程暂定值；不得移植 Mini Cheetah 的 `0.062/0.209/0.18 m` 或减速比。
+
+### S4.3 零位、限位、碰撞与外观
+
+- 通过固定 frame/endpoint 偏置，使模型关节零位对应自然屈膝站姿；模型零位、实机编码器零位、自然站立角分开记录。
+- 12 个关节全部显式写 `minPosition/maxPosition` 和 `minStop/maxStop`，暂定 `abd ±0.6 rad`、`hip ±1.0 rad`、`kn ±1.0 rad`，`maxVelocity` 保持 10 rad/s。
+- 足端球/弧面已纳入 `boundingObject`，四条腿具有独立接触材质、摩擦和阻尼；已新增 4 个 `*_foot_touch`，但不接入现有 RL 观测。
+- 四连杆/平行四边形外观跟随三个驱动关节运动；不增加闭链或被动关节。
+
+### S4.4 世界文件与兼容性
+
+- `gen_yobogo_robot.py` 是唯一模型真源；
+- 重新生成 `msl_match.wbt`、`parkour.wbt`、`parkour_dev.wbt`；
+- 核对 `tools/build_parkour_world.py` 对默认出生位姿字符串的依赖；
+- 三个源 world 的核心机器人段一致；允许 controller、出生位姿不同，`parkour_dev` 另保留既有 `supervisor TRUE`；
+- 生成器带文件参数时会整体覆盖输出文件，不能把源 world 直接当输出参数；仓库当前缺少可复用的非破坏性 Robot 段替换命令，后续重生成前需先补工具或沿用已验证流程；
+- 几何、零位、碰撞和惯量改变后，即使接口维度相同，旧 checkpoint 也不能作为新模型回放、热启动或正式验收依据。
+
+### S4.5 验收边界
+
+**已完成：**
+
+- 生成器静态断言 **PASS**：12/12/12 计数、`endPoint==anchor`、12 组软/硬限位、质量/惯量/质心/包络、120° 屈膝零位和足端球最低点 z≈0；
+- 三个源 world 核心机器人段一致性 **PASS**，`mini_cheetah.wbt` 未修改；
+- 三个 world Webots 批处理加载 **PASS**：退出码 0、0 ERROR、0 Motor/Sensor not found，仅既有重复 `Viewpoint` 警告；
+- 足端 4 个球碰撞体、4 个 `*_foot_touch` 和四连杆 8 组纯外观节点 **PASS**；
+- `parkour_dev` 50 步冒烟 **PASS**：`obs_dim=42`、`action_dim=12`；
+- RL 和控制器源码未改，设备名、动作和观测维度不变；45/51 为源码常量静态确认。
+
+**明确未验收/后续项：**
+
+- `abd ±0.6 rad`、`hip/kn ±1.0 rad`、`0.15/0.15 m` 和四连杆比例仍是工程暂定值，待 CAD/实机确认；
+- `mini_cheetah_controller`、`manual_control` 尚未同步新几何，不能作为自然步态验收；
+- 旧 P1–P4 checkpoint 仅为历史资产，需使用新前缀重新训练；
+- 45/51 维未做旧策略运行态回放。
+
 ## Tasks
 
 - [x] T1: 编写 `tools/gen_yobogo_robot.py` 生成机器人段并替换世界内联段 — 12 关节 `endPoint==anchor`、总质量 10.5、包络约 485×275×300 — acceptance: 脚本断言通过，Webots 加载 0 ERROR (covers: S2.2)
 - [x] T2: 相机节点 640×480 + 可调 `fov`/`pitch`（注释含推荐值与范围） — acceptance: 参数一眼可见可改，Webots 加载无错误 (covers: S2.3)
 - [x] T3: 冒烟验证 0 ERROR + 控制器绑定 — acceptance: 12 电机/传感器就绪，`make` 通过可站立 (covers: S2.4, S2.5)
 - [x] T4: 文档同步 `docs/features/webots-sim-guide.md` 增补参数来源表 — acceptance: 来源表与 S2.1 一致 (covers: S2.1)
+- [x] T5: 按 S4 重构生成器与三个源 world — acceptance: 0.15/0.15 m、约120°屈膝、显式限位、足端碰撞、四连杆外观 (covers: S4.1–S4.4)
+- [x] T6: 完成静态、world 一致性与 Webots 加载测试 — acceptance: 计数/锚点/限位/动力学通过，三世界 0 ERROR (covers: S4.5)
+- [x] T7: 回填验收状态并将规格改为 `delivered` — acceptance: 代码实际值与文档一致，无两套冲突参数 (covers: S4.5)

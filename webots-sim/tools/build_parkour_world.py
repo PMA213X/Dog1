@@ -221,6 +221,29 @@ def build_world():
     a('  title "YoboGo Parkour"')
     a("  basicTimeStep 4")
     a("  FPS 60")
+    a("  # [课件]+[工程暂定] 柔性足底接触：高摩擦、零回弹、软接触顺应参数。")
+    a("  contactProperties [")
+    a("    ContactProperties {")
+    a('      material1 "yobogo_foot"')
+    a('      material2 "default"')
+    a("      coulombFriction [ 1.2 ]")
+    a("      bounce 0")
+    a("      bounceVelocity 0")
+    a("      forceDependentSlip [ 0.03 ]")
+    a("      softERP 0.45")
+    a("      softCFM 0.0005")
+    a("      maxContactJoints 20")
+    a("    }")
+    a("    ContactProperties {")
+    a('      material1 "body"')
+    a('      material2 "default"')
+    a("      coulombFriction [ 0.8 ]")
+    a("      bounce 0")
+    a("      bounceVelocity 0")
+    a("      softERP 0.2")
+    a("      softCFM 0.001")
+    a("    }")
+    a("  ]")
     a("}")
     a("")
     a("# ==== 观察视角（GUI: 视图 → 视角 切换）====")
@@ -407,6 +430,12 @@ def main():
         f"brace imbalance {{={text.count('{')} }}={text.count('}')}")
     assert text.count("[") == text.count("]"), "bracket imbalance"
     assert "basicTimeStep 4" in text
+    assert 'contactProperties [' in text
+    assert 'material1 "yobogo_foot"' in text
+    assert text.count('name "yobogo_10s"') == 1
+    assert text.count("HingeJoint {") == 12
+    assert text.count("RotationalMotor {") == 12
+    assert text.count("PositionSensor {") == 12
     assert 'controller "manual_control"' in text
     assert "translation 0 0 0.26" in text
     assert text.count("DirectionalLight {") == 2

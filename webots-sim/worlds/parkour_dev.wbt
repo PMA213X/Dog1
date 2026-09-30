@@ -11,6 +11,29 @@ WorldInfo {
   title "Parkour Dev (manual_control)"
   basicTimeStep 4
   FPS 60
+  # [课件]+[工程暂定] 柔性足底接触：高摩擦、零回弹、软接触顺应参数。
+  contactProperties [
+    ContactProperties {
+      material1 "yobogo_foot"
+      material2 "default"
+      coulombFriction [ 1.2 ]
+      bounce 0
+      bounceVelocity 0
+      forceDependentSlip [ 0.03 ]
+      softERP 0.45
+      softCFM 0.0005
+      maxContactJoints 20
+    }
+    ContactProperties {
+      material1 "body"
+      material2 "default"
+      coulombFriction [ 0.8 ]
+      bounce 0
+      bounceVelocity 0
+      softERP 0.2
+      softCFM 0.001
+    }
+  ]
 }
 
 # ---- 观察视角 ----
@@ -123,7 +146,22 @@ Robot {
       }
     ]
   }
-    # ---- 机体视觉件（L x W x H = 0.40 x 0.13 x 0.10）[合同] ----
+  # ---- 第三人称跟随相机（仅录像，不进入 RL 观测）----
+  DEF TP_CAM Transform {
+    translation -2.5 0 1.15
+    rotation 0 1 0 0.45
+    children [
+      Camera {
+        name "third_camera"
+        width 640
+        height 480
+        fieldOfView 1
+        noise 0
+        motionBlur 0
+      }
+    ]
+  }
+    # ---- 机体视觉件（L x W x H = 0.40 x 0.13 x 0.10）[现有代码/待确认] ----
     Shape {
       appearance PBRAppearance {
         baseColor 0.15 0.15 0.15
@@ -139,11 +177,18 @@ Robot {
       jointParameters HingeJointParameters {
         anchor 0.18 -0.052 0
         axis 1 0 0
-        dampingConstant 1.0
+        # [工程暂定] 软限位，待实机/CAD 确认，不是实测机械限位
+        minStop -0.6
+        maxStop 0.6
+        dampingConstant 1
       }
       device [
         RotationalMotor {
           name "fr_abd_motor"
+          # [工程暂定] 硬限位，待实机/CAD 确认，不是实测机械限位
+          minPosition -0.6
+          maxPosition 0.6
+          maxVelocity 10
           maxTorque 18
         }
         PositionSensor {
@@ -172,11 +217,18 @@ Robot {
               jointParameters HingeJointParameters {
                 anchor 0 -0.065 0
                 axis 0 -1 0
-                dampingConstant 1.0
+                # [工程暂定] 软限位，待实机/CAD 确认，不是实测机械限位
+                minStop -1
+                maxStop 1
+                dampingConstant 1
               }
               device [
                 RotationalMotor {
                   name "fr_hip_motor"
+                  # [工程暂定] 硬限位，待实机/CAD 确认，不是实测机械限位
+                  minPosition -1
+                  maxPosition 1
+                  maxVelocity 10
                   maxTorque 18
                 }
                 PositionSensor {
@@ -185,9 +237,11 @@ Robot {
               ]
               endPoint Solid {
                 translation 0 -0.065 0   # 必须与 joint anchor 一致
-                children [
+                # [工程暂定] 固定 frame 偏置：电机 0 时大腿相对竖直前后倾 30°
+                rotation 0 1 0 -0.52359878
+                  children [
                   Transform {
-                    translation 0 0 -0.07
+                    translation 0 0 -0.075
                     children [
                     Shape {
                       appearance PBRAppearance {
@@ -196,20 +250,73 @@ Robot {
                         metalness 0.1
                       }
                       geometry Box {
-                        size 0.05 0.05 0.14
+                        size 0.05 0.05 0.15
                       }
                     }
                     ]
                   }
+                  Transform {
+                    translation 0 0 -0.012
+                    children [
+                    Shape {
+                      appearance PBRAppearance {
+                        baseColor 0.48 0.5 0.52
+                        roughness 0.8
+                        metalness 0.1
+                      }
+                      geometry Box {
+                        size 0.05 0.058 0.018
+                      }
+                    }
+                    ]
+                  }
+                  # [课件] 四连杆平行外观，仅视觉，不增加驱动或被动关节
+                    Transform {
+                      translation 0 0.026 -0.0675
+                      children [
+                      Shape {
+                        appearance PBRAppearance {
+                          baseColor 0.48 0.5 0.52
+                          roughness 0.8
+                          metalness 0.1
+                        }
+                        geometry Box {
+                          size 0.012 0.008 0.135
+                        }
+                      }
+                      ]
+                    }
+                    Transform {
+                      translation 0 -0.026 -0.0675
+                      children [
+                      Shape {
+                        appearance PBRAppearance {
+                          baseColor 0.48 0.5 0.52
+                          roughness 0.8
+                          metalness 0.1
+                        }
+                        geometry Box {
+                          size 0.012 0.008 0.135
+                        }
+                      }
+                      ]
+                    }
                     HingeJoint {
                       jointParameters HingeJointParameters {
-                        anchor 0 0 -0.14
+                        anchor 0 0 -0.15
                         axis 0 -1 0
-                        dampingConstant 1.0
+                        # [工程暂定] 软限位，待实机/CAD 确认，不是实测机械限位
+                        minStop -1
+                        maxStop 1
+                        dampingConstant 1
                       }
                       device [
                         RotationalMotor {
                           name "fr_kn_motor"
+                          # [工程暂定] 硬限位，待实机/CAD 确认，不是实测机械限位
+                          minPosition -1
+                          maxPosition 1
+                          maxVelocity 10
                           maxTorque 18
                         }
                         PositionSensor {
@@ -217,10 +324,12 @@ Robot {
                         }
                       ]
                       endPoint Solid {
-                        translation 0 0 -0.14   # 必须与 joint anchor 一致
+                        translation 0 0 -0.15   # 必须与 joint anchor 一致
+                        # [工程暂定] 固定 frame 偏置：电机 0 时膝部内角约 120°
+                        rotation 0 1 0 1.04719755
                         children [
                           Transform {
-                            translation 0 0 -0.06
+                            translation 0 0 -0.065
                             children [
                             Shape {
                               appearance PBRAppearance {
@@ -229,37 +338,95 @@ Robot {
                                 metalness 0.1
                               }
                               geometry Box {
-                                size 0.04 0.04 0.12
+                                size 0.04 0.04 0.13
                               }
                             }
                             ]
                           }
                           Transform {
-                            translation 0 0 -0.12
+                            translation 0 0 -0.012
                             children [
                             Shape {
                               appearance PBRAppearance {
-                                baseColor 0.1 0.1 0.1
+                                baseColor 0.48 0.5 0.52
                                 roughness 0.8
                                 metalness 0.1
                               }
-                              geometry Sphere {
-                                radius 0.02
+                              geometry Box {
+                                size 0.048 0.058 0.018
                               }
                             }
                             ]
                           }
+                          # [课件] 四连杆平行外观，仅视觉，不增加驱动或被动关节
+                            Transform {
+                              translation 0 0.026 -0.06
+                              children [
+                              Shape {
+                                appearance PBRAppearance {
+                                  baseColor 0.48 0.5 0.52
+                                  roughness 0.8
+                                  metalness 0.1
+                                }
+                                geometry Box {
+                                  size 0.01 0.008 0.11
+                                }
+                              }
+                              ]
+                            }
+                            Transform {
+                              translation 0 -0.026 -0.06
+                              children [
+                              Shape {
+                                appearance PBRAppearance {
+                                  baseColor 0.48 0.5 0.52
+                                  roughness 0.8
+                                  metalness 0.1
+                                }
+                                geometry Box {
+                                  size 0.01 0.008 0.11
+                                }
+                              }
+                              ]
+                            }
+                          TouchSensor {
+                            translation 0 0 -0.12712813
+                            children [
+                              Shape {
+                                appearance PBRAppearance {
+                                  baseColor 0.1 0.1 0.1
+                                  roughness 0.8
+                                  metalness 0.1
+                                }
+                                geometry Sphere {
+                                  radius 0.02
+                                }
+                              }
+                            ]
+                            name "fr_foot_touch"
+                            type "bumper"
+                            contactMaterial "yobogo_foot"
+                            boundingObject Sphere { radius 0.02 }
+                          }
                         ]
                         name "fr_shank_link"
-                        boundingObject Transform {
-                          translation 0 0 -0.06
+                        # [课件] 足端 Sphere 纳入碰撞体，避免小腿 Box 底边先触地
+                        boundingObject Group {
                           children [
-                            Box { size 0.04 0.04 0.12 }
+                            Transform {
+                              translation 0 0 -0.065
+                              children [ Box { size 0.04 0.04 0.13 } ]
+                            }
+                            Transform {
+                              translation 0 0 -0.12712813
+                              children [ Sphere { radius 0.02 } ]
+                            }
                           ]
                         }
+                        contactMaterial "yobogo_foot"
                         physics Physics {
                           mass 0.254
-                          centerOfMass 0 0 -0.06
+                          centerOfMass 0 0 -0.075
                           inertiaMatrix [
                             0.001 0.001 0.0002
                             0 0 0
@@ -275,14 +442,14 @@ Robot {
                 ]
                 name "fr_thigh_link"
                 boundingObject Transform {
-                  translation 0 0 -0.07
-                  children [
-                    Box { size 0.05 0.05 0.14 }
+                  translation 0 0 -0.075
+                          children [
+                    Box { size 0.05 0.05 0.15 }
                   ]
                 }
                 physics Physics {
                   mass 0.75
-                  centerOfMass 0 0.01 -0.07
+                  centerOfMass 0 0.01 -0.075
                   inertiaMatrix [
                     0.003 0.0032 0.0006
                     0 0 0
@@ -323,11 +490,18 @@ Robot {
       jointParameters HingeJointParameters {
         anchor 0.18 0.052 0
         axis 1 0 0
-        dampingConstant 1.0
+        # [工程暂定] 软限位，待实机/CAD 确认，不是实测机械限位
+        minStop -0.6
+        maxStop 0.6
+        dampingConstant 1
       }
       device [
         RotationalMotor {
           name "fl_abd_motor"
+          # [工程暂定] 硬限位，待实机/CAD 确认，不是实测机械限位
+          minPosition -0.6
+          maxPosition 0.6
+          maxVelocity 10
           maxTorque 18
         }
         PositionSensor {
@@ -356,11 +530,18 @@ Robot {
               jointParameters HingeJointParameters {
                 anchor 0 0.065 0
                 axis 0 -1 0
-                dampingConstant 1.0
+                # [工程暂定] 软限位，待实机/CAD 确认，不是实测机械限位
+                minStop -1
+                maxStop 1
+                dampingConstant 1
               }
               device [
                 RotationalMotor {
                   name "fl_hip_motor"
+                  # [工程暂定] 硬限位，待实机/CAD 确认，不是实测机械限位
+                  minPosition -1
+                  maxPosition 1
+                  maxVelocity 10
                   maxTorque 18
                 }
                 PositionSensor {
@@ -369,9 +550,11 @@ Robot {
               ]
               endPoint Solid {
                 translation 0 0.065 0   # 必须与 joint anchor 一致
-                children [
+                # [工程暂定] 固定 frame 偏置：电机 0 时大腿相对竖直前后倾 30°
+                rotation 0 1 0 -0.52359878
+                  children [
                   Transform {
-                    translation 0 0 -0.07
+                    translation 0 0 -0.075
                     children [
                     Shape {
                       appearance PBRAppearance {
@@ -380,20 +563,73 @@ Robot {
                         metalness 0.1
                       }
                       geometry Box {
-                        size 0.05 0.05 0.14
+                        size 0.05 0.05 0.15
                       }
                     }
                     ]
                   }
+                  Transform {
+                    translation 0 0 -0.012
+                    children [
+                    Shape {
+                      appearance PBRAppearance {
+                        baseColor 0.48 0.5 0.52
+                        roughness 0.8
+                        metalness 0.1
+                      }
+                      geometry Box {
+                        size 0.05 0.058 0.018
+                      }
+                    }
+                    ]
+                  }
+                  # [课件] 四连杆平行外观，仅视觉，不增加驱动或被动关节
+                    Transform {
+                      translation 0 0.026 -0.0675
+                      children [
+                      Shape {
+                        appearance PBRAppearance {
+                          baseColor 0.48 0.5 0.52
+                          roughness 0.8
+                          metalness 0.1
+                        }
+                        geometry Box {
+                          size 0.012 0.008 0.135
+                        }
+                      }
+                      ]
+                    }
+                    Transform {
+                      translation 0 -0.026 -0.0675
+                      children [
+                      Shape {
+                        appearance PBRAppearance {
+                          baseColor 0.48 0.5 0.52
+                          roughness 0.8
+                          metalness 0.1
+                        }
+                        geometry Box {
+                          size 0.012 0.008 0.135
+                        }
+                      }
+                      ]
+                    }
                     HingeJoint {
                       jointParameters HingeJointParameters {
-                        anchor 0 0 -0.14
+                        anchor 0 0 -0.15
                         axis 0 -1 0
-                        dampingConstant 1.0
+                        # [工程暂定] 软限位，待实机/CAD 确认，不是实测机械限位
+                        minStop -1
+                        maxStop 1
+                        dampingConstant 1
                       }
                       device [
                         RotationalMotor {
                           name "fl_kn_motor"
+                          # [工程暂定] 硬限位，待实机/CAD 确认，不是实测机械限位
+                          minPosition -1
+                          maxPosition 1
+                          maxVelocity 10
                           maxTorque 18
                         }
                         PositionSensor {
@@ -401,10 +637,12 @@ Robot {
                         }
                       ]
                       endPoint Solid {
-                        translation 0 0 -0.14   # 必须与 joint anchor 一致
+                        translation 0 0 -0.15   # 必须与 joint anchor 一致
+                        # [工程暂定] 固定 frame 偏置：电机 0 时膝部内角约 120°
+                        rotation 0 1 0 1.04719755
                         children [
                           Transform {
-                            translation 0 0 -0.06
+                            translation 0 0 -0.065
                             children [
                             Shape {
                               appearance PBRAppearance {
@@ -413,37 +651,95 @@ Robot {
                                 metalness 0.1
                               }
                               geometry Box {
-                                size 0.04 0.04 0.12
+                                size 0.04 0.04 0.13
                               }
                             }
                             ]
                           }
                           Transform {
-                            translation 0 0 -0.12
+                            translation 0 0 -0.012
                             children [
                             Shape {
                               appearance PBRAppearance {
-                                baseColor 0.1 0.1 0.1
+                                baseColor 0.48 0.5 0.52
                                 roughness 0.8
                                 metalness 0.1
                               }
-                              geometry Sphere {
-                                radius 0.02
+                              geometry Box {
+                                size 0.048 0.058 0.018
                               }
                             }
                             ]
                           }
+                          # [课件] 四连杆平行外观，仅视觉，不增加驱动或被动关节
+                            Transform {
+                              translation 0 0.026 -0.06
+                              children [
+                              Shape {
+                                appearance PBRAppearance {
+                                  baseColor 0.48 0.5 0.52
+                                  roughness 0.8
+                                  metalness 0.1
+                                }
+                                geometry Box {
+                                  size 0.01 0.008 0.11
+                                }
+                              }
+                              ]
+                            }
+                            Transform {
+                              translation 0 -0.026 -0.06
+                              children [
+                              Shape {
+                                appearance PBRAppearance {
+                                  baseColor 0.48 0.5 0.52
+                                  roughness 0.8
+                                  metalness 0.1
+                                }
+                                geometry Box {
+                                  size 0.01 0.008 0.11
+                                }
+                              }
+                              ]
+                            }
+                          TouchSensor {
+                            translation 0 0 -0.12712813
+                            children [
+                              Shape {
+                                appearance PBRAppearance {
+                                  baseColor 0.1 0.1 0.1
+                                  roughness 0.8
+                                  metalness 0.1
+                                }
+                                geometry Sphere {
+                                  radius 0.02
+                                }
+                              }
+                            ]
+                            name "fl_foot_touch"
+                            type "bumper"
+                            contactMaterial "yobogo_foot"
+                            boundingObject Sphere { radius 0.02 }
+                          }
                         ]
                         name "fl_shank_link"
-                        boundingObject Transform {
-                          translation 0 0 -0.06
+                        # [课件] 足端 Sphere 纳入碰撞体，避免小腿 Box 底边先触地
+                        boundingObject Group {
                           children [
-                            Box { size 0.04 0.04 0.12 }
+                            Transform {
+                              translation 0 0 -0.065
+                              children [ Box { size 0.04 0.04 0.13 } ]
+                            }
+                            Transform {
+                              translation 0 0 -0.12712813
+                              children [ Sphere { radius 0.02 } ]
+                            }
                           ]
                         }
+                        contactMaterial "yobogo_foot"
                         physics Physics {
                           mass 0.254
-                          centerOfMass 0 0 -0.06
+                          centerOfMass 0 0 -0.075
                           inertiaMatrix [
                             0.001 0.001 0.0002
                             0 0 0
@@ -459,14 +755,14 @@ Robot {
                 ]
                 name "fl_thigh_link"
                 boundingObject Transform {
-                  translation 0 0 -0.07
-                  children [
-                    Box { size 0.05 0.05 0.14 }
+                  translation 0 0 -0.075
+                          children [
+                    Box { size 0.05 0.05 0.15 }
                   ]
                 }
                 physics Physics {
                   mass 0.75
-                  centerOfMass 0 -0.01 -0.07
+                  centerOfMass 0 -0.01 -0.075
                   inertiaMatrix [
                     0.003 0.0032 0.0006
                     0 0 0
@@ -507,11 +803,18 @@ Robot {
       jointParameters HingeJointParameters {
         anchor -0.18 -0.052 0
         axis 1 0 0
-        dampingConstant 1.0
+        # [工程暂定] 软限位，待实机/CAD 确认，不是实测机械限位
+        minStop -0.6
+        maxStop 0.6
+        dampingConstant 1
       }
       device [
         RotationalMotor {
           name "hr_abd_motor"
+          # [工程暂定] 硬限位，待实机/CAD 确认，不是实测机械限位
+          minPosition -0.6
+          maxPosition 0.6
+          maxVelocity 10
           maxTorque 18
         }
         PositionSensor {
@@ -540,11 +843,18 @@ Robot {
               jointParameters HingeJointParameters {
                 anchor 0 -0.065 0
                 axis 0 -1 0
-                dampingConstant 1.0
+                # [工程暂定] 软限位，待实机/CAD 确认，不是实测机械限位
+                minStop -1
+                maxStop 1
+                dampingConstant 1
               }
               device [
                 RotationalMotor {
                   name "hr_hip_motor"
+                  # [工程暂定] 硬限位，待实机/CAD 确认，不是实测机械限位
+                  minPosition -1
+                  maxPosition 1
+                  maxVelocity 10
                   maxTorque 18
                 }
                 PositionSensor {
@@ -553,9 +863,11 @@ Robot {
               ]
               endPoint Solid {
                 translation 0 -0.065 0   # 必须与 joint anchor 一致
-                children [
+                # [工程暂定] 固定 frame 偏置：电机 0 时大腿相对竖直前后倾 30°
+                rotation 0 1 0 0.52359878
+                  children [
                   Transform {
-                    translation 0 0 -0.07
+                    translation 0 0 -0.075
                     children [
                     Shape {
                       appearance PBRAppearance {
@@ -564,20 +876,73 @@ Robot {
                         metalness 0.1
                       }
                       geometry Box {
-                        size 0.05 0.05 0.14
+                        size 0.05 0.05 0.15
                       }
                     }
                     ]
                   }
+                  Transform {
+                    translation 0 0 -0.012
+                    children [
+                    Shape {
+                      appearance PBRAppearance {
+                        baseColor 0.48 0.5 0.52
+                        roughness 0.8
+                        metalness 0.1
+                      }
+                      geometry Box {
+                        size 0.05 0.058 0.018
+                      }
+                    }
+                    ]
+                  }
+                  # [课件] 四连杆平行外观，仅视觉，不增加驱动或被动关节
+                    Transform {
+                      translation 0 0.026 -0.0675
+                      children [
+                      Shape {
+                        appearance PBRAppearance {
+                          baseColor 0.48 0.5 0.52
+                          roughness 0.8
+                          metalness 0.1
+                        }
+                        geometry Box {
+                          size 0.012 0.008 0.135
+                        }
+                      }
+                      ]
+                    }
+                    Transform {
+                      translation 0 -0.026 -0.0675
+                      children [
+                      Shape {
+                        appearance PBRAppearance {
+                          baseColor 0.48 0.5 0.52
+                          roughness 0.8
+                          metalness 0.1
+                        }
+                        geometry Box {
+                          size 0.012 0.008 0.135
+                        }
+                      }
+                      ]
+                    }
                     HingeJoint {
                       jointParameters HingeJointParameters {
-                        anchor 0 0 -0.14
+                        anchor 0 0 -0.15
                         axis 0 -1 0
-                        dampingConstant 1.0
+                        # [工程暂定] 软限位，待实机/CAD 确认，不是实测机械限位
+                        minStop -1
+                        maxStop 1
+                        dampingConstant 1
                       }
                       device [
                         RotationalMotor {
                           name "hr_kn_motor"
+                          # [工程暂定] 硬限位，待实机/CAD 确认，不是实测机械限位
+                          minPosition -1
+                          maxPosition 1
+                          maxVelocity 10
                           maxTorque 18
                         }
                         PositionSensor {
@@ -585,10 +950,12 @@ Robot {
                         }
                       ]
                       endPoint Solid {
-                        translation 0 0 -0.14   # 必须与 joint anchor 一致
+                        translation 0 0 -0.15   # 必须与 joint anchor 一致
+                        # [工程暂定] 固定 frame 偏置：电机 0 时膝部内角约 120°
+                        rotation 0 1 0 -1.04719755
                         children [
                           Transform {
-                            translation 0 0 -0.06
+                            translation 0 0 -0.065
                             children [
                             Shape {
                               appearance PBRAppearance {
@@ -597,37 +964,95 @@ Robot {
                                 metalness 0.1
                               }
                               geometry Box {
-                                size 0.04 0.04 0.12
+                                size 0.04 0.04 0.13
                               }
                             }
                             ]
                           }
                           Transform {
-                            translation 0 0 -0.12
+                            translation 0 0 -0.012
                             children [
                             Shape {
                               appearance PBRAppearance {
-                                baseColor 0.1 0.1 0.1
+                                baseColor 0.48 0.5 0.52
                                 roughness 0.8
                                 metalness 0.1
                               }
-                              geometry Sphere {
-                                radius 0.02
+                              geometry Box {
+                                size 0.048 0.058 0.018
                               }
                             }
                             ]
                           }
+                          # [课件] 四连杆平行外观，仅视觉，不增加驱动或被动关节
+                            Transform {
+                              translation 0 0.026 -0.06
+                              children [
+                              Shape {
+                                appearance PBRAppearance {
+                                  baseColor 0.48 0.5 0.52
+                                  roughness 0.8
+                                  metalness 0.1
+                                }
+                                geometry Box {
+                                  size 0.01 0.008 0.11
+                                }
+                              }
+                              ]
+                            }
+                            Transform {
+                              translation 0 -0.026 -0.06
+                              children [
+                              Shape {
+                                appearance PBRAppearance {
+                                  baseColor 0.48 0.5 0.52
+                                  roughness 0.8
+                                  metalness 0.1
+                                }
+                                geometry Box {
+                                  size 0.01 0.008 0.11
+                                }
+                              }
+                              ]
+                            }
+                          TouchSensor {
+                            translation 0 0 -0.12712813
+                            children [
+                              Shape {
+                                appearance PBRAppearance {
+                                  baseColor 0.1 0.1 0.1
+                                  roughness 0.8
+                                  metalness 0.1
+                                }
+                                geometry Sphere {
+                                  radius 0.02
+                                }
+                              }
+                            ]
+                            name "hr_foot_touch"
+                            type "bumper"
+                            contactMaterial "yobogo_foot"
+                            boundingObject Sphere { radius 0.02 }
+                          }
                         ]
                         name "hr_shank_link"
-                        boundingObject Transform {
-                          translation 0 0 -0.06
+                        # [课件] 足端 Sphere 纳入碰撞体，避免小腿 Box 底边先触地
+                        boundingObject Group {
                           children [
-                            Box { size 0.04 0.04 0.12 }
+                            Transform {
+                              translation 0 0 -0.065
+                              children [ Box { size 0.04 0.04 0.13 } ]
+                            }
+                            Transform {
+                              translation 0 0 -0.12712813
+                              children [ Sphere { radius 0.02 } ]
+                            }
                           ]
                         }
+                        contactMaterial "yobogo_foot"
                         physics Physics {
                           mass 0.254
-                          centerOfMass 0 0 -0.06
+                          centerOfMass 0 0 -0.075
                           inertiaMatrix [
                             0.001 0.001 0.0002
                             0 0 0
@@ -643,14 +1068,14 @@ Robot {
                 ]
                 name "hr_thigh_link"
                 boundingObject Transform {
-                  translation 0 0 -0.07
-                  children [
-                    Box { size 0.05 0.05 0.14 }
+                  translation 0 0 -0.075
+                          children [
+                    Box { size 0.05 0.05 0.15 }
                   ]
                 }
                 physics Physics {
                   mass 0.75
-                  centerOfMass 0 0.01 -0.07
+                  centerOfMass 0 0.01 -0.075
                   inertiaMatrix [
                     0.003 0.0032 0.0006
                     0 0 0
@@ -691,11 +1116,18 @@ Robot {
       jointParameters HingeJointParameters {
         anchor -0.18 0.052 0
         axis 1 0 0
-        dampingConstant 1.0
+        # [工程暂定] 软限位，待实机/CAD 确认，不是实测机械限位
+        minStop -0.6
+        maxStop 0.6
+        dampingConstant 1
       }
       device [
         RotationalMotor {
           name "hl_abd_motor"
+          # [工程暂定] 硬限位，待实机/CAD 确认，不是实测机械限位
+          minPosition -0.6
+          maxPosition 0.6
+          maxVelocity 10
           maxTorque 18
         }
         PositionSensor {
@@ -724,11 +1156,18 @@ Robot {
               jointParameters HingeJointParameters {
                 anchor 0 0.065 0
                 axis 0 -1 0
-                dampingConstant 1.0
+                # [工程暂定] 软限位，待实机/CAD 确认，不是实测机械限位
+                minStop -1
+                maxStop 1
+                dampingConstant 1
               }
               device [
                 RotationalMotor {
                   name "hl_hip_motor"
+                  # [工程暂定] 硬限位，待实机/CAD 确认，不是实测机械限位
+                  minPosition -1
+                  maxPosition 1
+                  maxVelocity 10
                   maxTorque 18
                 }
                 PositionSensor {
@@ -737,9 +1176,11 @@ Robot {
               ]
               endPoint Solid {
                 translation 0 0.065 0   # 必须与 joint anchor 一致
-                children [
+                # [工程暂定] 固定 frame 偏置：电机 0 时大腿相对竖直前后倾 30°
+                rotation 0 1 0 0.52359878
+                  children [
                   Transform {
-                    translation 0 0 -0.07
+                    translation 0 0 -0.075
                     children [
                     Shape {
                       appearance PBRAppearance {
@@ -748,20 +1189,73 @@ Robot {
                         metalness 0.1
                       }
                       geometry Box {
-                        size 0.05 0.05 0.14
+                        size 0.05 0.05 0.15
                       }
                     }
                     ]
                   }
+                  Transform {
+                    translation 0 0 -0.012
+                    children [
+                    Shape {
+                      appearance PBRAppearance {
+                        baseColor 0.48 0.5 0.52
+                        roughness 0.8
+                        metalness 0.1
+                      }
+                      geometry Box {
+                        size 0.05 0.058 0.018
+                      }
+                    }
+                    ]
+                  }
+                  # [课件] 四连杆平行外观，仅视觉，不增加驱动或被动关节
+                    Transform {
+                      translation 0 0.026 -0.0675
+                      children [
+                      Shape {
+                        appearance PBRAppearance {
+                          baseColor 0.48 0.5 0.52
+                          roughness 0.8
+                          metalness 0.1
+                        }
+                        geometry Box {
+                          size 0.012 0.008 0.135
+                        }
+                      }
+                      ]
+                    }
+                    Transform {
+                      translation 0 -0.026 -0.0675
+                      children [
+                      Shape {
+                        appearance PBRAppearance {
+                          baseColor 0.48 0.5 0.52
+                          roughness 0.8
+                          metalness 0.1
+                        }
+                        geometry Box {
+                          size 0.012 0.008 0.135
+                        }
+                      }
+                      ]
+                    }
                     HingeJoint {
                       jointParameters HingeJointParameters {
-                        anchor 0 0 -0.14
+                        anchor 0 0 -0.15
                         axis 0 -1 0
-                        dampingConstant 1.0
+                        # [工程暂定] 软限位，待实机/CAD 确认，不是实测机械限位
+                        minStop -1
+                        maxStop 1
+                        dampingConstant 1
                       }
                       device [
                         RotationalMotor {
                           name "hl_kn_motor"
+                          # [工程暂定] 硬限位，待实机/CAD 确认，不是实测机械限位
+                          minPosition -1
+                          maxPosition 1
+                          maxVelocity 10
                           maxTorque 18
                         }
                         PositionSensor {
@@ -769,10 +1263,12 @@ Robot {
                         }
                       ]
                       endPoint Solid {
-                        translation 0 0 -0.14   # 必须与 joint anchor 一致
+                        translation 0 0 -0.15   # 必须与 joint anchor 一致
+                        # [工程暂定] 固定 frame 偏置：电机 0 时膝部内角约 120°
+                        rotation 0 1 0 -1.04719755
                         children [
                           Transform {
-                            translation 0 0 -0.06
+                            translation 0 0 -0.065
                             children [
                             Shape {
                               appearance PBRAppearance {
@@ -781,37 +1277,95 @@ Robot {
                                 metalness 0.1
                               }
                               geometry Box {
-                                size 0.04 0.04 0.12
+                                size 0.04 0.04 0.13
                               }
                             }
                             ]
                           }
                           Transform {
-                            translation 0 0 -0.12
+                            translation 0 0 -0.012
                             children [
                             Shape {
                               appearance PBRAppearance {
-                                baseColor 0.1 0.1 0.1
+                                baseColor 0.48 0.5 0.52
                                 roughness 0.8
                                 metalness 0.1
                               }
-                              geometry Sphere {
-                                radius 0.02
+                              geometry Box {
+                                size 0.048 0.058 0.018
                               }
                             }
                             ]
                           }
+                          # [课件] 四连杆平行外观，仅视觉，不增加驱动或被动关节
+                            Transform {
+                              translation 0 0.026 -0.06
+                              children [
+                              Shape {
+                                appearance PBRAppearance {
+                                  baseColor 0.48 0.5 0.52
+                                  roughness 0.8
+                                  metalness 0.1
+                                }
+                                geometry Box {
+                                  size 0.01 0.008 0.11
+                                }
+                              }
+                              ]
+                            }
+                            Transform {
+                              translation 0 -0.026 -0.06
+                              children [
+                              Shape {
+                                appearance PBRAppearance {
+                                  baseColor 0.48 0.5 0.52
+                                  roughness 0.8
+                                  metalness 0.1
+                                }
+                                geometry Box {
+                                  size 0.01 0.008 0.11
+                                }
+                              }
+                              ]
+                            }
+                          TouchSensor {
+                            translation 0 0 -0.12712813
+                            children [
+                              Shape {
+                                appearance PBRAppearance {
+                                  baseColor 0.1 0.1 0.1
+                                  roughness 0.8
+                                  metalness 0.1
+                                }
+                                geometry Sphere {
+                                  radius 0.02
+                                }
+                              }
+                            ]
+                            name "hl_foot_touch"
+                            type "bumper"
+                            contactMaterial "yobogo_foot"
+                            boundingObject Sphere { radius 0.02 }
+                          }
                         ]
                         name "hl_shank_link"
-                        boundingObject Transform {
-                          translation 0 0 -0.06
+                        # [课件] 足端 Sphere 纳入碰撞体，避免小腿 Box 底边先触地
+                        boundingObject Group {
                           children [
-                            Box { size 0.04 0.04 0.12 }
+                            Transform {
+                              translation 0 0 -0.065
+                              children [ Box { size 0.04 0.04 0.13 } ]
+                            }
+                            Transform {
+                              translation 0 0 -0.12712813
+                              children [ Sphere { radius 0.02 } ]
+                            }
                           ]
                         }
+                        contactMaterial "yobogo_foot"
                         physics Physics {
                           mass 0.254
-                          centerOfMass 0 0 -0.06
+                          centerOfMass 0 0 -0.075
                           inertiaMatrix [
                             0.001 0.001 0.0002
                             0 0 0
@@ -827,14 +1381,14 @@ Robot {
                 ]
                 name "hl_thigh_link"
                 boundingObject Transform {
-                  translation 0 0 -0.07
-                  children [
-                    Box { size 0.05 0.05 0.14 }
+                  translation 0 0 -0.075
+                          children [
+                    Box { size 0.05 0.05 0.15 }
                   ]
                 }
                 physics Physics {
                   mass 0.75
-                  centerOfMass 0 -0.01 -0.07
+                  centerOfMass 0 -0.01 -0.075
                   inertiaMatrix [
                     0.003 0.0032 0.0006
                     0 0 0
