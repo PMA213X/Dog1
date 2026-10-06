@@ -1,0 +1,38 @@
+CUDA_OK name=NVIDIA GeForce RTX 4060 Laptop GPU device=cuda:0 capability=(8, 9)
+/home/pma213x/.local/lib/python3.14/site-packages/stable_baselines3/common/vec_env/base_vec_env.py:78: UserWarning: The `render_mode` attribute is not defined in your environment. It will be set to None.
+  warnings.warn("The `render_mode` attribute is not defined in your environment. It will be set to None.")
+Traceback (most recent call last):
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/rl/env.py", line 248, in accept_bridge
+    connection, _address = self._server.accept()
+                           ~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/socket.py", line 298, in accept
+    fd, addr = self._accept()
+               ~~~~~~~~~~~~^^
+TimeoutError: timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/rl/train.py", line 288, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/rl/train.py", line 283, in main
+    train(args)
+    ~~~~~^^^^^^
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/rl/train.py", line 216, in train
+    env = SharedWorldVecEnv(
+        num_envs=args.num_envs,
+    ...<4 lines>...
+        seed=args.seed,
+    )
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/rl/shared_world_vec_env.py", line 73, in __init__
+    self._start_runtime()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/rl/shared_world_vec_env.py", line 101, in _start_runtime
+    env.accept_bridge()
+    ~~~~~~~~~~~~~~~~~^^
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/rl/env.py", line 251, in accept_bridge
+    raise TimeoutError("等待 RL controller 连接超时") from exc
+TimeoutError: 等待 RL controller 连接超时

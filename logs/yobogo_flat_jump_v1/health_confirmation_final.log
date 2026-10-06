@@ -1,0 +1,72 @@
+HEALTH_CONFIRMATION_BEGIN
+HEALTH_FAILURE stage runner reported failed
+{
+  "schema_version": 1,
+  "run_id": "yobogo_flat_jump_v1",
+  "updated_at": "2026-10-03T15:27:00+0800",
+  "status": "failed",
+  "current_phase": "F0",
+  "error": "F0 训练退出码=1"
+}
+--- tail /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/logs/yobogo_flat_jump_v1/launcher.log ---
+[2026-10-03T15:26:55+0800] 开始 F0～F3 顺序训练
+[2026-10-03T15:26:55+0800] F0 训练启动：/usr/bin/python3 /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/webots-sim/rl/train_flat_jump.py --phase F0 --total-steps 5000 --device cuda --ckptdir /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/checkpoints/yobogo_flat_jump_v1 --ckpt-prefix yobogo_flat_jump_v1 --logdir /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/runs/yobogo_flat_jump_v1/F0_smoke --checkpoint-interval 50000 --bridge-port 11451 --seed 20261003
+[2026-10-03T15:27:00+0800] 失败即停：F0 训练退出码=1
+--- tail /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/logs/yobogo_flat_jump_v1/F0_train.log ---
+【CUDA】device=0 name=NVIDIA GeForce RTX 4060 Laptop GPU capability=(8, 9)
+Using cuda device
+/home/pma213x/.local/lib/python3.14/site-packages/stable_baselines3/common/on_policy_algorithm.py:150: UserWarning: You are trying to run PPO on the GPU, but it is primarily intended to run on the CPU when not using a CNN policy (you are using ActorCriticPolicy which should be a MlpPolicy). See https://github.com/DLR-RM/stable-baselines3/issues/1245 for more info. You can pass `device='cpu'` or `export CUDA_VISIBLE_DEVICES=` to force using the CPU.Note: The model will train, but the GPU utilization will be poor and the training might take longer than on CPU.
+  warnings.warn(
+【训练】新模型 obs=57 action=12 device=cuda
+【训练】阶段=F0 累计=0 目标=5000 本次=5000
+Logging to /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/runs/yobogo_flat_jump_v1/F0_smoke/PPO_1
+Traceback (most recent call last):
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/webots-sim/rl/train_flat_jump.py", line 389, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/webots-sim/rl/train_flat_jump.py", line 384, in main
+    train(args)
+    ~~~~~^^^^^^
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/webots-sim/rl/train_flat_jump.py", line 354, in train
+    model.learn(
+    ~~~~~~~~~~~^
+        total_timesteps=remaining,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        progress_bar=False,
+        ^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/pma213x/.local/lib/python3.14/site-packages/stable_baselines3/ppo/ppo.py", line 311, in learn
+    return super().learn(
+           ~~~~~~~~~~~~~^
+        total_timesteps=total_timesteps,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        progress_bar=progress_bar,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/pma213x/.local/lib/python3.14/site-packages/stable_baselines3/common/on_policy_algorithm.py", line 324, in learn
+    continue_training = self.collect_rollouts(self.env, callback, self.rollout_buffer, n_rollout_steps=self.n_steps)
+  File "/home/pma213x/.local/lib/python3.14/site-packages/stable_baselines3/common/on_policy_algorithm.py", line 218, in collect_rollouts
+    new_obs, rewards, dones, infos = env.step(clipped_actions)
+                                     ~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/pma213x/.local/lib/python3.14/site-packages/stable_baselines3/common/vec_env/base_vec_env.py", line 222, in step
+    return self.step_wait()
+           ~~~~~~~~~~~~~~^^
+  File "/home/pma213x/.local/lib/python3.14/site-packages/stable_baselines3/common/vec_env/dummy_vec_env.py", line 59, in step_wait
+    obs, self.buf_rews[env_idx], terminated, truncated, self.buf_infos[env_idx] = self.envs[env_idx].step(  # type: ignore[assignment]
+                                                                                  ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.actions[env_idx]
+        ^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/pma213x/.local/lib/python3.14/site-packages/stable_baselines3/common/monitor.py", line 96, in step
+    observation, reward, terminated, truncated, info = self.env.step(action)
+                                                       ~~~~~~~~~~~~~^^^^^^^^
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/webots-sim/rl/flat_jump_env.py", line 310, in step
+    result[1]["phase"] = self.flat_phase
+    ~~~~~~~~~^^^^^^^^^
+TypeError: 'float' object does not support item assignment
+HEALTH_EXIT=1

@@ -1,0 +1,79 @@
+{
+  "checked_at": "2026-10-03T21:56:14+0800",
+  "stage_pid": 626022,
+  "train_pid": 626155,
+  "webots_pid": 626224,
+  "tensorboard_pid": 624812,
+  "stage_children": {
+    "626155": "/usr/bin/python3 -m rl.train --phase F1 --total-steps 100000 --device cuda --ckptdir /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/checkpoints/official_mini_cheetah_flat_jump_v1 --ckpt-prefix official_mini_cheetah_flat_jump_v1 --logdir /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/runs/official_mini_cheetah_flat_jump_v1/F1A_fixed --bridge-port 11452 --checkpoint-interval 50000 --randomization-mode fixed --webots-gui --seed 20261003 --resume /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/checkpoints/official_mini_cheetah_flat_jump_v1/official_mini_cheetah_flat_jump_v1_final.zip",
+    "626224": "/bin/bash /usr/local/webots/webots --stdout --stderr --mode=fast /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/worlds/flat_move_jump_rl.wbt",
+    "626227": "/usr/local/webots/bin/webots-bin --stdout --stderr --mode=fast /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/worlds/flat_move_jump_rl.wbt",
+    "626283": "/usr/bin/python3 -u rl_agent.py auto"
+  },
+  "status": {
+    "schema_version": 1,
+    "contract": "official_mini_cheetah_flat_jump_v1",
+    "updated_at": "2026-10-03T21:55:22+0800",
+    "status": "training",
+    "current_phase": "F1",
+    "segment": "F1A",
+    "train_log": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/logs/official_mini_cheetah_flat_jump_v1/F1A_train.log"
+  },
+  "timesteps_sample_1": [
+    8328,
+    8584
+  ],
+  "timesteps_sample_2": [
+    11656,
+    11912
+  ],
+  "sample_elapsed_seconds": 22.301,
+  "observed_steps_per_second": 160.713,
+  "event_files": [
+    {
+      "path": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/runs/official_mini_cheetah_flat_jump_v1/F1A_fixed/PPO_0/events.out.tfevents.1791035725.pma213x-OMEN-Ubuntu.626155.0",
+      "size": 1701
+    }
+  ],
+  "gpu_compute_processes": [
+    "626022, python3, 98 MiB",
+    "626155, /usr/bin/python3, 150 MiB"
+  ],
+  "tcp_11452_listener": [
+    "LISTEN 0      1      127.0.0.1:11452 0.0.0.0:* users:((\"python3\",pid=626155,fd=40))"
+  ],
+  "webots_wrapper_pids": [
+    626224
+  ],
+  "webots_command": "/bin/bash /usr/local/webots/webots --stdout --stderr --mode=fast /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/worlds/flat_move_jump_rl.wbt",
+  "gui_window_tool": "xdotool",
+  "gui_window_ids": [],
+  "checkpoint": {
+    "path": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/checkpoints/official_mini_cheetah_flat_jump_v1/official_mini_cheetah_flat_jump_v1_final.zip",
+    "num_timesteps": 5000,
+    "device": "cuda",
+    "parameters_finite": true
+  },
+  "bad_log_hits": [],
+  "tensorboard_http": "200",
+  "checks": {
+    "stage_process_alive": true,
+    "train_process_alive": true,
+    "webots_process_alive": true,
+    "tensorboard_alive": true,
+    "cuda_visible_devices_0": true,
+    "gpu0_train_process": true,
+    "command_device_cuda": true,
+    "total_timesteps_growth": true,
+    "event_nonempty": true,
+    "checkpoint_reload": true,
+    "no_nan_inf_oom": true,
+    "status_training": true,
+    "gui_window_alive": false,
+    "webots_gui_fast_local_display": true,
+    "single_webots_wrapper": true,
+    "single_tcp_listener_11452": true,
+    "tensorboard_http_200": true
+  },
+  "passed": false
+}

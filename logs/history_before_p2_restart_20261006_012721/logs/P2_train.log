@@ -1,0 +1,96 @@
+CUDA_OK name=NVIDIA GeForce RTX 4060 Laptop GPU device=cuda:0 capability=(8, 9)
+/home/pma213x/.local/lib/python3.14/site-packages/stable_baselines3/common/vec_env/base_vec_env.py:78: UserWarning: The `render_mode` attribute is not defined in your environment. It will be set to None.
+  warnings.warn("The `render_mode` attribute is not defined in your environment. It will be set to None.")
+/home/pma213x/.local/lib/python3.14/site-packages/stable_baselines3/common/on_policy_algorithm.py:150: UserWarning: You are trying to run PPO on the GPU, but it is primarily intended to run on the CPU when not using a CNN policy (you are using ActorCriticPolicy which should be a MlpPolicy). See https://github.com/DLR-RM/stable-baselines3/issues/1245 for more info. You can pass `device='cpu'` or `export CUDA_VISIBLE_DEVICES=` to force using the CPU.Note: The model will train, but the GPU utilization will be poor and the training might take longer than on CPU.
+  warnings.warn(
+MODEL_LOADED path=/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/checkpoints/official_mini_cheetah_flat_jump_v1_r3/official_mini_cheetah_flat_jump_v1_r3_final.zip steps=1120000
+TRAIN_START phase=P2 current=1120000 target=1130000 remaining=10000 num_envs=4 ports=[11452, 11453, 11454, 11455]
+Logging to /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/runs/official_mini_cheetah_flat_jump_v1_r3/P2_parallel/PPO_0
+TRAIN_PROGRESS total_timesteps=1120256
+TRAIN_PROGRESS total_timesteps=1120512
+TRAIN_PROGRESS total_timesteps=1120768
+TRAIN_PROGRESS total_timesteps=1121024
+TRAIN_PROGRESS total_timesteps=1121280
+TRAIN_PROGRESS total_timesteps=1121536
+TRAIN_PROGRESS total_timesteps=1121792
+TRAIN_PROGRESS total_timesteps=1122048
+TRAIN_PROGRESS total_timesteps=1122304
+TRAIN_PROGRESS total_timesteps=1122560
+TRAIN_PROGRESS total_timesteps=1122816
+TRAIN_PROGRESS total_timesteps=1123072
+TRAIN_PROGRESS total_timesteps=1123328
+TRAIN_PROGRESS total_timesteps=1123584
+TRAIN_PROGRESS total_timesteps=1123840
+TRAIN_PROGRESS total_timesteps=1124096
+TRAIN_PROGRESS total_timesteps=1124352
+TRAIN_PROGRESS total_timesteps=1124608
+TRAIN_PROGRESS total_timesteps=1124864
+TRAIN_PROGRESS total_timesteps=1125120
+TRAIN_PROGRESS total_timesteps=1125376
+TRAIN_PROGRESS total_timesteps=1125632
+TRAIN_PROGRESS total_timesteps=1125888
+TRAIN_PROGRESS total_timesteps=1126144
+TRAIN_PROGRESS total_timesteps=1126400
+TRAIN_PROGRESS total_timesteps=1126656
+TRAIN_PROGRESS total_timesteps=1126912
+TRAIN_PROGRESS total_timesteps=1127168
+TRAIN_PROGRESS total_timesteps=1127424
+TRAIN_PROGRESS total_timesteps=1127680
+TRAIN_PROGRESS total_timesteps=1127936
+TRAIN_PROGRESS total_timesteps=1128192
+----------------------------------------------
+| reward/                        |           |
+|    transition_mean             | 0.558     |
+| reward_parts/                  |           |
+|    action_rate                 | -0.00265  |
+|    alive                       | 0.5       |
+|    command_tracking            | -0.023    |
+|    default_pose                | -0.103    |
+|    distance                    | -0.000202 |
+|    fall                        | 0         |
+|    feet_air_time               | 0         |
+|    foot_slip                   | 0         |
+|    gait                        | 0         |
+|    height                      | -0.011    |
+|    horizontal_angular_velocity | -3.04e-06 |
+|    joint_jitter                | -1.45e-07 |
+|    joint_velocity              | -5.12e-07 |
+|    jump_landing                | 0         |
+|    jump_success                | 0         |
+|    non_foot_collision          | 0         |
+|    posture                     | -2.18e-05 |
+|    static_contact_course       | 0         |
+|    support_gap                 | 0         |
+|    torque                      | -0.00269  |
+|    true_four_foot_contact      | 0.2       |
+|    zero_velocity               | -1.1e-06  |
+|    zero_yaw_rate               | -1.66e-06 |
+| rollout/                       |           |
+|    ep_rew_mean                 | 469       |
+|    true_four_contact_ratio     | 0.738     |
+| termination_reason/            |           |
+|    body_contact                | 0         |
+|    controller_done             | 0         |
+|    height                      | 0         |
+|    joint_limit                 | 0         |
+|    none                        | 0         |
+|    tilt                        | 0         |
+|    time_limit                  | 8         |
+|    unknown                     | 0         |
+|    unsupported                 | 0         |
+|    workspace                   | 0         |
+| time/                          |           |
+|    fps                         | 558       |
+|    iterations                  | 1         |
+|    time_elapsed                | 14        |
+|    total_timesteps             | 1128192   |
+----------------------------------------------
+TRAIN_PROGRESS total_timesteps=1128448
+TRAIN_PROGRESS total_timesteps=1128704
+TRAIN_PROGRESS total_timesteps=1128960
+TRAIN_PROGRESS total_timesteps=1129216
+TRAIN_PROGRESS total_timesteps=1129472
+TRAIN_PROGRESS total_timesteps=1129728
+TRAIN_PROGRESS total_timesteps=1129984
+TRAIN_TARGET_REACHED total_timesteps=1130000
+TRAIN_COMPLETED final=/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/checkpoints/official_mini_cheetah_flat_jump_v1_r3/official_mini_cheetah_flat_jump_v1_r3_final.zip steps=1130000

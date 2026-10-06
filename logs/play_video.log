@@ -1,0 +1,12 @@
+【回放】加载模型：checkpoints/ppo_walk_final.zip
+/home/pma213x/.local/lib/python3.14/site-packages/stable_baselines3/common/on_policy_algorithm.py:150: UserWarning: You are trying to run PPO on the GPU, but it is primarily intended to run on the CPU when not using a CNN policy (you are using ActorCriticPolicy which should be a MlpPolicy). See https://github.com/DLR-RM/stable-baselines3/issues/1245 for more info. You can pass `device='cpu'` or `export CUDA_VISIBLE_DEVICES=` to force using the CPU.Note: The model will train, but the GPU utilization will be poor and the training might take longer than on CPU.
+  warnings.warn(
+【回放】模型加载完成（0.84s），设备=cuda
+【回放】环境已创建  render=False  video=videos/walk_p2.mp4
+【回放】第 1/3 集：奖励=337.525  存活步数=250  前进距离=1.165 m
+【回放】第 2/3 集：奖励=347.359  存活步数=250  前进距离=1.185 m
+【回放】第 3/3 集：奖励=339.123  存活步数=250  前进距离=1.170 m
+--------------------------------------------------
+【回放】汇总：平均奖励=341.336  平均存活步数=250.0  平均前进距离=1.173 m  （共 3 集）
+【视频】imageio 写入失败（No module named 'imageio'），尝试 OpenCV ...
+【视频】已保存（OpenCV）：videos/walk_p2.mp4  共 750 帧

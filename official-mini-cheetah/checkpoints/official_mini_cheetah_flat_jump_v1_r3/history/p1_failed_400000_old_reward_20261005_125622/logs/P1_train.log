@@ -1,0 +1,77 @@
+CUDA_OK name=NVIDIA GeForce RTX 4060 Laptop GPU device=cuda:0 capability=(8, 9)
+/home/pma213x/.local/lib/python3.14/site-packages/stable_baselines3/common/vec_env/base_vec_env.py:78: UserWarning: The `render_mode` attribute is not defined in your environment. It will be set to None.
+  warnings.warn("The `render_mode` attribute is not defined in your environment. It will be set to None.")
+/home/pma213x/.local/lib/python3.14/site-packages/stable_baselines3/common/on_policy_algorithm.py:150: UserWarning: You are trying to run PPO on the GPU, but it is primarily intended to run on the CPU when not using a CNN policy (you are using ActorCriticPolicy which should be a MlpPolicy). See https://github.com/DLR-RM/stable-baselines3/issues/1245 for more info. You can pass `device='cpu'` or `export CUDA_VISIBLE_DEVICES=` to force using the CPU.Note: The model will train, but the GPU utilization will be poor and the training might take longer than on CPU.
+  warnings.warn(
+MODEL_LOADED path=/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/checkpoints/official_mini_cheetah_flat_jump_v1_r3/official_mini_cheetah_flat_jump_v1_r3_final.zip steps=390000
+TRAIN_START phase=P1 current=390000 target=400000 remaining=10000 num_envs=4 ports=[11452, 11453, 11454, 11455]
+Logging to /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/runs/official_mini_cheetah_flat_jump_v1_r3/P1_parallel/PPO_0
+TRAIN_PROGRESS total_timesteps=390256
+TRAIN_PROGRESS total_timesteps=390512
+TRAIN_PROGRESS total_timesteps=390768
+TRAIN_PROGRESS total_timesteps=391024
+TRAIN_PROGRESS total_timesteps=391280
+TRAIN_PROGRESS total_timesteps=391536
+TRAIN_PROGRESS total_timesteps=391792
+TRAIN_PROGRESS total_timesteps=392048
+TRAIN_PROGRESS total_timesteps=392304
+TRAIN_PROGRESS total_timesteps=392560
+TRAIN_PROGRESS total_timesteps=392816
+TRAIN_PROGRESS total_timesteps=393072
+TRAIN_PROGRESS total_timesteps=393328
+TRAIN_PROGRESS total_timesteps=393584
+TRAIN_PROGRESS total_timesteps=393840
+TRAIN_PROGRESS total_timesteps=394096
+TRAIN_PROGRESS total_timesteps=394352
+TRAIN_PROGRESS total_timesteps=394608
+TRAIN_PROGRESS total_timesteps=394864
+TRAIN_PROGRESS total_timesteps=395120
+TRAIN_PROGRESS total_timesteps=395376
+TRAIN_PROGRESS total_timesteps=395632
+TRAIN_PROGRESS total_timesteps=395888
+TRAIN_PROGRESS total_timesteps=396144
+TRAIN_PROGRESS total_timesteps=396400
+TRAIN_PROGRESS total_timesteps=396656
+TRAIN_PROGRESS total_timesteps=396912
+TRAIN_PROGRESS total_timesteps=397168
+TRAIN_PROGRESS total_timesteps=397424
+TRAIN_PROGRESS total_timesteps=397680
+TRAIN_PROGRESS total_timesteps=397936
+TRAIN_PROGRESS total_timesteps=398192
+----------------------------------------------
+| reward_parts/                  |           |
+|    action_rate                 | -0.0249   |
+|    alive                       | 0.5       |
+|    command_tracking            | -0.0127   |
+|    default_pose                | -0.0237   |
+|    distance                    | 0         |
+|    fall                        | 0         |
+|    feet_air_time               | 0         |
+|    foot_slip                   | -0.0591   |
+|    gait                        | 0         |
+|    height                      | -0.000146 |
+|    horizontal_angular_velocity | -0.0427   |
+|    joint_velocity              | -0.00248  |
+|    jump_landing                | 0         |
+|    jump_success                | 0         |
+|    non_foot_collision          | 0         |
+|    posture                     | -0.00685  |
+|    torque                      | -0.00527  |
+|    true_four_foot_contact      | 0.344     |
+|    zero_velocity               | -0.0127   |
+|    zero_yaw_rate               | -0.0229   |
+| time/                          |           |
+|    fps                         | 667       |
+|    iterations                  | 1         |
+|    time_elapsed                | 12        |
+|    total_timesteps             | 398192    |
+----------------------------------------------
+TRAIN_PROGRESS total_timesteps=398448
+TRAIN_PROGRESS total_timesteps=398704
+TRAIN_PROGRESS total_timesteps=398960
+TRAIN_PROGRESS total_timesteps=399216
+TRAIN_PROGRESS total_timesteps=399472
+TRAIN_PROGRESS total_timesteps=399728
+TRAIN_PROGRESS total_timesteps=399984
+TRAIN_TARGET_REACHED total_timesteps=400000
+TRAIN_COMPLETED final=/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/checkpoints/official_mini_cheetah_flat_jump_v1_r3/official_mini_cheetah_flat_jump_v1_r3_final.zip steps=400000

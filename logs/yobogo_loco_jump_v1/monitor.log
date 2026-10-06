@@ -1,0 +1,54 @@
+[2026-10-01T15:19:46+08:00] [INFO] monitor_started: 本地监控已启动
+[2026-10-01T15:19:46+08:00] [INFO] training_started: 训练进程已启动 PID=389037
+[2026-10-01T15:26:01+08:00] [INFO] stage_completed: S0 冒烟 正常完成
+[2026-10-01T15:26:01+08:00] [INFO] archived: 已归档训练现场：/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/logs/yobogo_loco_jump_v1/archive/20261001-152601_1_stage_complete
+[2026-10-01T15:26:01+08:00] [INFO] training_started: 训练进程已启动 PID=397475
+[2026-10-01T18:23:09+08:00] [INFO] stage_completed: S1 站立 正常完成
+[2026-10-01T18:23:09+08:00] [INFO] archived: 已归档训练现场：/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/logs/yobogo_loco_jump_v1/archive/20261001-182309_2_stage_complete
+[2026-10-01T18:23:09+08:00] [INFO] training_started: 训练进程已启动 PID=569061
+[2026-10-01T22:38:57+08:00] [INFO] stage_completed: S2 命令 正常完成
+[2026-10-01T22:38:57+08:00] [INFO] archived: 已归档训练现场：/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/logs/yobogo_loco_jump_v1/archive/20261001-223857_3_stage_complete
+[2026-10-01T22:38:57+08:00] [INFO] training_started: 训练进程已启动 PID=816567
+[2026-10-02T02:27:29+08:00] [INFO] stage_completed: S3 跳跃 正常完成
+[2026-10-02T02:27:29+08:00] [INFO] archived: 已归档训练现场：/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/logs/yobogo_loco_jump_v1/archive/20261002-022729_4_stage_complete
+[2026-10-02T02:27:29+08:00] [INFO] training_started: 训练进程已启动 PID=1034793
+[2026-10-02T07:21:35+08:00] [INFO] stage_completed: S4 移动越障 正常完成
+[2026-10-02T07:21:35+08:00] [INFO] archived: 已归档训练现场：/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/logs/yobogo_loco_jump_v1/archive/20261002-072135_5_stage_complete
+[2026-10-02T07:21:35+08:00] [INFO] run_completed: yobogo_loco_jump_v1 全部阶段完成
+Traceback (most recent call last):
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/webots-sim/rl/loco_jump_monitor.py", line 1483, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/webots-sim/rl/loco_jump_monitor.py", line 1479, in main
+    return monitor.run()
+           ~~~~~~~~~~~^^
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/webots-sim/rl/loco_jump_monitor.py", line 1330, in run
+    if not self.handle_completion(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        exit_code,
+        ^^^^^^^^^^
+        "完成标记或累计目标已满足",
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ):
+    ^
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/webots-sim/rl/loco_jump_monitor.py", line 1126, in handle_completion
+    self.notify(
+    ~~~~~~~~~~~^
+        "completed",
+        ^^^^^^^^^^^^
+    ...<2 lines>...
+        urgent="normal",
+        ^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/webots-sim/rl/loco_jump_monitor.py", line 534, in notify
+    self.emit(
+    ~~~~~~~~~^
+        "desktop_notification",
+        ^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+        message=message,
+        ^^^^^^^^^^^^^^^^
+    )
+    ^
+TypeError: LocoJumpMonitor.emit() got multiple values for argument 'message'

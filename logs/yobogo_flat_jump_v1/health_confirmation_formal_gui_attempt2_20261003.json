@@ -1,0 +1,83 @@
+{
+  "checked_at": "2026-10-03T20:29:11+0800",
+  "stage_pid": 535810,
+  "train_pid": 535941,
+  "webots_pid": 535989,
+  "stage_children": {
+    "535941": "/usr/bin/python3 /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/webots-sim/rl/train_flat_jump.py --phase F1 --total-steps 260000 --device cuda --ckptdir /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/checkpoints/yobogo_flat_jump_v1 --ckpt-prefix yobogo_flat_jump_v1 --logdir /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/runs/yobogo_flat_jump_v1/F1A_fixed --checkpoint-interval 50000 --bridge-port 11451 --seed 20261003 --randomization-mode fixed --webots-gui --resume /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/checkpoints/yobogo_flat_jump_v1/yobogo_flat_jump_v1_F1_250000_steps.zip",
+    "535989": "/bin/bash /usr/local/webots/webots --mode=fast --stdout --stderr /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/webots-sim/worlds/.flat_jump_rl_rl.wbt",
+    "535992": "/usr/local/webots/bin/webots-bin --mode=fast --stdout --stderr /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/webots-sim/worlds/.flat_jump_rl_rl.wbt",
+    "536057": "/usr/bin/python3 -u rl_agent.py flat_v1"
+  },
+  "status": {
+    "schema_version": 1,
+    "run_id": "yobogo_flat_jump_v1",
+    "updated_at": "2026-10-03T20:27:46+0800",
+    "status": "training",
+    "current_phase": "F1",
+    "segment": "F1A",
+    "completed_phases": [
+      "F0"
+    ],
+    "target_steps": 260000,
+    "train_log": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/logs/yobogo_flat_jump_v1/F1A_train.log",
+    "randomization_mode": "fixed"
+  },
+  "timesteps_sample_1": [
+    250256,
+    250512
+  ],
+  "timesteps_sample_2": [
+    250256,
+    250512
+  ],
+  "sample_elapsed_seconds": 21.787,
+  "observed_steps_per_second": 11.75,
+  "event_files": [
+    {
+      "path": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/runs/yobogo_flat_jump_v1/F1A_fixed/PPO_0/events.out.tfevents.1791030080.pma213x-OMEN-Ubuntu.529428.0",
+      "size": 88,
+      "mtime": 1791030080.8651223
+    },
+    {
+      "path": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/runs/yobogo_flat_jump_v1/F1A_fixed/PPO_0/events.out.tfevents.1791030469.pma213x-OMEN-Ubuntu.535941.0",
+      "size": 88,
+      "mtime": 1791030469.0692382
+    }
+  ],
+  "gpu_compute_processes": [
+    "535810, python3, 98 MiB",
+    "535941, /usr/bin/python3, 140 MiB"
+  ],
+  "tcp_11451_listener": [
+    "LISTEN 0      1      127.0.0.1:11451 0.0.0.0:* users:((\"python3\",pid=535941,fd=22))"
+  ],
+  "webots_process_count": 2,
+  "webots_command": "/bin/bash /usr/local/webots/webots --mode=fast --stdout --stderr /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/webots-sim/worlds/.flat_jump_rl_rl.wbt",
+  "checkpoint": {
+    "path": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/checkpoints/yobogo_flat_jump_v1/yobogo_flat_jump_v1_F1_250000_steps.zip",
+    "num_timesteps": 250000,
+    "device": "cuda",
+    "parameters_finite": true
+  },
+  "bad_log_hits": [],
+  "tensorboard_http": "200",
+  "checks": {
+    "stage_process_alive": true,
+    "train_process_alive": true,
+    "webots_process_alive": true,
+    "single_webots": false,
+    "single_tcp_listener_11451": true,
+    "cuda_visible_devices_0": true,
+    "gpu0_train_process": true,
+    "command_device_cuda": true,
+    "total_timesteps_growth": true,
+    "event_nonempty": true,
+    "checkpoint_reload": true,
+    "no_nan_inf_oom": true,
+    "status_training": true,
+    "webots_gui_fast_local_display": true,
+    "tensorboard_http_200": true
+  },
+  "passed": false
+}

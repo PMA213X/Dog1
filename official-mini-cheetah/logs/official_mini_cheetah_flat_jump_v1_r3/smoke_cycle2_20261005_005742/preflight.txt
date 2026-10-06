@@ -1,0 +1,4 @@
+preflight_at=2026-10-05T00:57:42+08:00
+memory_kb=27942932
+resume=NONE_FROM_ZERO
+target_steps=1000

@@ -1,0 +1,6 @@
+INFO: rl_agent: Starting controller: python3 -u rl_agent.py flat_v1
+【rl_agent】已连接 walk_env 127.0.0.1:11451
+INFO: rl_agent: Starting controller: python3 -u rl_agent.py flat_v1
+【rl_agent】已连接 walk_env 127.0.0.1:11451
+WARNING: rl_agent: 成功移动一段时间后进程崩溃。
+WARNING: “rl_agent”控制器崩溃。

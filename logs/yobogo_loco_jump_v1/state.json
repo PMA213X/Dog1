@@ -1,0 +1,75 @@
+{
+  "_resource_snapshot": {
+    "memory": {
+      "available_gib": 4.51,
+      "total_gib": 14.81,
+      "used_percent": 69.58
+    },
+    "project_disk": {
+      "free_gib": 438.77,
+      "total_gib": 1670.73,
+      "used_percent": 73.74
+    },
+    "thresholds": {
+      "memory_used_percent": 90.0,
+      "persistent_polls": 2,
+      "project_disk_free_gib": 5.0,
+      "tmp_free_gib": 2.0
+    },
+    "tmp": {
+      "free_gib": 6.84,
+      "total_gib": 7.41,
+      "used_percent": 7.69
+    }
+  },
+  "activity_fingerprint": "log:177629:1790896806196645000|event:/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/runs/yobogo_loco_jump_v1/S0_smoke/PPO_1/events.out.tfevents.1790839189.pma213x-OMEN-Ubuntu.389037.0:1701:1790839556280416000|event:/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/runs/yobogo_loco_jump_v1/S1_stand/PPO_0/events.out.tfevents.1790839564.pma213x-OMEN-Ubuntu.397475.0:69584:1790850185836774700|event:/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/runs/yobogo_loco_jump_v1/S2_command/PPO_0/events.out.tfevents.1790850192.pma213x-OMEN-Ubuntu.569061.0:108002:1790865531257249500|event:/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/runs/yobogo_loco_jump_v1/S3_jump/PPO_0/events.out.tfevents.1790865542.pma213x-OMEN-Ubuntu.816567.0:107264:1790879245695268500|event:/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/runs/yobogo_loco_jump_v1/S4_mobile_terrain/PPO_0/events.out.tfevents.1790879252.pma213x-OMEN-Ubuntu.1034793.0:142688:1790896806196645000|ckpt:30:1790895452351309900",
+  "archive_paths": [
+    "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/logs/yobogo_loco_jump_v1/archive/20261001-152601_1_stage_complete",
+    "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/logs/yobogo_loco_jump_v1/archive/20261001-182309_2_stage_complete",
+    "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/logs/yobogo_loco_jump_v1/archive/20261001-223857_3_stage_complete",
+    "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/logs/yobogo_loco_jump_v1/archive/20261002-022729_4_stage_complete"
+  ],
+  "attempt": 5,
+  "completion_seen": false,
+  "exit_code": null,
+  "failure_history": [],
+  "last_activity_at": 1790896810.5424912,
+  "last_progress_activity_at": 1790896810.5420566,
+  "log_offset": 177629,
+  "progress_at": "2026-10-02T07:20:10+08:00",
+  "progress_value": 1198080,
+  "recoveries": 0,
+  "resource_alerts": {},
+  "resume_checkpoint": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/checkpoints/yobogo_loco_jump_v1/yobogo_loco_jump_v1_final.zip",
+  "schema_version": 1,
+  "stage_index": 4,
+  "status": "running",
+  "stop_reason": null,
+  "training_cmdline": [
+    "python3",
+    "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/webots-sim/rl/train_loco_jump.py",
+    "--total-steps",
+    "1200000",
+    "--tag",
+    "phase4",
+    "--ckptdir",
+    "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/checkpoints/yobogo_loco_jump_v1",
+    "--ckpt-prefix",
+    "yobogo_loco_jump_v1",
+    "--logdir",
+    "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/runs/yobogo_loco_jump_v1/S4_mobile_terrain",
+    "--checkpoint-interval",
+    "50000",
+    "--eval-interval",
+    "20000",
+    "--eval-episodes",
+    "10",
+    "--device",
+    "cuda",
+    "--resume",
+    "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/checkpoints/yobogo_loco_jump_v1/yobogo_loco_jump_v1_final.zip"
+  ],
+  "training_pid": 1034793,
+  "training_started_at": "2026-10-02T02:27:29+08:00",
+  "updated_at": "2026-10-02T07:21:30+08:00"
+}

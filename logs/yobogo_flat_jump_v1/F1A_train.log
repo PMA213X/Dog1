@@ -1,0 +1,90 @@
+【CUDA】device=0 name=NVIDIA GeForce RTX 4060 Laptop GPU capability=(8, 9)
+/home/pma213x/.local/lib/python3.14/site-packages/stable_baselines3/common/on_policy_algorithm.py:150: UserWarning: You are trying to run PPO on the GPU, but it is primarily intended to run on the CPU when not using a CNN policy (you are using ActorCriticPolicy which should be a MlpPolicy). See https://github.com/DLR-RM/stable-baselines3/issues/1245 for more info. You can pass `device='cpu'` or `export CUDA_VISIBLE_DEVICES=` to force using the CPU.Note: The model will train, but the GPU utilization will be poor and the training might take longer than on CPU.
+  warnings.warn(
+【训练】已加载 /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/checkpoints/yobogo_flat_jump_v1/yobogo_flat_jump_v1_F1_250000_steps.zip，累计步数=250000
+【训练】阶段=F1 累计=250000 目标=260000 本次=10000
+Logging to /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/runs/yobogo_flat_jump_v1/F1A_fixed/PPO_0
+【CUDA】device=0 name=NVIDIA GeForce RTX 4060 Laptop GPU capability=(8, 9)
+/home/pma213x/.local/lib/python3.14/site-packages/stable_baselines3/common/on_policy_algorithm.py:150: UserWarning: You are trying to run PPO on the GPU, but it is primarily intended to run on the CPU when not using a CNN policy (you are using ActorCriticPolicy which should be a MlpPolicy). See https://github.com/DLR-RM/stable-baselines3/issues/1245 for more info. You can pass `device='cpu'` or `export CUDA_VISIBLE_DEVICES=` to force using the CPU.Note: The model will train, but the GPU utilization will be poor and the training might take longer than on CPU.
+  warnings.warn(
+【训练】已加载 /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/checkpoints/yobogo_flat_jump_v1/yobogo_flat_jump_v1_F1_250000_steps.zip，累计步数=250000
+【训练】阶段=F1 累计=250000 目标=260000 本次=10000
+Logging to /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/runs/yobogo_flat_jump_v1/F1A_fixed/PPO_0
+【训练进度】total_timesteps=250256
+【训练进度】total_timesteps=250512
+【训练进度】total_timesteps=250768
+【训练进度】total_timesteps=251024
+【训练进度】total_timesteps=251280
+【训练进度】total_timesteps=251536
+【训练进度】total_timesteps=251792
+【训练进度】total_timesteps=252048
+---------------------------------
+| rollout/           |          |
+|    ep_len_mean     | 24.5     |
+|    ep_rew_mean     | -95.3    |
+| time/              |          |
+|    fps             | 6        |
+|    iterations      | 1        |
+|    time_elapsed    | 339      |
+|    total_timesteps | 252048   |
+---------------------------------
+【训练进度】total_timesteps=252304
+【训练进度】total_timesteps=252560
+【训练进度】total_timesteps=252816
+【训练进度】total_timesteps=253072
+【训练进度】total_timesteps=253328
+【训练进度】total_timesteps=253584
+【训练进度】total_timesteps=253840
+【训练进度】total_timesteps=254096
+-------------------------------------------
+| rollout/                |               |
+|    ep_len_mean          | 25.6          |
+|    ep_rew_mean          | -109          |
+| time/                   |               |
+|    fps                  | 5             |
+|    iterations           | 2             |
+|    time_elapsed         | 749           |
+|    total_timesteps      | 254096        |
+| train/                  |               |
+|    approx_kl            | 0.00054646074 |
+|    clip_fraction        | 0.0085        |
+|    clip_range           | 0.1           |
+|    entropy_loss         | -15.2         |
+|    explained_variance   | 0.591         |
+|    learning_rate        | 0.0001        |
+|    loss                 | 796           |
+|    n_updates            | 1215          |
+|    policy_gradient_loss | -0.000289     |
+|    std                  | 0.86          |
+|    value_loss           | 2.51e+03      |
+-------------------------------------------
+【训练进度】total_timesteps=254352
+【训练进度】total_timesteps=254608
+【训练进度】total_timesteps=254864
+【训练进度】total_timesteps=255120
+【训练进度】total_timesteps=255376
+【训练进度】total_timesteps=255632
+【训练进度】total_timesteps=255888
+【训练进度】total_timesteps=256144
+------------------------------------------
+| rollout/                |              |
+|    ep_len_mean          | 25.7         |
+|    ep_rew_mean          | -109         |
+| time/                   |              |
+|    fps                  | 5            |
+|    iterations           | 3            |
+|    time_elapsed         | 1085         |
+|    total_timesteps      | 256144       |
+| train/                  |              |
+|    approx_kl            | 8.957868e-05 |
+|    clip_fraction        | 0            |
+|    clip_range           | 0.1          |
+|    entropy_loss         | -15.2        |
+|    explained_variance   | 0.312        |
+|    learning_rate        | 0.0001       |
+|    loss                 | 337          |
+|    n_updates            | 1220         |
+|    policy_gradient_loss | -0.000745    |
+|    std                  | 0.86         |
+|    value_loss           | 1.13e+03     |
+------------------------------------------

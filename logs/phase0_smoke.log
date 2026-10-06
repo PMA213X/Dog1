@@ -1,0 +1,98 @@
+/home/pma213x/.local/lib/python3.14/site-packages/stable_baselines3/common/on_policy_algorithm.py:150: UserWarning: You are trying to run PPO on the GPU, but it is primarily intended to run on the CPU when not using a CNN policy (you are using ActorCriticPolicy which should be a MlpPolicy). See https://github.com/DLR-RM/stable-baselines3/issues/1245 for more info. You can pass `device='cpu'` or `export CUDA_VISIBLE_DEVICES=` to force using the CPU.Note: The model will train, but the GPU utilization will be poor and the training might take longer than on CPU.
+  warnings.warn(
+============================================================
+【配置】PPO 训练四足机器狗行走
+============================================================
+  观测维度        : 42
+  动作维度        : 12  (范围 [-1.0, 1.0])
+  策略网络        : MlpPolicy  net_arch=[256, 256]
+  n_steps        : 2048
+  batch_size     : 256
+  n_epochs       : 10
+  gamma          : 0.99
+  gae_lambda     : 0.95
+  learning_rate  : 0.0003
+  ent_coef       : 0.0
+  clip_range     : 0.2
+------------------------------------------------------------
+  训练总步数      : 5000
+  计算设备        : cuda
+  阶段标签        : phase0_smoke
+  日志目录        : runs/ppo_walk[_tag]_<时间戳>
+  checkpoint 目录 : checkpoints
+  checkpoint 间隔 : 10000
+  评估间隔        : 20000  (每 10 集)
+  继续训练        : （否）
+  随机种子        : （未设置）
+============================================================
+【训练】阶段 = phase0_smoke，奖励权重 = {'alive_bonus': 1.0, 'forward_vel': 0.0, 'roll_penalty': -2.0, 'pitch_penalty': -2.0, 'action_sq': 0.0, 'fall_penalty': -10.0, 'heading_to_goal': 0.0, 'yaw_dev_penalty': 0.0, 'climb_reward': 0.0, 'on_step_reward': 0.0}
+【训练】日志目录 = runs/ppo_walk_phase0_smoke_20260926-081810
+【训练】checkpoint 目录 = checkpoints
+【自检】创建环境并执行 reset/step ...
+【自检】通过：reset / step 接口正常
+【自检】耗时 1.51s
+【训练】训练环境已创建，观测维度=42，动作维度=12
+【训练】每 10000 步保存 checkpoint → checkpoints/phase0_smoke_<step>.zip
+【训练】每 20000 步评估一次（10 集平均）
+【训练】创建新 PPO 模型 ...
+Using cuda device
+【训练】模型已创建：policy=MlpPolicy, net_arch=[256, 256], device=cuda
+【训练】开始训练：本次运行 5000 步（目标总步数 5000）
+Logging to runs/ppo_walk_phase0_smoke_20260926-081810/PPO_1
+---------------------------------
+| rollout/           |          |
+|    ep_len_mean     | 1e+03    |
+|    ep_rew_mean     | 923      |
+| time/              |          |
+|    fps             | 35       |
+|    iterations      | 1        |
+|    time_elapsed    | 57       |
+|    total_timesteps | 2048     |
+---------------------------------
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 1e+03       |
+|    ep_rew_mean          | 919         |
+| time/                   |             |
+|    fps                  | 35          |
+|    iterations           | 2           |
+|    time_elapsed         | 116         |
+|    total_timesteps      | 4096        |
+| train/                  |             |
+|    approx_kl            | 0.019540127 |
+|    clip_fraction        | 0.269       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -17         |
+|    explained_variance   | -0.211      |
+|    learning_rate        | 0.0003      |
+|    loss                 | 76.9        |
+|    n_updates            | 10          |
+|    policy_gradient_loss | -0.033      |
+|    std                  | 1           |
+|    value_loss           | 198         |
+-----------------------------------------
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 1e+03       |
+|    ep_rew_mean          | 918         |
+| time/                   |             |
+|    fps                  | 35          |
+|    iterations           | 3           |
+|    time_elapsed         | 174         |
+|    total_timesteps      | 6144        |
+| train/                  |             |
+|    approx_kl            | 0.017532581 |
+|    clip_fraction        | 0.208       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -17         |
+|    explained_variance   | 0.773       |
+|    learning_rate        | 0.0003      |
+|    loss                 | 43.8        |
+|    n_updates            | 20          |
+|    policy_gradient_loss | -0.0295     |
+|    std                  | 1           |
+|    value_loss           | 150         |
+-----------------------------------------
+【训练】完成：本次 5000 步，耗时 2.9 分钟（约 28.7 steps/s）
+【训练】累计总步数 = 6144
+【训练】最终模型已保存：checkpoints/phase0_smoke_final.zip

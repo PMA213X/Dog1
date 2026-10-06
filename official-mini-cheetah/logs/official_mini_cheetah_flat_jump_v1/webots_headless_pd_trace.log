@@ -1,0 +1,14 @@
+INFO: rl_agent: Starting controller: python3 -u rl_agent.py auto
+Traceback (most recent call last):
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/controllers/rl_agent/rl_agent.py", line 497, in main
+    return controller.run_standalone(mode)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/controllers/rl_agent/rl_agent.py", line 399, in run_standalone
+    if not self.apply_pd_action((0.0,) * contract.ACTION_DIM):
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/controllers/rl_agent/rl_agent.py", line 165, in apply_pd_action
+    positions, velocities = self.read_feedback()
+    ^^^^^^^^^^^^^^^^^^^^^
+ValueError: too many values to unpack (expected 2, got 3)
+RL_CONTROLLER_ERROR ValueError: too many values to unpack (expected 2, got 3)
+WARNING: “rl_agent”控制器退出，状态：1。

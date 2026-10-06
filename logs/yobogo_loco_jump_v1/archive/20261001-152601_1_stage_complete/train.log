@@ -1,0 +1,61 @@
+/home/pma213x/.local/lib/python3.14/site-packages/stable_baselines3/common/on_policy_algorithm.py:150: UserWarning: You are trying to run PPO on the GPU, but it is primarily intended to run on the CPU when not using a CNN policy (you are using ActorCriticPolicy which should be a MlpPolicy). See https://github.com/DLR-RM/stable-baselines3/issues/1245 for more info. You can pass `device='cpu'` or `export CUDA_VISIBLE_DEVICES=` to force using the CPU.Note: The model will train, but the GPU utilization will be poor and the training might take longer than on CPU.
+  warnings.warn(
+Using cuda device
+【训练】已创建新模型：obs=55 action=12 device=cuda
+【训练】阶段=phase0 累计步数=0 目标=5000 本次=5000
+Logging to /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/runs/yobogo_loco_jump_v1/S0_smoke/PPO_1
+---------------------------------
+| rollout/           |          |
+|    ep_len_mean     | 27.6     |
+|    ep_rew_mean     | -60.7    |
+| time/              |          |
+|    fps             | 19       |
+|    iterations      | 1        |
+|    time_elapsed    | 105      |
+|    total_timesteps | 2048     |
+---------------------------------
+----------------------------------------
+| rollout/                |            |
+|    ep_len_mean          | 31         |
+|    ep_rew_mean          | -67.4      |
+| time/                   |            |
+|    fps                  | 17         |
+|    iterations           | 2          |
+|    time_elapsed         | 237        |
+|    total_timesteps      | 4096       |
+| train/                  |            |
+|    approx_kl            | 0.01876517 |
+|    clip_fraction        | 0.229      |
+|    clip_range           | 0.2        |
+|    entropy_loss         | -17        |
+|    explained_variance   | -0.0161    |
+|    learning_rate        | 0.0003     |
+|    loss                 | 138        |
+|    n_updates            | 10         |
+|    policy_gradient_loss | -0.0423    |
+|    std                  | 1          |
+|    value_loss           | 591        |
+----------------------------------------
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 33.9        |
+|    ep_rew_mean          | -75.1       |
+| time/                   |             |
+|    fps                  | 16          |
+|    iterations           | 3           |
+|    time_elapsed         | 366         |
+|    total_timesteps      | 6144        |
+| train/                  |             |
+|    approx_kl            | 0.014928149 |
+|    clip_fraction        | 0.174       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -17         |
+|    explained_variance   | -0.0324     |
+|    learning_rate        | 0.0003      |
+|    loss                 | 85.9        |
+|    n_updates            | 20          |
+|    policy_gradient_loss | -0.0363     |
+|    std                  | 1           |
+|    value_loss           | 329         |
+-----------------------------------------
+【训练】耗时=366.8s；最终模型已保存：/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/checkpoints/yobogo_loco_jump_v1/yobogo_loco_jump_v1_final.zip

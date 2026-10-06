@@ -1,0 +1,15 @@
+test_action_mapping_rejects_invalid_inputs (webots-sim.rl.tests.test_loco_jump_env.LocoJumpActionContractTest.test_action_mapping_rejects_invalid_inputs) ... ok
+test_action_scale_and_q_des_formula (webots-sim.rl.tests.test_loco_jump_env.LocoJumpActionContractTest.test_action_scale_and_q_des_formula) ... ok
+test_command_limits_and_phase_gate (webots-sim.rl.tests.test_loco_jump_env.LocoJumpCommandAndJumpTest.test_command_limits_and_phase_gate) ... ok
+test_jump_latch_and_success_info_without_webots (webots-sim.rl.tests.test_loco_jump_env.LocoJumpCommandAndJumpTest.test_jump_latch_and_success_info_without_webots) ... ok
+test_action_clipping_is_applied_to_sent_action_and_q_des (webots-sim.rl.tests.test_loco_jump_env.MockLocoJumpEnvInterfaceTest.test_action_clipping_is_applied_to_sent_action_and_q_des) ... ok
+test_factory_and_spaces_without_starting_bridge (webots-sim.rl.tests.test_loco_jump_env.MockLocoJumpEnvInterfaceTest.test_factory_and_spaces_without_starting_bridge) ... ok
+test_invalid_action_is_rejected (webots-sim.rl.tests.test_loco_jump_env.MockLocoJumpEnvInterfaceTest.test_invalid_action_is_rejected) ... ok
+test_multi_step_reset_and_step_shapes_and_info_keys (webots-sim.rl.tests.test_loco_jump_env.MockLocoJumpEnvInterfaceTest.test_multi_step_reset_and_step_shapes_and_info_keys) ... ok
+test_observation_contract_slices_from_mock_state (webots-sim.rl.tests.test_loco_jump_env.MockLocoJumpEnvInterfaceTest.test_observation_contract_slices_from_mock_state) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.011s
+
+OK
+AFFECTED_TEST_EXIT=0

@@ -1,0 +1,67 @@
+{
+  "schema": "action_chain_probe_target_rate_final",
+  "target_rate_limit": 0.01,
+  "target_delta_bound_per_cycle": 0.0002,
+  "diagnostic_steps": 360,
+  "episode_count": 12,
+  "finite_count": 360,
+  "contact_loss_step_count": 0,
+  "contact_count_stats": {
+    "count": 360,
+    "mean": 4.0,
+    "min": 4.0,
+    "p50": 4.0,
+    "p95": 4.0,
+    "max": 4.0
+  },
+  "action_period_four_contact_ratio_by_joint": {
+    "0": 1.0,
+    "1": 1.0,
+    "2": 1.0,
+    "3": 1.0,
+    "4": 1.0,
+    "5": 1.0,
+    "6": 1.0,
+    "7": 1.0,
+    "8": 1.0,
+    "9": 1.0,
+    "10": 1.0,
+    "11": 1.0
+  },
+  "action_period_four_contact_ratio_min": 1.0,
+  "action_period_four_contact_ratio_mean": 1.0,
+  "first_contact_loss_by_joint": {
+    "0": null,
+    "1": null,
+    "2": null,
+    "3": null,
+    "4": null,
+    "5": null,
+    "6": null,
+    "7": null,
+    "8": null,
+    "9": null,
+    "10": null,
+    "11": null
+  },
+  "contact_loss_steps_by_joint": {
+    "0": 0,
+    "1": 0,
+    "2": 0,
+    "3": 0,
+    "4": 0,
+    "5": 0,
+    "6": 0,
+    "7": 0,
+    "8": 0,
+    "9": 0,
+    "10": 0,
+    "11": 0
+  },
+  "errors": [],
+  "evidence_paths": {
+    "diagnostic_json": "logs/official_mini_cheetah_flat_jump_v1_r3/action_chain_probe_target_rate_0.01_20261005_184646.json",
+    "controller_log": "logs/official_mini_cheetah_flat_jump_v1_r3/webots_0.log",
+    "world_log": "logs/official_mini_cheetah_flat_jump_v1_r3/webots_eval_world.log"
+  }
+}

@@ -1,0 +1,42 @@
+【CUDA】device=0 name=NVIDIA GeForce RTX 4060 Laptop GPU capability=(8, 9)
+Using cuda device
+/home/pma213x/.local/lib/python3.14/site-packages/stable_baselines3/common/on_policy_algorithm.py:150: UserWarning: You are trying to run PPO on the GPU, but it is primarily intended to run on the CPU when not using a CNN policy (you are using ActorCriticPolicy which should be a MlpPolicy). See https://github.com/DLR-RM/stable-baselines3/issues/1245 for more info. You can pass `device='cpu'` or `export CUDA_VISIBLE_DEVICES=` to force using the CPU.Note: The model will train, but the GPU utilization will be poor and the training might take longer than on CPU.
+  warnings.warn(
+【训练】新模型 obs=57 action=12 device=cuda
+【训练】阶段=F0 累计=0 目标=5000 本次=5000
+Logging to /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/runs/yobogo_flat_jump_v1/F0_smoke/PPO_1
+---------------------------------
+| rollout/           |          |
+|    ep_len_mean     | 16.5     |
+|    ep_rew_mean     | -2.7     |
+| time/              |          |
+|    fps             | 11       |
+|    iterations      | 1        |
+|    time_elapsed    | 173      |
+|    total_timesteps | 2048     |
+---------------------------------
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 16.5        |
+|    ep_rew_mean          | -2.46       |
+| time/                   |             |
+|    fps                  | 11          |
+|    iterations           | 2           |
+|    time_elapsed         | 347         |
+|    total_timesteps      | 4096        |
+| train/                  |             |
+|    approx_kl            | 0.020446664 |
+|    clip_fraction        | 0.214       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -17         |
+|    explained_variance   | -0.007      |
+|    learning_rate        | 0.0003      |
+|    loss                 | 15.7        |
+|    n_updates            | 10          |
+|    policy_gradient_loss | -0.0334     |
+|    std                  | 1           |
+|    value_loss           | 49.2        |
+-----------------------------------------
+【训练】达到累计目标 5000，停止本阶段
+【训练】耗时=409.2s；最终模型已保存：/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/checkpoints/yobogo_flat_jump_v1/yobogo_flat_jump_v1_final.zip
+【训练】TRAINING_COMPLETED

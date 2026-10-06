@@ -1,0 +1,58 @@
+HEALTH_CONFIRMATION_BEGIN
+/home/pma213x/.local/lib/python3.14/site-packages/stable_baselines3/common/on_policy_algorithm.py:150: UserWarning: You are trying to run PPO on the GPU, but it is primarily intended to run on the CPU when not using a CNN policy (you are using ActorCriticPolicy which should be a MlpPolicy). See https://github.com/DLR-RM/stable-baselines3/issues/1245 for more info. You can pass `device='cpu'` or `export CUDA_VISIBLE_DEVICES=` to force using the CPU.Note: The model will train, but the GPU utilization will be poor and the training might take longer than on CPU.
+  warnings.warn(
+HEALTH_CONFIRMATION_OK
+{
+  "status": "ok",
+  "checked_at": "2026-10-03T16:00:03+0800",
+  "stage_status": {
+    "schema_version": 1,
+    "run_id": "yobogo_flat_jump_v1",
+    "updated_at": "2026-10-03T15:53:53+0800",
+    "status": "training",
+    "current_phase": "F1",
+    "completed_phases": [
+      "F0"
+    ],
+    "target_steps": 250000,
+    "train_log": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/logs/yobogo_flat_jump_v1/F1_train.log"
+  },
+  "stage_runner_pid": 272173,
+  "stage_runner_alive": true,
+  "training_pid": 272295,
+  "training_alive": true,
+  "cuda_visible_devices": "0",
+  "device": "cuda",
+  "total_timesteps_samples": [
+    5256,
+    10376
+  ],
+  "event_files": [
+    {
+      "path": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/runs/yobogo_flat_jump_v1/F1_stable/PPO_0/events.out.tfevents.1791013030.pma213x-OMEN-Ubuntu.255561.0",
+      "size": 251
+    },
+    {
+      "path": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/runs/yobogo_flat_jump_v1/F1_stable/PPO_0/events.out.tfevents.1791014036.pma213x-OMEN-Ubuntu.272295.0",
+      "size": 976
+    }
+  ],
+  "nan_inf_oom": false,
+  "checkpoint": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/checkpoints/yobogo_flat_jump_v1/yobogo_flat_jump_v1_F0_5000_steps.zip",
+  "checkpoint_steps": 5000,
+  "checkpoint_obs_shape": [
+    57
+  ],
+  "checkpoint_action_shape": [
+    12
+  ],
+  "gpu_compute_apps": [
+    "272173, python3, 98",
+    "272295, /usr/bin/python3, 150"
+  ],
+  "tensorboard_pid": 272060,
+  "tensorboard_alive": true,
+  "tensorboard_http": 200,
+  "tensorboard_url": "http://127.0.0.1:6006/"
+}
+HEALTH_EXIT=0

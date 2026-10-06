@@ -1,0 +1,104 @@
+{
+  "checkpoint_prefix": "yobogo_loco_jump_v1",
+  "current_stage": {
+    "argv": [
+      "python3",
+      "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/webots-sim/rl/train_loco_jump.py",
+      "--total-steps",
+      "1200000",
+      "--tag",
+      "phase4",
+      "--ckptdir",
+      "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/checkpoints/yobogo_loco_jump_v1",
+      "--ckpt-prefix",
+      "yobogo_loco_jump_v1",
+      "--logdir",
+      "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/runs/yobogo_loco_jump_v1/S4_mobile_terrain",
+      "--checkpoint-interval",
+      "50000",
+      "--eval-interval",
+      "20000",
+      "--eval-episodes",
+      "10",
+      "--device",
+      "cuda"
+    ],
+    "checkpoint_prefix": "yobogo_loco_jump_v1",
+    "cumulative_target_steps": 1200000,
+    "full_name": "S4 移动越障",
+    "id": "S4_mobile_terrain",
+    "index": 4,
+    "log_tag": "S4_mobile_terrain",
+    "logdir": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/runs/yobogo_loco_jump_v1/S4_mobile_terrain",
+    "tag": "phase4"
+  },
+  "current_stage_index": 4,
+  "paths": {
+    "archive": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/logs/yobogo_loco_jump_v1/archive",
+    "checkpoint_manifest": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/logs/yobogo_loco_jump_v1/checkpoint_manifest.json",
+    "events_log": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/logs/yobogo_loco_jump_v1/events.log",
+    "manifest": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/logs/yobogo_loco_jump_v1/manifest.json",
+    "monitor_log": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/logs/yobogo_loco_jump_v1/monitor.log",
+    "monitor_pid": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/logs/yobogo_loco_jump_v1/pids/monitor.pid",
+    "phase_log": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/logs/yobogo_loco_jump_v1/phase.log",
+    "pid_log": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/logs/yobogo_loco_jump_v1/pid.log",
+    "run_root": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/logs/yobogo_loco_jump_v1",
+    "state": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/logs/yobogo_loco_jump_v1/state.json",
+    "status": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/logs/yobogo_loco_jump_v1/status.json",
+    "tensorboard_pid": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/logs/yobogo_loco_jump_v1/pids/tensorboard.pid",
+    "train_log": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/logs/yobogo_loco_jump_v1/train.log",
+    "training_pid": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/logs/yobogo_loco_jump_v1/pids/training.pid",
+    "watchdog_pid": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/logs/yobogo_loco_jump_v1/pids/watchdog.pid"
+  },
+  "run_id": "yobogo_loco_jump_v1",
+  "schema_version": 1,
+  "stages": [
+    {
+      "cumulative_target_steps": 5000,
+      "full_name": "S0 冒烟",
+      "id": "S0_smoke",
+      "log_tag": "S0_smoke",
+      "tag": "phase0"
+    },
+    {
+      "cumulative_target_steps": 200000,
+      "full_name": "S1 站立",
+      "id": "S1_stand",
+      "log_tag": "S1_stand",
+      "tag": "phase1"
+    },
+    {
+      "cumulative_target_steps": 500000,
+      "full_name": "S2 命令",
+      "id": "S2_command",
+      "log_tag": "S2_command",
+      "tag": "phase2"
+    },
+    {
+      "cumulative_target_steps": 800000,
+      "full_name": "S3 跳跃",
+      "id": "S3_jump",
+      "log_tag": "S3_jump",
+      "tag": "phase3"
+    },
+    {
+      "cumulative_target_steps": 1200000,
+      "full_name": "S4 移动越障",
+      "id": "S4_mobile_terrain",
+      "log_tag": "S4_mobile_terrain",
+      "tag": "phase4"
+    }
+  ],
+  "tensorboard": "http://127.0.0.1:6006/",
+  "thresholds": {
+    "disk_free_gib": 5.0,
+    "failure_window_seconds": 1800.0,
+    "max_recoveries": 3,
+    "memory_used_percent": 90.0,
+    "poll_interval_seconds": 5.0,
+    "stall_timeout_seconds": 600.0,
+    "startup_grace_seconds": 600.0,
+    "tmp_free_gib": 2.0
+  },
+  "updated_at": "2026-10-02T07:21:35+08:00"
+}

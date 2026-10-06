@@ -1,0 +1,4 @@
+WARNING: DEF MINI_CHEETAH Robot > Pose  > Shape  > Mesh "": Unable to find resource at '/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/webots-sim/urdf/meshes/mini_body.dae'.
+INFO: rl_agent: Starting controller: python3 -u rl_agent.py auto
+RL_CONTROLLER_ERROR AttributeError: 'Node' object has no attribute 'setSFVec3f'
+WARNING: “rl_agent”控制器退出，状态：1。

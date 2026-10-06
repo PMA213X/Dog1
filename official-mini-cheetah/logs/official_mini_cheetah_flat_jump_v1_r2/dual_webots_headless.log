@@ -1,0 +1,16 @@
+DUAL_WEBOTS_HEADLESS_PASS num_envs=2 obs=(2,57) ports=11452,11453
+DUAL_WEBOTS_HEADLESS_EXIT=0
+worker logs:
+--- official-mini-cheetah/logs/official_mini_cheetah_flat_jump_v1_r2/webots_0.log
+WARNING: Could not listen to extern controllers and robot windows on port 1234. Port 1234 is already in use. Using port 1235 instead. This could be caused by another running instance of Webots. You should use the '--port' option to start several instances of Webots.
+INFO: rl_agent: Starting controller: python3 -u rl_agent.py auto
+RL_CONTROLLER_CONNECTED host=127.0.0.1 port=11452 contract=official_mini_cheetah_flat_jump_v1_r2
+RL_RESET_DIAGNOSTIC {"height": 0.3242283667366106, "target_min": -0.55, "target_max": 1.15, "target_errors": [0.00013860342080790344, 0.0004230941299587787, 0.0009598998397002401, 0.00014120561435529422, 0.0004222456792899454, 0.0009599067106438319, 0.0001524930486237197, 0.000555943252940283, 0.000906199245843009, 0.00014781288880444388, 0.0005613248645215396, 0.0008794477478375473], "available_torque_min": 20.0, "available_torque_max": 20.0, "position_infinite": false}
+RL_CONTROL_DIAGNOSTIC {"cycle": 0, "feedback_valid": true, "target_min": -0.55, "target_max": 1.15, "targets_equal_requested": true, "available_torque_min": 20.0, "available_torque_max": 20.0, "height_before": 0.3242283667366106, "used_position_target": true, "used_zero_torque_branch": false, "position_infinite": false, "height_after": 0.32420901055095097}
+INFO: rl_agent: Terminating.
+--- official-mini-cheetah/logs/official_mini_cheetah_flat_jump_v1_r2/webots_1.log
+INFO: rl_agent: Starting controller: python3 -u rl_agent.py auto
+RL_CONTROLLER_CONNECTED host=127.0.0.1 port=11453 contract=official_mini_cheetah_flat_jump_v1_r2
+RL_RESET_DIAGNOSTIC {"height": 0.3242283667366106, "target_min": -0.55, "target_max": 1.15, "target_errors": [0.00013860342080790344, 0.0004230941299587787, 0.0009598998397002401, 0.00014120561435529422, 0.0004222456792899454, 0.0009599067106438319, 0.0001524930486237197, 0.000555943252940283, 0.000906199245843009, 0.00014781288880444388, 0.0005613248645215396, 0.0008794477478375473], "available_torque_min": 20.0, "available_torque_max": 20.0, "position_infinite": false}
+RL_CONTROL_DIAGNOSTIC {"cycle": 0, "feedback_valid": true, "target_min": -0.55, "target_max": 1.15, "targets_equal_requested": true, "available_torque_min": 20.0, "available_torque_max": 20.0, "height_before": 0.3242283667366106, "used_position_target": true, "used_zero_torque_branch": false, "position_infinite": false, "height_after": 0.32420901055095097}
+INFO: rl_agent: Terminating.

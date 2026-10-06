@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "<stdin>", line 4, in <module>
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/webots-sim/rl/flat_jump_env.py", line 263, in reset
+    result = super().reset(seed=seed, options=options)
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/webots-sim/rl/loco_jump_env.py", line 680, in reset
+    state = self._validate_state(raw_state)
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/webots-sim/rl/flat_jump_env.py", line 201, in _validate_state
+    validated = super()._validate_state(state)
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/webots-sim/rl/loco_jump_env.py", line 375, in _validate_state
+    raise RuntimeError(f"收到意外 TCP 消息：{state}")
+RuntimeError: 收到意外 TCP 消息：{'type': 'error', 'msg': '命令 reset 执行失败'}
+RESET_BRIDGE_EXIT=1

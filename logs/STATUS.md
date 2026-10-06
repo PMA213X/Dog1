@@ -1,59 +1,59 @@
 # 训练监控面板 — 状态快照
 
-> 生成时间：2026-09-26 01:25:39　|　工具：`webots-sim/rl/monitor.py`　|　时间窗口：14 小时
+> 生成时间：2026-09-26 09:03:41　|　工具：`webots-sim/rl/monitor.py`　|　时间窗口：14 小时
 
 ## 一、总体状态
 
 | 项 | 值 |
 |---|---|
-| 当前阶段 | **— 等待启动**（来源：未发现阶段标注） |
-| 训练进程 | ⏸ 未运行（`pgrep train_ppo` 无匹配） |
-| 启动至今 | —— **等待启动** |
-| 14h 窗口剩余 | 14 小时 0 分（尚未起算） |
-| 训练步数 | 0（尚无步数记录） |
-| 步速 | ——（样本不足，无法估算） |
-| ETA | ——（无推进速率） |
-| 状态结论 | 🟡 **等待启动**——训练未开始，先跑冒烟再放大步数 |
+| 当前阶段 | **P1 站立**（来源：config.py 标注「p1」） |
+| 训练进程 | ✅ PID 1718834（运行 24:07，CPU 6.8%） 等 2 个进程 |
+| 启动至今 | 6 小时 57 分（起点 2026-09-26 02:05:58） |
+| 14h 窗口剩余 | 7 小时 2 分 |
+| 训练步数 | 80,480 / 200,000（40.2%） |
+| 步速 | 3.13 steps/s |
+| ETA | 约 10 小时 35 分（预计 09-26 19:39 完成） ⚠️ 超出剩余窗口，可能训不完 |
+| 状态结论 | 🟠 **训练中但日志有错误**（共 23 处，见第四节） |
 
 ## 二、训练进度
 
 | 项 | 值 |
 |---|---|
-| 最新 checkpoint | ——（`checkpoints/*.zip` 为空） |
-| checkpoint 总数 | 0 |
-| TensorBoard 事件 | ——（`runs/*/events*` 为空） |
-| 事件文件总数 | 0 |
-| 近 100 集奖励均值 | —— 无数据 |
-| 存活步数均值 | —— 无数据 |
-| 指标来源 | 无数据 |
+| 最新 checkpoint | `phase1_stand_80000_steps.zip`（2026-09-26 09:02:52，1.8 MB，0 分 48 秒前） |
+| checkpoint 总数 | 21 个 |
+| TensorBoard 事件 | `ppo_walk_phase1_stand_20260926-085140/PPO_0/events.out.tfevents.1790383904.pma213x-OMEN-Ubuntu.1731233.0`（6.7 KB，2026-09-26 09:03:08） |
+| 事件文件总数 | 7 个 |
+| 近 100 集奖励均值 | 1039.774（100 个样本） |
+| 存活步数均值 | 999.9（100 个样本） |
+| 指标来源 | TensorBoard 事件 |
 
 ## 三、系统资源
 
 | 资源 | 状态 |
 |---|---|
-| GPU | NVIDIA GeForce RTX 4060 Laptop GPU｜占用 0%｜显存 26/8188 MiB｜51°C |
-| CPU | 使用率 9%｜负载(1/5/15) 1.49 / 1.51 / 1.63 |
-| 内存 | 已用 9.2/14.8 GiB（62%）｜可用 5.6 GiB｜Swap 10.4/20.0 GiB |
-| 磁盘 | 74% 已用（1.2T/1.7T，剩 450G）｜挂载 /run/media/pma213x/0C6A8CC86A8CAFCE |
+| GPU | NVIDIA GeForce RTX 4060 Laptop GPU｜占用 1%｜显存 337/8188 MiB｜66°C |
+| CPU | 使用率 8%｜负载(1/5/15) 3.43 / 2.90 / 2.87 |
+| 内存 | 已用 12.8/14.8 GiB（86%）｜可用 2.0 GiB｜Swap 8.3/20.0 GiB |
+| 磁盘 | 74% 已用（1.2T/1.7T，剩 447G）｜挂载 /run/media/pma213x/0C6A8CC86A8CAFCE |
 
 ## 四、错误与告警
 
 | 关键词 | 出现次数 |
 |---|---|
-| ERROR | ✅ 0 |
-| NaN | ✅ 0 |
-| OOM | ❗ 1 |
-| **合计** | **1** |
+| ERROR | ❗ 8 |
+| NaN | ❗ 5 |
+| OOM | ❗ 10 |
+| **合计** | **23** |
 
 > 扫描范围：`logs/` 下全部文本文件（不含 `STATUS.md` 自身）。
 
 ## 五、提示
 
-- 训练尚未开始。就绪后启动：`python3 webots-sim/rl/train_ppo.py --total-steps 2048 --device cpu --eval-interval 0`（冒烟 P0）。
-- 依赖未装齐时先确认：`python3 -c 'import torch, stable_baselines3'`，以及 `webots-sim/rl/walk_env.py` 是否存在。
-- ⚠️ 日志中发现 1 处 ERROR/NaN/OOM，建议先排查再继续。
+- 看曲线：`tensorboard --logdir runs`（关注 `rollout/ep_remean` 上升、`rollout/ep_len_mean` 变长）。
+- 阶段推进参考：P0 冒烟 → P1 站立 → P2 行走 → P3 转向 → P4 台阶。
+- ⚠️ 日志中发现 23 处 ERROR/NaN/OOM，建议先排查再继续。
 - 刷新本面板：`python3 webots-sim/rl/monitor.py`；持续监控：`python3 webots-sim/rl/monitor.py --watch`。
 
 ---
 
-*本文件由 `monitor.py` 自动生成于 2026-09-26 01:25:39，请勿手工编辑。*
+*本文件由 `monitor.py` 自动生成于 2026-09-26 09:03:41，请勿手工编辑。*

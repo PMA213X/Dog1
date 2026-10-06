@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "run_id": "yobogo_flat_jump_v1",
+  "updated_at": "2026-10-03T15:27:00+0800",
+  "status": "failed",
+  "current_phase": "F0",
+  "error": "F0 训练退出码=1"
+}

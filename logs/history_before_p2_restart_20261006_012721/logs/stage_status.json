@@ -1,0 +1,17 @@
+{
+  "schema_version": 3,
+  "contract": "official_mini_cheetah_flat_jump_v1_r3",
+  "updated_at": "2026-10-06T01:21:51+0800",
+  "status": "stopped",
+  "current_phase": "P2",
+  "segment": "P2",
+  "reason": "P2_training_improvement_awaiting_restart",
+  "train_log": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/logs/official_mini_cheetah_flat_jump_v1_r3/P2_train.log",
+  "num_envs": 4,
+  "ports": [
+    11452,
+    11453,
+    11454,
+    11455
+  ]
+}

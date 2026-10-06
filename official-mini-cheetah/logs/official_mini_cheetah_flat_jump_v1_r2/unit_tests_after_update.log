@@ -1,0 +1,48 @@
+test_action_safety_and_target (test_contract_reward.ContractTests.test_action_safety_and_target) ... ok
+test_checkpoint_isolation (test_contract_reward.ContractTests.test_checkpoint_isolation) ... ok
+test_command_limits (test_contract_reward.ContractTests.test_command_limits) ... ok
+test_contract_dimensions_and_schedule (test_contract_reward.ContractTests.test_contract_dimensions_and_schedule) ... ok
+test_jump_events_only_in_f3 (test_contract_reward.RewardTests.test_jump_events_only_in_f3) ... ok
+test_nonfinite_fails (test_contract_reward.RewardTests.test_nonfinite_fails) ... ok
+test_stage_weights_and_finite (test_contract_reward.RewardTests.test_stage_weights_and_finite) ... ok
+test_command_domain_by_phase (test_env.EnvironmentTests.test_command_domain_by_phase) ... ok
+test_fall_terminates_and_reward_is_negative (test_env.EnvironmentTests.test_fall_terminates_and_reward_is_negative) ... ok
+test_fixed_and_curriculum_randomization (test_env.EnvironmentTests.test_fixed_and_curriculum_randomization) ... ok
+test_reset_and_step_are_57_12_finite (test_env.EnvironmentTests.test_reset_and_step_are_57_12_finite) ... ok
+test_keyboard_and_safety (test_env.ProtocolAndInputTests.test_keyboard_and_safety) ... ok
+test_tcp_roundtrip_and_validation (test_env.ProtocolAndInputTests.test_tcp_roundtrip_and_validation) ... ok
+test_eval_dry_run (test_world_and_cli.CliTests.test_eval_dry_run) ... ok
+test_stage_commands_are_official_only (test_world_and_cli.CliTests.test_stage_commands_are_official_only) ... ok
+test_train_requires_cuda_and_official_paths (test_world_and_cli.CliTests.test_train_requires_cuda_and_official_paths) ... usage: python3 -m unittest [-h] --phase {F0,F1,F2R,F3}
+                           [--total-steps TOTAL_STEPS] [--resume RESUME]
+                           [--ckptdir CKPTDIR] [--ckpt-prefix CKPT_PREFIX]
+                           [--logdir LOGDIR] [--bridge-port BRIDGE_PORT]
+                           [--randomization-mode {fixed,curriculum,full}]
+                           [--device {cuda}]
+                           [--checkpoint-interval CHECKPOINT_INTERVAL]
+                           [--webots-gui] [--num-envs {2}] [--seed SEED]
+                           [--dry-run]
+python3 -m unittest: error: argument --device: invalid choice: 'cpu' (choose from cuda)
+usage: python3 -m unittest [-h] --phase {F0,F1,F2R,F3}
+                           [--total-steps TOTAL_STEPS] [--resume RESUME]
+                           [--ckptdir CKPTDIR] [--ckpt-prefix CKPT_PREFIX]
+                           [--logdir LOGDIR] [--bridge-port BRIDGE_PORT]
+                           [--randomization-mode {fixed,curriculum,full}]
+                           [--device {cuda}]
+                           [--checkpoint-interval CHECKPOINT_INTERVAL]
+                           [--webots-gui] [--num-envs {2}] [--seed SEED]
+                           [--dry-run]
+python3 -m unittest: error: TCP 端口必须为 11452
+ok
+test_local_mesh_assets_are_official_only (test_world_and_cli.WorldStaticTests.test_local_mesh_assets_are_official_only) ... ok
+test_new_source_has_no_deprecated_import_path (test_world_and_cli.WorldStaticTests.test_new_source_has_no_deprecated_import_path) ... ok
+test_new_world_is_flat_and_isolated (test_world_and_cli.WorldStaticTests.test_new_world_is_flat_and_isolated) ... ok
+test_physical_fields_match_posture_template (test_world_and_cli.WorldStaticTests.test_physical_fields_match_posture_template) ... ok
+test_template_remains_unchanged (test_world_and_cli.WorldStaticTests.test_template_remains_unchanged) ... ok
+test_twelve_devices_and_axes (test_world_and_cli.WorldStaticTests.test_twelve_devices_and_axes) ... ok
+
+----------------------------------------------------------------------
+Ran 22 tests in 0.018s
+
+OK
+UNIT_EXIT=0

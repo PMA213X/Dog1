@@ -1,0 +1,3 @@
+INFO: rl_agent: Starting controller: python3 -u rl_agent.py flat_v1
+【rl_agent】已连接 walk_env 127.0.0.1:11451
+INFO: rl_agent: Terminating.

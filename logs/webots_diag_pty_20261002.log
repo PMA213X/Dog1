@@ -1,0 +1,33 @@
+INFO: rl_agent: Starting controller: python3 -u rl_agent.py
+Wrong 'configure' message received from the robot window.
+Warning: "configure { "imageMaxWidth"" device not found.
+Warning: " 349.995" device not found.
+Warning: " "imageMaxHeight"" device not found.
+Warning: " 240" device not found.
+Warning: " "hidden"" device not found.
+Warning: " 0 }" device not found.
+【rl_agent】play 模式：checkpoint=/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/checkpoints/yobogo_loco_jump_v1/yobogo_loco_jump_v1_final.zip rate=50Hz device=cpu
+【play-safety】稳定窗口 step=1/50 contacts=[1, 1, 1, 1]
+【play-safety】稳定窗口 step=2/50 contacts=[1, 1, 1, 1]
+【play-safety】稳定窗口 step=3/50 contacts=[1, 1, 1, 1]
+【play-safety】稳定窗口 step=4/50 contacts=[1, 1, 1, 1]
+【play-safety】稳定窗口 step=5/50 contacts=[1, 1, 1, 1]
+【play-safety】稳定窗口 step=6/50 contacts=[1, 1, 1, 1]
+【play-safety】稳定窗口 step=7/50 contacts=[1, 1, 1, 1]
+【play-safety】稳定窗口 step=8/50 contacts=[1, 1, 1, 1]
+【play-safety】稳定窗口 step=9/50 contacts=[1, 1, 1, 1]
+【play-safety】稳定窗口 step=10/50 contacts=[1, 1, 1, 1]
+【play-safety】稳定窗口 step=11/50 contacts=[1, 1, 1, 1]
+【play-safety】稳定窗口 step=12/50 contacts=[1, 1, 1, 1]
+【play-safety】稳定窗口 step=13/50 contacts=[1, 1, 1, 1]
+【play-safety】稳定窗口 step=14/50 contacts=[1, 1, 1, 1]
+【play-safety】稳定窗口 step=15/50 contacts=[1, 1, 1, 1]
+【play-safety】稳定窗口 step=16/50 contacts=[1, 1, 1, 1]
+【play-safety】稳定窗口 step=17/50 contacts=[1, 1, 1, 1]
+【play-safety】稳定窗口 step=18/50 contacts=[1, 1, 1, 1]
+【play-safety】稳定窗口 step=19/50 contacts=[1, 1, 1, 1]
+INFO: rl_agent: Terminating.
+[diag][start]=1790928342.368379555
+[diag][end]=1790928351.086174624
+[diag][elapsed]=8.718s
+[diag][exit_code]=0

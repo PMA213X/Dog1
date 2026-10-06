@@ -1,0 +1,3 @@
+HEALTH_CONFIRMATION_BEGIN
+HEALTH_FAILURE device=cuda not present in F1 log
+HEALTH_EXIT=1

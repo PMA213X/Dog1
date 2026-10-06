@@ -6,6 +6,28 @@
 
 > **2026-09-30 模型重构完成警示**：YoboGo Webots 模型已按课件改为 `0.15/0.15 m` 腿段、约 `120°` 屈膝零位、显式关节限位和足端碰撞，并通过生成器静态检查、三 world Webots 加载及 `42/12` 冒烟验证。即使 `OBS_DIM=42/45/51`、`ACTION_DIM=12` 和 TCP 字段全部不变，**2026-09-29 及以前的 P1–P4 checkpoint 仍是旧直腿几何资产**，不得作为新模型的正式回放、热启动或验收依据。本文中的历史成绩只对应旧模型。
 
+> **2026-10-01 新任务状态**：`yobogo_loco_jump_v1` 已将接口改为
+> **55 维观测 / 12 维动作 / 50 Hz**，新增命令、跳跃锁存、机身高度和四足接触，
+> 并建立 S0～S4 累计 1,200,000 步、50,000 步或 1,800 秒 checkpoint、
+> 新前缀隔离及三层监控批准门。所有训练前置已 **GO**，正式训练于
+> **2026-10-01 15:19:46 +08:00** 通过
+> `bash webots-sim/rl/start_loco_jump_training.sh --start-training` 启动。
+> 当前使用 **CUDA** 和前缀 `yobogo_loco_jump_v1`，阶段累计目标依次为
+> **5,000 / 200,000 / 500,000 / 800,000 / 1,200,000**。
+> 训练 PID `389037`、monitor/watchdog PID `389032`、TensorBoard PID
+> `388923`；训练日志为 `logs/yobogo_loco_jump_v1/train.log`，监控日志为
+> `logs/yobogo_loco_jump_v1/monitor.log`，状态文件为
+> `logs/yobogo_loco_jump_v1/status.json`；TensorBoard 为
+> `http://127.0.0.1:6006/`，数据在 `runs/yobogo_loco_jump_v1/`。
+> 首个状态为 **S0 2,048 / 5,000，约 19 steps/s**，watchdog 正常，
+> heartbeat automation `yobogo-30 = ACTIVE`。
+> **当前只是训练进行中：尚无正式 checkpoint、五集最终评估或正式视频，
+> 不得提前宣称完成。**
+> 新任务入口见 [`remote-rl-locomotion.md`](./remote-rl-locomotion.md)，
+> TCP 字段见 [`rl-webots-tcp-bridge.md`](../api/rl-webots-tcp-bridge.md)。
+> 下文 P1～P4 成绩、命令和 checkpoint 均为**历史旧模型资料**，不得冒充
+> `yobogo_loco_jump_v1` 结果。
+
 ---
 
 ## 目录
@@ -14,7 +36,7 @@
 2. [系统架构](#2-系统架构)
 3. [观测 / 动作 / 奖励设计](#3-观测--动作--奖励设计)
 4. [环境搭建（Python venv）](#4-环境搭建python-venv)
-5. [四阶段完整训练命令](#5-四阶段完整训练命令)
+5. [历史四阶段完整训练命令（P1–P4）](#5-历史四阶段完整训练命令p1p4)
 6. [超参数](#6-超参数)
 7. [监控与回放](#7-监控与回放)
 8. [奖励曲线解读](#8-奖励曲线解读)
@@ -198,7 +220,28 @@ gymnasium 1.3.0。
 
 ---
 
-## 5. 四阶段完整训练命令
+## 5. 历史四阶段完整训练命令（P1–P4）
+
+> **只用于理解历史流程。** 新任务不得直接执行本章的
+> `train_ppo.py`、42/45/51 维环境或旧 checkpoint 命令。
+> `yobogo_loco_jump_v1` 的批准入口是
+> `webots-sim/rl/start_loco_jump_training.sh --start-training`，
+> 且必须先由用户明确授权。
+
+### 新任务五阶段累计预算
+
+| 阶段 | tag | 累计目标 | 任务 |
+|---|---|---:|---|
+| S0 | `phase0` | 5,000 | 链路冒烟，不计正式训练预算 |
+| S1 | `phase1` | 200,000 | 站立与稳定 |
+| S2 | `phase2` | 500,000 | 命令跟踪 |
+| S3 | `phase3` | 800,000 | 跳跃 |
+| S4 | `phase4` | 1,200,000 | 移动越障 |
+
+阶段数值都是**全进程累计目标**；监控器在阶段完成并校验
+`yobogo_loco_jump_v1*.zip` 后，用 `--resume` 推进下一阶段。
+正式训练已于 2026-10-01 15:19:46 启动；启动时 S0 尚未完成，
+故本表是预算与排队计划，不是已完成成绩。
 
 > 所有命令在**仓库根目录**执行。后台长任务必须
 > `setsid nohup ... < /dev/null &`，否则会被会话超时连带杀掉。

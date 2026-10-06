@@ -1,0 +1,11 @@
+阶段命令清单已写入：/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/logs/yobogo_loco_jump_v1/train_command.json
+TensorBoard 已启动 PID=388923：127.0.0.1:6006
+TensorBoard 日志：/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/logs/yobogo_loco_jump_v1/tensorboard.log
+[2026-10-01 15:19:47] 监控已启动 PID=389032
+[2026-10-01 15:19:47] 监控日志：/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/logs/yobogo_loco_jump_v1/monitor.log
+[2026-10-01 15:19:47] 状态文件：/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/logs/yobogo_loco_jump_v1/status.json
+正式训练监控已显式启动。
+状态：/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/logs/yobogo_loco_jump_v1/status.json
+监控日志：/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/logs/yobogo_loco_jump_v1/monitor.log
+训练日志：/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/logs/yobogo_loco_jump_v1/train.log
+TensorBoard：http://127.0.0.1:6006/

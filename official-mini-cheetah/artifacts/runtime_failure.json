@@ -1,0 +1,18 @@
+{
+  "status": "FAIL",
+  "command": "timeout 90s /usr/local/webots/webots --batch --stdout --stderr --mode=fast --no-rendering official-mini-cheetah/worlds/official_flat_ground_test.wbt",
+  "exit_code": 124,
+  "display": ":0",
+  "duration_target_s": 10.0,
+  "supervisor_executed": false,
+  "acceptance_samples_created": false,
+  "blocking_reason": "Webots R2025a 跳过官方模型的 child Solid，四个上级 HingeJoint 丢失；按批准计划停止，不自动转换为 endPoint。",
+  "errors": [
+    "Skipped unknown 'child' field in HingeJoint node（出现于四条腿上级关节）",
+    "Missing declaration for 'Supervisor', unknown node",
+    "Skipped unknown 'coordinateSystem' field in InertialUnit node",
+    "Skipped unknown 'stopSpringDamper' field in HingeJointParameters node",
+    "Skipped unknown 'frictionMaterial' field in Physics node"
+  ],
+  "evidence_log": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/artifacts/webots_batch.log"
+}

@@ -1,0 +1,9 @@
+EXIT_CODE=0
+BEST_LINE=
+TRAIN_PID=162547
+TRAIN_LOG=/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/logs/official_mini_cheetah_flat_jump_v1_r2/smoke_5000_monitored_train.log
+SAMPLES=/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/logs/official_mini_cheetah_flat_jump_v1_r2/smoke_5000_monitored_samples.tsv
+EVENT_COUNT=1
+CHECKPOINT=/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/checkpoints/official_mini_cheetah_flat_jump_v1_r2_smoke/official_mini_cheetah_flat_jump_v1_r2_final.zip
+CHECKPOINT_SIZE=682100
+BAD_MATCH_COUNT=0

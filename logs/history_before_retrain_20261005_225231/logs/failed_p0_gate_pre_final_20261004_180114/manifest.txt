@@ -1,0 +1,3 @@
+archived_at=2026-10-04T18:03:21+08:00
+reason=previous_r3_p0_gate_failure_before_final_restart
+failed_checkpoint_history=checkpoints/official_mini_cheetah_flat_jump_v1_r3/history/p0_failed_10000_20261004_175304

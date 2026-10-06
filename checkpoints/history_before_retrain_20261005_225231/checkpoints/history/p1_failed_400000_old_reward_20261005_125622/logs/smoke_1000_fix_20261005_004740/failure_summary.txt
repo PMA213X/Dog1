@@ -1,0 +1,24 @@
+status=FAILED
+failure=RL_RESET_TECHNICAL_FAILURE rsi_stage_a posture=2.831505
+completed_steps=0
+target_steps=1000
+resume=NONE_FROM_ZERO
+checkpoint_files=0
+handshake_count=4
+capability_error_count=0
+reset_technical_failure_count=8
+unsupported_count=0
+traceback_count=5
+height_reward_evidence=NONE_NO_TRAINING_STEP
+contact_source_evidence=NONE_RESET_FAILED_BEFORE_FIRST_STATE
+memory_after_cleanup:
+MemAvailable:    8153364 kB
+SwapFree:       20971512 kB
+process_after_cleanup:
+webots=0
+controllers=0
+train=0
+tensorboard=0
+ports_after_cleanup:
+NONE_LISTEN
+NONE_CONNECTED

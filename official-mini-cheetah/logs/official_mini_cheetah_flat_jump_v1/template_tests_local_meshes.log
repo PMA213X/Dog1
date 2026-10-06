@@ -1,0 +1,40 @@
+test_passive_world_still_uses_none_controller (__main__.PostureTargetTests.test_passive_world_still_uses_none_controller) ... ok
+test_slightly_extended_is_extended_but_not_locked (__main__.PostureTargetTests.test_slightly_extended_is_extended_but_not_locked) ... ok
+test_spawn_height_has_geometry_clearance (__main__.PostureTargetTests.test_spawn_height_has_geometry_clearance) ... ok
+test_support_projection_uses_official_geometry (__main__.PostureTargetTests.test_support_projection_uses_official_geometry) ... ok
+test_targets_are_finite_bounded_and_mirrored (__main__.PostureTargetTests.test_targets_are_finite_bounded_and_mirrored) ... ok
+test_active_default_and_gait_use_crouch_baseline (__main__.TimelineTests.test_active_default_and_gait_use_crouch_baseline) ... ok
+test_boundaries_are_exact (__main__.TimelineTests.test_boundaries_are_exact) ... ok
+test_rate_limiter_and_tracker_enforce_change_limit (__main__.TimelineTests.test_rate_limiter_and_tracker_enforce_change_limit) ... ok
+test_transition_is_continuous_and_smooth (__main__.TimelineTests.test_transition_is_continuous_and_smooth) ... ok
+test_controller_does_not_write_passive_artifacts (__main__.WorldStaticTests.test_controller_does_not_write_passive_artifacts) ... ok
+test_geometry_logger_rejects_nonfinite_pose (__main__.WorldStaticTests.test_geometry_logger_rejects_nonfinite_pose) ... ok
+test_timeline_world_is_isolated (__main__.WorldStaticTests.test_timeline_world_is_isolated) ... ok
+test_timeline_world_keeps_12_12_12_and_axes (__main__.WorldStaticTests.test_timeline_world_keeps_12_12_12_and_axes) ... ok
+test_timeline_world_preserves_official_model (__main__.WorldStaticTests.test_timeline_world_preserves_official_model) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.158s
+
+OK
+test_all_controller_modules_import_without_webots (__main__.ImportAndDeviceTests.test_all_controller_modules_import_without_webots) ... ok
+test_twelve_devices_are_complete_and_configured (__main__.ImportAndDeviceTests.test_twelve_devices_are_complete_and_configured) ... ok
+test_default_is_standing_and_motion_is_ignored (__main__.InputAndModeTests.test_default_is_standing_and_motion_is_ignored) ... ok
+test_gamepad_deadzone_disconnect_nan_and_mapping (__main__.InputAndModeTests.test_gamepad_deadzone_disconnect_nan_and_mapping) ... ok
+test_r_escape_and_timeout_return_to_standing (__main__.InputAndModeTests.test_r_escape_and_timeout_return_to_standing) ... ok
+test_space_and_a_conflict_rule_is_explicit (__main__.InputAndModeTests.test_space_and_a_conflict_rule_is_explicit) ... ok
+test_w_s_a_d_q_e_signs_and_same_axis_latest_wins (__main__.InputAndModeTests.test_w_s_a_d_q_e_signs_and_same_axis_latest_wins) ... ok
+test_gait_targets_are_finite_and_bounded (__main__.PdAndSafetyTests.test_gait_targets_are_finite_and_bounded) ... ok
+test_nonfinite_feedback_forces_zero_torques (__main__.PdAndSafetyTests.test_nonfinite_feedback_forces_zero_torques) ... ok
+test_pd_gains_and_limits_cover_all_joints (__main__.PdAndSafetyTests.test_pd_gains_and_limits_cover_all_joints) ... ok
+test_active_and_passive_have_complete_12_axis_models (__main__.WorldIsolationTests.test_active_and_passive_have_complete_12_axis_models) ... ok
+test_robot_model_differs_only_by_controller_and_active_spring (__main__.WorldIsolationTests.test_robot_model_differs_only_by_controller_and_active_spring) ... ok
+test_worlds_are_isolated (__main__.WorldIsolationTests.test_worlds_are_isolated) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.049s
+
+OK
+【提示】键盘设备不可用，仅使用手柄: '_Keyboard' object has no attribute 'enable'
+【提示】Webots Joystick 不可用，仅使用键盘: '_Joystick' object has no attribute 'enable'
+POSTURE_EXIT=0 TELEOP_EXIT=0

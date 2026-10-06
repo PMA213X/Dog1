@@ -1,0 +1,176 @@
+CUDA_OK name=NVIDIA GeForce RTX 4060 Laptop GPU device=cuda:0 capability=(8, 9)
+/home/pma213x/.local/lib/python3.14/site-packages/stable_baselines3/common/vec_env/base_vec_env.py:78: UserWarning: The `render_mode` attribute is not defined in your environment. It will be set to None.
+  warnings.warn("The `render_mode` attribute is not defined in your environment. It will be set to None.")
+/home/pma213x/.local/lib/python3.14/site-packages/stable_baselines3/common/on_policy_algorithm.py:150: UserWarning: You are trying to run PPO on the GPU, but it is primarily intended to run on the CPU when not using a CNN policy (you are using ActorCriticPolicy which should be a MlpPolicy). See https://github.com/DLR-RM/stable-baselines3/issues/1245 for more info. You can pass `device='cpu'` or `export CUDA_VISIBLE_DEVICES=` to force using the CPU.Note: The model will train, but the GPU utilization will be poor and the training might take longer than on CPU.
+  warnings.warn(
+MODEL_LOADED path=/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/checkpoints/official_mini_cheetah_flat_jump_v1_r2/official_mini_cheetah_flat_jump_v1_r2_450000_steps.zip steps=450000
+TRAIN_START phase=F1 current=450000 target=2000000 remaining=1550000 num_envs=4 ports=[11452, 11453, 11454, 11455]
+Logging to /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/runs/official_mini_cheetah_flat_jump_v1_r2/F1_parallel/PPO_0
+TRAIN_PROGRESS total_timesteps=450256
+TRAIN_PROGRESS total_timesteps=450512
+TRAIN_PROGRESS total_timesteps=450768
+TRAIN_PROGRESS total_timesteps=451024
+TRAIN_PROGRESS total_timesteps=451280
+TRAIN_PROGRESS total_timesteps=451536
+TRAIN_PROGRESS total_timesteps=451792
+TRAIN_PROGRESS total_timesteps=452048
+TRAIN_PROGRESS total_timesteps=452304
+TRAIN_PROGRESS total_timesteps=452560
+TRAIN_PROGRESS total_timesteps=452816
+TRAIN_PROGRESS total_timesteps=453072
+TRAIN_PROGRESS total_timesteps=453328
+TRAIN_PROGRESS total_timesteps=453584
+TRAIN_PROGRESS total_timesteps=453840
+TRAIN_PROGRESS total_timesteps=454096
+TRAIN_PROGRESS total_timesteps=454352
+TRAIN_PROGRESS total_timesteps=454608
+TRAIN_PROGRESS total_timesteps=454864
+TRAIN_PROGRESS total_timesteps=455120
+TRAIN_PROGRESS total_timesteps=455376
+TRAIN_PROGRESS total_timesteps=455632
+TRAIN_PROGRESS total_timesteps=455888
+TRAIN_PROGRESS total_timesteps=456144
+TRAIN_PROGRESS total_timesteps=456400
+TRAIN_PROGRESS total_timesteps=456656
+TRAIN_PROGRESS total_timesteps=456912
+TRAIN_PROGRESS total_timesteps=457168
+TRAIN_PROGRESS total_timesteps=457424
+TRAIN_PROGRESS total_timesteps=457680
+TRAIN_PROGRESS total_timesteps=457936
+TRAIN_PROGRESS total_timesteps=458192
+---------------------------------
+| rollout/           |          |
+|    ep_len_mean     | 957      |
+|    ep_rew_mean     | 816      |
+| time/              |          |
+|    fps             | 244      |
+|    iterations      | 1        |
+|    time_elapsed    | 33       |
+|    total_timesteps | 458192   |
+---------------------------------
+TRAIN_PROGRESS total_timesteps=458448
+TRAIN_PROGRESS total_timesteps=458704
+TRAIN_PROGRESS total_timesteps=458960
+TRAIN_PROGRESS total_timesteps=459216
+TRAIN_PROGRESS total_timesteps=459472
+TRAIN_PROGRESS total_timesteps=459728
+TRAIN_PROGRESS total_timesteps=459984
+TRAIN_PROGRESS total_timesteps=460240
+TRAIN_PROGRESS total_timesteps=460496
+TRAIN_PROGRESS total_timesteps=460752
+TRAIN_PROGRESS total_timesteps=461008
+TRAIN_PROGRESS total_timesteps=461264
+TRAIN_PROGRESS total_timesteps=461520
+TRAIN_PROGRESS total_timesteps=461776
+TRAIN_PROGRESS total_timesteps=462032
+TRAIN_PROGRESS total_timesteps=462288
+TRAIN_PROGRESS total_timesteps=462544
+TRAIN_PROGRESS total_timesteps=462800
+TRAIN_PROGRESS total_timesteps=463056
+TRAIN_PROGRESS total_timesteps=463312
+TRAIN_PROGRESS total_timesteps=463568
+TRAIN_PROGRESS total_timesteps=463824
+TRAIN_PROGRESS total_timesteps=464080
+TRAIN_PROGRESS total_timesteps=464336
+TRAIN_PROGRESS total_timesteps=464592
+TRAIN_PROGRESS total_timesteps=464848
+TRAIN_PROGRESS total_timesteps=465104
+TRAIN_PROGRESS total_timesteps=465360
+TRAIN_PROGRESS total_timesteps=465616
+TRAIN_PROGRESS total_timesteps=465872
+TRAIN_PROGRESS total_timesteps=466128
+TRAIN_PROGRESS total_timesteps=466384
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 957         |
+|    ep_rew_mean          | 816         |
+| time/                   |             |
+|    fps                  | 232         |
+|    iterations           | 2           |
+|    time_elapsed         | 70          |
+|    total_timesteps      | 466384      |
+| train/                  |             |
+|    approx_kl            | 0.018423239 |
+|    clip_fraction        | 0.227       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -15.1       |
+|    explained_variance   | 0.52        |
+|    learning_rate        | 0.0003      |
+|    loss                 | 73.3        |
+|    n_updates            | 2190        |
+|    policy_gradient_loss | -0.0141     |
+|    std                  | 0.851       |
+|    value_loss           | 73.7        |
+-----------------------------------------
+TRAIN_PROGRESS total_timesteps=466640
+TRAIN_PROGRESS total_timesteps=466896
+TRAIN_PROGRESS total_timesteps=467152
+TRAIN_PROGRESS total_timesteps=467408
+TRAIN_PROGRESS total_timesteps=467664
+TRAIN_PROGRESS total_timesteps=467920
+TRAIN_PROGRESS total_timesteps=468176
+TRAIN_PROGRESS total_timesteps=468432
+TRAIN_PROGRESS total_timesteps=468688
+TRAIN_PROGRESS total_timesteps=468944
+TRAIN_PROGRESS total_timesteps=469200
+TRAIN_PROGRESS total_timesteps=469456
+TRAIN_PROGRESS total_timesteps=469712
+TRAIN_PROGRESS total_timesteps=469968
+TRAIN_PROGRESS total_timesteps=470224
+TRAIN_PROGRESS total_timesteps=470480
+TRAIN_PROGRESS total_timesteps=470736
+TRAIN_PROGRESS total_timesteps=470992
+TRAIN_PROGRESS total_timesteps=471248
+TRAIN_PROGRESS total_timesteps=471504
+TRAIN_PROGRESS total_timesteps=471760
+TRAIN_PROGRESS total_timesteps=472016
+TRAIN_PROGRESS total_timesteps=472272
+TRAIN_PROGRESS total_timesteps=472528
+TRAIN_PROGRESS total_timesteps=472784
+TRAIN_PROGRESS total_timesteps=473040
+TRAIN_PROGRESS total_timesteps=473296
+TRAIN_PROGRESS total_timesteps=473552
+TRAIN_PROGRESS total_timesteps=473808
+TRAIN_PROGRESS total_timesteps=474064
+TRAIN_PROGRESS total_timesteps=474320
+TRAIN_PROGRESS total_timesteps=474576
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 957         |
+|    ep_rew_mean          | 816         |
+| time/                   |             |
+|    fps                  | 228         |
+|    iterations           | 3           |
+|    time_elapsed         | 107         |
+|    total_timesteps      | 474576      |
+| train/                  |             |
+|    approx_kl            | 0.022378623 |
+|    clip_fraction        | 0.281       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -15.1       |
+|    explained_variance   | 0.0427      |
+|    learning_rate        | 0.0003      |
+|    loss                 | 121         |
+|    n_updates            | 2200        |
+|    policy_gradient_loss | -0.0127     |
+|    std                  | 0.851       |
+|    value_loss           | 115         |
+-----------------------------------------
+TRAIN_PROGRESS total_timesteps=474832
+TRAIN_PROGRESS total_timesteps=475088
+TRAIN_PROGRESS total_timesteps=475344
+TRAIN_PROGRESS total_timesteps=475600
+TRAIN_PROGRESS total_timesteps=475856
+TRAIN_PROGRESS total_timesteps=476112
+TRAIN_PROGRESS total_timesteps=476368
+TRAIN_PROGRESS total_timesteps=476624
+TRAIN_PROGRESS total_timesteps=476880
+TRAIN_PROGRESS total_timesteps=477136
+TRAIN_PROGRESS total_timesteps=477392
+TRAIN_PROGRESS total_timesteps=477648
+TRAIN_PROGRESS total_timesteps=477904
+TRAIN_PROGRESS total_timesteps=478160
+TRAIN_PROGRESS total_timesteps=478416
+TRAIN_PROGRESS total_timesteps=478672
+TRAIN_PROGRESS total_timesteps=478928
+TRAIN_PROGRESS total_timesteps=479184

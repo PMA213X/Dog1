@@ -1,0 +1,1 @@
+env CUDA_VISIBLE_DEVICES=0 DISPLAY=:0 PYTHONUNBUFFERED=1 setsid python3 -m rl.run_stages 

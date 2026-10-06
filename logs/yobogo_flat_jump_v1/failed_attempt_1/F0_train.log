@@ -1,0 +1,59 @@
+【CUDA】device=0 name=NVIDIA GeForce RTX 4060 Laptop GPU capability=(8, 9)
+Using cuda device
+/home/pma213x/.local/lib/python3.14/site-packages/stable_baselines3/common/on_policy_algorithm.py:150: UserWarning: You are trying to run PPO on the GPU, but it is primarily intended to run on the CPU when not using a CNN policy (you are using ActorCriticPolicy which should be a MlpPolicy). See https://github.com/DLR-RM/stable-baselines3/issues/1245 for more info. You can pass `device='cpu'` or `export CUDA_VISIBLE_DEVICES=` to force using the CPU.Note: The model will train, but the GPU utilization will be poor and the training might take longer than on CPU.
+  warnings.warn(
+【训练】新模型 obs=57 action=12 device=cuda
+【训练】阶段=F0 累计=0 目标=5000 本次=5000
+Traceback (most recent call last):
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/webots-sim/rl/train_flat_jump.py", line 387, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/webots-sim/rl/train_flat_jump.py", line 382, in main
+    train(args)
+    ~~~~~^^^^^^
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/webots-sim/rl/train_flat_jump.py", line 352, in train
+    model.learn(
+    ~~~~~~~~~~~^
+        total_timesteps=remaining,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        progress_bar=False,
+        ^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/pma213x/.local/lib/python3.14/site-packages/stable_baselines3/ppo/ppo.py", line 311, in learn
+    return super().learn(
+           ~~~~~~~~~~~~~^
+        total_timesteps=total_timesteps,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        progress_bar=progress_bar,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/pma213x/.local/lib/python3.14/site-packages/stable_baselines3/common/on_policy_algorithm.py", line 311, in learn
+    total_timesteps, callback = self._setup_learn(
+                                ~~~~~~~~~~~~~~~~~^
+        total_timesteps,
+        ^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        progress_bar,
+        ^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/pma213x/.local/lib/python3.14/site-packages/stable_baselines3/common/base_class.py", line 423, in _setup_learn
+    self._last_obs = self.env.reset()  # type: ignore[assignment]
+                     ~~~~~~~~~~~~~~^^
+  File "/home/pma213x/.local/lib/python3.14/site-packages/stable_baselines3/common/vec_env/dummy_vec_env.py", line 78, in reset
+    obs, self.reset_infos[env_idx] = self.envs[env_idx].reset(seed=self._seeds[env_idx], **maybe_options)
+                                     ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pma213x/.local/lib/python3.14/site-packages/stable_baselines3/common/monitor.py", line 85, in reset
+    return self.env.reset(**kwargs)
+           ~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/webots-sim/rl/flat_jump_env.py", line 263, in reset
+    result = super().reset(seed=seed, options=options)
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/webots-sim/rl/loco_jump_env.py", line 664, in reset
+    raw_state = self._recv()
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/webots-sim/rl/loco_jump_env.py", line 323, in _recv
+    raise ConnectionError("TCP 桥连接已关闭")
+ConnectionError: TCP 桥连接已关闭

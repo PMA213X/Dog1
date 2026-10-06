@@ -1,0 +1,5 @@
+randomization:start
+randomization:world-info
+randomization:friction=1.2
+randomization:mass=1.0 nodes=13
+randomization:done delay=0

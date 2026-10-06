@@ -1,0 +1,10 @@
+test_height_reward_is_zero_at_reference_and_negative_away (tests.rl.test_contract_reward.RewardTests.test_height_reward_is_zero_at_reference_and_negative_away) ... ok
+test_default_crouch_rsi_zero_action_and_reward_align (tests.rl.test_contract_reward.RewardTests.test_default_crouch_rsi_zero_action_and_reward_align) ... ok
+test_specific_initialization_and_connection_errors_are_visible (tests.rl.test_env.EnvironmentTests.test_specific_initialization_and_connection_errors_are_visible) ... ok
+test_capability_missing_contact_is_zeroed_before_reward (tests.rl.test_env.EnvironmentTests.test_capability_missing_contact_is_zeroed_before_reward) ... ok
+test_controller_error_reports_are_wired_into_main (tests.rl.test_world_and_cli.ControllerStaticTests.test_controller_error_reports_are_wired_into_main) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.005s
+
+OK

@@ -1,0 +1,48 @@
+{
+  "contact_min_z": -0.0011613684872155902,
+  "contact_samples": 258,
+  "duration_observed_s": 10.0,
+  "duration_target_s": 10.0,
+  "failure_reasons": [],
+  "final_angular_speed": 1.4493000947602338e-07,
+  "final_joint_values": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "final_linear_speed": 1.1494274259397709e-09,
+  "final_position": [
+    -3.936702366990859e-16,
+    4.3466721435313206e-15,
+    0.3889193877483295
+  ],
+  "final_velocity": [
+    -2.5598744755001517e-13,
+    2.1448037516948786e-12,
+    -1.1494253963567279e-09,
+    -5.646581111321265e-12,
+    -6.721138004656207e-13,
+    1.449300093644674e-07
+  ],
+  "geometry_min_z": -0.0012428800000000018,
+  "initial_geometry_min_z": 0.01100000000000001,
+  "joint_count": 12,
+  "max_geometry_penetration": 0.0012428800000000018,
+  "max_persistent_penetration_seconds": 0.0,
+  "nan_anomaly_samples": 0,
+  "penetration_over_10mm_samples": 0,
+  "robot_controller_commands": 0,
+  "sample_count": 2501,
+  "sample_log": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/artifacts/acceptance_samples.jsonl",
+  "status": "PASS",
+  "summary_log": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/artifacts/acceptance_summary.json"
+}

@@ -1,0 +1,65 @@
+CUDA_OK name=NVIDIA GeForce RTX 4060 Laptop GPU device=cuda:0 capability=(8, 9)
+CUDA_VALIDATE_EXIT=0
+========================================================================
+CONTRACT official_mini_cheetah_flat_jump_v1
+PHASE F0 TARGET 5000
+DIMS obs=57 action=12 rate=50Hz
+DEVICE cuda CUDA_VISIBLE_DEVICES=0
+GPU NVIDIA GeForce RTX 4060 Laptop GPU
+CHECKPOINT_DIR /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/checkpoints/official_mini_cheetah_flat_jump_v1
+TENSORBOARD_DIR /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/runs/official_mini_cheetah_flat_jump_v1/F0
+BRIDGE_PORT 11452
+WEBOTS_GUI False
+RESUME NONE
+STATUS dry-run
+========================================================================
+DRYRUN_F0_EXIT=0
+========================================================================
+CONTRACT official_mini_cheetah_flat_jump_v1
+PHASE F1 TARGET 450000
+DIMS obs=57 action=12 rate=50Hz
+DEVICE cuda CUDA_VISIBLE_DEVICES=0
+GPU NVIDIA GeForce RTX 4060 Laptop GPU
+CHECKPOINT_DIR /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/checkpoints/official_mini_cheetah_flat_jump_v1
+TENSORBOARD_DIR /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/runs/official_mini_cheetah_flat_jump_v1/F1
+BRIDGE_PORT 11452
+WEBOTS_GUI False
+RESUME NONE
+STATUS dry-run
+========================================================================
+DRYRUN_F1_EXIT=0
+========================================================================
+CONTRACT official_mini_cheetah_flat_jump_v1
+PHASE F2 TARGET 750000
+DIMS obs=57 action=12 rate=50Hz
+DEVICE cuda CUDA_VISIBLE_DEVICES=0
+GPU NVIDIA GeForce RTX 4060 Laptop GPU
+CHECKPOINT_DIR /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/checkpoints/official_mini_cheetah_flat_jump_v1
+TENSORBOARD_DIR /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/runs/official_mini_cheetah_flat_jump_v1/F2
+BRIDGE_PORT 11452
+WEBOTS_GUI False
+RESUME NONE
+STATUS dry-run
+========================================================================
+DRYRUN_F2_EXIT=0
+========================================================================
+CONTRACT official_mini_cheetah_flat_jump_v1
+PHASE F3 TARGET 1300000
+DIMS obs=57 action=12 rate=50Hz
+DEVICE cuda CUDA_VISIBLE_DEVICES=0
+GPU NVIDIA GeForce RTX 4060 Laptop GPU
+CHECKPOINT_DIR /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/checkpoints/official_mini_cheetah_flat_jump_v1
+TENSORBOARD_DIR /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/runs/official_mini_cheetah_flat_jump_v1/F3
+BRIDGE_PORT 11452
+WEBOTS_GUI False
+RESUME NONE
+STATUS dry-run
+========================================================================
+DRYRUN_F3_EXIT=0
+/usr/bin/python3 -m rl.train --phase F0 --total-steps 5000 --device cuda --ckptdir /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/checkpoints/official_mini_cheetah_flat_jump_v1 --ckpt-prefix official_mini_cheetah_flat_jump_v1 --logdir /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/runs/official_mini_cheetah_flat_jump_v1/F0_smoke --bridge-port 11452 --checkpoint-interval 50000 --randomization-mode full --webots-gui --seed 20261003
+/usr/bin/python3 -m rl.train --phase F1 --total-steps 100000 --device cuda --ckptdir /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/checkpoints/official_mini_cheetah_flat_jump_v1 --ckpt-prefix official_mini_cheetah_flat_jump_v1 --logdir /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/runs/official_mini_cheetah_flat_jump_v1/F1A_fixed --bridge-port 11452 --checkpoint-interval 50000 --randomization-mode fixed --webots-gui --seed 20261003 --resume /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/checkpoints/official_mini_cheetah_flat_jump_v1/official_mini_cheetah_flat_jump_v1_final.zip
+/usr/bin/python3 -m rl.train --phase F1 --total-steps 350000 --device cuda --ckptdir /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/checkpoints/official_mini_cheetah_flat_jump_v1 --ckpt-prefix official_mini_cheetah_flat_jump_v1 --logdir /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/runs/official_mini_cheetah_flat_jump_v1/F1B_curriculum --bridge-port 11452 --checkpoint-interval 50000 --randomization-mode curriculum --webots-gui --seed 20261003 --resume /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/checkpoints/official_mini_cheetah_flat_jump_v1/official_mini_cheetah_flat_jump_v1_final.zip
+/usr/bin/python3 -m rl.train --phase F1 --total-steps 450000 --device cuda --ckptdir /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/checkpoints/official_mini_cheetah_flat_jump_v1 --ckpt-prefix official_mini_cheetah_flat_jump_v1 --logdir /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/runs/official_mini_cheetah_flat_jump_v1/F1C_full --bridge-port 11452 --checkpoint-interval 50000 --randomization-mode full --webots-gui --seed 20261003 --resume /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/checkpoints/official_mini_cheetah_flat_jump_v1/official_mini_cheetah_flat_jump_v1_final.zip
+/usr/bin/python3 -m rl.train --phase F2 --total-steps 750000 --device cuda --ckptdir /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/checkpoints/official_mini_cheetah_flat_jump_v1 --ckpt-prefix official_mini_cheetah_flat_jump_v1 --logdir /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/runs/official_mini_cheetah_flat_jump_v1/F2_move --bridge-port 11452 --checkpoint-interval 50000 --randomization-mode full --webots-gui --seed 20261003 --resume /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/checkpoints/official_mini_cheetah_flat_jump_v1/official_mini_cheetah_flat_jump_v1_final.zip
+/usr/bin/python3 -m rl.train --phase F3 --total-steps 1300000 --device cuda --ckptdir /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/checkpoints/official_mini_cheetah_flat_jump_v1 --ckpt-prefix official_mini_cheetah_flat_jump_v1 --logdir /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/runs/official_mini_cheetah_flat_jump_v1/F3_jump --bridge-port 11452 --checkpoint-interval 50000 --randomization-mode full --webots-gui --seed 20261003 --resume /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/checkpoints/official_mini_cheetah_flat_jump_v1/official_mini_cheetah_flat_jump_v1_final.zip
+STAGE_DRYRUN_EXIT=0

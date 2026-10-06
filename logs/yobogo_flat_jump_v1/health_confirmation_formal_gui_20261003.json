@@ -1,0 +1,60 @@
+{
+  "checked_at": "2026-10-03T20:25:55+0800",
+  "stage_pid": 529284,
+  "train_pid": null,
+  "webots_pid": null,
+  "stage_children": {},
+  "status": {
+    "schema_version": 1,
+    "run_id": "yobogo_flat_jump_v1",
+    "updated_at": "2026-10-03T20:21:17+0800",
+    "status": "training",
+    "current_phase": "F1",
+    "segment": "F1A",
+    "completed_phases": [
+      "F0"
+    ],
+    "target_steps": 260000,
+    "train_log": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/logs/yobogo_flat_jump_v1/F1A_train.log",
+    "randomization_mode": "fixed"
+  },
+  "timesteps_sample_1": [],
+  "timesteps_sample_2": [],
+  "sample_elapsed_seconds": 21.565,
+  "observed_steps_per_second": 0.0,
+  "event_files": [
+    {
+      "path": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/runs/yobogo_flat_jump_v1/F1A_fixed/PPO_0/events.out.tfevents.1791030080.pma213x-OMEN-Ubuntu.529428.0",
+      "size": 88
+    }
+  ],
+  "gpu_compute_processes": [],
+  "tcp_11451_listener": [],
+  "webots_process_count": 1,
+  "checkpoint": {
+    "path": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/checkpoints/yobogo_flat_jump_v1/yobogo_flat_jump_v1_F1_250000_steps.zip",
+    "num_timesteps": 250000,
+    "device": "cuda",
+    "parameters_finite": true
+  },
+  "bad_log_hits": [],
+  "tensorboard_http": "000",
+  "checks": {
+    "stage_process_alive": false,
+    "train_process_alive": false,
+    "webots_process_alive": false,
+    "single_webots": true,
+    "single_tcp_listener_11451": false,
+    "cuda_visible_devices_0": false,
+    "gpu0_train_process": false,
+    "command_device_cuda": false,
+    "total_timesteps_growth": false,
+    "event_nonempty": true,
+    "checkpoint_reload": true,
+    "no_nan_inf_oom": true,
+    "status_training": true,
+    "webots_gui_fast_local_display": false,
+    "tensorboard_http_200": false
+  },
+  "passed": false
+}

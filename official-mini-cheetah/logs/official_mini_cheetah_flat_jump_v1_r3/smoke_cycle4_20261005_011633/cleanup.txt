@@ -1,0 +1,7 @@
+cleanup_started=2026-10-05T01:17:17+08:00
+group_alive=no
+target_process_count=0
+listeners:
+NONE_LISTEN
+connections:
+NONE_CONNECTED

@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "mode": "settle",
+  "steps": 150,
+  "height": 0.32412283984662055,
+  "height_span": 3.143334702854217e-05,
+  "tilt": 3.6219839457709407e-05,
+  "contact_samples": 150,
+  "obs_dim": 57,
+  "action_dim": 12
+}

@@ -1,0 +1,53 @@
+cleanup_started=2026-10-05T13:06:59+08:00
+target_process_count=3
+listeners:
+LISTEN 0      1          127.0.0.1:11454      0.0.0.0:*   
+LISTEN 0      1          127.0.0.1:11455      0.0.0.0:*   
+LISTEN 0      1          127.0.0.1:11452      0.0.0.0:*   
+LISTEN 0      1          127.0.0.1:11453      0.0.0.0:*   
+LISTEN 0      50                 *:1234             *:*   
+connections:
+ESTAB 0      0               127.0.0.1:11455              127.0.0.1:56616
+ESTAB 0      0               127.0.0.1:11453              127.0.0.1:39536
+ESTAB 0      0               127.0.0.1:11452              127.0.0.1:39464
+ESTAB 0      310             127.0.0.1:11454              127.0.0.1:49674
+status:
+{
+  "schema_version": 3,
+  "contract": "official_mini_cheetah_flat_jump_v1_r3",
+  "updated_at": "2026-10-05T13:06:52+0800",
+  "status": "training",
+  "current_phase": "P1",
+  "segment": "P1",
+  "train_log": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/logs/official_mini_cheetah_flat_jump_v1_r3/P1_train.log",
+  "num_envs": 4,
+  "ports": [
+    11452,
+    11453,
+    11454,
+    11455
+  ]
+}
+cleanup_final=2026-10-05T13:07:55+08:00
+target_process_count=0
+listeners:
+NONE_LISTEN
+connections:
+NONE_CONNECTED
+status:
+{
+  "schema_version": 3,
+  "contract": "official_mini_cheetah_flat_jump_v1_r3",
+  "updated_at": "2026-10-05T13:06:52+0800",
+  "status": "training",
+  "current_phase": "P1",
+  "segment": "P1",
+  "train_log": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/logs/official_mini_cheetah_flat_jump_v1_r3/P1_train.log",
+  "num_envs": 4,
+  "ports": [
+    11452,
+    11453,
+    11454,
+    11455
+  ]
+}

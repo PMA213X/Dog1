@@ -1,0 +1,6 @@
+started_at=2026-10-05T22:52:59+08:00
+workdir=/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah
+command=setsid env CUDA_VISIBLE_DEVICES=0 PYTHONUNBUFFERED=1 DISPLAY=:0 python3 -m rl.run_stages
+stage_log=/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/runs/stages_formal_retrain_20261005_225259.log
+tensorboard_pid=344098
+tensorboard_http=200

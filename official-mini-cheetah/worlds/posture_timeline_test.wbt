@@ -1,0 +1,965 @@
+#VRML_SIM R2025a utf8
+# 官方 Mini Cheetah 固定姿态时间线测试世界
+# Robot 来自 webots-sim/worlds/mini_cheetah.wbt；姿态测试出生高度0.45，
+# 为屈膝目标保留约0.061 m的零位几何初始间隙。
+
+WorldInfo {
+  info [
+    "Official Mini Cheetah fixed posture timeline test"
+  ]
+  title "Official Mini Cheetah Posture Timeline Test"
+  basicTimeStep 4
+  FPS 60
+  contactProperties [
+    ContactProperties {
+      material1 "fr_toe"
+      material2 "default"
+      coulombFriction [ 0.9 ]
+      bounce 0
+      bounceVelocity 0
+      forceDependentSlip [ 0 ]
+      softERP 0.3
+      softCFM 0.001
+      maxContactJoints 20
+    }
+    ContactProperties {
+      material1 "fl_toe"
+      material2 "default"
+      coulombFriction [ 0.9 ]
+      bounce 0
+      bounceVelocity 0
+      forceDependentSlip [ 0 ]
+      softERP 0.3
+      softCFM 0.001
+      maxContactJoints 20
+    }
+    ContactProperties {
+      material1 "hr_toe"
+      material2 "default"
+      coulombFriction [ 0.9 ]
+      bounce 0
+      bounceVelocity 0
+      forceDependentSlip [ 0 ]
+      softERP 0.3
+      softCFM 0.001
+      maxContactJoints 20
+    }
+    ContactProperties {
+      material1 "hl_toe"
+      material2 "default"
+      coulombFriction [ 0.9 ]
+      bounce 0
+      bounceVelocity 0
+      forceDependentSlip [ 0 ]
+      softERP 0.3
+      softCFM 0.001
+      maxContactJoints 20
+    }
+    ContactProperties {
+      material1 "body"
+      material2 "default"
+      coulombFriction [ 0.8 ]
+      bounce 0
+      bounceVelocity 0.01
+      softERP 0.3
+      softCFM 0.001
+    }
+    ContactProperties {
+      material1 "default"
+      material2 "default"
+      coulombFriction [ 0.8 ]
+      bounce 0
+      bounceVelocity 0
+      softERP 0.3
+      softCFM 0.001
+    }
+  ]
+}
+
+DEF TELEOP_VIEW Viewpoint {
+  orientation 0 0.573462344363 0.819231920519 2.45851136058
+  position 3 -2 1.6
+  follow ""
+  followType "None"
+  followSmoothness 2
+}
+
+Background {
+  skyColor [0.7 0.8 1]
+}
+
+DirectionalLight {
+  direction -0.4 0.2 -0.9
+  intensity 0.8
+  color 1 1 1
+  castShadows TRUE
+  on TRUE
+}
+
+# 静态平地上表面严格位于 z=0。
+DEF FLAT_FLOOR Solid {
+  name "floor"
+  translation 0 0 -0.05
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.45 0.55 0.35
+        roughness 0.9
+        metalness 0
+      }
+      geometry Box {
+        size 20 20 0.1
+      }
+    }
+  ]
+  boundingObject Box {
+    size 20 20 0.1
+  }
+}
+
+DEF MINI_CHEETAH Robot {
+  translation 0 0 0.45
+  rotation 0 0 1 0
+  name "mini_cheetah"
+  supervisor TRUE
+  children [
+    # ---- IMU sensors on body ----
+    InertialUnit {
+      name "inertial unit"
+      # R2025a 无 coordinateSystem 字段；本验收不依赖 IMU 坐标系。
+    }
+    Gyro {
+      name "gyro"
+    }
+    Accelerometer {
+      name "accelerometer"
+    }
+
+    # ---- Body visual ----
+    Pose {
+      translation 0 0 0
+      rotation 0 0 1 0
+      children [
+        Shape {
+          castShadows FALSE
+          appearance Appearance {
+            material Material {
+              diffuseColor 0.8 0.8 0.8
+            }
+          }
+          geometry Mesh {
+            url [
+              "../../webots-sim/urdf/meshes/mini_body.dae"
+            ]
+          }
+        }
+      ]
+    }
+# ---- Front Right Leg ----
+    # Abduction joint (hip roll) - rotates around X axis
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        position 0
+        anchor 0.19 -0.049 0
+        axis 1 0 0
+        dampingConstant 1.0
+        springConstant 0
+      }
+      device [
+        RotationalMotor {
+          name "fr_abd_motor"
+          maxTorque 20.0
+        }
+        PositionSensor {
+          name "fr_abd_sensor"
+        }
+      ]
+      endPoint Solid {
+        translation 0.19 -0.111 0  # R2025a：相对父 Pose，保留官方零位几何
+        children [
+          Pose {
+            translation -0.055 0.062 0
+            rotation 0.707105482511 0.707108079859 2.31079311799e-07 3.14159219143
+            children [
+              Shape {
+                castShadows FALSE
+                appearance Appearance {
+                  material Material {
+                    diffuseColor 0.8 0.8 0.8
+                  }
+                }
+                geometry Mesh {
+                  url [
+                    "../../webots-sim/urdf/meshes/mini_abad.dae"
+                  ]
+                }
+              }
+            ]
+          }
+        
+        HingeJoint {
+          jointParameters HingeJointParameters {
+            position 0
+            anchor 0 0 0
+            axis 0 -1 0
+            dampingConstant 1.0
+            springConstant 0
+          }
+          device [
+            RotationalMotor {
+              name "fr_hip_motor"
+              maxTorque 20.0
+            }
+            PositionSensor {
+              name "fr_hip_sensor"
+            }
+          ]
+          endPoint Solid {
+            translation 0 0 -0.1045  # R2025a：相对父 Pose，保留官方零位几何
+            children [
+              Pose {
+                translation 0 0 0.1045
+                rotation 0 -1 0 1.5708
+                children [
+                  Shape {
+                    castShadows FALSE
+                    appearance Appearance {
+                      material Material {
+                        diffuseColor 0.8 0.8 0.8
+                      }
+                    }
+                    geometry Mesh {
+                      url [
+                        "../../webots-sim/urdf/meshes/mini_upper_link.dae"
+                      ]
+                    }
+                  }
+                ]
+              }
+            
+            HingeJoint {
+              jointParameters HingeJointParameters {
+                position 0
+                anchor 0 0 -0.1045
+                axis 0 -1 0
+                dampingConstant 1.0
+                springConstant 0
+              }
+              device [
+                RotationalMotor {
+                  name "fr_kn_motor"
+                  maxTorque 20.0
+                }
+                PositionSensor {
+                  name "fr_kn_sensor"
+                }
+              ]
+              endPoint Solid {
+                translation 0 0 -0.1945  # R2025a：相对父 Pose，保留官方零位几何
+                children [
+                  Pose {
+                    translation 0 0 0.09
+                    rotation 0 1 0 3.141592
+                    children [
+                      Shape {
+                        castShadows FALSE
+                        appearance Appearance {
+                          material Material {
+                            diffuseColor 0.8 0.8 0.8
+                          }
+                        }
+                        geometry Mesh {
+                          url [
+                            "../../webots-sim/urdf/meshes/mini_lower_link.dae"
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                  Pose {
+                    translation 0 0 -0.09
+                    rotation 0 0 1 0
+                    children [
+                      Shape {
+                        appearance Appearance {
+                          material Material {
+                            diffuseColor 0.2 0.2 0.2
+                          }
+                        }
+                        geometry Sphere {
+                          radius 0.015
+                          subdivision 4
+                        }
+                      }
+                    ]
+                  }
+                ]
+                name "fr_shank_link"
+                boundingObject Group {
+                  children [
+                    Box { size 0.03 0.03 0.18 }
+                  Sphere { radius 0.015 }
+                  ]
+                }
+                physics Physics {
+                  mass 0.214
+                  centerOfMass 0 0 0
+                  inertiaMatrix [
+      0.00027 0.000273 3.1e-05
+      0 0 0
+    ]
+                  density -1
+                }
+                contactMaterial "fr_toe"
+              }
+            }
+]
+            name "fr_thigh_link"
+            boundingObject Group {
+              children [
+                Box { size 0.04 0.04 0.209 }
+              ]
+            }
+            physics Physics {
+              mass 0.634
+              centerOfMass 0 0.016 -0.02
+              inertiaMatrix [
+      0.001983 0.002103 0.000408
+      0.000245 1.3e-05 1.5e-06
+    ]
+              density -1
+            }
+            # Knee joint (knee pitch) - rotates around -Y axis
+
+          }
+        }
+]
+        name "fr_abd_link"
+        boundingObject Group {
+          children [
+            Box { size 0.03 0.124 0.03 }
+          ]
+        }
+        physics Physics {
+          mass 0.54
+          centerOfMass 0 -0.026 0
+          inertiaMatrix [
+      0.000381 0.00056 0.000444
+      5.8e-05 4.5e-07 9.5e-07
+    ]
+          density -1
+        }
+        # Hip joint (hip pitch) - rotates around -Y axis
+
+      }
+    }
+
+    # ---- Front Left Leg ----
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        position 0
+        anchor 0.19 0.049 0
+        axis 1 0 0
+        dampingConstant 1.0
+        springConstant 0
+      }
+      device [
+        RotationalMotor {
+          name "fl_abd_motor"
+          maxTorque 20.0
+        }
+        PositionSensor {
+          name "fl_abd_sensor"
+        }
+      ]
+      endPoint Solid {
+        translation 0.19 0.111 0  # R2025a：相对父 Pose，保留官方零位几何
+        children [
+          Pose {
+            translation -0.055 -0.062 0
+            rotation 0 0 -1 1.5708
+            children [
+              Shape {
+                castShadows FALSE
+                appearance Appearance {
+                  material Material {
+                    diffuseColor 0.8 0.8 0.8
+                  }
+                }
+                geometry Mesh {
+                  url [
+                    "../../webots-sim/urdf/meshes/mini_abad.dae"
+                  ]
+                }
+              }
+            ]
+          }
+        
+        HingeJoint {
+          jointParameters HingeJointParameters {
+            position 0
+            anchor 0 0 0
+            axis 0 -1 0
+            dampingConstant 1.0
+            springConstant 0
+          }
+          device [
+            RotationalMotor {
+              name "fl_hip_motor"
+              maxTorque 20.0
+            }
+            PositionSensor {
+              name "fl_hip_sensor"
+            }
+          ]
+          endPoint Solid {
+            translation 0 0 -0.1045  # R2025a：相对父 Pose，保留官方零位几何
+            children [
+              Pose {
+                translation 0 0 0.1045
+                rotation 0 -1 0 1.5708
+                children [
+                  Shape {
+                    castShadows FALSE
+                    appearance Appearance {
+                      material Material {
+                        diffuseColor 0.8 0.8 0.8
+                      }
+                    }
+                    geometry Mesh {
+                      url [
+                        "../../webots-sim/urdf/meshes/mini_upper_link.dae"
+                      ]
+                    }
+                  }
+                ]
+              }
+            
+            HingeJoint {
+              jointParameters HingeJointParameters {
+                position 0
+                anchor 0 0 -0.1045
+                axis 0 -1 0
+                dampingConstant 1.0
+                springConstant 0
+              }
+              device [
+                RotationalMotor {
+                  name "fl_kn_motor"
+                  maxTorque 20.0
+                }
+                PositionSensor {
+                  name "fl_kn_sensor"
+                }
+              ]
+              endPoint Solid {
+                translation 0 0 -0.1945  # R2025a：相对父 Pose，保留官方零位几何
+                children [
+                  Pose {
+                    translation 0 0 0.09
+                    rotation 0 1 0 3.141592
+                    children [
+                      Shape {
+                        castShadows FALSE
+                        appearance Appearance {
+                          material Material {
+                            diffuseColor 0.8 0.8 0.8
+                          }
+                        }
+                        geometry Mesh {
+                          url [
+                            "../../webots-sim/urdf/meshes/mini_lower_link.dae"
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                  Pose {
+                    translation 0 0 -0.09
+                    rotation 0 0 1 0
+                    children [
+                      Shape {
+                        appearance Appearance {
+                          material Material {
+                            diffuseColor 0.2 0.2 0.2
+                          }
+                        }
+                        geometry Sphere {
+                          radius 0.015
+                          subdivision 4
+                        }
+                      }
+                    ]
+                  }
+                ]
+                name "fl_shank_link"
+                boundingObject Group {
+                  children [
+                    Box { size 0.03 0.03 0.18 }
+                  Sphere { radius 0.015 }
+                  ]
+                }
+                physics Physics {
+                  mass 0.214
+                  centerOfMass 0 0 0
+                  inertiaMatrix [
+      0.00027 0.000273 3.1e-05
+      0 0 0
+    ]
+                  density -1
+                }
+                contactMaterial "fl_toe"
+              }
+            }
+]
+            name "fl_thigh_link"
+            boundingObject Group {
+              children [
+                Box { size 0.04 0.04 0.209 }
+              ]
+            }
+            physics Physics {
+              mass 0.634
+              centerOfMass 0 -0.016 -0.02
+              inertiaMatrix [
+      0.001983 0.002103 0.000408
+      0.000245 1.3e-05 1.5e-06
+    ]
+              density -1
+            }
+
+          }
+        }
+]
+        name "fl_abd_link"
+        boundingObject Group {
+          children [
+            Box { size 0.03 0.124 0.03 }
+          ]
+        }
+        physics Physics {
+          mass 0.54
+          centerOfMass 0 0.026 0
+          inertiaMatrix [
+      0.000381 0.00056 0.000444
+      5.8e-05 4.5e-07 9.5e-07
+    ]
+          density -1
+        }
+
+      }
+    }
+
+    # ---- Hind Right Leg ----
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        position 0
+        anchor -0.19 -0.049 0
+        axis 1 0 0
+        dampingConstant 1.0
+        springConstant 0
+      }
+      device [
+        RotationalMotor {
+          name "hr_abd_motor"
+          maxTorque 20.0
+        }
+        PositionSensor {
+          name "hr_abd_sensor"
+        }
+      ]
+      endPoint Solid {
+        translation -0.19 -0.111 0  # R2025a：相对父 Pose，保留官方零位几何
+        children [
+          Pose {
+            translation 0.055 0.062 0
+            rotation 0 0 1 1.5708
+            children [
+              Shape {
+                castShadows FALSE
+                appearance Appearance {
+                  material Material {
+                    diffuseColor 0.8 0.8 0.8
+                  }
+                }
+                geometry Mesh {
+                  url [
+                    "../../webots-sim/urdf/meshes/mini_abad.dae"
+                  ]
+                }
+              }
+            ]
+          }
+        
+        HingeJoint {
+          jointParameters HingeJointParameters {
+            position 0
+            anchor 0 0 0
+            axis 0 -1 0
+            dampingConstant 1.0
+            springConstant 0
+          }
+          device [
+            RotationalMotor {
+              name "hr_hip_motor"
+              maxTorque 20.0
+            }
+            PositionSensor {
+              name "hr_hip_sensor"
+            }
+          ]
+          endPoint Solid {
+            translation 0 0 -0.1045  # R2025a：相对父 Pose，保留官方零位几何
+            children [
+              Pose {
+                translation 0 0 0.1045
+                rotation 0 -1 0 1.5708
+                children [
+                  Shape {
+                    castShadows FALSE
+                    appearance Appearance {
+                      material Material {
+                        diffuseColor 0.8 0.8 0.8
+                      }
+                    }
+                    geometry Mesh {
+                      url [
+                        "../../webots-sim/urdf/meshes/mini_upper_link.dae"
+                      ]
+                    }
+                  }
+                ]
+              }
+            
+            HingeJoint {
+              jointParameters HingeJointParameters {
+                position 0
+                anchor 0 0 -0.1045
+                axis 0 -1 0
+                dampingConstant 1.0
+                springConstant 0
+              }
+              device [
+                RotationalMotor {
+                  name "hr_kn_motor"
+                  maxTorque 20.0
+                }
+                PositionSensor {
+                  name "hr_kn_sensor"
+                }
+              ]
+              endPoint Solid {
+                translation 0 0 -0.1945  # R2025a：相对父 Pose，保留官方零位几何
+                children [
+                  Pose {
+                    translation 0 0 0.09
+                    rotation 0 1 0 3.141592
+                    children [
+                      Shape {
+                        castShadows FALSE
+                        appearance Appearance {
+                          material Material {
+                            diffuseColor 0.8 0.8 0.8
+                          }
+                        }
+                        geometry Mesh {
+                          url [
+                            "../../webots-sim/urdf/meshes/mini_lower_link.dae"
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                  Pose {
+                    translation 0 0 -0.09
+                    rotation 0 0 1 0
+                    children [
+                      Shape {
+                        appearance Appearance {
+                          material Material {
+                            diffuseColor 0.2 0.2 0.2
+                          }
+                        }
+                        geometry Sphere {
+                          radius 0.015
+                          subdivision 4
+                        }
+                      }
+                    ]
+                  }
+                ]
+                name "hr_shank_link"
+                boundingObject Group {
+                  children [
+                    Box { size 0.03 0.03 0.18 }
+                  Sphere { radius 0.015 }
+                  ]
+                }
+                physics Physics {
+                  mass 0.214
+                  centerOfMass 0 0 0
+                  inertiaMatrix [
+      0.00027 0.000273 3.1e-05
+      0 0 0
+    ]
+                  density -1
+                }
+                contactMaterial "hr_toe"
+              }
+            }
+]
+            name "hr_thigh_link"
+            boundingObject Group {
+              children [
+                Box { size 0.04 0.04 0.209 }
+              ]
+            }
+            physics Physics {
+              mass 0.634
+              centerOfMass 0 0.016 -0.02
+              inertiaMatrix [
+      0.001983 0.002103 0.000408
+      0.000245 1.3e-05 1.5e-06
+    ]
+              density -1
+            }
+
+          }
+        }
+]
+        name "hr_abd_link"
+        boundingObject Group {
+          children [
+            Box { size 0.03 0.124 0.03 }
+          ]
+        }
+        physics Physics {
+          mass 0.54
+          centerOfMass 0 -0.026 0
+          inertiaMatrix [
+      0.000381 0.00056 0.000444
+      5.8e-05 4.5e-07 9.5e-07
+    ]
+          density -1
+        }
+
+      }
+    }
+
+    # ---- Hind Left Leg ----
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        position 0
+        anchor -0.19 0.049 0
+        axis 1 0 0
+        dampingConstant 1.0
+        springConstant 0
+      }
+      device [
+        RotationalMotor {
+          name "hl_abd_motor"
+          maxTorque 20.0
+        }
+        PositionSensor {
+          name "hl_abd_sensor"
+        }
+      ]
+      endPoint Solid {
+        translation -0.19 0.111 0  # R2025a：相对父 Pose，保留官方零位几何
+        children [
+          Pose {
+            translation 0.055 -0.062 0
+            rotation 0.707105482511 -0.707108079859 -2.31079311799e-07 3.14159219143
+            children [
+              Shape {
+                castShadows FALSE
+                appearance Appearance {
+                  material Material {
+                    diffuseColor 0.8 0.8 0.8
+                  }
+                }
+                geometry Mesh {
+                  url [
+                    "../../webots-sim/urdf/meshes/mini_abad.dae"
+                  ]
+                }
+              }
+            ]
+          }
+        
+        HingeJoint {
+          jointParameters HingeJointParameters {
+            position 0
+            anchor 0 0 0
+            axis 0 -1 0
+            dampingConstant 1.0
+            springConstant 0
+          }
+          device [
+            RotationalMotor {
+              name "hl_hip_motor"
+              maxTorque 20.0
+            }
+            PositionSensor {
+              name "hl_hip_sensor"
+            }
+          ]
+          endPoint Solid {
+            translation 0 0 -0.1045  # R2025a：相对父 Pose，保留官方零位几何
+            children [
+              Pose {
+                translation 0 0 0.1045
+                rotation 0 -1 0 1.5708
+                children [
+                  Shape {
+                    castShadows FALSE
+                    appearance Appearance {
+                      material Material {
+                        diffuseColor 0.8 0.8 0.8
+                      }
+                    }
+                    geometry Mesh {
+                      url [
+                        "../../webots-sim/urdf/meshes/mini_upper_link.dae"
+                      ]
+                    }
+                  }
+                ]
+              }
+            
+            HingeJoint {
+              jointParameters HingeJointParameters {
+                position 0
+                anchor 0 0 -0.1045
+                axis 0 -1 0
+                dampingConstant 1.0
+                springConstant 0
+              }
+              device [
+                RotationalMotor {
+                  name "hl_kn_motor"
+                  maxTorque 20.0
+                }
+                PositionSensor {
+                  name "hl_kn_sensor"
+                }
+              ]
+              endPoint Solid {
+                translation 0 0 -0.1945  # R2025a：相对父 Pose，保留官方零位几何
+                children [
+                  Pose {
+                    translation 0 0 0.09
+                    rotation 0 1 0 3.141592
+                    children [
+                      Shape {
+                        castShadows FALSE
+                        appearance Appearance {
+                          material Material {
+                            diffuseColor 0.8 0.8 0.8
+                          }
+                        }
+                        geometry Mesh {
+                          url [
+                            "../../webots-sim/urdf/meshes/mini_lower_link.dae"
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                  Pose {
+                    translation 0 0 -0.09
+                    rotation 0 0 1 0
+                    children [
+                      Shape {
+                        appearance Appearance {
+                          material Material {
+                            diffuseColor 0.2 0.2 0.2
+                          }
+                        }
+                        geometry Sphere {
+                          radius 0.015
+                          subdivision 4
+                        }
+                      }
+                    ]
+                  }
+                ]
+                name "hl_shank_link"
+                boundingObject Group {
+                  children [
+                    Box { size 0.03 0.03 0.18 }
+                  Sphere { radius 0.015 }
+                  ]
+                }
+                physics Physics {
+                  mass 0.214
+                  centerOfMass 0 0 0
+                  inertiaMatrix [
+      0.00027 0.000273 3.1e-05
+      0 0 0
+    ]
+                  density -1
+                }
+                contactMaterial "hl_toe"
+              }
+            }
+]
+            name "hl_thigh_link"
+            boundingObject Group {
+              children [
+                Box { size 0.04 0.04 0.209 }
+              ]
+            }
+            physics Physics {
+              mass 0.634
+              centerOfMass 0 -0.016 -0.02
+              inertiaMatrix [
+      0.001983 0.002103 0.000408
+      0.000245 1.3e-05 1.5e-06
+    ]
+              density -1
+            }
+
+          }
+        }
+]
+        name "hl_abd_link"
+        boundingObject Group {
+          children [
+            Box { size 0.03 0.124 0.03 }
+          ]
+        }
+        physics Physics {
+          mass 0.54
+          centerOfMass 0 0.026 0
+          inertiaMatrix [
+      0.000381 0.00056 0.000444
+      5.8e-05 4.5e-07 9.5e-07
+    ]
+          density -1
+        }
+
+      }
+    }
+  ]
+  boundingObject Transform {
+    children [
+      Box { size 0.38 0.1 0.06 }
+    ]
+  }
+  physics Physics {
+    mass 3.3
+    centerOfMass 0 0 0
+    inertiaMatrix [
+      0.011253 0.036203 0.042673
+      0 0 0
+    ]
+    density -1
+    # 旧 frictionMaterial 已迁移到 WorldInfo.contactProperties。
+
+  }
+  controller "posture_timeline"
+  controllerArgs []
+  selfCollision TRUE
+  contactMaterial "body"
+}

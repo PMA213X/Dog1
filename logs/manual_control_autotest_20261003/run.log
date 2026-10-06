@@ -1,0 +1,202 @@
+WARNING: “/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/webots-sim/worlds/parkour.wbt”：发现重复 Viewpoint 节点。
+WARNING: “/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/webots-sim/worlds/parkour.wbt”：发现重复 Viewpoint 节点。
+WARNING: “/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/webots-sim/worlds/parkour.wbt”：发现重复 Viewpoint 节点。
+WARNING: “/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/webots-sim/worlds/parkour.wbt”：发现重复 Viewpoint 节点。
+INFO: manual_control: Starting controller: /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/webots-sim/controllers/manual_control/manual_control
+=== Manual Control Controller（手动遥控）===
+目标机型：YoboGo-10S（MAX_TORQUE=18, 站立高度=0.26, 腿长 0.14+0.12）
+──────────── 按键表 ────────────
+  W / S        前进 vx=+0.6 / 后退 vx=-0.3 m/s
+  A / D        左移 vy=+0.3 / 右移 vy=-0.3 m/s
+  Q / E        左转 wz=+1.0 / 右转 wz=-1.0 rad/s
+  Shift(按住)  快跑：步频×1.6 步幅×1.3 速度上限×1.3
+  Space        跳跃（下蹲→蹬地→空中→着地，不可叠加）
+  R            复位（回站立，清速度）
+  Esc / 无键   速度滑回 0（一阶低通 τ=0.3s）
+──────────── 手柄 ────────────
+  左摇杆 X/Y   平移 vy / 前进 vx
+  右摇杆 X     转向 wz
+  A 钮         跳跃    B 钮：复位
+────────────────────────────────
+每 500ms 打印状态：【手动】vx=.. vy=.. wz=..
+==========================================
+【手柄】/dev/input/js0 不存在，跳过手柄输入（仅用键盘）
+【自测】MC_AUTOTEST=1，启用合成按键（W→跳→Q→R 时间轴）
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=1.000 FR_kn=0.491 FL_hip=1.000 FL_kn=0.491 HR_hip=-1.000 HR_kn=-0.491 HL_hip=-1.000 HL_kn=-0.491
+【手动】vx=0.60 vy=0.00 wz=0.00 速度档=正常 模式=走 站立高度=0.260
+【关节】FR_hip=1.000 FR_kn=0.484 FL_hip=1.000 FL_kn=0.484 HR_hip=-1.000 HR_kn=-0.484 HL_hip=-1.000 HL_kn=-0.484
+【手动】vx=0.60 vy=0.00 wz=0.00 速度档=正常 模式=走 站立高度=0.260
+【关节】FR_hip=1.000 FR_kn=0.336 FL_hip=1.000 FL_kn=0.337 HR_hip=-1.000 HR_kn=-0.632 HL_hip=-1.000 HL_kn=-0.635
+【手动】vx=0.60 vy=0.00 wz=0.00 速度档=正常 模式=走 站立高度=0.260
+【关节】FR_hip=1.000 FR_kn=0.216 FL_hip=1.000 FL_kn=0.214 HR_hip=-1.000 HR_kn=-0.764 HL_hip=-1.000 HL_kn=-0.758
+【手动】vx=0.60 vy=0.00 wz=0.00 速度档=正常 模式=走 站立高度=0.260
+【关节】FR_hip=1.000 FR_kn=0.116 FL_hip=0.997 FL_kn=0.120 HR_hip=-1.000 HR_kn=-0.856 HL_hip=-1.000 HL_kn=-0.862
+【手动】vx=0.59 vy=0.00 wz=0.00 速度档=正常 模式=走 站立高度=0.260
+【关节】FR_hip=1.000 FR_kn=0.038 FL_hip=1.000 FL_kn=0.039 HR_hip=-1.000 HR_kn=-0.937 HL_hip=-1.000 HL_kn=-0.933
+【跳跃】阶段=CROUCH(下蹲) 开始
+【手动】vx=0.11 vy=0.00 wz=0.00 速度档=正常 模式=跳 站立高度=0.257
+【关节】FR_hip=1.000 FR_kn=-0.026 FL_hip=0.998 FL_kn=-0.023 HR_hip=-1.000 HR_kn=-0.994 HL_hip=-1.000 HL_kn=-1.000
+【跳跃】阶段=PUSH(蹬地)
+【跳跃】阶段=AIR(空中)
+【跳跃】阶段=LAND(着地)
+【手动】vx=0.02 vy=0.00 wz=0.00 速度档=正常 模式=跳 站立高度=0.260
+【关节】FR_hip=0.851 FR_kn=0.161 FL_hip=0.849 FL_kn=0.161 HR_hip=-0.419 HR_kn=-0.136 HL_hip=-0.418 HL_kn=-0.138
+【跳跃】阶段=NONE，回到站立
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=1.000 FR_kn=0.274 FL_hip=1.000 FL_kn=0.274 HR_hip=-0.634 HR_kn=0.217 HL_hip=-0.633 HL_kn=0.216
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=1.000 FR_kn=0.371 FL_hip=1.000 FL_kn=0.372 HR_hip=-0.655 HR_kn=0.412 HL_hip=-0.650 HL_kn=0.408
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=1.000 FR_kn=0.481 FL_hip=1.000 FL_kn=0.484 HR_hip=-0.611 HR_kn=0.582 HL_hip=-0.602 HL_kn=0.577
+【手动】vx=0.00 vy=0.00 wz=1.00 速度档=正常 模式=走 站立高度=0.260
+【关节】FR_hip=1.000 FR_kn=0.452 FL_hip=0.986 FL_kn=0.485 HR_hip=-0.604 HR_kn=0.624 HL_hip=-0.553 HL_kn=0.574
+【手动】vx=0.00 vy=0.00 wz=1.00 速度档=正常 模式=走 站立高度=0.260
+【关节】FR_hip=1.000 FR_kn=0.461 FL_hip=0.986 FL_kn=0.497 HR_hip=-0.625 HR_kn=0.662 HL_hip=-0.522 HL_kn=0.574
+【手动】vx=0.00 vy=0.00 wz=1.00 速度档=正常 模式=走 站立高度=0.260
+【关节】FR_hip=1.000 FR_kn=0.474 FL_hip=0.986 FL_kn=0.517 HR_hip=-0.641 HR_kn=0.708 HL_hip=-0.485 HL_kn=0.585
+【手动】vx=0.00 vy=0.00 wz=1.00 速度档=正常 模式=走 站立高度=0.260
+【关节】FR_hip=1.000 FR_kn=0.496 FL_hip=0.987 FL_kn=0.543 HR_hip=-0.652 HR_kn=0.766 HL_hip=-0.441 HL_kn=0.608
+【手动】vx=0.00 vy=0.00 wz=0.19 速度档=正常 模式=走 站立高度=0.260
+【关节】FR_hip=1.000 FR_kn=0.527 FL_hip=0.985 FL_kn=0.578 HR_hip=-0.647 HR_kn=0.825 HL_hip=-0.405 HL_kn=0.653
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=1.000 FR_kn=0.690 FL_hip=1.000 FL_kn=0.717 HR_hip=-0.563 HR_kn=1.000 HL_hip=-0.328 HL_kn=0.866
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=1.000 FR_kn=0.769 FL_hip=1.000 FL_kn=0.795 HR_hip=-0.381 HR_kn=1.000 HL_hip=-0.268 HL_kn=1.000
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=1.000 FR_kn=0.810 FL_hip=1.000 FL_kn=0.825 HR_hip=-0.284 HR_kn=1.000 HL_hip=-0.215 HL_kn=1.000
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=1.000 FR_kn=0.824 FL_hip=1.000 FL_kn=0.841 HR_hip=-0.239 HR_kn=1.000 HL_hip=-0.199 HL_kn=1.000
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=1.000 FR_kn=0.831 FL_hip=1.000 FL_kn=0.847 HR_hip=-0.225 HR_kn=1.000 HL_hip=-0.196 HL_kn=1.000
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=1.000 FR_kn=0.835 FL_hip=1.000 FL_kn=0.845 HR_hip=-0.221 HR_kn=1.000 HL_hip=-0.196 HL_kn=1.000
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=1.000 FR_kn=0.834 FL_hip=1.000 FL_kn=0.841 HR_hip=-0.217 HR_kn=1.000 HL_hip=-0.198 HL_kn=1.000
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=1.000 FR_kn=0.831 FL_hip=1.000 FL_kn=0.838 HR_hip=-0.214 HR_kn=1.000 HL_hip=-0.199 HL_kn=1.000
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=1.000 FR_kn=0.827 FL_hip=1.000 FL_kn=0.835 HR_hip=-0.211 HR_kn=1.000 HL_hip=-0.200 HL_kn=1.000
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=1.000 FR_kn=0.822 FL_hip=1.000 FL_kn=0.834 HR_hip=-0.208 HR_kn=1.000 HL_hip=-0.199 HL_kn=1.000
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=1.000 FR_kn=0.817 FL_hip=1.000 FL_kn=0.834 HR_hip=-0.203 HR_kn=1.000 HL_hip=-0.199 HL_kn=1.000
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=1.000 FR_kn=0.809 FL_hip=1.000 FL_kn=0.837 HR_hip=-0.195 HR_kn=1.000 HL_hip=-0.202 HL_kn=1.000
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=1.000 FR_kn=0.779 FL_hip=1.000 FL_kn=0.853 HR_hip=-0.181 HR_kn=1.000 HL_hip=-0.195 HL_kn=1.000
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=0.999 FR_kn=0.736 FL_hip=1.000 FL_kn=0.883 HR_hip=-0.159 HR_kn=0.999 HL_hip=-0.177 HL_kn=1.000
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=0.976 FR_kn=0.700 FL_hip=1.000 FL_kn=0.894 HR_hip=-0.132 HR_kn=0.995 HL_hip=-0.156 HL_kn=1.000
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=0.806 FR_kn=0.559 FL_hip=0.953 FL_kn=0.695 HR_hip=0.098 HR_kn=0.735 HL_hip=0.174 HL_kn=1.000
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=0.222 FR_kn=0.176 FL_hip=0.570 FL_kn=0.316 HR_hip=0.046 HR_kn=0.277 HL_hip=-0.066 HL_kn=0.564
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=0.059 FR_kn=0.049 FL_hip=0.156 FL_kn=0.088 HR_hip=0.003 HR_kn=0.073 HL_hip=-0.054 HL_kn=0.157
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=0.020 FR_kn=0.015 FL_hip=0.038 FL_kn=0.024 HR_hip=-0.000 HR_kn=0.019 HL_hip=-0.027 HL_kn=0.040
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=0.009 FR_kn=0.005 FL_hip=0.008 FL_kn=0.007 HR_hip=0.001 HR_kn=0.005 HL_hip=-0.013 HL_kn=0.010
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=0.005 FR_kn=0.002 FL_hip=0.001 FL_kn=0.002 HR_hip=0.001 HR_kn=0.001 HL_hip=-0.006 HL_kn=0.002
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=0.003 FR_kn=0.001 FL_hip=0.000 FL_kn=0.001 HR_hip=0.001 HR_kn=0.000 HL_hip=-0.003 HL_kn=0.000
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=1.000 FR_kn=-0.001 FL_hip=1.001 FL_kn=0.038 HR_hip=-1.000 HR_kn=-0.404 HL_hip=-1.000 HL_kn=-0.611
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=0.970 FR_kn=-0.124 FL_hip=1.000 FL_kn=0.144 HR_hip=-1.000 HR_kn=-0.649 HL_hip=-1.000 HL_kn=-0.742
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=0.880 FR_kn=-0.102 FL_hip=1.000 FL_kn=0.125 HR_hip=-0.998 HR_kn=-0.657 HL_hip=-1.000 HL_kn=-0.743
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=0.774 FR_kn=-0.069 FL_hip=1.000 FL_kn=0.100 HR_hip=-0.989 HR_kn=-0.663 HL_hip=-1.000 HL_kn=-0.753
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=0.672 FR_kn=-0.041 FL_hip=1.000 FL_kn=0.071 HR_hip=-0.976 HR_kn=-0.671 HL_hip=-1.000 HL_kn=-0.762
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=0.568 FR_kn=-0.018 FL_hip=1.000 FL_kn=0.020 HR_hip=-0.963 HR_kn=-0.672 HL_hip=-1.000 HL_kn=-0.797
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=0.420 FR_kn=-0.022 FL_hip=1.000 FL_kn=-0.086 HR_hip=-0.971 HR_kn=-0.680 HL_hip=-1.000 HL_kn=-0.893
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=0.171 FR_kn=-0.044 FL_hip=1.000 FL_kn=-0.161 HR_hip=-0.984 HR_kn=-0.691 HL_hip=-1.000 HL_kn=-1.000
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=0.065 FR_kn=-0.032 FL_hip=1.000 FL_kn=-0.140 HR_hip=-0.952 HR_kn=-0.668 HL_hip=-1.000 HL_kn=-1.000
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=0.097 FR_kn=0.029 FL_hip=1.000 FL_kn=-0.061 HR_hip=-0.964 HR_kn=-0.667 HL_hip=-1.000 HL_kn=-1.000
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=0.536 FR_kn=0.167 FL_hip=1.000 FL_kn=-0.040 HR_hip=-1.000 HR_kn=-0.740 HL_hip=-1.000 HL_kn=-0.840
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=0.845 FR_kn=0.033 FL_hip=1.000 FL_kn=-0.050 HR_hip=-1.000 HR_kn=-0.819 HL_hip=-1.000 HL_kn=-0.760
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=0.999 FR_kn=-0.112 FL_hip=0.973 FL_kn=-0.062 HR_hip=-1.000 HR_kn=-0.878 HL_hip=-1.000 HL_kn=-0.736
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=1.000 FR_kn=-0.170 FL_hip=0.758 FL_kn=0.073 HR_hip=-1.000 HR_kn=-1.000 HL_hip=-1.000 HL_kn=-0.741
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=0.947 FR_kn=-0.259 FL_hip=0.528 FL_kn=0.112 HR_hip=-1.000 HR_kn=-0.990 HL_hip=-0.985 HL_kn=-0.678
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=0.721 FR_kn=-0.671 FL_hip=0.067 FL_kn=-0.082 HR_hip=-0.769 HR_kn=-0.643 HL_hip=-0.844 HL_kn=-0.519
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=0.632 FR_kn=-0.986 FL_hip=0.082 FL_kn=-0.560 HR_hip=-1.000 HR_kn=-0.656 HL_hip=-1.000 HL_kn=-0.732
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=0.161 FR_kn=-0.473 FL_hip=0.459 FL_kn=-0.811 HR_hip=-0.701 HR_kn=-0.450 HL_hip=-0.982 HL_kn=-0.560
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=0.041 FR_kn=-0.137 FL_hip=0.275 FL_kn=-0.357 HR_hip=-0.365 HR_kn=-0.233 HL_hip=-0.539 HL_kn=-0.290
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=0.015 FR_kn=-0.039 FL_hip=0.084 FL_kn=-0.101 HR_hip=-0.137 HR_kn=-0.085 HL_hip=-0.174 HL_kn=-0.096
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=0.289 FR_kn=0.522 FL_hip=0.314 FL_kn=-0.290 HR_hip=0.482 HR_kn=0.035 HL_hip=0.555 HL_kn=0.061
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=0.908 FR_kn=-0.137 FL_hip=1.000 FL_kn=-0.760 HR_hip=-0.827 HR_kn=-0.008 HL_hip=-1.000 HL_kn=-0.125
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=-0.001 FR_kn=-0.582 FL_hip=-0.705 FL_kn=-0.005 HR_hip=-1.000 HR_kn=-0.728 HL_hip=-0.741 HL_kn=-0.521
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=-0.593 FR_kn=0.813 FL_hip=1.000 FL_kn=0.642 HR_hip=0.554 HR_kn=-0.640 HL_hip=0.634 HL_kn=-0.070
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=0.428 FR_kn=0.790 FL_hip=0.667 FL_kn=0.142 HR_hip=-0.499 HR_kn=-0.699 HL_hip=-0.058 HL_kn=-0.041
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=0.441 FR_kn=0.416 FL_hip=1.000 FL_kn=-0.076 HR_hip=-0.854 HR_kn=0.429 HL_hip=-0.887 HL_kn=-0.118
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=0.708 FR_kn=0.504 FL_hip=0.822 FL_kn=0.893 HR_hip=0.755 HR_kn=0.206 HL_hip=0.194 HL_kn=-0.347
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=0.107 FR_kn=0.206 FL_hip=0.089 FL_kn=0.926 HR_hip=0.087 HR_kn=-0.011 HL_hip=0.944 HL_kn=-0.602
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=0.110 FR_kn=0.125 FL_hip=-0.289 FL_kn=1.000 HR_hip=-0.223 HR_kn=-0.206 HL_hip=0.149 HL_kn=-0.690
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=0.238 FR_kn=0.063 FL_hip=0.424 FL_kn=-0.293 HR_hip=-0.345 HR_kn=-0.050 HL_hip=-0.357 HL_kn=-0.768
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=1.000 FR_kn=-0.948 FL_hip=1.000 FL_kn=-0.226 HR_hip=-1.000 HR_kn=-0.843 HL_hip=-1.000 HL_kn=-1.000
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=-0.773 FR_kn=0.028 FL_hip=-0.423 FL_kn=-0.621 HR_hip=-0.881 HR_kn=-0.526 HL_hip=-0.880 HL_kn=-0.767
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=0.658 FR_kn=-0.017 FL_hip=0.526 FL_kn=-0.084 HR_hip=-0.937 HR_kn=0.597 HL_hip=-1.000 HL_kn=0.753
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=0.990 FR_kn=0.995 FL_hip=0.798 FL_kn=0.722 HR_hip=0.105 HR_kn=0.705 HL_hip=0.533 HL_kn=0.543
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=1.000 FR_kn=0.387 FL_hip=1.004 FL_kn=0.339 HR_hip=0.251 HR_kn=0.252 HL_hip=0.249 HL_kn=0.056
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=1.000 FR_kn=-0.647 FL_hip=1.000 FL_kn=0.554 HR_hip=-1.000 HR_kn=0.112 HL_hip=-1.001 HL_kn=0.271
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=-0.515 FR_kn=0.089 FL_hip=1.000 FL_kn=0.289 HR_hip=-1.000 HR_kn=-0.772 HL_hip=-1.000 HL_kn=-0.678
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=1.001 FR_kn=-0.320 FL_hip=-0.631 FL_kn=-0.212 HR_hip=-1.000 HR_kn=-0.999 HL_hip=-1.000 HL_kn=-0.750
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=1.000 FR_kn=1.000 FL_hip=1.000 FL_kn=-0.061 HR_hip=-1.000 HR_kn=-0.288 HL_hip=-1.000 HL_kn=-0.928
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=1.000 FR_kn=1.000 FL_hip=1.000 FL_kn=-0.415 HR_hip=-1.000 HR_kn=-0.476 HL_hip=-1.000 HL_kn=-1.000
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=1.000 FR_kn=0.949 FL_hip=1.000 FL_kn=-0.865 HR_hip=-1.000 HR_kn=-0.916 HL_hip=-1.000 HL_kn=-1.000
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=1.000 FR_kn=0.959 FL_hip=1.000 FL_kn=0.393 HR_hip=-1.000 HR_kn=-0.855 HL_hip=-1.000 HL_kn=-0.995
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=1.000 FR_kn=1.000 FL_hip=1.000 FL_kn=0.371 HR_hip=-1.000 HR_kn=-0.671 HL_hip=-1.000 HL_kn=-1.000
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=1.000 FR_kn=1.000 FL_hip=1.000 FL_kn=-0.416 HR_hip=-1.000 HR_kn=-0.600 HL_hip=-1.000 HL_kn=-1.000
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=1.000 FR_kn=0.911 FL_hip=1.000 FL_kn=-0.751 HR_hip=-1.000 HR_kn=-0.986 HL_hip=-1.000 HL_kn=-1.000
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=1.000 FR_kn=0.945 FL_hip=1.000 FL_kn=0.430 HR_hip=-1.000 HR_kn=-0.867 HL_hip=-0.986 HL_kn=-0.984
+【手动】vx=0.00 vy=0.00 wz=0.00 速度档=正常 模式=站 站立高度=0.260
+【关节】FR_hip=1.000 FR_kn=1.000 FL_hip=1.000 FL_kn=0.380 HR_hip=-1.000 HR_kn=-0.712 HL_hip=-1.000 HL_kn=-1.000
+INFO: manual_control: Terminating.
+WARNING: manual_control: 成功移动一段时间后进程崩溃。
+WARNING: “manual_control”控制器崩溃。

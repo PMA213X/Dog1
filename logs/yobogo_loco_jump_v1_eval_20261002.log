@@ -1,0 +1,16 @@
+【评估】第 1/5 集 命令误差=1.80849 跳跃成功=False 摔倒=True 步数=41
+【评估】第 2/5 集 命令误差=1.14667 跳跃成功=False 摔倒=True 步数=16
+【评估】第 3/5 集 命令误差=1.79805 跳跃成功=False 摔倒=True 步数=13
+【评估】第 4/5 集 命令误差=1.02513 跳跃成功=False 摔倒=True 步数=31
+【评估】第 5/5 集 命令误差=1.88629 跳跃成功=False 摔倒=True 步数=40
+--------------------------------------------------------------------
+【汇总】yobogo_loco_jump_v1 确定性评估
+  状态              : ok
+  模型/策略         : /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/checkpoints/yobogo_loco_jump_v1/yobogo_loco_jump_v1_final.zip
+  episode           : 5 集
+  命令误差          : 1.53292 （5/5 集）
+  航向误差绝对均值  : 0.228152 （5/5 集）
+  跳跃成功率        : 0.0 （0/5 集）
+  地形成功率        : 0.0 （可用 5 集）
+  摔倒率/事件       : 1.0 / 5
+  JSON              : /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/logs/yobogo_loco_jump_v1_eval_20261002.json

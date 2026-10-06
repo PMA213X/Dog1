@@ -1,0 +1,184 @@
+test_action_safety_and_target (test_contract_reward.ContractTests.test_action_safety_and_target) ... ok
+test_checkpoint_isolation (test_contract_reward.ContractTests.test_checkpoint_isolation) ... ok
+test_command_limits (test_contract_reward.ContractTests.test_command_limits) ... ok
+test_contract_dimensions_and_schedule (test_contract_reward.ContractTests.test_contract_dimensions_and_schedule) ... FAIL
+test_jump_events_only_in_f3 (test_contract_reward.RewardTests.test_jump_events_only_in_f3) ... ERROR
+test_nonfinite_fails (test_contract_reward.RewardTests.test_nonfinite_fails) ... ok
+test_stage_weights_and_finite (test_contract_reward.RewardTests.test_stage_weights_and_finite) ... ERROR
+test_command_domain_by_phase (test_env.EnvironmentTests.test_command_domain_by_phase) ... ERROR
+test_fall_terminates_and_reward_is_negative (test_env.EnvironmentTests.test_fall_terminates_and_reward_is_negative) ... ok
+test_fixed_and_curriculum_randomization (test_env.EnvironmentTests.test_fixed_and_curriculum_randomization) ... ok
+test_reset_and_step_are_57_12_finite (test_env.EnvironmentTests.test_reset_and_step_are_57_12_finite) ... ERROR
+test_keyboard_and_safety (test_env.ProtocolAndInputTests.test_keyboard_and_safety) ... ok
+test_tcp_roundtrip_and_validation (test_env.ProtocolAndInputTests.test_tcp_roundtrip_and_validation) ... ok
+test_eval_dry_run (test_world_and_cli.CliTests.test_eval_dry_run) ... usage: python3 -m unittest [-h] --phase {F0,F1,F2R,F3} [--episodes EPISODES]
+                           [--max-steps MAX_STEPS] [--seed SEED] [--gate]
+                           [--checkpoint CHECKPOINT] [--output OUTPUT]
+                           [--dry-run]
+python3 -m unittest: error: argument --phase: invalid choice: 'F2' (choose from F0, F1, F2R, F3)
+ERROR
+test_stage_commands_are_official_only (test_world_and_cli.CliTests.test_stage_commands_are_official_only) ... ERROR
+test_train_requires_cuda_and_official_paths (test_world_and_cli.CliTests.test_train_requires_cuda_and_official_paths) ... FAIL
+test_local_mesh_assets_are_official_only (test_world_and_cli.WorldStaticTests.test_local_mesh_assets_are_official_only) ... ok
+test_new_source_has_no_deprecated_import_path (test_world_and_cli.WorldStaticTests.test_new_source_has_no_deprecated_import_path) ... ok
+test_new_world_is_flat_and_isolated (test_world_and_cli.WorldStaticTests.test_new_world_is_flat_and_isolated) ... ok
+test_physical_fields_match_posture_template (test_world_and_cli.WorldStaticTests.test_physical_fields_match_posture_template) ... ok
+test_template_remains_unchanged (test_world_and_cli.WorldStaticTests.test_template_remains_unchanged) ... ok
+test_twelve_devices_and_axes (test_world_and_cli.WorldStaticTests.test_twelve_devices_and_axes) ... ok
+
+======================================================================
+ERROR: test_jump_events_only_in_f3 (test_contract_reward.RewardTests.test_jump_events_only_in_f3)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/tests/rl/test_contract_reward.py", line 98, in test_jump_events_only_in_f3
+    f2 = compute_reward(
+         ~~~~~~~~~~~~~~^
+        inputs("F2", jump_success_event=True, jump_landing_event=True)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )[1]
+    ^
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/rl/reward.py", line 51, in compute_reward
+    phase = contract.normalize_phase(inputs.phase)
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/rl/contract.py", line 152, in normalize_phase
+    raise ValueError(f"未知阶段 {tag!r}；可选 {list(PHASE_TOTAL_STEPS)}")
+ValueError: 未知阶段 'F2'；可选 ['F0', 'F1', 'F2R', 'F3']
+
+======================================================================
+ERROR: test_stage_weights_and_finite (test_contract_reward.RewardTests.test_stage_weights_and_finite)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/tests/rl/test_contract_reward.py", line 92, in test_stage_weights_and_finite
+    moving = compute_reward(
+             ~~~~~~~~~~~~~~^
+        inputs("F2", command=[0.4, 0, 0], velocity=[0.4, 0, 0])
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )[0]
+    ^
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/rl/reward.py", line 51, in compute_reward
+    phase = contract.normalize_phase(inputs.phase)
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/rl/contract.py", line 152, in normalize_phase
+    raise ValueError(f"未知阶段 {tag!r}；可选 {list(PHASE_TOTAL_STEPS)}")
+ValueError: 未知阶段 'F2'；可选 ['F0', 'F1', 'F2R', 'F3']
+
+======================================================================
+ERROR: test_command_domain_by_phase (test_env.EnvironmentTests.test_command_domain_by_phase)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/tests/rl/test_env.py", line 109, in test_command_domain_by_phase
+    moving = MockEnv(phase="F2", randomization_mode="fixed")
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/tests/rl/test_env.py", line 47, in __init__
+    super().__init__(start_bridge=False, **kwargs)  # type: ignore[arg-type]
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/rl/env.py", line 41, in __init__
+    self.phase = contract.normalize_phase(phase)
+                 ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/rl/contract.py", line 152, in normalize_phase
+    raise ValueError(f"未知阶段 {tag!r}；可选 {list(PHASE_TOTAL_STEPS)}")
+ValueError: 未知阶段 'F2'；可选 ['F0', 'F1', 'F2R', 'F3']
+
+======================================================================
+ERROR: test_reset_and_step_are_57_12_finite (test_env.EnvironmentTests.test_reset_and_step_are_57_12_finite)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/tests/rl/test_env.py", line 61, in test_reset_and_step_are_57_12_finite
+    env = MockEnv(phase="F2")
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/tests/rl/test_env.py", line 47, in __init__
+    super().__init__(start_bridge=False, **kwargs)  # type: ignore[arg-type]
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/rl/env.py", line 41, in __init__
+    self.phase = contract.normalize_phase(phase)
+                 ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/rl/contract.py", line 152, in normalize_phase
+    raise ValueError(f"未知阶段 {tag!r}；可选 {list(PHASE_TOTAL_STEPS)}")
+ValueError: 未知阶段 'F2'；可选 ['F0', 'F1', 'F2R', 'F3']
+
+======================================================================
+ERROR: test_eval_dry_run (test_world_and_cli.CliTests.test_eval_dry_run)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/argparse.py", line 2055, in _parse_known_args2
+    namespace, args = self._parse_known_args(args, namespace, intermixed)
+                      ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/argparse.py", line 2306, in _parse_known_args
+    start_index = consume_optional(start_index)
+  File "/usr/lib/python3.14/argparse.py", line 2230, in consume_optional
+    take_action(action, args, option_string)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/argparse.py", line 2116, in take_action
+    argument_values = self._get_values(action, argument_strings)
+  File "/usr/lib/python3.14/argparse.py", line 2633, in _get_values
+    self._check_value(action, value)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/argparse.py", line 2708, in _check_value
+    raise ArgumentError(action, msg % args)
+argparse.ArgumentError: argument --phase: invalid choice: 'F2' (choose from F0, F1, F2R, F3)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/tests/rl/test_world_and_cli.py", line 163, in test_eval_dry_run
+    args = parse_eval_args(["--phase", "F2", "--gate", "--dry-run"])
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/rl/evaluate.py", line 31, in parse_args
+    args = parser.parse_args(argv)
+  File "/usr/lib/python3.14/argparse.py", line 2016, in parse_args
+    args, argv = self.parse_known_args(args, namespace)
+                 ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/argparse.py", line 2026, in parse_known_args
+    return self._parse_known_args2(args, namespace, intermixed=False)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/argparse.py", line 2057, in _parse_known_args2
+    self.error(str(err))
+    ~~~~~~~~~~^^^^^^^^^^
+  File "/usr/lib/python3.14/argparse.py", line 2797, in error
+    self.exit(2, _('%(prog)s: error: %(message)s\n') % args)
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/argparse.py", line 2784, in exit
+    _sys.exit(status)
+    ~~~~~~~~~^^^^^^^^
+SystemExit: 2
+
+======================================================================
+ERROR: test_stage_commands_are_official_only (test_world_and_cli.CliTests.test_stage_commands_are_official_only)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/tests/rl/test_world_and_cli.py", line 149, in test_stage_commands_are_official_only
+    command = stage_command(
+        "F1", 450_000, resume=contract.CHECKPOINT_ROOT / f"{contract.CONTRACT_VERSION}_final.zip",
+        log_key="F1C", randomization_mode="full",
+    )
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/rl/run_stages.py", line 88, in stage_command
+    str(contract.RUN_ROOT / LOG_DIRS[log_key]),
+                            ~~~~~~~~^^^^^^^^^
+KeyError: 'F1C'
+
+======================================================================
+FAIL: test_contract_dimensions_and_schedule (test_contract_reward.ContractTests.test_contract_dimensions_and_schedule)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/tests/rl/test_contract_reward.py", line 28, in test_contract_dimensions_and_schedule
+    self.assertEqual(
+    ~~~~~~~~~~~~~~~~^
+        contract.PHASE_TOTAL_STEPS,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        {"F0": 5_000, "F1": 450_000, "F2": 750_000, "F3": 1_300_000},
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+AssertionError: {'F0': 5000, 'F1': 4976640, 'F2R': 5000000, 'F3': 20000000} != {'F0': 5000, 'F1': 450000, 'F2': 750000, 'F3': 1300000}
+- {'F0': 5000, 'F1': 4976640, 'F2R': 5000000, 'F3': 20000000}
++ {'F0': 5000, 'F1': 450000, 'F2': 750000, 'F3': 1300000}
+
+======================================================================
+FAIL: test_train_requires_cuda_and_official_paths (test_world_and_cli.CliTests.test_train_requires_cuda_and_official_paths)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/tests/rl/test_world_and_cli.py", line 141, in test_train_requires_cuda_and_official_paths
+    self.assertEqual(args.total_steps, 1_300_000)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 20000000 != 1300000
+
+----------------------------------------------------------------------
+Ran 22 tests in 0.021s
+
+FAILED (failures=2, errors=6)
+UNIT_EXIT=1

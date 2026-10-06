@@ -1,0 +1,11 @@
+started_at=2026-10-06T02:03:02+08:00
+workdir=/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah
+command=setsid env PYTHONPATH=/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah CUDA_VISIBLE_DEVICES=0 PYTHONUNBUFFERED=1 DISPLAY=:0 python3 /tmp/r3_p2_resume_1220000_20261006_020302.py
+stage_log=/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/runs/stages_formal_p2_1220000_20261006_020302.log
+wrapper=/tmp/r3_p2_resume_1220000_20261006_020302.py
+resume_checkpoint=/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/checkpoints/official_mini_cheetah_flat_jump_v1_r3/official_mini_cheetah_flat_jump_v1_r3_1220000_steps.zip
+resume_steps=1220000
+next_target=1270000
+history_logs=/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/logs/history_before_p2_1220000_20261006_020302
+history_checkpoints=/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/checkpoints/history_before_p2_1220000_20261006_020302
+history_runs=/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/runs/official_mini_cheetah_flat_jump_v1_r3/history_before_p2_1220000_20261006_020302

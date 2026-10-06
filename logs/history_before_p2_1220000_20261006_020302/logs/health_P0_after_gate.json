@@ -1,0 +1,51 @@
+{
+  "segment": "P0",
+  "checked_at": "2026-10-05T22:53:50+0800",
+  "checkpoint": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/checkpoints/official_mini_cheetah_flat_jump_v1_r3/official_mini_cheetah_flat_jump_v1_r3_final.zip",
+  "steps": 10000,
+  "target": 10000,
+  "event_nonempty": true,
+  "worker_logs": {
+    "0": {
+      "path": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/logs/official_mini_cheetah_flat_jump_v1_r3/webots_0.log",
+      "exists": true,
+      "current": true,
+      "connected": true,
+      "worker_id": true,
+      "robot_name": true,
+      "timestep": true
+    },
+    "1": {
+      "path": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/logs/official_mini_cheetah_flat_jump_v1_r3/webots_1.log",
+      "exists": true,
+      "current": true,
+      "connected": true,
+      "worker_id": true,
+      "robot_name": true,
+      "timestep": true
+    },
+    "2": {
+      "path": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/logs/official_mini_cheetah_flat_jump_v1_r3/webots_2.log",
+      "exists": true,
+      "current": true,
+      "connected": true,
+      "worker_id": true,
+      "robot_name": true,
+      "timestep": true
+    },
+    "3": {
+      "path": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/logs/official_mini_cheetah_flat_jump_v1_r3/webots_3.log",
+      "exists": true,
+      "current": true,
+      "connected": true,
+      "worker_id": true,
+      "robot_name": true,
+      "timestep": true
+    }
+  },
+  "gpu": "0, NVIDIA GeForce RTX 4060 Laptop GPU",
+  "tensorboard_http": "200",
+  "tensorboard_r3_namespace": true,
+  "no_bad_logs": true,
+  "passed": true
+}

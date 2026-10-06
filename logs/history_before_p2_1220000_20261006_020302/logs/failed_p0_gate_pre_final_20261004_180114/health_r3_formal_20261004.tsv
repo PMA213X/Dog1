@@ -1,0 +1,6 @@
+elapsed_s	stage_alive	tb_alive	train_pid	phase	webots	controllers	rl_ports	supervisor_port	handshakes	cuda_ok	gpu_train	steps	event_bytes	event_growth_count	http	memavail_kb	swapfree_kb	gpu_mib	bad	session_ok
+0	1	1	0	P0	0	0	1	1	4	1	0	9984	0	0	200	5216084	18524368	232	0	1
+5	1	1	0	P0	0	0	1	1	4	1	0	9984	0	0	200	4654184	18524368	274	0	1
+10	0	1	0	unknown	0	0	0	0	4	1	0	9984	0	0	200	6820596	18524388	26	0	1
+15	0	1	0	unknown	0	0	0	0	4	1	0	9984	0	0	200	6950132	18524392	26	0	1
+21	0	1	0	unknown	0	0	0	0	4	1	0	9984	0	0	200	7058460	18524392	26	0	1

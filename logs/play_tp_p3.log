@@ -1,0 +1,19 @@
+【世界】已生成第三人称视图世界：/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/webots-sim/worlds/.parkour_view.wbt
+【模型】加载 checkpoints/p3_turn_final.zip ...
+【模型】加载完成（0.6s） device=cpu
+【环境】已启动  turn=True  bridge_port=11556
+【回放】第 1/1 集：奖励=1821.64  步数=550  路径长=10.22m  位移=9.18m  转向=-109.3°  摔倒=False
+【视频】已保存：videos/walk_p3_third_person.mp4  大小=1.11MB  分辨率=640x480  帧数=550  帧率=50.0  时长=11.0s
+【关键帧】/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/videos/frames/walk_p3_third_person_start.png
+【关键帧】/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/videos/frames/walk_p3_third_person_mid.png
+【关键帧】/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/videos/frames/walk_p3_third_person_end.png
+------------------------------------------------------------
+【汇总】第三人称视频生成完成
+  总步数        : 550
+  平均路径长度  : 10.22 m
+  平均直线位移  : 9.18 m
+  平均转向角度  : -109.3°
+  第 1 集: 步数=550  路径=10.22m  位移=9.18m  转向=-109.3°  目标航向=-90.0°
+  视频          : videos/walk_p3_third_person.mp4  (1.11 MB)
+  分辨率/时长   : 640x480 / 11.0s @50.0fps
+  关键帧        : /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/videos/frames/walk_p3_third_person_start.png, /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/videos/frames/walk_p3_third_person_mid.png, /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/videos/frames/walk_p3_third_person_end.png

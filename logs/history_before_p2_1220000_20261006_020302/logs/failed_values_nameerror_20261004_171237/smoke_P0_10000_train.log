@@ -1,0 +1,58 @@
+CUDA_OK name=NVIDIA GeForce RTX 4060 Laptop GPU device=cuda:0 capability=(8, 9)
+/home/pma213x/.local/lib/python3.14/site-packages/stable_baselines3/common/vec_env/base_vec_env.py:78: UserWarning: The `render_mode` attribute is not defined in your environment. It will be set to None.
+  warnings.warn("The `render_mode` attribute is not defined in your environment. It will be set to None.")
+Using cuda device
+/home/pma213x/.local/lib/python3.14/site-packages/stable_baselines3/common/on_policy_algorithm.py:150: UserWarning: You are trying to run PPO on the GPU, but it is primarily intended to run on the CPU when not using a CNN policy (you are using ActorCriticPolicy which should be a MlpPolicy). See https://github.com/DLR-RM/stable-baselines3/issues/1245 for more info. You can pass `device='cpu'` or `export CUDA_VISIBLE_DEVICES=` to force using the CPU.Note: The model will train, but the GPU utilization will be poor and the training might take longer than on CPU.
+  warnings.warn(
+TRAIN_START phase=P0 current=0 target=10000 remaining=10000 num_envs=4 ports=[11452, 11453, 11454, 11455]
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/rl/train.py", line 288, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/rl/train.py", line 283, in main
+    train(args)
+    ~~~~~^^^^^^
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/rl/train.py", line 236, in train
+    model.learn(
+    ~~~~~~~~~~~^
+        total_timesteps=remaining,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        progress_bar=False,
+        ^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/pma213x/.local/lib/python3.14/site-packages/stable_baselines3/ppo/ppo.py", line 311, in learn
+    return super().learn(
+           ~~~~~~~~~~~~~^
+        total_timesteps=total_timesteps,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        progress_bar=progress_bar,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/pma213x/.local/lib/python3.14/site-packages/stable_baselines3/common/on_policy_algorithm.py", line 311, in learn
+    total_timesteps, callback = self._setup_learn(
+                                ~~~~~~~~~~~~~~~~~^
+        total_timesteps,
+        ^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        progress_bar,
+        ^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/pma213x/.local/lib/python3.14/site-packages/stable_baselines3/common/base_class.py", line 423, in _setup_learn
+    self._last_obs = self.env.reset()  # type: ignore[assignment]
+                     ~~~~~~~~~~~~~~^^
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/rl/shared_world_vec_env.py", line 146, in reset
+    observation, info = env.finish_reset()
+                        ~~~~~~~~~~~~~~~~^^
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/rl/env.py", line 623, in finish_reset
+    self._last_state = self._validate_state(self._recv())
+                                            ~~~~~~~~~~^^
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/rl/env.py", line 297, in _recv
+    raise ConnectionError("controller 断开")
+ConnectionError: controller 断开

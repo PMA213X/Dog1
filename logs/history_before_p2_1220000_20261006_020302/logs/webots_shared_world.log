@@ -1,0 +1,16 @@
+INFO: 'mini_cheetah_0' extern controller: Waiting for local or remote connection on port 1234 targeting robot named 'mini_cheetah_0'.
+INFO: 'mini_cheetah_1' extern controller: Waiting for local or remote connection on port 1234 targeting robot named 'mini_cheetah_1'.
+INFO: 'mini_cheetah_2' extern controller: Waiting for local or remote connection on port 1234 targeting robot named 'mini_cheetah_2'.
+INFO: 'mini_cheetah_3' extern controller: Waiting for local or remote connection on port 1234 targeting robot named 'mini_cheetah_3'.
+INFO: 'mini_cheetah_2' extern controller: connected.
+INFO: 'mini_cheetah_0' extern controller: connected.
+INFO: 'mini_cheetah_1' extern controller: connected.
+INFO: 'mini_cheetah_3' extern controller: connected.
+INFO: 'mini_cheetah_0' extern controller: disconnected, waiting for new connection.
+INFO: 'mini_cheetah_1' extern controller: disconnected, waiting for new connection.
+INFO: '<extern>' controller exited successfully.
+INFO: '<extern>' controller exited successfully.
+INFO: 'mini_cheetah_2' extern controller: disconnected.
+INFO: 'mini_cheetah_3' extern controller: disconnected.
+INFO: 'mini_cheetah_0' extern controller: disconnected.
+INFO: 'mini_cheetah_1' extern controller: disconnected.

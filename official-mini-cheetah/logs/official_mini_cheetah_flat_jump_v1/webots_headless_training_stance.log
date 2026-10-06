@@ -1,0 +1,22 @@
+INFO: rl_agent: Starting controller: python3 -u rl_agent.py auto
+RL_RESET_DIAGNOSTIC {"height": 0.3242283667366106, "target_min": -0.55, "target_max": 1.15, "target_errors": [0.00013860342080790344, 0.0004230941299587787, 0.0009598998397002401, 0.00014120561435529422, 0.0004222456792899454, 0.0009599067106438319, 0.0001524930486237197, 0.000555943252940283, 0.000906199245843009, 0.00014781288880444388, 0.0005613248645215396, 0.0008794477478375473], "available_torque_min": 20.0, "available_torque_max": 20.0, "position_infinite": false}
+RL_CONTROL_DIAGNOSTIC {"cycle": 0, "feedback_valid": true, "target_min": -0.55, "target_max": 1.15, "targets_equal_requested": true, "available_torque_min": 20.0, "available_torque_max": 20.0, "height_before": 0.3242283667366106, "used_position_target": true, "used_zero_torque_branch": false, "position_infinite": false, "height_after": 0.32420901055095097}
+RL_STANDALONE step=0 height=0.3242 rpy=[-4.584733264422345e-06, -4.020977948618237e-05, -0.0002118219677050418] contacts=4.0
+RL_STANDALONE step=10 height=0.3241 rpy=[-4.479885058652253e-07, -3.707922352815433e-05, -0.00021742583805995188] contacts=4.0
+RL_STANDALONE step=20 height=0.3241 rpy=[-6.016106858378649e-08, -3.6397526472094e-05, -0.00021791676008267623] contacts=4.0
+RL_STANDALONE step=30 height=0.3241 rpy=[-8.266683008030114e-09, -3.625747929703169e-05, -0.00021798252075870856] contacts=4.0
+RL_STANDALONE step=40 height=0.3241 rpy=[-1.302094471539258e-09, -3.622979536213562e-05, -0.00021799155272828432] contacts=4.0
+INFO: rl_agent: Terminating.
+WEBOTS_HEADLESS_EXIT=0
+--- result ---
+{
+  "status": "PASS",
+  "mode": "smoke",
+  "steps": 50,
+  "height": 0.3241228460508499,
+  "height_span": 3.142714279918968e-05,
+  "tilt": 3.622239319925276e-05,
+  "contact_samples": 50,
+  "obs_dim": 57,
+  "action_dim": 12
+}

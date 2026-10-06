@@ -1,0 +1,123 @@
+{
+  "status": "failed",
+  "phase": "F1",
+  "checkpoint": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/checkpoints/yobogo_flat_jump_v1/yobogo_flat_jump_v1_final.zip",
+  "deterministic": true,
+  "device": "cuda",
+  "gate": true,
+  "episodes": [
+    {
+      "seed": 20261001,
+      "steps": 20,
+      "reward": 1.5614526057544857,
+      "fallen": true,
+      "jump_success": false,
+      "command_error_mean": 0.4187845347289564,
+      "dx": 0.1164524263067005,
+      "dy": 0.17473110755018892,
+      "yaw_delta": 0.010373324155807495
+    },
+    {
+      "seed": 20261002,
+      "steps": 18,
+      "reward": -1.5391159491584396,
+      "fallen": true,
+      "jump_success": false,
+      "command_error_mean": 1.4561181500740885,
+      "dx": 0.2942289310153427,
+      "dy": 0.2837488693940188,
+      "yaw_delta": 0.14155255747027695
+    },
+    {
+      "seed": 20261003,
+      "steps": 17,
+      "reward": -2.4582093769587665,
+      "fallen": true,
+      "jump_success": false,
+      "command_error_mean": 1.2163353991742172,
+      "dx": 0.26605069365021394,
+      "dy": 0.29092319450486853,
+      "yaw_delta": 0.14633943978697062
+    },
+    {
+      "seed": 20261004,
+      "steps": 18,
+      "reward": -1.449728315059712,
+      "fallen": true,
+      "jump_success": false,
+      "command_error_mean": 1.2621471342027144,
+      "dx": 0.07158073223555887,
+      "dy": 0.40346091886694146,
+      "yaw_delta": 0.02672482782509178
+    },
+    {
+      "seed": 20261005,
+      "steps": 20,
+      "reward": 0.8212325315575839,
+      "fallen": true,
+      "jump_success": false,
+      "command_error_mean": 1.3263619968250657,
+      "dx": 0.017280014045080894,
+      "dy": 0.50815258683529,
+      "yaw_delta": 0.0233819252171088
+    },
+    {
+      "seed": 20261006,
+      "steps": 20,
+      "reward": 1.3279355609657237,
+      "fallen": true,
+      "jump_success": false,
+      "command_error_mean": 1.3063335788247816,
+      "dx": -0.012460360512638815,
+      "dy": 0.5071208775093852,
+      "yaw_delta": 0.013020963975577615
+    },
+    {
+      "seed": 20261007,
+      "steps": 21,
+      "reward": 2.3872204255409635,
+      "fallen": true,
+      "jump_success": false,
+      "command_error_mean": 1.3394979960168254,
+      "dx": 0.03236171103628619,
+      "dy": 0.5601413100743331,
+      "yaw_delta": -0.00833194944425486
+    },
+    {
+      "seed": 20261008,
+      "steps": 24,
+      "reward": 4.715827589534705,
+      "fallen": true,
+      "jump_success": false,
+      "command_error_mean": 1.3862170121628583,
+      "dx": 0.045952258046526584,
+      "dy": 0.7082847134707595,
+      "yaw_delta": 0.017430095245799748
+    },
+    {
+      "seed": 20261009,
+      "steps": 21,
+      "reward": 2.00297275421277,
+      "fallen": true,
+      "jump_success": false,
+      "command_error_mean": 1.348864984408517,
+      "dx": 0.02505152492857715,
+      "dy": 0.5630092485177358,
+      "yaw_delta": 0.02004944264990627
+    },
+    {
+      "seed": 20261010,
+      "steps": 23,
+      "reward": 4.107397090267952,
+      "fallen": true,
+      "jump_success": false,
+      "command_error_mean": 1.3870296363532446,
+      "dx": 0.05704667425017668,
+      "dy": 0.6740611790874048,
+      "yaw_delta": 0.011317522556055337
+    }
+  ],
+  "fall_rate": 1.0,
+  "mean_steps": 20.2,
+  "passed": false
+}

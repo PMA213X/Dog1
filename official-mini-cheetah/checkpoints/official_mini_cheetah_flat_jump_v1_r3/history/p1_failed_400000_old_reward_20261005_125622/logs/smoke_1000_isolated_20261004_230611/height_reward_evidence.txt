@@ -1,0 +1,27 @@
+phase=P0
+reference_height=0.2713
+height_weight=-6.0
+formula=height_weight*(height-reference_height)^2
+actual_state_samples=48
+all_rewards_nonpositive=True
+all_rewards_strictly_negative=True
+height_min=0.2692728636898762
+height_max=1.6555366926629416
+reward_min=-11.496667327886636
+reward_max=-2.1225673571421574e-09
+samples_first_12:
+  worker=0 source=reset height=1.5430030739298104 reward_parts.height=-9.703372249455171
+  worker=0 source=control_height_after height=1.655104446745989 reward_parts.height=-11.48948848100384
+  worker=0 source=reset height=0.290841604787528 reward_parts.height=-0.002291245906031631
+  worker=0 source=control_height_after height=0.2743369757069671 reward_parts.height=-5.533932866824966e-05
+  worker=0 source=reset height=0.2692728636898762 reward_parts.height=-2.4655689718934022e-05
+  worker=0 source=control_height_after height=0.2710209154143769 reward_parts.height=-4.6732923559447305e-07
+  worker=0 source=reset height=0.2699370676508612 reward_parts.height=-1.1145507529974249e-05
+  worker=0 source=control_height_after height=0.2717499793420661 reward_parts.height=-1.2148884497173708e-06
+  worker=0 source=reset height=0.271903288817589 reward_parts.height=-2.1837443845678314e-06
+  worker=0 source=control_height_after height=0.2728268730686097 reward_parts.height=-1.3988048205873852e-05
+  worker=0 source=reset height=0.2718609643184314 reward_parts.height=-1.8880857993191603e-06
+  worker=0 source=control_height_after height=0.271493962057938 reward_parts.height=-2.2572767951734638e-07
+static_formula_evidence=rl/reward.py:42,97,152
+actual_state_source=runtime_logs/webots_0..3.log RL_RESET_DIAGNOSTIC/RL_CONTROL_DIAGNOSTIC
+nonfinite_detected=False

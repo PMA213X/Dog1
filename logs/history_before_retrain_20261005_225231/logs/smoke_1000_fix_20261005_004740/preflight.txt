@@ -1,0 +1,9 @@
+preflight_at=2026-10-05T00:48:10+08:00
+MemAvailable:    9377012 kB
+SwapFree:       20971512 kB
+listeners:
+NONE
+established:
+NONE
+processes:
+NONE

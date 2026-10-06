@@ -1,0 +1,7 @@
+EXIT_CODE=0
+CAPTURED=1
+TRAIN_PID=167800
+EVENT_COUNT=1
+CHECKPOINT=/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/checkpoints/official_mini_cheetah_flat_jump_v1_r2_smoke/official_mini_cheetah_flat_jump_v1_r2_final.zip
+CHECKPOINT_SIZE=682094
+BAD_MATCH_COUNT=0

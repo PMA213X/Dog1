@@ -1,0 +1,9 @@
+INFO: rl_agent: Starting controller: python3 -u rl_agent.py flat_v1
+Traceback (most recent call last):
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/webots-sim/controllers/rl_agent/rl_agent.py", line 81, in <module>
+    from flat_jump_contract import (  # noqa: E402
+    ...<10 lines>...
+    )
+ImportError: cannot import name 'ACTION_BOUNDS' from 'flat_jump_contract' (/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/webots-sim/rl/flat_jump_contract.py)
+WARNING: “rl_agent”控制器退出，状态：1。
+WEBOTS_HEADLESS_EXIT=124

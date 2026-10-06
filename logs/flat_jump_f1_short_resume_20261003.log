@@ -1,0 +1,19 @@
+TMP_ROOT=/tmp/yobogo_flat_jump_f1_resume.JXv0Lu
+COMMAND=CUDA_VISIBLE_DEVICES=0 DISPLAY=:0 python3 webots-sim/rl/train_flat_jump.py --phase F1 --total-steps 250256 --resume /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/checkpoints/yobogo_flat_jump_v1/yobogo_flat_jump_v1_final.zip --ckptdir /tmp/yobogo_flat_jump_f1_resume.JXv0Lu/checkpoints --logdir /tmp/yobogo_flat_jump_f1_resume.JXv0Lu/runs --device cuda --randomization-mode fixed --webots-gui
+【CUDA】device=0 name=NVIDIA GeForce RTX 4060 Laptop GPU capability=(8, 9)
+/home/pma213x/.local/lib/python3.14/site-packages/stable_baselines3/common/on_policy_algorithm.py:150: UserWarning: You are trying to run PPO on the GPU, but it is primarily intended to run on the CPU when not using a CNN policy (you are using ActorCriticPolicy which should be a MlpPolicy). See https://github.com/DLR-RM/stable-baselines3/issues/1245 for more info. You can pass `device='cpu'` or `export CUDA_VISIBLE_DEVICES=` to force using the CPU.Note: The model will train, but the GPU utilization will be poor and the training might take longer than on CPU.
+  warnings.warn(
+【训练】已加载 /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/checkpoints/yobogo_flat_jump_v1/yobogo_flat_jump_v1_final.zip，累计步数=250000
+【训练】阶段=F1 累计=250000 目标=250256 本次=256
+Logging to /tmp/yobogo_flat_jump_f1_resume.JXv0Lu/runs/PPO_0
+【训练进度】total_timesteps=250256
+【训练】达到累计目标 250256，停止本阶段
+【训练】耗时=27.9s；最终模型已保存：/tmp/yobogo_flat_jump_f1_resume.JXv0Lu/checkpoints/yobogo_flat_jump_v1_final.zip
+【训练】TRAINING_COMPLETED
+F1_SHORT_TRAIN_EXIT=0
+/home/pma213x/.local/lib/python3.14/site-packages/stable_baselines3/common/on_policy_algorithm.py:150: UserWarning: You are trying to run PPO on the GPU, but it is primarily intended to run on the CPU when not using a CNN policy (you are using ActorCriticPolicy which should be a MlpPolicy). See https://github.com/DLR-RM/stable-baselines3/issues/1245 for more info. You can pass `device='cpu'` or `export CUDA_VISIBLE_DEVICES=` to force using the CPU.Note: The model will train, but the GPU utilization will be poor and the training might take longer than on CPU.
+  warnings.warn(
+F1_SHORT_RESUME_CHECK {"checkpoint": "/tmp/yobogo_flat_jump_f1_resume.JXv0Lu/checkpoints/yobogo_flat_jump_v1_final.zip", "num_timesteps": 250256, "obs_shape": [57], "action_shape": [12], "device": "cuda", "parameters_finite": true}
+F1_SHORT_RESUME_EXIT=0
+F1_SHORT_VERIFY_EXIT=0
+TMP_ROOT=/tmp/yobogo_flat_jump_f1_resume.JXv0Lu

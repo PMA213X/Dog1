@@ -1,0 +1,7 @@
+started_at=2026-10-06T01:27:45+08:00
+retry=2
+reason=first_launch_module_path_only
+command=setsid env PYTHONPATH=/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah CUDA_VISIBLE_DEVICES=0 PYTHONUNBUFFERED=1 DISPLAY=:0 python3 /tmp/r3_p2_resume_20261006_012721.py
+stage_log=/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/runs/stages_formal_p2_resume_retry2_20261006_012745.log
+resume_steps=1130000
+next_target=1180000

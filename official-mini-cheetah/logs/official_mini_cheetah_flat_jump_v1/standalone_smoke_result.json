@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "mode": "smoke",
+  "steps": 50,
+  "height": 0.3241228460508499,
+  "height_span": 3.142714279918968e-05,
+  "tilt": 3.622239319925276e-05,
+  "contact_samples": 50,
+  "obs_dim": 57,
+  "action_dim": 12
+}

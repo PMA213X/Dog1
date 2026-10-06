@@ -1,0 +1,7 @@
+{
+  "schema_version": 1,
+  "contract": "official_mini_cheetah_flat_jump_v1",
+  "updated_at": "2026-10-03T23:28:22+0800",
+  "status": "failed",
+  "error": "F2 验收失败，退出码=1"
+}

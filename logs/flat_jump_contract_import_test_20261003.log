@@ -1,0 +1,27 @@
+test_evaluation_dry_run (webots-sim.rl.tests.test_flat_jump.CliTests.test_evaluation_dry_run) ... ok
+test_stage_commands_are_sequential_and_resume (webots-sim.rl.tests.test_flat_jump.CliTests.test_stage_commands_are_sequential_and_resume) ... ok
+test_training_dry_run_is_cuda_only (webots-sim.rl.tests.test_flat_jump.CliTests.test_training_dry_run_is_cuda_only) ... usage: python3 -m unittest [-h] --phase {F0,F1,F2,F3}
+                           [--total-steps TOTAL_STEPS] [--resume RESUME]
+                           [--ckptdir CKPTDIR] [--ckpt-prefix CKPT_PREFIX]
+                           [--logdir LOGDIR] [--seed SEED]
+                           [--bridge-port BRIDGE_PORT] [--device {cuda}]
+                           [--checkpoint-interval CHECKPOINT_INTERVAL]
+                           [--dry-run]
+python3 -m unittest: error: argument --device: invalid choice: 'cpu' (choose from cuda)
+ok
+test_command_limits (webots-sim.rl.tests.test_flat_jump.ContractTests.test_command_limits) ... ok
+test_observation_layout_is_57 (webots-sim.rl.tests.test_flat_jump.ContractTests.test_observation_layout_is_57) ... ok
+test_phase_budget_and_checkpoint_prefix (webots-sim.rl.tests.test_flat_jump.ContractTests.test_phase_budget_and_checkpoint_prefix) ... ok
+test_action_is_finite_clipped_and_rate_limited (webots-sim.rl.tests.test_flat_jump.EnvironmentTests.test_action_is_finite_clipped_and_rate_limited) ... ok
+test_reset_observation_and_command (webots-sim.rl.tests.test_flat_jump.EnvironmentTests.test_reset_observation_and_command) ... ok
+test_termination_boundaries (webots-sim.rl.tests.test_flat_jump.EnvironmentTests.test_termination_boundaries) ... ok
+test_jump_and_fall_events (webots-sim.rl.tests.test_flat_jump.RewardTests.test_jump_and_fall_events) ... ok
+test_nonfinite_reward_input_fails (webots-sim.rl.tests.test_flat_jump.RewardTests.test_nonfinite_reward_input_fails) ... ok
+test_phase_weight_switches (webots-sim.rl.tests.test_flat_jump.RewardTests.test_phase_weight_switches) ... ok
+test_only_flat_floor_and_yobogo_robot (webots-sim.rl.tests.test_flat_jump.WorldTests.test_only_flat_floor_and_yobogo_robot) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.012s
+
+OK
+AFFECTED_TEST_EXIT=0

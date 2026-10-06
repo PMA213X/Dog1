@@ -1,0 +1,521 @@
+{
+  "best_resume_checkpoint": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/checkpoints/yobogo_loco_jump_v1/yobogo_loco_jump_v1_final.zip",
+  "checkpoint_dir": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/checkpoints/yobogo_loco_jump_v1",
+  "count": 30,
+  "entries": [
+    {
+      "members": [
+        "data",
+        "pytorch_variables.pth",
+        "policy.pth",
+        "policy.optimizer.pth",
+        "_stable_baselines3_version",
+        "system_info.txt"
+      ],
+      "mtime": "2026-10-01T15:56:04+08:00",
+      "name": "yobogo_loco_jump_v1_39660_time_1800s.zip",
+      "path": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/checkpoints/yobogo_loco_jump_v1/yobogo_loco_jump_v1_39660_time_1800s.zip",
+      "size_bytes": 1999090,
+      "step": null,
+      "valid": true,
+      "validation": "通过"
+    },
+    {
+      "members": [
+        "data",
+        "pytorch_variables.pth",
+        "policy.pth",
+        "policy.optimizer.pth",
+        "_stable_baselines3_version",
+        "system_info.txt"
+      ],
+      "mtime": "2026-10-01T16:26:04+08:00",
+      "name": "yobogo_loco_jump_v1_73315_time_3600s.zip",
+      "path": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/checkpoints/yobogo_loco_jump_v1/yobogo_loco_jump_v1_73315_time_3600s.zip",
+      "size_bytes": 1999078,
+      "step": null,
+      "valid": true,
+      "validation": "通过"
+    },
+    {
+      "members": [
+        "data",
+        "pytorch_variables.pth",
+        "policy.pth",
+        "policy.optimizer.pth",
+        "_stable_baselines3_version",
+        "system_info.txt"
+      ],
+      "mtime": "2026-10-01T16:56:04+08:00",
+      "name": "yobogo_loco_jump_v1_106541_time_5400s.zip",
+      "path": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/checkpoints/yobogo_loco_jump_v1/yobogo_loco_jump_v1_106541_time_5400s.zip",
+      "size_bytes": 1999092,
+      "step": null,
+      "valid": true,
+      "validation": "通过"
+    },
+    {
+      "members": [
+        "data",
+        "pytorch_variables.pth",
+        "policy.pth",
+        "policy.optimizer.pth",
+        "_stable_baselines3_version",
+        "system_info.txt"
+      ],
+      "mtime": "2026-10-01T17:26:04+08:00",
+      "name": "yobogo_loco_jump_v1_139302_time_7200s.zip",
+      "path": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/checkpoints/yobogo_loco_jump_v1/yobogo_loco_jump_v1_139302_time_7200s.zip",
+      "size_bytes": 1999092,
+      "step": null,
+      "valid": true,
+      "validation": "通过"
+    },
+    {
+      "members": [
+        "data",
+        "pytorch_variables.pth",
+        "policy.pth",
+        "policy.optimizer.pth",
+        "_stable_baselines3_version",
+        "system_info.txt"
+      ],
+      "mtime": "2026-10-01T17:56:04+08:00",
+      "name": "yobogo_loco_jump_v1_171856_time_9000s.zip",
+      "path": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/checkpoints/yobogo_loco_jump_v1/yobogo_loco_jump_v1_171856_time_9000s.zip",
+      "size_bytes": 1999080,
+      "step": null,
+      "valid": true,
+      "validation": "通过"
+    },
+    {
+      "members": [
+        "data",
+        "pytorch_variables.pth",
+        "policy.pth",
+        "policy.optimizer.pth",
+        "_stable_baselines3_version",
+        "system_info.txt"
+      ],
+      "mtime": "2026-10-01T18:53:12+08:00",
+      "name": "yobogo_loco_jump_v1_233976_time_1800s.zip",
+      "path": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/checkpoints/yobogo_loco_jump_v1/yobogo_loco_jump_v1_233976_time_1800s.zip",
+      "size_bytes": 1999086,
+      "step": null,
+      "valid": true,
+      "validation": "通过"
+    },
+    {
+      "members": [
+        "data",
+        "pytorch_variables.pth",
+        "policy.pth",
+        "policy.optimizer.pth",
+        "_stable_baselines3_version",
+        "system_info.txt"
+      ],
+      "mtime": "2026-10-01T19:23:12+08:00",
+      "name": "yobogo_loco_jump_v1_267931_time_3600s.zip",
+      "path": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/checkpoints/yobogo_loco_jump_v1/yobogo_loco_jump_v1_267931_time_3600s.zip",
+      "size_bytes": 1999097,
+      "step": null,
+      "valid": true,
+      "validation": "通过"
+    },
+    {
+      "members": [
+        "data",
+        "pytorch_variables.pth",
+        "policy.pth",
+        "policy.optimizer.pth",
+        "_stable_baselines3_version",
+        "system_info.txt"
+      ],
+      "mtime": "2026-10-01T19:53:12+08:00",
+      "name": "yobogo_loco_jump_v1_301364_time_5400s.zip",
+      "path": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/checkpoints/yobogo_loco_jump_v1/yobogo_loco_jump_v1_301364_time_5400s.zip",
+      "size_bytes": 1999086,
+      "step": null,
+      "valid": true,
+      "validation": "通过"
+    },
+    {
+      "members": [
+        "data",
+        "pytorch_variables.pth",
+        "policy.pth",
+        "policy.optimizer.pth",
+        "_stable_baselines3_version",
+        "system_info.txt"
+      ],
+      "mtime": "2026-10-01T20:23:12+08:00",
+      "name": "yobogo_loco_jump_v1_333775_time_7200s.zip",
+      "path": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/checkpoints/yobogo_loco_jump_v1/yobogo_loco_jump_v1_333775_time_7200s.zip",
+      "size_bytes": 1999097,
+      "step": null,
+      "valid": true,
+      "validation": "通过"
+    },
+    {
+      "members": [
+        "data",
+        "pytorch_variables.pth",
+        "policy.pth",
+        "policy.optimizer.pth",
+        "_stable_baselines3_version",
+        "system_info.txt"
+      ],
+      "mtime": "2026-10-01T20:53:12+08:00",
+      "name": "yobogo_loco_jump_v1_367208_time_9000s.zip",
+      "path": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/checkpoints/yobogo_loco_jump_v1/yobogo_loco_jump_v1_367208_time_9000s.zip",
+      "size_bytes": 1999097,
+      "step": null,
+      "valid": true,
+      "validation": "通过"
+    },
+    {
+      "members": [
+        "data",
+        "pytorch_variables.pth",
+        "policy.pth",
+        "policy.optimizer.pth",
+        "_stable_baselines3_version",
+        "system_info.txt"
+      ],
+      "mtime": "2026-10-01T21:23:12+08:00",
+      "name": "yobogo_loco_jump_v1_398738_time_10800s.zip",
+      "path": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/checkpoints/yobogo_loco_jump_v1/yobogo_loco_jump_v1_398738_time_10800s.zip",
+      "size_bytes": 1999086,
+      "step": null,
+      "valid": true,
+      "validation": "通过"
+    },
+    {
+      "members": [
+        "data",
+        "pytorch_variables.pth",
+        "policy.pth",
+        "policy.optimizer.pth",
+        "_stable_baselines3_version",
+        "system_info.txt"
+      ],
+      "mtime": "2026-10-01T21:53:12+08:00",
+      "name": "yobogo_loco_jump_v1_438284_time_12600s.zip",
+      "path": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/checkpoints/yobogo_loco_jump_v1/yobogo_loco_jump_v1_438284_time_12600s.zip",
+      "size_bytes": 1999097,
+      "step": null,
+      "valid": true,
+      "validation": "通过"
+    },
+    {
+      "members": [
+        "data",
+        "pytorch_variables.pth",
+        "policy.pth",
+        "policy.optimizer.pth",
+        "_stable_baselines3_version",
+        "system_info.txt"
+      ],
+      "mtime": "2026-10-01T22:23:12+08:00",
+      "name": "yobogo_loco_jump_v1_479265_time_14400s.zip",
+      "path": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/checkpoints/yobogo_loco_jump_v1/yobogo_loco_jump_v1_479265_time_14400s.zip",
+      "size_bytes": 1999097,
+      "step": null,
+      "valid": true,
+      "validation": "通过"
+    },
+    {
+      "members": [
+        "data",
+        "pytorch_variables.pth",
+        "policy.pth",
+        "policy.optimizer.pth",
+        "_stable_baselines3_version",
+        "system_info.txt"
+      ],
+      "mtime": "2026-10-01T23:09:02+08:00",
+      "name": "yobogo_loco_jump_v1_537411_time_1800s.zip",
+      "path": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/checkpoints/yobogo_loco_jump_v1/yobogo_loco_jump_v1_537411_time_1800s.zip",
+      "size_bytes": 1999082,
+      "step": null,
+      "valid": true,
+      "validation": "通过"
+    },
+    {
+      "members": [
+        "data",
+        "pytorch_variables.pth",
+        "policy.pth",
+        "policy.optimizer.pth",
+        "_stable_baselines3_version",
+        "system_info.txt"
+      ],
+      "mtime": "2026-10-01T23:39:02+08:00",
+      "name": "yobogo_loco_jump_v1_576390_time_3600s.zip",
+      "path": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/checkpoints/yobogo_loco_jump_v1/yobogo_loco_jump_v1_576390_time_3600s.zip",
+      "size_bytes": 1999082,
+      "step": null,
+      "valid": true,
+      "validation": "通过"
+    },
+    {
+      "members": [
+        "data",
+        "pytorch_variables.pth",
+        "policy.pth",
+        "policy.optimizer.pth",
+        "_stable_baselines3_version",
+        "system_info.txt"
+      ],
+      "mtime": "2026-10-02T00:09:02+08:00",
+      "name": "yobogo_loco_jump_v1_610188_time_5400s.zip",
+      "path": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/checkpoints/yobogo_loco_jump_v1/yobogo_loco_jump_v1_610188_time_5400s.zip",
+      "size_bytes": 1999082,
+      "step": null,
+      "valid": true,
+      "validation": "通过"
+    },
+    {
+      "members": [
+        "data",
+        "pytorch_variables.pth",
+        "policy.pth",
+        "policy.optimizer.pth",
+        "_stable_baselines3_version",
+        "system_info.txt"
+      ],
+      "mtime": "2026-10-02T00:39:02+08:00",
+      "name": "yobogo_loco_jump_v1_644087_time_7200s.zip",
+      "path": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/checkpoints/yobogo_loco_jump_v1/yobogo_loco_jump_v1_644087_time_7200s.zip",
+      "size_bytes": 1999082,
+      "step": null,
+      "valid": true,
+      "validation": "通过"
+    },
+    {
+      "members": [
+        "data",
+        "pytorch_variables.pth",
+        "policy.pth",
+        "policy.optimizer.pth",
+        "_stable_baselines3_version",
+        "system_info.txt"
+      ],
+      "mtime": "2026-10-02T01:09:02+08:00",
+      "name": "yobogo_loco_jump_v1_687148_time_9000s.zip",
+      "path": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/checkpoints/yobogo_loco_jump_v1/yobogo_loco_jump_v1_687148_time_9000s.zip",
+      "size_bytes": 1999094,
+      "step": null,
+      "valid": true,
+      "validation": "通过"
+    },
+    {
+      "members": [
+        "data",
+        "pytorch_variables.pth",
+        "policy.pth",
+        "policy.optimizer.pth",
+        "_stable_baselines3_version",
+        "system_info.txt"
+      ],
+      "mtime": "2026-10-02T01:39:02+08:00",
+      "name": "yobogo_loco_jump_v1_729688_time_10800s.zip",
+      "path": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/checkpoints/yobogo_loco_jump_v1/yobogo_loco_jump_v1_729688_time_10800s.zip",
+      "size_bytes": 1999094,
+      "step": null,
+      "valid": true,
+      "validation": "通过"
+    },
+    {
+      "members": [
+        "data",
+        "pytorch_variables.pth",
+        "policy.pth",
+        "policy.optimizer.pth",
+        "_stable_baselines3_version",
+        "system_info.txt"
+      ],
+      "mtime": "2026-10-02T02:09:02+08:00",
+      "name": "yobogo_loco_jump_v1_773801_time_12600s.zip",
+      "path": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/checkpoints/yobogo_loco_jump_v1/yobogo_loco_jump_v1_773801_time_12600s.zip",
+      "size_bytes": 1999094,
+      "step": null,
+      "valid": true,
+      "validation": "通过"
+    },
+    {
+      "members": [
+        "data",
+        "pytorch_variables.pth",
+        "policy.pth",
+        "policy.optimizer.pth",
+        "_stable_baselines3_version",
+        "system_info.txt"
+      ],
+      "mtime": "2026-10-02T02:57:32+08:00",
+      "name": "yobogo_loco_jump_v1_844374_time_1800s.zip",
+      "path": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/checkpoints/yobogo_loco_jump_v1/yobogo_loco_jump_v1_844374_time_1800s.zip",
+      "size_bytes": 1999104,
+      "step": null,
+      "valid": true,
+      "validation": "通过"
+    },
+    {
+      "members": [
+        "data",
+        "pytorch_variables.pth",
+        "policy.pth",
+        "policy.optimizer.pth",
+        "_stable_baselines3_version",
+        "system_info.txt"
+      ],
+      "mtime": "2026-10-02T03:27:32+08:00",
+      "name": "yobogo_loco_jump_v1_888122_time_3600s.zip",
+      "path": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/checkpoints/yobogo_loco_jump_v1/yobogo_loco_jump_v1_888122_time_3600s.zip",
+      "size_bytes": 1999104,
+      "step": null,
+      "valid": true,
+      "validation": "通过"
+    },
+    {
+      "members": [
+        "data",
+        "pytorch_variables.pth",
+        "policy.pth",
+        "policy.optimizer.pth",
+        "_stable_baselines3_version",
+        "system_info.txt"
+      ],
+      "mtime": "2026-10-02T03:57:32+08:00",
+      "name": "yobogo_loco_jump_v1_931785_time_5400s.zip",
+      "path": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/checkpoints/yobogo_loco_jump_v1/yobogo_loco_jump_v1_931785_time_5400s.zip",
+      "size_bytes": 1999105,
+      "step": null,
+      "valid": true,
+      "validation": "通过"
+    },
+    {
+      "members": [
+        "data",
+        "pytorch_variables.pth",
+        "policy.pth",
+        "policy.optimizer.pth",
+        "_stable_baselines3_version",
+        "system_info.txt"
+      ],
+      "mtime": "2026-10-02T04:27:32+08:00",
+      "name": "yobogo_loco_jump_v1_971080_time_7200s.zip",
+      "path": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/checkpoints/yobogo_loco_jump_v1/yobogo_loco_jump_v1_971080_time_7200s.zip",
+      "size_bytes": 1999093,
+      "step": null,
+      "valid": true,
+      "validation": "通过"
+    },
+    {
+      "members": [
+        "data",
+        "pytorch_variables.pth",
+        "policy.pth",
+        "policy.optimizer.pth",
+        "_stable_baselines3_version",
+        "system_info.txt"
+      ],
+      "mtime": "2026-10-02T04:57:32+08:00",
+      "name": "yobogo_loco_jump_v1_1005552_time_9000s.zip",
+      "path": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/checkpoints/yobogo_loco_jump_v1/yobogo_loco_jump_v1_1005552_time_9000s.zip",
+      "size_bytes": 1999105,
+      "step": null,
+      "valid": true,
+      "validation": "通过"
+    },
+    {
+      "members": [
+        "data",
+        "pytorch_variables.pth",
+        "policy.pth",
+        "policy.optimizer.pth",
+        "_stable_baselines3_version",
+        "system_info.txt"
+      ],
+      "mtime": "2026-10-02T05:27:32+08:00",
+      "name": "yobogo_loco_jump_v1_1039732_time_10800s.zip",
+      "path": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/checkpoints/yobogo_loco_jump_v1/yobogo_loco_jump_v1_1039732_time_10800s.zip",
+      "size_bytes": 1999106,
+      "step": null,
+      "valid": true,
+      "validation": "通过"
+    },
+    {
+      "members": [
+        "data",
+        "pytorch_variables.pth",
+        "policy.pth",
+        "policy.optimizer.pth",
+        "_stable_baselines3_version",
+        "system_info.txt"
+      ],
+      "mtime": "2026-10-02T05:57:32+08:00",
+      "name": "yobogo_loco_jump_v1_1080550_time_12600s.zip",
+      "path": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/checkpoints/yobogo_loco_jump_v1/yobogo_loco_jump_v1_1080550_time_12600s.zip",
+      "size_bytes": 1999106,
+      "step": null,
+      "valid": true,
+      "validation": "通过"
+    },
+    {
+      "members": [
+        "data",
+        "pytorch_variables.pth",
+        "policy.pth",
+        "policy.optimizer.pth",
+        "_stable_baselines3_version",
+        "system_info.txt"
+      ],
+      "mtime": "2026-10-02T06:27:32+08:00",
+      "name": "yobogo_loco_jump_v1_1122778_time_14400s.zip",
+      "path": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/checkpoints/yobogo_loco_jump_v1/yobogo_loco_jump_v1_1122778_time_14400s.zip",
+      "size_bytes": 1999106,
+      "step": null,
+      "valid": true,
+      "validation": "通过"
+    },
+    {
+      "members": [
+        "data",
+        "pytorch_variables.pth",
+        "policy.pth",
+        "policy.optimizer.pth",
+        "_stable_baselines3_version",
+        "system_info.txt"
+      ],
+      "mtime": "2026-10-02T06:57:32+08:00",
+      "name": "yobogo_loco_jump_v1_1165771_time_16200s.zip",
+      "path": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/checkpoints/yobogo_loco_jump_v1/yobogo_loco_jump_v1_1165771_time_16200s.zip",
+      "size_bytes": 1999107,
+      "step": null,
+      "valid": true,
+      "validation": "通过"
+    },
+    {
+      "members": [
+        "data",
+        "pytorch_variables.pth",
+        "policy.pth",
+        "policy.optimizer.pth",
+        "_stable_baselines3_version",
+        "system_info.txt"
+      ],
+      "mtime": "2026-10-02T07:21:32+08:00",
+      "name": "yobogo_loco_jump_v1_final.zip",
+      "path": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/checkpoints/yobogo_loco_jump_v1/yobogo_loco_jump_v1_final.zip",
+      "size_bytes": 1999110,
+      "step": null,
+      "valid": true,
+      "validation": "通过"
+    }
+  ],
+  "run_id": "yobogo_loco_jump_v1",
+  "schema_version": 1,
+  "updated_at": "2026-10-02T07:21:35+08:00",
+  "valid_count": 30
+}

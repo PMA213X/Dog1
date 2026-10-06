@@ -1,0 +1,10 @@
+cleanup_started=2026-10-05T01:02:26+08:00
+tb_alive=no
+target_process_count=0
+listeners:
+NONE_LISTEN
+connections:
+NONE_CONNECTED
+memory:
+MemAvailable:    7347996 kB
+SwapFree:       20971168 kB

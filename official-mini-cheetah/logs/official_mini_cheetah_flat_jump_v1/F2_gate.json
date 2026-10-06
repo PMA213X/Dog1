@@ -1,0 +1,153 @@
+{
+  "contract": "official_mini_cheetah_flat_jump_v1",
+  "phase": "F2",
+  "checkpoint": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/checkpoints/official_mini_cheetah_flat_jump_v1/official_mini_cheetah_flat_jump_v1_final.zip",
+  "gate": true,
+  "report": {
+    "episodes": [
+      {
+        "steps": 1000,
+        "fallen": false,
+        "reward": 2072.3545372988087,
+        "mean_vx": 1.0027269124984741,
+        "mean_vy": -0.39426523447036743,
+        "mean_wz": -0.9971134662628174,
+        "jump_success": 0,
+        "jump_landing": 0,
+        "finite": true
+      },
+      {
+        "steps": 1000,
+        "fallen": false,
+        "reward": 2064.0338783629763,
+        "mean_vx": 0.9192235469818115,
+        "mean_vy": 0.04022727534174919,
+        "mean_wz": 0.17917464673519135,
+        "jump_success": 0,
+        "jump_landing": 0,
+        "finite": true
+      },
+      {
+        "steps": 1000,
+        "fallen": false,
+        "reward": 2104.4420442454198,
+        "mean_vx": -0.9877901673316956,
+        "mean_vy": -0.537729024887085,
+        "mean_wz": 0.39963972568511963,
+        "jump_success": 0,
+        "jump_landing": 0,
+        "finite": true
+      },
+      {
+        "steps": 1000,
+        "fallen": false,
+        "reward": 2020.8835416988845,
+        "mean_vx": -0.13658836483955383,
+        "mean_vy": 0.2866669297218323,
+        "mean_wz": 0.09246229380369186,
+        "jump_success": 0,
+        "jump_landing": 0,
+        "finite": true
+      },
+      {
+        "steps": 1000,
+        "fallen": false,
+        "reward": 2103.207169883926,
+        "mean_vx": 1.1927638053894043,
+        "mean_vy": -0.37189215421676636,
+        "mean_wz": -0.4337276518344879,
+        "jump_success": 0,
+        "jump_landing": 0,
+        "finite": true
+      },
+      {
+        "steps": 1000,
+        "fallen": false,
+        "reward": 2164.7086802006934,
+        "mean_vx": 0.8818414211273193,
+        "mean_vy": -0.5800298452377319,
+        "mean_wz": -0.4441129267215729,
+        "jump_success": 0,
+        "jump_landing": 0,
+        "finite": true
+      },
+      {
+        "steps": 1000,
+        "fallen": false,
+        "reward": 2122.7096837473564,
+        "mean_vx": -0.34735679626464844,
+        "mean_vy": -0.285039484500885,
+        "mean_wz": 0.3368782699108124,
+        "jump_success": 0,
+        "jump_landing": 0,
+        "finite": true
+      },
+      {
+        "steps": 1000,
+        "fallen": false,
+        "reward": 2008.5846044813995,
+        "mean_vx": 0.8364531397819519,
+        "mean_vy": -0.014659848995506763,
+        "mean_wz": 0.2125706523656845,
+        "jump_success": 0,
+        "jump_landing": 0,
+        "finite": true
+      },
+      {
+        "steps": 1000,
+        "fallen": false,
+        "reward": 2717.4327337083446,
+        "mean_vx": 0.7954381704330444,
+        "mean_vy": -0.09592732787132263,
+        "mean_wz": 0.17072619497776031,
+        "jump_success": 0,
+        "jump_landing": 0,
+        "finite": true
+      },
+      {
+        "steps": 1000,
+        "fallen": false,
+        "reward": 2573.6931542441903,
+        "mean_vx": -1.0011067390441895,
+        "mean_vy": -0.1988621950149536,
+        "mean_wz": 0.490045964717865,
+        "jump_success": 0,
+        "jump_landing": 0,
+        "finite": true
+      },
+      {
+        "steps": 1000,
+        "fallen": false,
+        "reward": 2656.8806518723004,
+        "mean_vx": 1.2363656759262085,
+        "mean_vy": -0.30738404393196106,
+        "mean_wz": -0.019871745258569717,
+        "jump_success": 0,
+        "jump_landing": 0,
+        "finite": true
+      },
+      {
+        "steps": 1000,
+        "fallen": false,
+        "reward": 2646.40236609359,
+        "mean_vx": -0.9721076488494873,
+        "mean_vy": -0.1357935070991516,
+        "mean_wz": -0.034134987741708755,
+        "jump_success": 0,
+        "jump_landing": 0,
+        "finite": true
+      }
+    ],
+    "fall_rate": 0.0,
+    "stop_speed": 1.0763043640181422,
+    "forward_speed": 0.6409253925085068,
+    "turn_speed": 0.1516913566738367,
+    "passed": false,
+    "thresholds": {
+      "fall_rate_max": 0.1,
+      "stop_speed_max": 0.1,
+      "forward_speed_min": 0.25,
+      "turn_speed_min": 0.35
+    }
+  }
+}

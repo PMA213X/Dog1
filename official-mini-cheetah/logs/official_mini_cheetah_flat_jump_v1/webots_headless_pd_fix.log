@@ -1,0 +1,20 @@
+INFO: rl_agent: Starting controller: python3 -u rl_agent.py auto
+RL_STANDALONE step=0 height=0.2709 rpy=[2.718373458189958e-07, 0.0009414529722512248, 0.0024691234168961215] contacts=4.0
+RL_STANDALONE step=10 height=0.2244 rpy=[-6.761335230553946e-05, 0.021420725784047603, 0.0024374729620499145] contacts=4.0
+RL_STANDALONE step=20 height=0.1692 rpy=[0.00011649760480712133, -0.03785879328701966, 0.002330460701127367] contacts=4.0
+RL_STANDALONE step=30 height=0.1569 rpy=[0.0001247869554235497, -0.0012308229523078215, 0.002488070494243617] contacts=4.0
+RL_STANDALONE step=40 height=0.1517 rpy=[0.00012201711309726607, -0.001429193617788692, 0.002488935399630929] contacts=4.0
+INFO: rl_agent: Terminating.
+WEBOTS_HEADLESS_EXIT=1
+--- result ---
+{
+  "status": "FAIL",
+  "mode": "smoke",
+  "steps": 50,
+  "height": 0.14909684128281234,
+  "height_span": 0.0998564163016204,
+  "tilt": 0.0014558684232671064,
+  "contact_samples": 50,
+  "obs_dim": 57,
+  "action_dim": 12
+}

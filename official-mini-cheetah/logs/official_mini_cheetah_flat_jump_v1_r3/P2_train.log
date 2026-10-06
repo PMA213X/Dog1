@@ -1,0 +1,299 @@
+CUDA_OK name=NVIDIA GeForce RTX 4060 Laptop GPU device=cuda:0 capability=(8, 9)
+/home/pma213x/.local/lib/python3.14/site-packages/stable_baselines3/common/vec_env/base_vec_env.py:78: UserWarning: The `render_mode` attribute is not defined in your environment. It will be set to None.
+  warnings.warn("The `render_mode` attribute is not defined in your environment. It will be set to None.")
+/home/pma213x/.local/lib/python3.14/site-packages/stable_baselines3/common/on_policy_algorithm.py:150: UserWarning: You are trying to run PPO on the GPU, but it is primarily intended to run on the CPU when not using a CNN policy (you are using ActorCriticPolicy which should be a MlpPolicy). See https://github.com/DLR-RM/stable-baselines3/issues/1245 for more info. You can pass `device='cpu'` or `export CUDA_VISIBLE_DEVICES=` to force using the CPU.Note: The model will train, but the GPU utilization will be poor and the training might take longer than on CPU.
+  warnings.warn(
+MODEL_LOADED path=/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/checkpoints/official_mini_cheetah_flat_jump_v1_r3/official_mini_cheetah_flat_jump_v1_r3_final.zip steps=1470000
+TRAIN_START phase=P2 current=1470000 target=1500000 remaining=30000 num_envs=4 ports=[11452, 11453, 11454, 11455]
+Logging to /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/runs/official_mini_cheetah_flat_jump_v1_r3/P2_parallel/PPO_0
+TRAIN_PROGRESS total_timesteps=1470256
+TRAIN_PROGRESS total_timesteps=1470512
+TRAIN_PROGRESS total_timesteps=1470768
+TRAIN_PROGRESS total_timesteps=1471024
+TRAIN_PROGRESS total_timesteps=1471280
+TRAIN_PROGRESS total_timesteps=1471536
+TRAIN_PROGRESS total_timesteps=1471792
+TRAIN_PROGRESS total_timesteps=1472048
+TRAIN_PROGRESS total_timesteps=1472304
+TRAIN_PROGRESS total_timesteps=1472560
+TRAIN_PROGRESS total_timesteps=1472816
+TRAIN_PROGRESS total_timesteps=1473072
+TRAIN_PROGRESS total_timesteps=1473328
+TRAIN_PROGRESS total_timesteps=1473584
+TRAIN_PROGRESS total_timesteps=1473840
+TRAIN_PROGRESS total_timesteps=1474096
+TRAIN_PROGRESS total_timesteps=1474352
+TRAIN_PROGRESS total_timesteps=1474608
+TRAIN_PROGRESS total_timesteps=1474864
+TRAIN_PROGRESS total_timesteps=1475120
+TRAIN_PROGRESS total_timesteps=1475376
+TRAIN_PROGRESS total_timesteps=1475632
+TRAIN_PROGRESS total_timesteps=1475888
+TRAIN_PROGRESS total_timesteps=1476144
+TRAIN_PROGRESS total_timesteps=1476400
+TRAIN_PROGRESS total_timesteps=1476656
+TRAIN_PROGRESS total_timesteps=1476912
+TRAIN_PROGRESS total_timesteps=1477168
+TRAIN_PROGRESS total_timesteps=1477424
+TRAIN_PROGRESS total_timesteps=1477680
+TRAIN_PROGRESS total_timesteps=1477936
+TRAIN_PROGRESS total_timesteps=1478192
+------------------------------------------------
+| reward/                          |           |
+|    transition_mean               | 1.19      |
+| reward_parts/                    |           |
+|    action_rate                   | -0.00234  |
+|    alive                         | 0.5       |
+|    command_displacement_progress | 0         |
+|    command_speed_progress        | 0         |
+|    command_tracking              | -0.000132 |
+|    default_pose                  | -0.0974   |
+|    distance                      | 0         |
+|    fall                          | 0         |
+|    feet_air_time                 | 0         |
+|    foot_slip                     | 0         |
+|    gait                          | 0         |
+|    height                        | -0.0107   |
+|    horizontal_angular_velocity   | -3.31e-05 |
+|    joint_jitter                  | -7.18e-07 |
+|    joint_velocity                | -4.87e-06 |
+|    jump_landing                  | 0         |
+|    jump_success                  | 0         |
+|    non_foot_collision            | 0         |
+|    posture                       | -0.000186 |
+|    static_contact_course         | 0         |
+|    support_gap                   | 0         |
+|    torque                        | -0.0036   |
+|    true_four_foot_contact        | 0.8       |
+|    zero_velocity                 | -1.32e-05 |
+|    zero_yaw_rate                 | -8.18e-05 |
+| rollout/                         |           |
+|    ep_rew_mean                   | 895       |
+|    true_four_contact_ratio       | 0.756     |
+| termination_reason/              |           |
+|    body_contact                  | 0         |
+|    controller_done               | 0         |
+|    height                        | 0         |
+|    joint_limit                   | 0         |
+|    none                          | 0         |
+|    tilt                          | 0         |
+|    time_limit                    | 8         |
+|    unknown                       | 0         |
+|    unsupported                   | 0         |
+|    workspace                     | 0         |
+| time/                            |           |
+|    fps                           | 737       |
+|    iterations                    | 1         |
+|    time_elapsed                  | 11        |
+|    total_timesteps               | 1478192   |
+------------------------------------------------
+TRAIN_PROGRESS total_timesteps=1478448
+TRAIN_PROGRESS total_timesteps=1478704
+TRAIN_PROGRESS total_timesteps=1478960
+TRAIN_PROGRESS total_timesteps=1479216
+TRAIN_PROGRESS total_timesteps=1479472
+TRAIN_PROGRESS total_timesteps=1479728
+TRAIN_PROGRESS total_timesteps=1479984
+TRAIN_PROGRESS total_timesteps=1480240
+TRAIN_PROGRESS total_timesteps=1480496
+TRAIN_PROGRESS total_timesteps=1480752
+TRAIN_PROGRESS total_timesteps=1481008
+TRAIN_PROGRESS total_timesteps=1481264
+TRAIN_PROGRESS total_timesteps=1481520
+TRAIN_PROGRESS total_timesteps=1481776
+TRAIN_PROGRESS total_timesteps=1482032
+TRAIN_PROGRESS total_timesteps=1482288
+TRAIN_PROGRESS total_timesteps=1482544
+TRAIN_PROGRESS total_timesteps=1482800
+TRAIN_PROGRESS total_timesteps=1483056
+TRAIN_PROGRESS total_timesteps=1483312
+TRAIN_PROGRESS total_timesteps=1483568
+TRAIN_PROGRESS total_timesteps=1483824
+TRAIN_PROGRESS total_timesteps=1484080
+TRAIN_PROGRESS total_timesteps=1484336
+TRAIN_PROGRESS total_timesteps=1484592
+TRAIN_PROGRESS total_timesteps=1484848
+TRAIN_PROGRESS total_timesteps=1485104
+TRAIN_PROGRESS total_timesteps=1485360
+TRAIN_PROGRESS total_timesteps=1485616
+TRAIN_PROGRESS total_timesteps=1485872
+TRAIN_PROGRESS total_timesteps=1486128
+TRAIN_PROGRESS total_timesteps=1486384
+--------------------------------------------------
+| reward/                          |             |
+|    transition_mean               | 0.697       |
+| reward_parts/                    |             |
+|    action_rate                   | -0.0022     |
+|    alive                         | 0.5         |
+|    command_displacement_progress | 0           |
+|    command_speed_progress        | 0           |
+|    command_tracking              | -0.000128   |
+|    default_pose                  | -0.0875     |
+|    distance                      | 0           |
+|    fall                          | 0           |
+|    feet_air_time                 | 0           |
+|    foot_slip                     | 0           |
+|    gait                          | -0.025      |
+|    height                        | -0.00992    |
+|    horizontal_angular_velocity   | -3.19e-05   |
+|    joint_jitter                  | -3.67e-07   |
+|    joint_velocity                | -5.17e-06   |
+|    jump_landing                  | 0           |
+|    jump_success                  | 0           |
+|    non_foot_collision            | 0           |
+|    posture                       | -0.000797   |
+|    static_contact_course         | 0           |
+|    support_gap                   | -0.075      |
+|    torque                        | -0.00195    |
+|    true_four_foot_contact        | 0.4         |
+|    zero_velocity                 | -1.28e-05   |
+|    zero_yaw_rate                 | -0.000116   |
+| rollout/                         |             |
+|    ep_rew_mean                   | 931         |
+|    true_four_contact_ratio       | 0.743       |
+| termination_reason/              |             |
+|    body_contact                  | 0           |
+|    controller_done               | 0           |
+|    height                        | 0           |
+|    joint_limit                   | 0           |
+|    none                          | 0           |
+|    tilt                          | 0           |
+|    time_limit                    | 8           |
+|    unknown                       | 0           |
+|    unsupported                   | 0           |
+|    workspace                     | 0           |
+| time/                            |             |
+|    fps                           | 721         |
+|    iterations                    | 2           |
+|    time_elapsed                  | 22          |
+|    total_timesteps               | 1486384     |
+| train/                           |             |
+|    approx_kl                     | 0.021548275 |
+|    clip_fraction                 | 0.289       |
+|    clip_range                    | 0.2         |
+|    entropy_loss                  | -16.2       |
+|    explained_variance            | 0.863       |
+|    learning_rate                 | 0.0003      |
+|    loss                          | 3.4         |
+|    n_updates                     | 1540        |
+|    policy_gradient_loss          | 0.000568    |
+|    std                           | 0.947       |
+|    value_loss                    | 9.26        |
+--------------------------------------------------
+TRAIN_PROGRESS total_timesteps=1486640
+TRAIN_PROGRESS total_timesteps=1486896
+TRAIN_PROGRESS total_timesteps=1487152
+TRAIN_PROGRESS total_timesteps=1487408
+TRAIN_PROGRESS total_timesteps=1487664
+TRAIN_PROGRESS total_timesteps=1487920
+TRAIN_PROGRESS total_timesteps=1488176
+TRAIN_PROGRESS total_timesteps=1488432
+TRAIN_PROGRESS total_timesteps=1488688
+TRAIN_PROGRESS total_timesteps=1488944
+TRAIN_PROGRESS total_timesteps=1489200
+TRAIN_PROGRESS total_timesteps=1489456
+TRAIN_PROGRESS total_timesteps=1489712
+TRAIN_PROGRESS total_timesteps=1489968
+CHECKPOINT /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/checkpoints/official_mini_cheetah_flat_jump_v1_r3/official_mini_cheetah_flat_jump_v1_r3_1490000_steps.zip
+TRAIN_PROGRESS total_timesteps=1490224
+TRAIN_PROGRESS total_timesteps=1490480
+TRAIN_PROGRESS total_timesteps=1490736
+TRAIN_PROGRESS total_timesteps=1490992
+TRAIN_PROGRESS total_timesteps=1491248
+TRAIN_PROGRESS total_timesteps=1491504
+TRAIN_PROGRESS total_timesteps=1491760
+TRAIN_PROGRESS total_timesteps=1492016
+TRAIN_PROGRESS total_timesteps=1492272
+TRAIN_PROGRESS total_timesteps=1492528
+TRAIN_PROGRESS total_timesteps=1492784
+TRAIN_PROGRESS total_timesteps=1493040
+TRAIN_PROGRESS total_timesteps=1493296
+TRAIN_PROGRESS total_timesteps=1493552
+TRAIN_PROGRESS total_timesteps=1493808
+TRAIN_PROGRESS total_timesteps=1494064
+TRAIN_PROGRESS total_timesteps=1494320
+TRAIN_PROGRESS total_timesteps=1494576
+--------------------------------------------------
+| reward/                          |             |
+|    transition_mean               | 0.94        |
+| reward_parts/                    |             |
+|    action_rate                   | -0.00227    |
+|    alive                         | 0.5         |
+|    command_displacement_progress | 0.0236      |
+|    command_speed_progress        | 0.0284      |
+|    command_tracking              | -0.0639     |
+|    default_pose                  | -0.0812     |
+|    distance                      | 0.00159     |
+|    fall                          | 0           |
+|    feet_air_time                 | 0           |
+|    foot_slip                     | 0           |
+|    gait                          | -0.0125     |
+|    height                        | -0.00772    |
+|    horizontal_angular_velocity   | -4.07e-05   |
+|    joint_jitter                  | -3.3e-07    |
+|    joint_velocity                | -5.23e-06   |
+|    jump_landing                  | 0           |
+|    jump_success                  | 0           |
+|    non_foot_collision            | 0           |
+|    posture                       | -0.0065     |
+|    static_contact_course         | 0           |
+|    support_gap                   | -0.0375     |
+|    torque                        | -0.00229    |
+|    true_four_foot_contact        | 0.6         |
+|    zero_velocity                 | 0           |
+|    zero_yaw_rate                 | -0.000115   |
+| rollout/                         |             |
+|    ep_rew_mean                   | 870         |
+|    true_four_contact_ratio       | 0.756       |
+| termination_reason/              |             |
+|    body_contact                  | 0           |
+|    controller_done               | 0           |
+|    height                        | 0           |
+|    joint_limit                   | 0           |
+|    none                          | 0           |
+|    tilt                          | 0           |
+|    time_limit                    | 8           |
+|    unknown                       | 0           |
+|    unsupported                   | 0           |
+|    workspace                     | 0           |
+| time/                            |             |
+|    fps                           | 715         |
+|    iterations                    | 3           |
+|    time_elapsed                  | 34          |
+|    total_timesteps               | 1494576     |
+| train/                           |             |
+|    approx_kl                     | 0.024586655 |
+|    clip_fraction                 | 0.277       |
+|    clip_range                    | 0.2         |
+|    entropy_loss                  | -16.2       |
+|    explained_variance            | 0.798       |
+|    learning_rate                 | 0.0003      |
+|    loss                          | 11.4        |
+|    n_updates                     | 1550        |
+|    policy_gradient_loss          | 0.000364    |
+|    std                           | 0.947       |
+|    value_loss                    | 23.9        |
+--------------------------------------------------
+TRAIN_PROGRESS total_timesteps=1494832
+TRAIN_PROGRESS total_timesteps=1495088
+TRAIN_PROGRESS total_timesteps=1495344
+TRAIN_PROGRESS total_timesteps=1495600
+TRAIN_PROGRESS total_timesteps=1495856
+TRAIN_PROGRESS total_timesteps=1496112
+TRAIN_PROGRESS total_timesteps=1496368
+TRAIN_PROGRESS total_timesteps=1496624
+TRAIN_PROGRESS total_timesteps=1496880
+TRAIN_PROGRESS total_timesteps=1497136
+TRAIN_PROGRESS total_timesteps=1497392
+TRAIN_PROGRESS total_timesteps=1497648
+TRAIN_PROGRESS total_timesteps=1497904
+TRAIN_PROGRESS total_timesteps=1498160
+TRAIN_PROGRESS total_timesteps=1498416
+TRAIN_PROGRESS total_timesteps=1498672
+TRAIN_PROGRESS total_timesteps=1498928
+TRAIN_PROGRESS total_timesteps=1499184
+TRAIN_PROGRESS total_timesteps=1499440
+TRAIN_PROGRESS total_timesteps=1499696
+TRAIN_PROGRESS total_timesteps=1499952
+TRAIN_TARGET_REACHED total_timesteps=1500000
+TRAIN_COMPLETED final=/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/checkpoints/official_mini_cheetah_flat_jump_v1_r3/official_mini_cheetah_flat_jump_v1_r3_final.zip steps=1500000

@@ -1,0 +1,212 @@
+test_evaluation_dry_run (webots-sim.rl.tests.test_flat_jump.CliTests.test_evaluation_dry_run) ... ok
+test_stage_commands_are_sequential_and_resume (webots-sim.rl.tests.test_flat_jump.CliTests.test_stage_commands_are_sequential_and_resume) ... ok
+test_training_dry_run_is_cuda_only (webots-sim.rl.tests.test_flat_jump.CliTests.test_training_dry_run_is_cuda_only) ... usage: python3 -m unittest [-h] --phase {F0,F1,F2,F3}
+                           [--total-steps TOTAL_STEPS] [--resume RESUME]
+                           [--ckptdir CKPTDIR] [--ckpt-prefix CKPT_PREFIX]
+                           [--logdir LOGDIR] [--seed SEED]
+                           [--bridge-port BRIDGE_PORT] [--device {cuda}]
+                           [--checkpoint-interval CHECKPOINT_INTERVAL]
+                           [--dry-run]
+python3 -m unittest: error: argument --device: invalid choice: 'cpu' (choose from cuda)
+ok
+test_command_limits (webots-sim.rl.tests.test_flat_jump.ContractTests.test_command_limits) ... ok
+test_observation_layout_is_57 (webots-sim.rl.tests.test_flat_jump.ContractTests.test_observation_layout_is_57) ... ok
+test_phase_budget_and_checkpoint_prefix (webots-sim.rl.tests.test_flat_jump.ContractTests.test_phase_budget_and_checkpoint_prefix) ... ok
+test_action_is_finite_clipped_and_rate_limited (webots-sim.rl.tests.test_flat_jump.EnvironmentTests.test_action_is_finite_clipped_and_rate_limited) ... ok
+test_reset_observation_and_command (webots-sim.rl.tests.test_flat_jump.EnvironmentTests.test_reset_observation_and_command) ... ok
+test_termination_boundaries (webots-sim.rl.tests.test_flat_jump.EnvironmentTests.test_termination_boundaries) ... ok
+test_jump_and_fall_events (webots-sim.rl.tests.test_flat_jump.RewardTests.test_jump_and_fall_events) ... ok
+test_nonfinite_reward_input_fails (webots-sim.rl.tests.test_flat_jump.RewardTests.test_nonfinite_reward_input_fails) ... ok
+test_phase_weight_switches (webots-sim.rl.tests.test_flat_jump.RewardTests.test_phase_weight_switches) ... ok
+test_only_flat_floor_and_yobogo_robot (webots-sim.rl.tests.test_flat_jump.WorldTests.test_only_flat_floor_and_yobogo_robot) ... ok
+test_command_limits_and_clipping (webots-sim.rl.tests.test_loco_jump_contract.LocoJumpContractCommandsTest.test_command_limits_and_clipping) ... ok
+test_jump_request_and_latch_semantics (webots-sim.rl.tests.test_loco_jump_contract.LocoJumpContractCommandsTest.test_jump_request_and_latch_semantics) ... ok
+test_action_dimension_bounds_and_q_des_formula (webots-sim.rl.tests.test_loco_jump_contract.LocoJumpContractDimensionsTest.test_action_dimension_bounds_and_q_des_formula) ... ok
+test_observation_dimension_and_slices (webots-sim.rl.tests.test_loco_jump_contract.LocoJumpContractDimensionsTest.test_observation_dimension_and_slices) ... ok
+test_checkpoint_interval_and_prefix_isolation (webots-sim.rl.tests.test_loco_jump_contract.LocoJumpContractScheduleTest.test_checkpoint_interval_and_prefix_isolation) ... ok
+test_phase_targets_are_cumulative (webots-sim.rl.tests.test_loco_jump_contract.LocoJumpContractScheduleTest.test_phase_targets_are_cumulative) ... ok
+test_tcp_state_fields (webots-sim.rl.tests.test_loco_jump_contract.LocoJumpTcpContractTest.test_tcp_state_fields) ... ok
+test_action_mapping_rejects_invalid_inputs (webots-sim.rl.tests.test_loco_jump_env.LocoJumpActionContractTest.test_action_mapping_rejects_invalid_inputs) ... ok
+test_action_scale_and_q_des_formula (webots-sim.rl.tests.test_loco_jump_env.LocoJumpActionContractTest.test_action_scale_and_q_des_formula) ... ok
+test_command_limits_and_phase_gate (webots-sim.rl.tests.test_loco_jump_env.LocoJumpCommandAndJumpTest.test_command_limits_and_phase_gate) ... ok
+test_jump_latch_and_success_info_without_webots (webots-sim.rl.tests.test_loco_jump_env.LocoJumpCommandAndJumpTest.test_jump_latch_and_success_info_without_webots) ... ok
+test_action_clipping_is_applied_to_sent_action_and_q_des (webots-sim.rl.tests.test_loco_jump_env.MockLocoJumpEnvInterfaceTest.test_action_clipping_is_applied_to_sent_action_and_q_des) ... ok
+test_factory_and_spaces_without_starting_bridge (webots-sim.rl.tests.test_loco_jump_env.MockLocoJumpEnvInterfaceTest.test_factory_and_spaces_without_starting_bridge) ... ok
+test_invalid_action_is_rejected (webots-sim.rl.tests.test_loco_jump_env.MockLocoJumpEnvInterfaceTest.test_invalid_action_is_rejected) ... ok
+test_multi_step_reset_and_step_shapes_and_info_keys (webots-sim.rl.tests.test_loco_jump_env.MockLocoJumpEnvInterfaceTest.test_multi_step_reset_and_step_shapes_and_info_keys) ... ok
+test_observation_contract_slices_from_mock_state (webots-sim.rl.tests.test_loco_jump_env.MockLocoJumpEnvInterfaceTest.test_observation_contract_slices_from_mock_state) ... ok
+test_all_stages_are_finite_for_normal_and_extreme_inputs (webots-sim.rl.tests.test_loco_jump_reward.LocoJumpRewardFinitenessTest.test_all_stages_are_finite_for_normal_and_extreme_inputs) ... ok
+test_mismatched_action_shapes_remain_finite (webots-sim.rl.tests.test_loco_jump_reward.LocoJumpRewardFinitenessTest.test_mismatched_action_shapes_remain_finite) ... ok
+test_reward_for_state_uses_tcp_fields (webots-sim.rl.tests.test_loco_jump_reward.LocoJumpRewardInterfaceTest.test_reward_for_state_uses_tcp_fields) ... ok
+test_stage_normalization_and_tags (webots-sim.rl.tests.test_loco_jump_reward.LocoJumpRewardInterfaceTest.test_stage_normalization_and_tags) ... ok
+test_command_error_only_shapes_command_stage_and_later (webots-sim.rl.tests.test_loco_jump_reward.LocoJumpRewardStageDifferenceTest.test_command_error_only_shapes_command_stage_and_later) ... ok
+test_heading_error_only_shapes_command_stage_and_later (webots-sim.rl.tests.test_loco_jump_reward.LocoJumpRewardStageDifferenceTest.test_heading_error_only_shapes_command_stage_and_later) ... ok
+test_jump_event_only_shapes_jump_stage_and_later (webots-sim.rl.tests.test_loco_jump_reward.LocoJumpRewardStageDifferenceTest.test_jump_event_only_shapes_jump_stage_and_later) ... ok
+test_posture_height_smoothness_and_fall_terms_are_active (webots-sim.rl.tests.test_loco_jump_reward.LocoJumpRewardStageDifferenceTest.test_posture_height_smoothness_and_fall_terms_are_active) ... ok
+test_stage_weights_are_monotonic_in_features (webots-sim.rl.tests.test_loco_jump_reward.LocoJumpRewardStageDifferenceTest.test_stage_weights_are_monotonic_in_features) ... ok
+test_terrain_event_only_shapes_mobile_terrain_stage (webots-sim.rl.tests.test_loco_jump_reward.LocoJumpRewardStageDifferenceTest.test_terrain_event_only_shapes_mobile_terrain_stage) ... ok
+test_checkpoint_interval_and_should_save_use_or_condition (webots-sim.rl.tests.test_train_loco_jump.TrainLocoJumpBudgetTest.test_checkpoint_interval_and_should_save_use_or_condition) ... ok
+test_checkpoint_steps_are_isolated_per_stage (webots-sim.rl.tests.test_train_loco_jump.TrainLocoJumpBudgetTest.test_checkpoint_steps_are_isolated_per_stage) ... ok
+test_stage_target_steps_matches_contract (webots-sim.rl.tests.test_train_loco_jump.TrainLocoJumpBudgetTest.test_stage_target_steps_matches_contract) ... ok
+test_total_steps_validate_stage_cap_and_formal_range (webots-sim.rl.tests.test_train_loco_jump.TrainLocoJumpBudgetTest.test_total_steps_validate_stage_cap_and_formal_range) ... ok
+test_constructor_does_not_access_model (webots-sim.rl.tests.test_train_loco_jump.TrainLocoJumpCheckpointCallbackTest.test_constructor_does_not_access_model) ... ok
+test_constructor_rejects_old_prefix (webots-sim.rl.tests.test_train_loco_jump.TrainLocoJumpCheckpointCallbackTest.test_constructor_rejects_old_prefix) ... ok
+test_model_injection_then_save_at_contract_step_interval (webots-sim.rl.tests.test_train_loco_jump.TrainLocoJumpCheckpointCallbackTest.test_model_injection_then_save_at_contract_step_interval) ... ok
+test_checkpoint_prefix_accepts_only_new_namespace (webots-sim.rl.tests.test_train_loco_jump.TrainLocoJumpCheckpointPrefixTest.test_checkpoint_prefix_accepts_only_new_namespace) ... ok
+test_resume_path_rejects_old_prefix (webots-sim.rl.tests.test_train_loco_jump.TrainLocoJumpCheckpointPrefixTest.test_resume_path_rejects_old_prefix) ... ok
+test_main_dry_run_accepts_resume_without_loading_checkpoint (webots-sim.rl.tests.test_train_loco_jump.TrainLocoJumpCliDryRunTest.test_main_dry_run_accepts_resume_without_loading_checkpoint) ... ok
+test_main_dry_run_does_not_call_train_or_create_outputs (webots-sim.rl.tests.test_train_loco_jump.TrainLocoJumpCliDryRunTest.test_main_dry_run_does_not_call_train_or_create_outputs) ... ok
+test_parse_args_accepts_phase_tags_and_devices (webots-sim.rl.tests.test_train_loco_jump.TrainLocoJumpCliDryRunTest.test_parse_args_accepts_phase_tags_and_devices) ... ok
+test_parse_args_rejects_old_prefix_old_resume_and_bad_budget (webots-sim.rl.tests.test_train_loco_jump.TrainLocoJumpCliDryRunTest.test_parse_args_rejects_old_prefix_old_resume_and_bad_budget) ... usage: python3 -m unittest [-h] [--total-steps TOTAL_STEPS]
+                           [--tag {phase0,phase1,phase2,phase3,phase4}]
+                           [--ckpt-prefix CKPT_PREFIX] [--ckptdir CKPTDIR]
+                           [--logdir LOGDIR] [--resume ZIP]
+                           [--device {cpu,cuda}]
+                           [--checkpoint-interval CHECKPOINT_INTERVAL]
+                           [--eval-interval EVAL_INTERVAL]
+                           [--eval-episodes EVAL_EPISODES] [--seed SEED]
+                           [--dry-run]
+python3 -m unittest: error: checkpoint 前缀不兼容：'ppo_walk'；必须以 'yobogo_loco_jump_v1' 开始
+usage: python3 -m unittest [-h] [--total-steps TOTAL_STEPS]
+                           [--tag {phase0,phase1,phase2,phase3,phase4}]
+                           [--ckpt-prefix CKPT_PREFIX] [--ckptdir CKPTDIR]
+                           [--logdir LOGDIR] [--resume ZIP]
+                           [--device {cpu,cuda}]
+                           [--checkpoint-interval CHECKPOINT_INTERVAL]
+                           [--eval-interval EVAL_INTERVAL]
+                           [--eval-episodes EVAL_EPISODES] [--seed SEED]
+                           [--dry-run]
+python3 -m unittest: error: checkpoint 前缀不匹配：'ppo_walk_final.zip'；只允许 'yobogo_loco_jump_v1'，旧 checkpoint 必须拒绝
+usage: python3 -m unittest [-h] [--total-steps TOTAL_STEPS]
+                           [--tag {phase0,phase1,phase2,phase3,phase4}]
+                           [--ckpt-prefix CKPT_PREFIX] [--ckptdir CKPTDIR]
+                           [--logdir LOGDIR] [--resume ZIP]
+                           [--device {cpu,cuda}]
+                           [--checkpoint-interval CHECKPOINT_INTERVAL]
+                           [--eval-interval EVAL_INTERVAL]
+                           [--eval-episodes EVAL_EPISODES] [--seed SEED]
+                           [--dry-run]
+python3 -m unittest: error: checkpoint 前缀不匹配：'yobogo_loco_jump_v1beta_final.zip'；只允许 'yobogo_loco_jump_v1'，旧 checkpoint 必须拒绝
+usage: python3 -m unittest [-h] [--total-steps TOTAL_STEPS]
+                           [--tag {phase0,phase1,phase2,phase3,phase4}]
+                           [--ckpt-prefix CKPT_PREFIX] [--ckptdir CKPTDIR]
+                           [--logdir LOGDIR] [--resume ZIP]
+                           [--device {cpu,cuda}]
+                           [--checkpoint-interval CHECKPOINT_INTERVAL]
+                           [--eval-interval EVAL_INTERVAL]
+                           [--eval-episodes EVAL_EPISODES] [--seed SEED]
+                           [--dry-run]
+python3 -m unittest: error: 正式预算必须位于 [800000, 1200000]，收到 799999 步
+usage: python3 -m unittest [-h] [--total-steps TOTAL_STEPS]
+                           [--tag {phase0,phase1,phase2,phase3,phase4}]
+                           [--ckpt-prefix CKPT_PREFIX] [--ckptdir CKPTDIR]
+                           [--logdir LOGDIR] [--resume ZIP]
+                           [--device {cpu,cuda}]
+                           [--checkpoint-interval CHECKPOINT_INTERVAL]
+                           [--eval-interval EVAL_INTERVAL]
+                           [--eval-episodes EVAL_EPISODES] [--seed SEED]
+                           [--dry-run]
+python3 -m unittest: error: --tag phase4 的累计目标只能到 1200000 步，收到 1200001 步
+usage: python3 -m unittest [-h] [--total-steps TOTAL_STEPS]
+                           [--tag {phase0,phase1,phase2,phase3,phase4}]
+                           [--ckpt-prefix CKPT_PREFIX] [--ckptdir CKPTDIR]
+                           [--logdir LOGDIR] [--resume ZIP]
+                           [--device {cpu,cuda}]
+                           [--checkpoint-interval CHECKPOINT_INTERVAL]
+                           [--eval-interval EVAL_INTERVAL]
+                           [--eval-episodes EVAL_EPISODES] [--seed SEED]
+                           [--dry-run]
+python3 -m unittest: error: --checkpoint-interval 必须为 50000，收到 20000
+usage: python3 -m unittest [-h] [--total-steps TOTAL_STEPS]
+                           [--tag {phase0,phase1,phase2,phase3,phase4}]
+                           [--ckpt-prefix CKPT_PREFIX] [--ckptdir CKPTDIR]
+                           [--logdir LOGDIR] [--resume ZIP]
+                           [--device {cpu,cuda}]
+                           [--checkpoint-interval CHECKPOINT_INTERVAL]
+                           [--eval-interval EVAL_INTERVAL]
+                           [--eval-episodes EVAL_EPISODES] [--seed SEED]
+                           [--dry-run]
+python3 -m unittest: error: argument --device: invalid choice: 'gpu' (choose from cpu, cuda)
+usage: python3 -m unittest [-h] [--total-steps TOTAL_STEPS]
+                           [--tag {phase0,phase1,phase2,phase3,phase4}]
+                           [--ckpt-prefix CKPT_PREFIX] [--ckptdir CKPTDIR]
+                           [--logdir LOGDIR] [--resume ZIP]
+                           [--device {cpu,cuda}]
+                           [--checkpoint-interval CHECKPOINT_INTERVAL]
+                           [--eval-interval EVAL_INTERVAL]
+                           [--eval-episodes EVAL_EPISODES] [--seed SEED]
+                           [--dry-run]
+python3 -m unittest: error: argument --tag: invalid choice: 'phase5' (choose from phase0, phase1, phase2, phase3, phase4)
+usage: python3 -m unittest [-h] [--total-steps TOTAL_STEPS]
+                           [--tag {phase0,phase1,phase2,phase3,phase4}]
+                           [--ckpt-prefix CKPT_PREFIX] [--ckptdir CKPTDIR]
+                           [--logdir LOGDIR] [--resume ZIP]
+                           [--device {cpu,cuda}]
+                           [--checkpoint-interval CHECKPOINT_INTERVAL]
+                           [--eval-interval EVAL_INTERVAL]
+                           [--eval-episodes EVAL_EPISODES] [--seed SEED]
+                           [--dry-run]
+python3 -m unittest: error: --eval-interval 不能小于 0
+usage: python3 -m unittest [-h] [--total-steps TOTAL_STEPS]
+                           [--tag {phase0,phase1,phase2,phase3,phase4}]
+                           [--ckpt-prefix CKPT_PREFIX] [--ckptdir CKPTDIR]
+                           [--logdir LOGDIR] [--resume ZIP]
+                           [--device {cpu,cuda}]
+                           [--checkpoint-interval CHECKPOINT_INTERVAL]
+                           [--eval-interval EVAL_INTERVAL]
+                           [--eval-episodes EVAL_EPISODES] [--seed SEED]
+                           [--dry-run]
+python3 -m unittest: error: --eval-episodes 必须大于 0
+ok
+test_action_clip_and_q_des_formula (webots-sim.controllers.rl_agent.test_loco_teleop.ActionMappingTests.test_action_clip_and_q_des_formula) ... ok
+test_command_limits (webots-sim.controllers.rl_agent.test_loco_teleop.ActionMappingTests.test_command_limits) ... ok
+test_header_uses_55_dim_contract (webots-sim.controllers.rl_agent.test_loco_teleop.ControllerHeaderTests.test_header_uses_55_dim_contract) ... ok
+test_button_six_is_estop_edge (webots-sim.controllers.rl_agent.test_loco_teleop.JoystickTests.test_button_six_is_estop_edge) ... ok
+test_jump_and_reset_button_edges (webots-sim.controllers.rl_agent.test_loco_teleop.JoystickTests.test_jump_and_reset_button_edges) ... ok
+test_stick_deadzone_and_mapping (webots-sim.controllers.rl_agent.test_loco_teleop.JoystickTests.test_stick_deadzone_and_mapping) ... ok
+test_contact_loss_then_restore_clears_latch (webots-sim.controllers.rl_agent.test_loco_teleop.JumpLatchTests.test_contact_loss_then_restore_clears_latch) ... ok
+test_one_second_timeout_clears_latch (webots-sim.controllers.rl_agent.test_loco_teleop.JumpLatchTests.test_one_second_timeout_clears_latch) ... ok
+test_escape_is_edge_triggered_estop (webots-sim.controllers.rl_agent.test_loco_teleop.KeyboardTests.test_escape_is_edge_triggered_estop) ... ok
+test_motion_keys (webots-sim.controllers.rl_agent.test_loco_teleop.KeyboardTests.test_motion_keys) ... ok
+test_shift_space_and_reset_edges (webots-sim.controllers.rl_agent.test_loco_teleop.KeyboardTests.test_shift_space_and_reset_edges) ... ok
+test_estop_overrides_reset_jump_and_motion (webots-sim.controllers.rl_agent.test_loco_teleop.MergePriorityTests.test_estop_overrides_reset_jump_and_motion) ... ok
+test_keyboard_nonzero_component_has_priority (webots-sim.controllers.rl_agent.test_loco_teleop.MergePriorityTests.test_keyboard_nonzero_component_has_priority) ... ok
+test_observation_is_contract_ordered_55_dim (webots-sim.controllers.rl_agent.test_loco_teleop.StateAndObservationTests.test_observation_is_contract_ordered_55_dim) ... ok
+test_tcp_state_fields_and_lengths (webots-sim.controllers.rl_agent.test_loco_teleop.StateAndObservationTests.test_tcp_state_fields_and_lengths) ... ok
+test_absolute_path_expanduser_returns_existing_absolute_file (webots-sim.controllers.rl_agent.test_play_safety.CheckpointResolutionTests.test_absolute_path_expanduser_returns_existing_absolute_file) ... ok
+test_missing_path_lists_both_absolute_candidates (webots-sim.controllers.rl_agent.test_play_safety.CheckpointResolutionTests.test_missing_path_lists_both_absolute_candidates) ... ok
+test_old_checkpoint_prefix_is_rejected_before_existence_lookup (webots-sim.controllers.rl_agent.test_play_safety.CheckpointResolutionTests.test_old_checkpoint_prefix_is_rejected_before_existence_lookup) ... ok
+test_relative_path_falls_back_to_repository_root (webots-sim.controllers.rl_agent.test_play_safety.CheckpointResolutionTests.test_relative_path_falls_back_to_repository_root) ... ok
+test_relative_path_prefers_current_directory (webots-sim.controllers.rl_agent.test_play_safety.CheckpointResolutionTests.test_relative_path_prefers_current_directory) ... ok
+test_resolution_still_calls_contract_validator (webots-sim.controllers.rl_agent.test_play_safety.CheckpointResolutionTests.test_resolution_still_calls_contract_validator) ... ok
+test_absolute_clip_and_single_cycle_rate_limit (webots-sim.controllers.rl_agent.test_play_safety.PlayActionGuardTests.test_absolute_clip_and_single_cycle_rate_limit) ... ok
+test_rejects_wrong_shape_and_non_finite_action (webots-sim.controllers.rl_agent.test_play_safety.PlayActionGuardTests.test_rejects_wrong_shape_and_non_finite_action) ... ok
+test_reset_clears_history_and_report_window (webots-sim.controllers.rl_agent.test_play_safety.PlayActionGuardTests.test_reset_clears_history_and_report_window) ... ok
+test_initialization_order_and_user_reset_drain (webots-sim.controllers.rl_agent.test_play_safety.RunPlayIntegrationTests.test_initialization_order_and_user_reset_drain) ... ok
+test_internal_episode_reset_drains_keyboard (webots-sim.controllers.rl_agent.test_play_safety.RunPlayIntegrationTests.test_internal_episode_reset_drains_keyboard) ... ok
+test_parkour_dev_world_has_exactly_one_viewpoint (webots-sim.controllers.rl_agent.test_play_safety.SourceScopeTests.test_parkour_dev_world_has_exactly_one_viewpoint) ... ok
+test_safety_entrypoints_are_not_used_by_tcp_or_smoke (webots-sim.controllers.rl_agent.test_play_safety.SourceScopeTests.test_safety_entrypoints_are_not_used_by_tcp_or_smoke) ... ok
+test_abnormal_height_stops_before_writing_action (webots-sim.controllers.rl_agent.test_play_safety.StabilityWindowTests.test_abnormal_height_stops_before_writing_action) ... ok
+test_minimum_window_consumes_edges_and_writes_only_zero_actions (webots-sim.controllers.rl_agent.test_play_safety.StabilityWindowTests.test_minimum_window_consumes_edges_and_writes_only_zero_actions) ... ok
+test_requires_one_unbroken_ten_cycle_contact_streak (webots-sim.controllers.rl_agent.test_play_safety.StabilityWindowTests.test_requires_one_unbroken_ten_cycle_contact_streak) ... ok
+test_timeout_at_100_stops_with_fixed_error (webots-sim.controllers.rl_agent.test_play_safety.StabilityWindowTests.test_timeout_at_100_stops_with_fixed_error) ... ok
+
+----------------------------------------------------------------------
+Ran 84 tests in 0.068s
+
+OK
+====================================================================
+【配置】yobogo_loco_jump_v1
+====================================================================
+  阶段              : phase3 -> S3_jump
+  累计目标步数      : 800000 / 800000
+  观测/动作维度     : 55 / 12
+  控制频率          : 50 Hz
+  计算设备          : cuda
+  checkpoint 前缀   : yobogo_loco_jump_v1
+  checkpoint 条件   : 每 50000 步或 1800 秒
+  step 保存点       : [50000, 100000, 150000, 200000, 250000, 300000, 350000, 400000, 450000, 500000, 550000, 600000, 650000, 700000, 750000, 800000]
+  续训 checkpoint   : checkpoints/yobogo_loco_jump_v1_50000_steps.zip
+  训练状态          : 未启动（dry-run）
+====================================================================
+UNIT_TEST_EXIT=0

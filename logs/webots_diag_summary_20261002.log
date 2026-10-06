@@ -1,0 +1,99 @@
+[诊断汇总][时间]=2026-10-02T16:07+08:00
+[范围]=只读源码 + 串行 Webots 实际重跑；未修改源码/world/README/docs；未执行 Git
+
+[原始命令]
+env -u RL_BRIDGE_PORT RL_AGENT_MODE=play RL_AGENT_CHECKPOINT=checkpoints/yobogo_loco_jump_v1/yobogo_loco_jump_v1_final.zip RL_AGENT_DEVICE=cpu RL_AGENT_EPISODES=1 RL_AGENT_MAX_STEPS=1000 __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia /usr/local/webots/webots --mode=realtime webots-sim/worlds/parkour_dev.wbt
+
+[原始日志]
+logs/webots_play_parkour_dev_20261002.log: 可见稳定窗口 step=1/50..19/50 后 INFO: rl_agent: Terminating.；无 Traceback。
+logs/webots_play_terrain_20261002.log: 同样可见 step=1/50..19/50 后 Terminating；无 Traceback。
+
+[实验A]
+开始=2026-10-02T15:57:35.854029474+08:00
+结束=2026-10-02T15:57:41.293169386+08:00
+时长=5439 ms
+退出码=0
+PIPESTATUS=0
+稳定窗口可见步数=19/50
+达到50=否
+Terminating=1
+Traceback=0
+命令=DIRECT_REDIRECT 不 tee：timeout 60s env -u RL_BRIDGE_PORT ... /usr/local/webots/webots --mode=realtime --stdout --stderr webots-sim/worlds/parkour_dev.wbt >> logs/webots_diag_A_20261002.log 2>&1
+证据=/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/logs/webots_diag_A_20261002.log
+
+[实验B]
+开始=2026-10-02T15:58:04.434935630+08:00
+结束=2026-10-02T15:58:12.186176967+08:00
+时长=7750 ms
+退出码=0
+PIPESTATUS=0
+稳定窗口可见步数=19/50
+达到50=否
+Terminating=1
+Traceback=0
+命令=DIRECT_REDIRECT 不 tee：timeout 60s env -u RL_BRIDGE_PORT ... /usr/local/webots/webots --batch --mode=fast --stdout --stderr webots-sim/worlds/parkour_dev.wbt >> logs/webots_diag_B_20261002.log 2>&1
+证据=/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/logs/webots_diag_B_20261002.log
+
+[实验C-信号/进程退出追踪]
+开始=2026-10-02T16:00:10.553178174+08:00
+结束=2026-10-02T16:00:19.141960100+08:00
+时长=8588 ms
+退出码=0
+PIPESTATUS=0
+稳定窗口可见步数=19/50
+达到50=否
+Terminating=1
+Traceback=0
+timeout 触发=否（实际8.588s，远小于60s）
+strace关键顺序:
+  controller PID=1842567 execve("/usr/bin/python3", ["python3","-u","rl_agent.py"], ...)
+  16:00:18.932235 controller exit_group(0)
+  16:00:18.962190 webots-bin 收到 SIGCHLD，controller WIFEXITED(0)
+  16:00:19.118103 webots-bin exit_group(0)
+  未发现 SIGTERM/SIGINT/SIGHUP 投递，未发现外部 kill；仅有 launcher 的 kill(pid,0) 存在性探测。
+结论=不是60秒 timeout、不是外部信号、不是窗口关闭优先触发；控制器自身先以0退出。
+证据主日志=/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/logs/webots_diag_C_20261002.log
+证据strace=/tmp/webots_diag_C_20261002.7AaOeM/trace..1842481 与 /tmp/webots_diag_C_20261002.7AaOeM/trace..1842567
+
+[实验D-活动异常检查]
+重跑开始=2026-10-02T16:03:55.181152213+08:00
+重跑结束=2026-10-02T16:04:04.205681795+08:00
+时长=9022 ms
+退出码=0
+PIPESTATUS=0
+结果=无活动异常；simulationQuit(0) 的栈直接来自 rl_agent.py:888 finally。
+证据=/tmp/webots_diag_D_20261002.W1Thl5/active_exception.log
+日志=/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/logs/webots_diag_D_20261002.log
+
+[实验E-关键函数返回值追踪]
+开始=2026-10-02T16:05:13.385707258+08:00
+结束=2026-10-02T16:05:19.182843300+08:00
+时长=5797 ms
+退出码=0
+PIPESTATUS=0
+可见稳定窗口=19/50
+关键返回:
+  wait_for_stable_contacts: released=False, reason='abnormal_height', cycles=20, contact_streak=19
+  cycle=20 时 height_before=0.5918876025842746m（未超阈值）
+  cycle=20 零动作推进一步后 height=0.6365842025180931m（超过0.600m阈值）
+  enter_stable_window: False
+  _run_play: 进入 finally 并调用 simulationQuit(0)
+证据=/tmp/webots_diag_E_20261002.MmW8C1/trace_returns.log
+日志=/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/logs/webots_diag_E_20261002.log
+
+[源码证据]
+play_safety.py:35 PLAY_MAX_BASE_HEIGHT=0.60
+play_safety.py:149-174 每个零动作周期执行
+play_safety.py:187-197 第20周期推进后检测 height>0.600m 并返回 abnormal_height
+rl_agent.py:786-795 enter_stable_window 返回False时直接return
+rl_agent.py:879-888 finally 无条件 flush 并 simulationQuit(0)
+源码哈希:
+  rl_agent.py c1a719f3d0daacdf00f0ccc2bd224884b1d6b529f9a4bbf3a49fd9b66d3f0ef4
+  play_safety.py d2da6a72c90de8e097c5700dc3f28063a063d934f6a3fef723136df786b5c1df
+
+[根因结论]
+稳定窗口未到50的真实原因不是 tee、非 batch、外部窗口关闭或信号，而是零动作稳定窗口第20周期把机身高度从约0.592m推到0.637m，触发既有的“异常离地 >0.600m停止play”。控制器按设计走finally simulationQuit(0)，Webots打印Terminating并以0退出。
+可见日志只到step=19且未显示“异常离地”，说明第20周期的两条stdout诊断未进入最终转发日志；函数返回值追踪已直接记录第20周期的reason/cycles/height。
+
+[下一步建议-未实施]
+由用户审核后再决定修复；不要通过改阈值或改参数让测试“通过”。建议先判断第20周期零动作瞬时抬升是否物理/初始化问题，并补充“最终高度与提前退出原因”必达的同步flush/退出日志；同时复核0.60m阈值与稳定窗口的先检查顺序。

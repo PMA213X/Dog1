@@ -1,0 +1,29 @@
+CAPTURED_AT=2026-10-04T14:16:28+08:00
+TRAIN_PID=167800
+HANDSHAKES=4
+=== PS ALL RELEVANT ===
+ 167993  167800  167738 S          00:02 /bin/bash /usr/local/webots/webots --port=1234 --stdout --stderr --batch --mode=fast --no-rendering /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/worlds/flat_move_jump_rl.wbt
+ 167996  167800  167738 S          00:02 python3 -u ./rl_agent.py
+ 167997  167800  167738 S          00:02 python3 -u ./rl_agent.py
+ 167998  167800  167738 S          00:02 python3 -u ./rl_agent.py
+ 167999  167800  167738 S          00:02 python3 -u ./rl_agent.py
+ 168000  167993  167738 Rl         00:02 /usr/local/webots/bin/webots-bin --port=1234 --stdout --stderr --batch --mode=fast --no-rendering /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/worlds/flat_move_jump_rl.wbt
+=== PS CHILDREN OF WEBOTS ===
+    PID    PPID    PGID STAT     ELAPSED COMMAND
+ 167800  167738  167738 Rl         00:03 /usr/bin/python3 -u -m rl.train --phase F0 --total-steps 5000 --device cuda --ckptdir /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/checkpoints/official_mini_cheetah_flat_jump_v1_r2_smoke --ckpt-prefix official_mini_cheetah_flat_jump_v1_r2 --logdir /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/runs/official_mini_cheetah_flat_jump_v1_r2/smoke_5000_raw --bridge-port 11452 --num-envs 4 --checkpoint-interval 50000 --randomization-mode full --seed 20261003
+ 168320  167738  167738 R          00:00 ps --ppid 167738 -o pid,ppid,pgid,stat,etime,args
+=== LISTENERS ===
+LISTEN 0      1      127.0.0.1:11452 0.0.0.0:* users:(("python3",pid=167800,fd=40))   
+LISTEN 0      1      127.0.0.1:11453 0.0.0.0:* users:(("python3",pid=167800,fd=41))   
+LISTEN 0      1      127.0.0.1:11454 0.0.0.0:* users:(("python3",pid=167800,fd=42))   
+LISTEN 0      1      127.0.0.1:11455 0.0.0.0:* users:(("python3",pid=167800,fd=43))   
+LISTEN 0      50             *:1234        *:* users:(("webots-bin",pid=168000,fd=21))
+=== HANDSHAKES ===
+RL_CONTROLLER_CONNECTED host=127.0.0.1 port=11452 worker_id=0 robot_name=mini_cheetah_0 timestep=4 contract=official_mini_cheetah_flat_jump_v1_r2
+RL_CONTROLLER_CONNECTED host=127.0.0.1 port=11453 worker_id=1 robot_name=mini_cheetah_1 timestep=4 contract=official_mini_cheetah_flat_jump_v1_r2
+RL_CONTROLLER_CONNECTED host=127.0.0.1 port=11454 worker_id=2 robot_name=mini_cheetah_2 timestep=4 contract=official_mini_cheetah_flat_jump_v1_r2
+RL_CONTROLLER_CONNECTED host=127.0.0.1 port=11455 worker_id=3 robot_name=mini_cheetah_3 timestep=4 contract=official_mini_cheetah_flat_jump_v1_r2
+=== CUDA ===
+CUDA_OK name=NVIDIA GeForce RTX 4060 Laptop GPU device=cuda:0 capability=(8, 9)
+Using cuda device
+167800, /usr/bin/python3, 96 MiB

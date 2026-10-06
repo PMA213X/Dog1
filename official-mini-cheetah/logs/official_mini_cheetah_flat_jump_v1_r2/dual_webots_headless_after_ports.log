@@ -1,0 +1,95 @@
+Process ForkProcess-2:
+Traceback (most recent call last):
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/rl/env.py", line 144, in _start_bridge
+    connection, _address = self._server.accept()
+                           ~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/socket.py", line 298, in accept
+    fd, addr = self._accept()
+               ~~~~~~~~~~~~^^
+TimeoutError: timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/multiprocessing/process.py", line 320, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/usr/lib/python3.14/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pma213x/.local/lib/python3.14/site-packages/stable_baselines3/common/vec_env/subproc_vec_env.py", line 29, in _worker
+    env = _patch_env(env_fn_wrapper.var())
+                     ~~~~~~~~~~~~~~~~~~^^
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/rl/train.py", line 115, in factory
+    MiniCheetahFlatJumpEnv(
+    ~~~~~~~~~~~~~~~~~~~~~~^
+        phase=args.phase,
+        ^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        render_mode="human" if args.webots_gui else None,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/rl/env.py", line 92, in __init__
+    self._start_bridge()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/rl/env.py", line 147, in _start_bridge
+    raise TimeoutError("等待 RL controller 连接超时") from exc
+TimeoutError: 等待 RL controller 连接超时
+Process ForkProcess-1:
+Traceback (most recent call last):
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/rl/env.py", line 144, in _start_bridge
+    connection, _address = self._server.accept()
+                           ~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/socket.py", line 298, in accept
+    fd, addr = self._accept()
+               ~~~~~~~~~~~~^^
+TimeoutError: timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/multiprocessing/process.py", line 320, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/usr/lib/python3.14/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pma213x/.local/lib/python3.14/site-packages/stable_baselines3/common/vec_env/subproc_vec_env.py", line 29, in _worker
+    env = _patch_env(env_fn_wrapper.var())
+                     ~~~~~~~~~~~~~~~~~~^^
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/rl/train.py", line 115, in factory
+    MiniCheetahFlatJumpEnv(
+    ~~~~~~~~~~~~~~~~~~~~~~^
+        phase=args.phase,
+        ^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        render_mode="human" if args.webots_gui else None,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/rl/env.py", line 92, in __init__
+    self._start_bridge()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/rl/env.py", line 147, in _start_bridge
+    raise TimeoutError("等待 RL controller 连接超时") from exc
+TimeoutError: 等待 RL controller 连接超时
+Traceback (most recent call last):
+  File "<stdin>", line 5, in <module>
+  File "/home/pma213x/.local/lib/python3.14/site-packages/stable_baselines3/common/vec_env/subproc_vec_env.py", line 127, in __init__
+    observation_space, action_space = self.remotes[0].recv()
+                                      ~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/multiprocessing/connection.py", line 257, in recv
+    buf = self._recv_bytes()
+  File "/usr/lib/python3.14/multiprocessing/connection.py", line 448, in _recv_bytes
+    buf = self._recv(4)
+  File "/usr/lib/python3.14/multiprocessing/connection.py", line 413, in _recv
+    chunk = read(handle, to_read)
+ConnectionResetError: [Errno 104] Connection reset by peer
+DUAL_HEADLESS_EXIT=1
+--- official-mini-cheetah/logs/official_mini_cheetah_flat_jump_v1_r2/webots_0.log
+1:WARNING: Could not listen to extern controllers and robot windows on port 1234. Port 1234 is already in use. Using port 1235 instead. This could be caused by another running instance of Webots. You should use the '--port' option to start several instances of Webots.
+3:RL_CONTROLLER_CONNECTED host=127.0.0.1 port=11452 contract=official_mini_cheetah_flat_jump_v1_r2
+--- official-mini-cheetah/logs/official_mini_cheetah_flat_jump_v1_r2/webots_1.log
+2:RL_CONTROLLER_CONNECTED host=127.0.0.1 port=11453 contract=official_mini_cheetah_flat_jump_v1_r2
+11:WARNING: Could not listen to extern controllers and robot windows on port 1234. Port 1234 is already in use. Using port 1235 instead. This could be caused by another running instance of Webots. You should use the '--port' option to start several instances of Webots.

@@ -1,0 +1,4 @@
+/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/logs/inspections/walk_p4_third_person/gait000_1500_contact.jpg
+/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/logs/inspections/walk_p4_third_person/quick_p2p3/p2p3p4_1s_contact.jpg
+/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/logs/inspections/walk_p4_third_person/quick_p2p3/p4.png
+/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/logs/inspections/walk_p4_third_person/quick_p2p3/p4_panel_1s.jpg

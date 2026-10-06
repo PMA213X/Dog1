@@ -1,0 +1,2 @@
+INFO: acceptance_supervisor: Starting controller: python3 -u acceptance_supervisor.py
+INFO: acceptance_supervisor: Terminating.

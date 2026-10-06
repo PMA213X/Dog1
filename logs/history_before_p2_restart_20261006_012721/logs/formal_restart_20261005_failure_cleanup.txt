@@ -1,0 +1,18 @@
+started_at=2026-10-05T00:04:37+08:00
+term_groups=785384,785888
+term_785384=1
+term_785888=0
+gone_785384=yes
+gone_785888=yes
+checked_at=2026-10-05T00:04:42+08:00
+target_processes:
+    PID    PPID     SID    PGID STAT     ELAPSED COMMAND
+ 787043    8344  787043  787043 Ss         00:05 /bin/bash -lc set +e proj=/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah logroot="$proj/logs/official_mini_cheetah_flat_jump_v1_r3" cleanup="$logroot/formal_restart_20261005_failure_cleanup.txt" {   echo "started_at=$(date --iso-8601=seconds)"   echo "term_groups=785384,785888" } > "$cleanup" for pgid in 785384 785888; do   kill -TERM -- "-$pgid" 2>/dev/null   echo "term_${pgid}=$?" >> "$cleanup" done sleep 3 for pgid in 785384 785888; do   if kill -0 -- "-$pgid" 2>/dev/null; then     kill -KILL -- "-$pgid" 2>/dev/null     echo "kill_${pgid}=$?" >> "$cleanup"   else     echo "gone_${pgid}=yes" >> "$cleanup"   fi done sleep 2 {   echo "checked_at=$(date --iso-8601=seconds)"   echo "target_processes:"   ps -eo pid,ppid,sid,pgid,stat,etime,args | awk 'NR==1 || /785384|785888|rl\.run_stages|rl\.evaluate|rl\.train|\/usr\/local\/webots|webots-controller|tensorboard.*6007/ {print}' | sed -n '1,120p'   echo "target_ports:"   ss -ltnp 2>/dev/null | grep -E ':(6007|1234|1145[2-5])[[:space:]]' || echo NONE_LISTEN   ss -tnp 2>/dev/null | grep -E ':(6007|1234|1145[2-5])[[:space:]]' || echo NONE_CONNECTED   echo "memory:"   awk '/MemAvailable|SwapTotal|SwapFree/{print}' /proc/meminfo } >> "$cleanup" cat "$cleanup" printf '%s\n' '== stage status ==' [ -f "$logroot/stage_status.json" ] && cat "$logroot/stage_status.json" || echo MISSING printf '%s\n' '== gate reports summary ==' python3 - <<'PY' import json from pathlib import Path root=Path('/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/logs/official_mini_cheetah_flat_jump_v1_r3') for p in sorted(root.glob('P0_gate_attempt_*.json')):  d=json.loads(p.read_text())  r=d['report']  print(p.name, 'passed=',r['passed'], 'values=',r['values'], 'failed_checks=',[k for k,v in r['checks'].items() if not v]) PY exit 0
+ 787208  787043  787043  787043 S          00:00 awk NR==1 || /785384|785888|rl\.run_stages|rl\.evaluate|rl\.train|\/usr\/local\/webots|webots-controller|tensorboard.*6007/ {print}
+target_ports:
+NONE_LISTEN
+NONE_CONNECTED
+memory:
+MemAvailable:    7367608 kB
+SwapTotal:      20971512 kB
+SwapFree:       18415408 kB

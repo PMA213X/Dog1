@@ -1,0 +1,57 @@
+{
+  "segment": "P0",
+  "checked_at": "2026-10-04T17:27:54+0800",
+  "train_pid": 390019,
+  "process_group": 390019,
+  "ports": [
+    11452,
+    11453,
+    11454,
+    11455
+  ],
+  "webots_processes": 1,
+  "controller_processes": 4,
+  "gui_windows": 1,
+  "gpu_train_process": true,
+  "worker_logs": {
+    "0": {
+      "path": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/logs/official_mini_cheetah_flat_jump_v1_r3/webots_0.log",
+      "exists": true,
+      "current": true,
+      "connected": true,
+      "worker_id": true,
+      "robot_name": true,
+      "timestep": true
+    },
+    "1": {
+      "path": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/logs/official_mini_cheetah_flat_jump_v1_r3/webots_1.log",
+      "exists": true,
+      "current": true,
+      "connected": true,
+      "worker_id": true,
+      "robot_name": true,
+      "timestep": true
+    },
+    "2": {
+      "path": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/logs/official_mini_cheetah_flat_jump_v1_r3/webots_2.log",
+      "exists": true,
+      "current": true,
+      "connected": true,
+      "worker_id": true,
+      "robot_name": true,
+      "timestep": true
+    },
+    "3": {
+      "path": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/logs/official_mini_cheetah_flat_jump_v1_r3/webots_3.log",
+      "exists": true,
+      "current": true,
+      "connected": true,
+      "worker_id": true,
+      "robot_name": true,
+      "timestep": true
+    }
+  },
+  "event_nonempty": true,
+  "run_started_at": 1791106070.0888157,
+  "passed": true
+}

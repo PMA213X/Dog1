@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "<stdin>", line 4, in <module>
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/webots-sim/rl/flat_jump_env.py", line 263, in reset
+    result = super().reset(seed=seed, options=options)
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/webots-sim/rl/loco_jump_env.py", line 679, in reset
+    raw_state = self._recv()
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/webots-sim/rl/loco_jump_env.py", line 338, in _recv
+    raise ConnectionError("TCP 桥连接已关闭")
+ConnectionError: TCP 桥连接已关闭
+RESET_BRIDGE_EXIT=1

@@ -1,0 +1,15 @@
+========================================================================
+【配置】yobogo_flat_jump_v1
+  阶段              : F0 冒烟
+  累计目标步数      : 5000
+  观测/动作维度     : 57 / 12
+  控制频率          : 50 Hz
+  计算设备          : cuda（CUDA_VISIBLE_DEVICES=0，禁止 CPU）
+  checkpoint 前缀   : yobogo_flat_jump_v1
+  checkpoint 目录   : checkpoints/yobogo_flat_jump_v1
+  TensorBoard 目录  : runs/yobogo_flat_jump_v1/F0_冒烟
+  TCP 桥端口        : 11451
+  续训 checkpoint   : （否）
+  训练状态          : 未启动（dry-run）
+========================================================================
+CUDA_DRY_RUN_EXIT=0

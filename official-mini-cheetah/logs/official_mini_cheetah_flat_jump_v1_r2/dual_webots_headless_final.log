@@ -1,0 +1,6 @@
+DUAL_WEBOTS_HEADLESS_PASS num_envs=2 obs=(2,57) rl_ports=11452,11453 webots_ports=1234,1235
+DUAL_WEBOTS_HEADLESS_EXIT=0
+--- official-mini-cheetah/logs/official_mini_cheetah_flat_jump_v1_r2/webots_0.log
+2:RL_CONTROLLER_CONNECTED host=127.0.0.1 port=11452 contract=official_mini_cheetah_flat_jump_v1_r2
+--- official-mini-cheetah/logs/official_mini_cheetah_flat_jump_v1_r2/webots_1.log
+2:RL_CONTROLLER_CONNECTED host=127.0.0.1 port=11453 contract=official_mini_cheetah_flat_jump_v1_r2

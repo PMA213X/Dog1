@@ -1,0 +1,296 @@
+{
+  "schema": "friction_diagnostic_readback_v1",
+  "started_at": "20261005_173904",
+  "finished_at": "2026-10-05T17:39:08+0800",
+  "mode": "isolated_eval_world_zero_command_no_checkpoint_no_run_stages",
+  "diagnostic_steps": 1000,
+  "resets": 2,
+  "branch": "B",
+  "readback_status": "OK",
+  "readback": {
+    "target": 1.2,
+    "status": "OK",
+    "before": {
+      "stage": "before_write",
+      "target": 1.2,
+      "status": "OK",
+      "items": [
+        {
+          "contact_index": 0,
+          "material1": "fr_toe",
+          "material2": "default",
+          "target": 1.2,
+          "readback": 1.2,
+          "match": true,
+          "status": "OK",
+          "count": 1,
+          "values": [
+            1.2
+          ]
+        },
+        {
+          "contact_index": 1,
+          "material1": "fl_toe",
+          "material2": "default",
+          "target": 1.2,
+          "readback": 1.2,
+          "match": true,
+          "status": "OK",
+          "count": 1,
+          "values": [
+            1.2
+          ]
+        },
+        {
+          "contact_index": 2,
+          "material1": "hr_toe",
+          "material2": "default",
+          "target": 1.2,
+          "readback": 1.2,
+          "match": true,
+          "status": "OK",
+          "count": 1,
+          "values": [
+            1.2
+          ]
+        },
+        {
+          "contact_index": 3,
+          "material1": "hl_toe",
+          "material2": "default",
+          "target": 1.2,
+          "readback": 1.2,
+          "match": true,
+          "status": "OK",
+          "count": 1,
+          "values": [
+            1.2
+          ]
+        }
+      ],
+      "errors": []
+    },
+    "after": {
+      "stage": "after_write",
+      "target": 1.2,
+      "status": "OK",
+      "items": [
+        {
+          "contact_index": 0,
+          "material1": "fr_toe",
+          "material2": "default",
+          "target": 1.2,
+          "readback": 1.2,
+          "match": true,
+          "status": "OK",
+          "count": 1,
+          "values": [
+            1.2
+          ]
+        },
+        {
+          "contact_index": 1,
+          "material1": "fl_toe",
+          "material2": "default",
+          "target": 1.2,
+          "readback": 1.2,
+          "match": true,
+          "status": "OK",
+          "count": 1,
+          "values": [
+            1.2
+          ]
+        },
+        {
+          "contact_index": 2,
+          "material1": "hr_toe",
+          "material2": "default",
+          "target": 1.2,
+          "readback": 1.2,
+          "match": true,
+          "status": "OK",
+          "count": 1,
+          "values": [
+            1.2
+          ]
+        },
+        {
+          "contact_index": 3,
+          "material1": "hl_toe",
+          "material2": "default",
+          "target": 1.2,
+          "readback": 1.2,
+          "match": true,
+          "status": "OK",
+          "count": 1,
+          "values": [
+            1.2
+          ]
+        }
+      ],
+      "errors": []
+    },
+    "errors": []
+  },
+  "readback_error_lines": [],
+  "write_errors": [],
+  "errors": [],
+  "finite_count": 1000,
+  "four_contact_ratio": 1.0,
+  "per_foot_contact_ratio": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+  ],
+  "initial_resets": [
+    {
+      "reset": 0,
+      "step": 0,
+      "initial_contact_count": 4,
+      "initial_contacts": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "initial_height": 0.27129421749216426,
+      "initial_position": [
+        -6.079804041118483e-06,
+        -1.5845400150780113e-11,
+        0.27129421749216426
+      ],
+      "randomization": {
+        "friction": 1.2,
+        "mass_scale": 1.0,
+        "delay_steps": 0,
+        "observation_noise": 0.0,
+        "motor_strength": 1.0,
+        "external_impulse": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "level": 0
+      }
+    },
+    {
+      "reset": 1,
+      "step": 500,
+      "initial_contact_count": 4,
+      "initial_contacts": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "initial_height": 0.27129421749278393,
+      "initial_position": [
+        -6.079838472095229e-06,
+        4.740566848245e-11,
+        0.27129421749278393
+      ],
+      "randomization": {
+        "friction": 1.2,
+        "mass_scale": 1.0,
+        "delay_steps": 0,
+        "observation_noise": 0.0,
+        "motor_strength": 1.0,
+        "external_impulse": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "level": 0
+      }
+    }
+  ],
+  "contact_count": {
+    "count": 1000,
+    "mean": 4.0,
+    "std": 0.0,
+    "min": 4.0,
+    "p50": 4.0,
+    "p95": 4.0,
+    "max": 4.0
+  },
+  "foot_slip_active_mps": {
+    "count": 4000,
+    "mean": 1.943626639196365e-15,
+    "std": 4.3969227057276043e-16,
+    "min": 4.768466505413036e-16,
+    "p50": 1.9594866619131285e-15,
+    "p95": 2.6483273091034528e-15,
+    "max": 3.662454413461898e-15
+  },
+  "foot_speed_all_mps": {
+    "count": 4000,
+    "mean": 1.943626639196365e-15,
+    "std": 4.3969227057276043e-16,
+    "min": 4.768466505413036e-16,
+    "p50": 1.9594866619131285e-15,
+    "p95": 2.6483273091034528e-15,
+    "max": 3.662454413461898e-15
+  },
+  "height": {
+    "count": 1000,
+    "mean": 0.2712942174924741,
+    "std": 3.098462627459792e-13,
+    "min": 0.2712942174921642,
+    "p50": 0.27129421749247407,
+    "p95": 0.27129421749278393,
+    "max": 0.27129421749278393
+  },
+  "drift_m": {
+    "count": 1000,
+    "mean": 6.822853031220649e-17,
+    "std": 4.442198066851478e-17,
+    "min": 3.1751608699910925e-19,
+    "p50": 5.911497823292108e-17,
+    "p95": 1.5250045719874278e-16,
+    "max": 1.8487784751190936e-16
+  },
+  "abs_roll_pitch": {
+    "count": 1000,
+    "mean": 2.1762777578260284e-05,
+    "std": 2.7284841053187847e-12,
+    "min": 2.176277484977618e-05,
+    "p50": 2.1762777578260284e-05,
+    "p95": 2.176278030674439e-05,
+    "max": 2.176278030674439e-05
+  },
+  "speed_xy": {
+    "count": 1000,
+    "mean": 1.1204779671782504e-15,
+    "std": 6.172968397181384e-16,
+    "min": 2.943385129358816e-17,
+    "p50": 1.0599546691181996e-15,
+    "p95": 2.2203035592766192e-15,
+    "max": 3.6256034321352845e-15
+  },
+  "support_torque_proxy_contact_Nm": {
+    "count": 4000,
+    "mean": 1.7070483557070761,
+    "std": 0.02442759312070275,
+    "min": 1.6826207625863734,
+    "p50": 1.7070483557070761,
+    "p95": 1.7314759488277789,
+    "max": 1.7314759488277789
+  },
+  "support_torque_proxy_noncontact_Nm": {
+    "count": 0
+  },
+  "body_contact_count": 0,
+  "non_foot_contact_count": 0,
+  "contact_sources": [
+    "node_id"
+  ],
+  "terminated_count": 0,
+  "truncated_count": 2,
+  "evidence_paths": {
+    "controller_log": "logs/official_mini_cheetah_flat_jump_v1_r3/webots_0.log",
+    "world_log": "logs/official_mini_cheetah_flat_jump_v1_r3/webots_eval_world.log",
+    "diagnostic_json": "logs/official_mini_cheetah_flat_jump_v1_r3/friction_diagnostic_readback_20261005_173904.json"
+  },
+  "controller_log_suffix": "Cannot connect to Webots instance, retrying for another 50 seconds...\nRL_CONTROLLER_CONNECTED host=127.0.0.1 port=11452 worker_id=0 robot_name=mini_cheetah timestep=4 contract=official_mini_cheetah_flat_jump_v1_r3\nRL_FRICTION_READBACK {\"target\": 1.2, \"status\": \"OK\", \"before\": {\"stage\": \"before_write\", \"target\": 1.2, \"status\": \"MISMATCH\", \"items\": [{\"contact_index\": 0, \"material1\": \"fr_toe\", \"material2\": \"default\", \"target\": 1.2, \"readback\": 0.9, \"match\": false, \"status\": \"OK\", \"count\": 1, \"values\": [0.9]}, {\"contact_index\": 1, \"material1\": \"fl_toe\", \"material2\": \"default\", \"target\": 1.2, \"readback\": 0.9, \"match\": false, \"status\": \"OK\", \"count\": 1, \"values\": [0.9]}, {\"contact_index\": 2, \"material1\": \"hr_toe\", \"material2\": \"default\", \"target\": 1.2, \"readback\": 0.9, \"match\": false, \"status\": \"OK\", \"count\": 1, \"values\": [0.9]}, {\"contact_index\": 3, \"material1\": \"hl_toe\", \"material2\": \"default\", \"target\": 1.2, \"readback\": 0.9, \"match\": false, \"status\": \"OK\", \"count\": 1, \"values\": [0.9]}], \"errors\": []}, \"after\": {\"stage\": \"after_write\", \"target\": 1.2, \"status\": \"OK\", \"items\": [{\"contact_index\": 0, \"material1\": \"fr_toe\", \"material2\": \"default\", \"target\": 1.2, \"readback\": 1.2, \"match\": true, \"status\": \"OK\", \"count\": 1, \"values\": [1.2]}, {\"contact_index\": 1, \"material1\": \"fl_toe\", \"material2\": \"default\", \"target\": 1.2, \"readback\": 1.2, \"match\": true, \"status\": \"OK\", \"count\": 1, \"values\": [1.2]}, {\"contact_index\": 2, \"material1\": \"hr_toe\", \"material2\": \"default\", \"target\": 1.2, \"readback\": 1.2, \"match\": true, \"status\": \"OK\", \"count\": 1, \"values\": [1.2]}, {\"contact_index\": 3, \"material1\": \"hl_toe\", \"material2\": \"default\", \"target\": 1.2, \"readback\": 1.2, \"match\": true, \"status\": \"OK\", \"count\": 1, \"values\": [1.2]}], \"errors\": []}, \"errors\": []}\nRL_RESET_DIAGNOSTIC {\"height\": 0.27129421749216426, \"target_min\": -0.8, \"target_max\": 1.6, \"target_errors\": [8.783148437996324e-07, 6.481726755325212e-08, 2.3787021470322856e-06, 8.783148438828992e-07, 6.481726810836363e-08, 2.3787021474763748e-06, 9.308041056532712e-07, 4.650952989404544e-08, 2.4482349612053866e-06, 9.308041070132944e-07, 4.6509530005067745e-08, 2.448234960539253e-06], \"available_torque_min\": 20.0, \"available_torque_max\": 20.0, \"position_infinite\": false}\nRL_TORQUE_DIAGNOSTIC {\"source\": \"torque_feedback\", \"values\": [0.878315, -0.064817, -2.378702, -0.878315, -0.064817, -2.378702, 0.930804, -0.04651, -2.448235, -0.930804, -0.04651, -2.448235], \"min\": -2.4482349604246347, \"max\": 0.9308041062277906}\nRL_CONTROL_DIAGNOSTIC {\"cycle\": 0, \"feedback_valid\": true, \"target_min\": -0.8, \"target_max\": 1.6, \"targets_equal_requested\": true, \"available_torque_min\": 20.0, \"available_torque_max\": 20.0, \"height_before\": 0.27129421749216426, \"used_position_target\": true, \"used_zero_torque_branch\": false, \"position_infinite\": false, \"height_after\": 0.27129421749216426}\nRL_FRICTION_READBACK {\"target\": 1.2, \"status\": \"OK\", \"before\": {\"stage\": \"before_write\", \"target\": 1.2, \"status\": \"OK\", \"items\": [{\"contact_index\": 0, \"material1\": \"fr_toe\", \"material2\": \"default\", \"target\": 1.2, \"readback\": 1.2, \"match\": true, \"status\": \"OK\", \"count\": 1, \"values\": [1.2]}, {\"contact_index\": 1, \"material1\": \"fl_toe\", \"material2\": \"default\", \"target\": 1.2, \"readback\": 1.2, \"match\": true, \"status\": \"OK\", \"count\": 1, \"values\": [1.2]}, {\"contact_index\": 2, \"material1\": \"hr_toe\", \"material2\": \"default\", \"target\": 1.2, \"readback\": 1.2, \"match\": true, \"status\": \"OK\", \"count\": 1, \"values\": [1.2]}, {\"contact_index\": 3, \"material1\": \"hl_toe\", \"material2\": \"default\", \"target\": 1.2, \"readback\": 1.2, \"match\": true, \"status\": \"OK\", \"count\": 1, \"values\": [1.2]}], \"errors\": []}, \"after\": {\"stage\": \"after_write\", \"target\": 1.2, \"status\": \"OK\", \"items\": [{\"contact_index\": 0, \"material1\": \"fr_toe\", \"material2\": \"default\", \"target\": 1.2, \"readback\": 1.2, \"match\": true, \"status\": \"OK\", \"count\": 1, \"values\": [1.2]}, {\"contact_index\": 1, \"material1\": \"fl_toe\", \"material2\": \"default\", \"target\": 1.2, \"readback\": 1.2, \"match\": true, \"status\": \"OK\", \"count\": 1, \"values\": [1.2]}, {\"contact_index\": 2, \"material1\": \"hr_toe\", \"material2\": \"default\", \"target\": 1.2, \"readback\": 1.2, \"match\": true, \"status\": \"OK\", \"count\": 1, \"values\": [1.2]}, {\"contact_index\": 3, \"material1\": \"hl_toe\", \"material2\": \"default\", \"target\": 1.2, \"readback\": 1.2, \"match\": true, \"status\": \"OK\", \"count\": 1, \"values\": [1.2]}], \"errors\": []}, \"errors\": []}\nRL_RESET_DIAGNOSTIC {\"height\": 0.27129421749278393, \"target_min\": -0.8, \"target_max\": 1.6, \"target_errors\": [8.783148441604549e-07, 6.481726844143054e-08, 2.378702147920464e-06, 8.783148436886101e-07, 6.481726810836363e-08, 2.3787021470322856e-06, 9.30804105403471e-07, 4.650952978302314e-08, 2.4482349614274312e-06, 9.30804106125116e-07, 4.650952922791163e-08, 2.448234960539253e-06], \"available_torque_min\": 20.0, \"available_torque_max\": 20.0, \"position_infinite\": false}\nRL_TORQUE_DIAGNOSTIC {\"source\": \"torque_feedback\", \"values\": [0.878315, -0.064817, -2.378702, -0.878315, -0.064817, -2.378702, 0.930804, -0.04651, -2.448235, -0.930804, -0.04651, -2.448235], \"min\": -2.4482349604343256, \"max\": 0.9308041062530692}\nRL_CONTROL_DIAGNOSTIC {\"cycle\": 0, \"feedback_valid\": true, \"target_min\": -0.8, \"target_max\": 1.6, \"targets_equal_requested\": true, \"available_torque_min\": 20.0, \"available_torque_max\": 20.0, \"height_before\": 0.27129421749278393, \"used_position_target\": true, \"used_zero_torque_branch\": false, \"position_infinite\": false, \"height_after\": 0.27129421749278393}\n"
+}

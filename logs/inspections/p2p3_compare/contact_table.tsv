@@ -1,0 +1,13 @@
+video	time_s	observation	type
+walk_p2_third_person.mp4	0	后视远景下可见四腿从髋部近乎直向下落，膝部折线不明显；机身下沿至足端的像素距离与腿段长度接近线性连续	观察
+walk_p2_third_person.mp4	1	摆动腿向侧后方伸出，整条腿呈长直杆感；未见明显“髋-膝-踝”大幅折角	观察
+walk_p2_third_person.mp4	4	支撑腿轮廓近直，站立高度未明显下沉；腿视觉长度偏长	观察
+walk_p2_third_person.mp4	8	持续前进，左右腿仍有交替，但不表现为明显拖腿或同侧连续乱蹬	观察
+walk_p2_third_person.mp4	13	姿态与前段一致；直腿/近直膝特征贯穿该时点	观察
+walk_p3_third_person.mp4	0	后视远景下四腿轮廓接近直杆，膝部弯曲折线弱	观察
+walk_p3_third_person.mp4	1	侧向摆动腿伸出时整段腿视觉拉长，膝角看起来很小	观察
+walk_p3_third_person.mp4	4	站立高度与 p2 同尺度下接近，未见明显塌腰或额外升高	观察
+walk_p3_third_person.mp4	7	步态保持左右交替前进；未见明确拖地、同侧连续迈步或乱蹬	观察
+walk_p3_third_person.mp4	10	后段仍保持近直膝、长腿观感	观察
+walk_p2_third_person.mp4	0-14	推断：视觉膝角接近 0°/完全伸直不能由远景单帧精确量化，但与近直腿一致	推断
+walk_p3_third_person.mp4	0-10	推断：与 p2 类似，属于腿段视觉过长/近直膝问题，不像 p4 那种可另行确认的严重异常时再单列	推断

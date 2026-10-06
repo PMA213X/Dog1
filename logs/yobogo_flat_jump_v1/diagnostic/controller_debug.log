@@ -1,0 +1,9 @@
+randomization:start
+randomization:world-info
+Traceback (most recent call last):
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/webots-sim/controllers/rl_agent/rl_agent.py", line 879, in serve_tcp
+    agent.apply_randomization(msg)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/webots-sim/controllers/rl_agent/rl_agent.py", line 461, in apply_randomization
+    raise RuntimeError("找不到 WorldInfo，无法随机化摩擦")
+RuntimeError: 找不到 WorldInfo，无法随机化摩擦

@@ -1,0 +1,127 @@
+{
+  "contract": "official_mini_cheetah_flat_jump_v1",
+  "phase": "F1",
+  "checkpoint": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/checkpoints/official_mini_cheetah_flat_jump_v1/official_mini_cheetah_flat_jump_v1_final.zip",
+  "gate": true,
+  "report": {
+    "episodes": [
+      {
+        "steps": 1000,
+        "fallen": false,
+        "reward": 1130.399944798313,
+        "mean_vx": -0.9263054132461548,
+        "mean_vy": -0.22898602485656738,
+        "mean_wz": 0.11459096521139145,
+        "jump_success": 0,
+        "jump_landing": 0,
+        "finite": true
+      },
+      {
+        "steps": 1000,
+        "fallen": false,
+        "reward": 1119.4420513128202,
+        "mean_vx": 1.3764816522598267,
+        "mean_vy": -0.4443517029285431,
+        "mean_wz": 0.11524331569671631,
+        "jump_success": 0,
+        "jump_landing": 0,
+        "finite": true
+      },
+      {
+        "steps": 1000,
+        "fallen": false,
+        "reward": 1153.4221171519566,
+        "mean_vx": -0.4022144079208374,
+        "mean_vy": 0.1902439147233963,
+        "mean_wz": -0.07133868336677551,
+        "jump_success": 0,
+        "jump_landing": 0,
+        "finite": true
+      },
+      {
+        "steps": 1000,
+        "fallen": false,
+        "reward": 1149.3508433302427,
+        "mean_vx": -0.5251490473747253,
+        "mean_vy": 0.2750976085662842,
+        "mean_wz": 0.04705309495329857,
+        "jump_success": 0,
+        "jump_landing": 0,
+        "finite": true
+      },
+      {
+        "steps": 1000,
+        "fallen": false,
+        "reward": 1120.7569869417382,
+        "mean_vx": -0.33471930027008057,
+        "mean_vy": -0.2640102207660675,
+        "mean_wz": 0.2362242341041565,
+        "jump_success": 0,
+        "jump_landing": 0,
+        "finite": true
+      },
+      {
+        "steps": 1000,
+        "fallen": false,
+        "reward": 996.158692090935,
+        "mean_vx": 0.12899087369441986,
+        "mean_vy": 0.29000627994537354,
+        "mean_wz": -0.059060338884592056,
+        "jump_success": 0,
+        "jump_landing": 0,
+        "finite": true
+      },
+      {
+        "steps": 1000,
+        "fallen": false,
+        "reward": 1126.4181089305007,
+        "mean_vx": -0.5670849084854126,
+        "mean_vy": 0.1810348927974701,
+        "mean_wz": -0.037799812853336334,
+        "jump_success": 0,
+        "jump_landing": 0,
+        "finite": true
+      },
+      {
+        "steps": 1000,
+        "fallen": false,
+        "reward": 1072.3081042954695,
+        "mean_vx": 0.8046876788139343,
+        "mean_vy": -0.32933199405670166,
+        "mean_wz": 0.24684830009937286,
+        "jump_success": 0,
+        "jump_landing": 0,
+        "finite": true
+      },
+      {
+        "steps": 1000,
+        "fallen": false,
+        "reward": 1156.4913021872162,
+        "mean_vx": -0.31404775381088257,
+        "mean_vy": 0.37190598249435425,
+        "mean_wz": -0.031131982803344727,
+        "jump_success": 0,
+        "jump_landing": 0,
+        "finite": true
+      },
+      {
+        "steps": 1000,
+        "fallen": false,
+        "reward": 1142.821096120765,
+        "mean_vx": -0.5296082496643066,
+        "mean_vy": 0.09213491529226303,
+        "mean_wz": 0.27595090866088867,
+        "jump_success": 0,
+        "jump_landing": 0,
+        "finite": true
+      }
+    ],
+    "fall_rate": 0.0,
+    "mean_steps": 1000.0,
+    "passed": true,
+    "thresholds": {
+      "fall_rate_max": 0.1,
+      "mean_steps_min": 950.0
+    }
+  }
+}

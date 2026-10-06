@@ -10,7 +10,7 @@
 | `YoboGo-control/` | YoboGo-10S 实机控制：`robot-software/`（MIT Cheetah HAL / mit_ctrl 运动控制）、`track1.6/`（视觉循迹 + 任务状态机，Qt + LCM）、`YoboGo-10S使用说明书(开源).docx` |
 | `Cheetah-Software/` | MIT Cheetah-Software 完整源码（MPC + WBC），`user/MIT_Controller` 对应 mit_ctrl |
 | `quadruped_ctrl/` | 另一套四足控制代码（ROS 包 + `standalone_simulation.py` 独立仿真） |
-| `webots-sim/` | Webots R2025a 仿真：`worlds/`（4 个世界文件，见第三章）、`controllers/`（4 个控制器，见第三章）、`protos/`（MslField / MslGoal / MslBall / MslEnvironment / parkour）、`rl/`（PPO 训练套件，见第四章）、`tools/`（`gen_yobogo_robot.py` 机器人单一真源、`build_parkour_world.py`）、`urdf/`（参考模型） |
+| `webots-sim/` | Webots R2025a 仿真：`worlds/`（6 个世界文件，见第三章）、`controllers/`（5 个控制器，见第三章）、`protos/`（MslField / MslGoal / MslBall / MslEnvironment / parkour）、`rl/`（PPO 训练套件，见第四章）、`tools/`（`gen_yobogo_robot.py` 机器人单一真源、`build_parkour_world.py`）、`urdf/`（参考模型） |
 | `docs/` | 项目文档：`features/`（规则、代码分析、教材笔记、**`rl-training-guide.md` 训练完全指南**等）、`architecture/`、`api/`、`changes/`、`compose/spec/` |
 | `checkpoints/` | PPO 训练 checkpoint（`ppo_walk_final` / `p3_turn_final` / `p4_stairs_final` 等） |
 | `runs/` | TensorBoard 训练日志 |
@@ -44,6 +44,9 @@ make
 
 # 2b) 打开 MSL 比赛场地（22×14 m 足球场、球门、球、挡板、旗杆）
 /usr/local/webots/webots webots-sim/worlds/msl_match.wbt
+
+# 2c) 打开单关节顺序扫描测试（无模型、不建立 TCP 连接）
+/usr/local/webots/webots --mode=realtime --stdout --stderr webots-sim/worlds/joint_sweep_test.wbt
 ```
 
 ### 按键表
@@ -79,7 +82,7 @@ make
 
 ## 三、Webots 仿真操作详解
 
-### 3.1 世界文件（4 个）
+### 3.1 世界文件（6 个）
 
 | 世界文件 | 用途 | 说明 |
 |---|---|---|
@@ -87,6 +90,8 @@ make
 | `webots-sim/worlds/msl_match.wbt` | **MSL 球场** | 22×14 m 足球场、球门、球、挡板、旗杆（4 个 Msl PROTO） |
 | `webots-sim/worlds/parkour.wbt` | **跑酷障碍** | 台阶/斜坡/窄道/土坑/箱台障碍路线（详见第五章） |
 | `webots-sim/worlds/parkour_dev.wbt` | **训练用平地** | RL P1–P3 训练场地（平地；RL 运行时自动改写为 `.parkour_dev_rl.wbt` 副本） |
+| `webots-sim/worlds/yobogo_terrain_test.wbt` | **综合地形测试** | 独立 play 测试路线：平整启动区、矮障碍、递增台阶、矮坡道、粗糙垫和末端停止区；不替代 `parkour_dev` 训练世界 |
+| `webots-sim/worlds/joint_sweep_test.wbt` | **单关节顺序扫描** | 仰躺姿态、0.15 m 出生高度逐个扫描关节；`selfCollision FALSE` 避免内部碰撞弹射；0.20 rad/s、端点停留 0.5 s、跟踪误差持续 10 s 停止，Esc/R 停止；不加载 RL 模型、不建立 TCP 连接 |
 
 ```bash
 # 启动任一世界
@@ -96,7 +101,19 @@ __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia \
 
 > 注意：`--mode=realtime` 中 `realtime` **无连字符**；`--mode=real-time` 会报 `invalid option`。
 
-### 3.2 控制器（4 个）
+单关节顺序扫描保留三项稳定前提：唯一的 `default/default` 接触对显式设置
+`coulombFriction 0.8`、`softERP 0.2`、`softCFM 0.001`、`bounce 0`、
+`bounceVelocity 0`，仰躺出生高度为 `0.15 m`，Robot 为
+`selfCollision FALSE`。只读 A/B 实验证实低空弹射的主根因是
+`selfCollision TRUE`：仅切为 `FALSE` 后正常落地且无扫描超时；重力没有被
+世界文件覆盖，仍是 Webots 正常向下重力。该开关也意味着此测试世界不验证
+机器人内部自碰撞。批量验收命令：
+
+```bash
+DISPLAY=:0 timeout 300s /usr/local/webots/webots --batch --mode=fast --stdout --stderr webots-sim/worlds/joint_sweep_test.wbt
+```
+
+### 3.2 控制器（5 个）
 
 | 控制器 | 语言 | 功能 |
 |---|---|---|
@@ -104,6 +121,7 @@ __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia \
 | `webots-sim/controllers/ball_detector/` | C++ | **球检测**：PD+trot 底座 + 橙色球像素阈值检测（`r>150 && 40<g<160 && b<90 ...`），PPM 存 `/tmp/ball_detect/` |
 | `webots-sim/controllers/manual_control/` | C++ | **手动遥控**：WASD/QE 实时速度指令 + Shift 快跑 + 空格预设跳跃（详见第五章） |
 | `webots-sim/controllers/rl_agent/rl_agent.py` | Python | **RL 策略**：Webots Supervisor，经 TCP 桥与 `webots-sim/rl/walk_env.py` 通信，执行 `q_des = q_stand + a·scale` |
+| `webots-sim/controllers/joint_sweep_test/joint_sweep_test.py` | Python | **单关节顺序扫描**：仰躺姿态按固定顺序驱动单个关节，0.20 rad/s、端点停留 0.5 s、跟踪误差持续 10 s 停止，Esc/R 停止；不加载模型、不使用 TCP |
 
 编译 C++ 控制器：
 
@@ -135,6 +153,13 @@ cd ../manual_control && make
 | `Shift` | 快跑档（步频 ×1.6、步幅 ×1.3） |
 | `R` | 复位（速度清零，回站立） |
 | `Esc` | 停（速度清零；跳跃中 = 打断跳跃） |
+
+**单关节顺序扫描（`joint_sweep_test`）**：
+
+| 按键 | 功能 |
+|---|---|
+| `Esc` | 停止当前扫描，未执行关节不再继续 |
+| `R` | 与 `Esc` 相同：立即停止并保持安全控制 |
 
 > 速度上限：vx 1.0 m/s、vy 0.5 m/s、wz 2.0 rad/s（源自 YoboGo yaml `des_dp_max`）。
 > 键盘无反应时先点 3D 视图；`wb_keyboard_get_key()` 无键返回 `-1`，判 Shift 前必须先判 `key < 0`。
@@ -292,6 +317,28 @@ python3 webots-sim/rl/play_third_person.py \
 python3 webots-sim/rl/play.py --model <zip> --episodes 3 --render --max-steps 500
 ```
 
+`yobogo_loco_jump_v1` 也可从仓库根目录相对路径直接启动 Webots play。
+与原有命令相比，只把最后一行 world 路径改为独立地形测试世界：
+
+```bash
+env -u RL_BRIDGE_PORT RL_AGENT_MODE=play \
+  RL_AGENT_CHECKPOINT=checkpoints/yobogo_loco_jump_v1/yobogo_loco_jump_v1_final.zip \
+  RL_AGENT_DEVICE=cpu RL_AGENT_EPISODES=1 RL_AGENT_MAX_STEPS=1000 \
+  __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia \
+  /usr/local/webots/webots --mode=realtime \
+  webots-sim/worlds/yobogo_terrain_test.wbt
+```
+
+启动时应在日志中确认 checkpoint 已解析为**绝对路径**，并看到稳定窗口与
+首 10 周期四足接触诊断。±0.5 动作裁剪、0.05 周期变化率限幅、稳定接触超时和
+0.60 m 异常离地检查只是 play 安全保护，**不等于模型质量或正式评估验收通过**。
+
+结束日志按三类判读：出现 `异常离地` 表示安全护栏主动停止；出现
+`episode 1 结束 ... done=True` 表示 episode 正常结束，需结合轨迹判断是否摔倒；
+出现 `Traceback` 表示控制器异常，按故障处理。稳定窗口放行后的摔倒属于模型质量
+表现，不归因于启动门。地形规格、静态测试和能力边界见
+[`docs/features/yobogo-terrain-test.md`](docs/features/yobogo-terrain-test.md)。
+
 ---
 
 ## 五、手动遥控跑酷
@@ -341,6 +388,8 @@ __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia \
 | 文档 | 内容 |
 |---|---|
 | `docs/features/rl-training-guide.md` | **RL 训练完全指南**（原理、观测/奖励逐维、四阶段命令、问题排查、曲线解读） |
+| `docs/features/yobogo-terrain-test.md` | 综合地形测试世界的路线、play 启动、日志判读与验收边界 |
+| `docs/features/joint-sweep-test.md` | 单关节顺序扫描的测试路径、运行参数、停止条件与验收命令 |
 | `docs/features/webots-sim-guide.md` | Webots 安装、控制器说明、按键、MSL 场地、常见问题 |
 | `docs/compose/spec/manual-parkour.md` | 手动遥控跑酷设计与规格 |
 | `docs/compose/spec/msl-match-field.md` | MSL 球场场景规格 |

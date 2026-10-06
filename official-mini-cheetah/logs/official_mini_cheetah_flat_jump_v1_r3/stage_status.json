@@ -1,0 +1,7 @@
+{
+  "schema_version": 3,
+  "contract": "official_mini_cheetah_flat_jump_v1_r3",
+  "updated_at": "2026-10-06T02:17:34+0800",
+  "status": "failed",
+  "error": "P2 Gate 在预算 1500000 处失败，按计划停止且不自动延长"
+}

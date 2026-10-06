@@ -1,0 +1,173 @@
+[实验C][start]=2026-10-02T16:00:10,553178174+08:00
+[命令C]=strace -ff -tt -e trace=process,signal,exit_group -o /tmp/webots_diag_C_20261002.*/trace.* timeout 60s env -u RL_BRIDGE_PORT RL_AGENT_MODE=play RL_AGENT_CHECKPOINT=checkpoints/yobogo_loco_jump_v1/yobogo_loco_jump_v1_final.zip RL_AGENT_DEVICE=cpu RL_AGENT_EPISODES=1 RL_AGENT_MAX_STEPS=1000 __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia /usr/local/webots/webots --mode=realtime --stdout --stderr webots-sim/worlds/parkour_dev.wbt >> logs/webots_diag_C_20261002.log 2>&1
+[说明]=A复现并追踪信号/进程退出；直接重定向、无tee、DISPLAY=:0
+[strace_dir]=/tmp/webots_diag_C_20261002.7AaOeM
+INFO: rl_agent: Starting controller: python3 -u rl_agent.py
+Wrong 'configure' message received from the robot window.
+Warning: "configure { "imageMaxWidth"" device not found.
+Warning: " 349.995" device not found.
+Warning: " "imageMaxHeight"" device not found.
+Warning: " 240" device not found.
+Warning: " "hidden"" device not found.
+Warning: " 0 }" device not found.
+【rl_agent】play 模式：checkpoint=/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/checkpoints/yobogo_loco_jump_v1/yobogo_loco_jump_v1_final.zip rate=50Hz device=cpu
+【play-safety】稳定窗口 step=1/50 contacts=[1, 1, 1, 1]
+【play-safety】稳定窗口 step=2/50 contacts=[1, 1, 1, 1]
+【play-safety】稳定窗口 step=3/50 contacts=[1, 1, 1, 1]
+【play-safety】稳定窗口 step=4/50 contacts=[1, 1, 1, 1]
+【play-safety】稳定窗口 step=5/50 contacts=[1, 1, 1, 1]
+【play-safety】稳定窗口 step=6/50 contacts=[1, 1, 1, 1]
+【play-safety】稳定窗口 step=7/50 contacts=[1, 1, 1, 1]
+【play-safety】稳定窗口 step=8/50 contacts=[1, 1, 1, 1]
+【play-safety】稳定窗口 step=9/50 contacts=[1, 1, 1, 1]
+【play-safety】稳定窗口 step=10/50 contacts=[1, 1, 1, 1]
+【play-safety】稳定窗口 step=11/50 contacts=[1, 1, 1, 1]
+【play-safety】稳定窗口 step=12/50 contacts=[1, 1, 1, 1]
+【play-safety】稳定窗口 step=13/50 contacts=[1, 1, 1, 1]
+【play-safety】稳定窗口 step=14/50 contacts=[1, 1, 1, 1]
+【play-safety】稳定窗口 step=15/50 contacts=[1, 1, 1, 1]
+【play-safety】稳定窗口 step=16/50 contacts=[1, 1, 1, 1]
+【play-safety】稳定窗口 step=17/50 contacts=[1, 1, 1, 1]
+【play-safety】稳定窗口 step=18/50 contacts=[1, 1, 1, 1]
+【play-safety】稳定窗口 step=19/50 contacts=[1, 1, 1, 1]
+INFO: rl_agent: Terminating.
+[PIPESTATUS]=0 
+[exit_code]=0
+[end]=2026-10-02T16:00:19,141960100+08:00
+[elapsed_ms]=8588
+[strace_files]=
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842477 3307 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842478 21425 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842479 6513 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842480 4279 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842481 18669 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842482 207 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842483 207 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842484 218 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842485 99 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842486 120 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842487 99 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842495 7205 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842496 207 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842497 207 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842498 207 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842499 207 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842500 207 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842509 342 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842510 207 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842511 207 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842512 207 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842513 207 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842514 207 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842531 207 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842532 207 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842533 207 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842534 207 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842535 207 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842537 444 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842539 444 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842540 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842541 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842548 636 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842549 2318 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842550 261 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842551 2519 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842552 993 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842553 120 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842554 546 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842555 99 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842556 1395 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842557 21970 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842558 99 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842560 4277 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842561 7627 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842562 4153 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842563 3469 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842564 5147 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842565 5147 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842566 7627 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842567 39686 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842568 411 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842569 8793 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842570 411 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842571 4884 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842572 207 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842573 207 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842574 207 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842575 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842576 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842577 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842578 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842579 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842580 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842581 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842582 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842583 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842584 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842585 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842586 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842587 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842588 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842589 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842590 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842591 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842592 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842593 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842595 237 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842596 237 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842597 99 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842598 82 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842599 17025 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842600 17775 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842601 82 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842602 346 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842603 151 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842707 586 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842725 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842726 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842727 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842728 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842729 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842730 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842731 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842732 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842733 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842734 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842735 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842736 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842737 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842738 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842739 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842740 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842741 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842742 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842743 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842744 103 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842745 103 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842746 103 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842747 103 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842748 103 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842749 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842750 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842751 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842752 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842753 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842754 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842755 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842756 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842757 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842758 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842759 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842760 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842761 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842762 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842763 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842764 211 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842765 103 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842766 103 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842767 103 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842768 103 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842769 103 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842770 103 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842771 103 bytes
+  /tmp/webots_diag_C_20261002.7AaOeM/trace..1842772 103 bytes

@@ -1,0 +1,2 @@
+RESET_OK (57,) F0 {'friction': 1.2, 'mass_scale': 1.0, 'delay_steps': 0}
+RESET_BRIDGE_EXIT=0

@@ -1,0 +1,268 @@
+{
+  "schema": "action_chain_probe_after_target_rate_v1",
+  "started_at": "20261005_183913",
+  "finished_at": "2026-10-05T18:39:19+0800",
+  "mode": "isolated_eval_world_zero_command_no_checkpoint_no_run_stages",
+  "diagnostic_steps": 360,
+  "episode_count": 12,
+  "finite_count": 360,
+  "contact_loss_step_count": 200,
+  "contact_count_stats": {
+    "count": 360,
+    "mean": 3.0972222222222223,
+    "min": 1.0,
+    "p50": 3.0,
+    "p95": 4.0,
+    "max": 4.0
+  },
+  "action_period_four_contact_ratio_by_joint": {
+    "0": 0.2,
+    "1": 0.6,
+    "2": 0.2,
+    "3": 0.2,
+    "4": 0.6,
+    "5": 0.2,
+    "6": 0.2,
+    "7": 0.6,
+    "8": 0.2,
+    "9": 0.2,
+    "10": 0.6,
+    "11": 0.2
+  },
+  "action_period_four_contact_ratio_min": 0.2,
+  "action_period_four_contact_ratio_mean": 0.3333333333333334,
+  "first_contact_loss_by_joint": {
+    "0": {
+      "local_step": 12,
+      "requested": 0.5,
+      "applied_joint": 0.23999999463558197,
+      "desired_target_joint": -0.07800000160932541,
+      "q_joint": -0.13534125685691833,
+      "dq_joint": 0.343328595161438,
+      "contacts": [
+        1.0,
+        1.0,
+        0.0,
+        1.0
+      ],
+      "height": 0.27171271578433287
+    },
+    "1": {
+      "local_step": 16,
+      "requested": 0.5,
+      "applied_joint": 0.5,
+      "desired_target_joint": -0.55,
+      "q_joint": -0.7453819513320923,
+      "dq_joint": 0.5702372193336487,
+      "contacts": [
+        1.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "height": 0.2716759059919832
+    },
+    "2": {
+      "local_step": 12,
+      "requested": 0.5,
+      "applied_joint": 0.23999999463558197,
+      "desired_target_joint": 1.719999997317791,
+      "q_joint": 1.6146665811538696,
+      "dq_joint": 0.34341907501220703,
+      "contacts": [
+        0.0,
+        1.0,
+        1.0,
+        0.0
+      ],
+      "height": 0.270926306225162
+    },
+    "3": {
+      "local_step": 12,
+      "requested": 0.5,
+      "applied_joint": 0.23999999463558197,
+      "desired_target_joint": 0.22199999839067458,
+      "q_joint": 0.16466473042964935,
+      "dq_joint": 0.34342870116233826,
+      "contacts": [
+        1.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "height": 0.27095621382778995
+    },
+    "4": {
+      "local_step": 16,
+      "requested": 0.5,
+      "applied_joint": 0.5,
+      "desired_target_joint": -0.55,
+      "q_joint": -0.7453819513320923,
+      "dq_joint": 0.5702372193336487,
+      "contacts": [
+        0.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "height": 0.27167586904956703
+    },
+    "5": {
+      "local_step": 12,
+      "requested": 0.5,
+      "applied_joint": 0.23999999463558197,
+      "desired_target_joint": 1.719999997317791,
+      "q_joint": 1.6146665811538696,
+      "dq_joint": 0.34341907501220703,
+      "contacts": [
+        1.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "height": 0.27092630682409624
+    },
+    "6": {
+      "local_step": 12,
+      "requested": 0.5,
+      "applied_joint": 0.23999999463558197,
+      "desired_target_joint": -0.07800000160932541,
+      "q_joint": -0.13534139096736908,
+      "dq_joint": 0.3433275818824768,
+      "contacts": [
+        0.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "height": 0.2716278615543498
+    },
+    "7": {
+      "local_step": 16,
+      "requested": 0.5,
+      "applied_joint": 0.5,
+      "desired_target_joint": -0.55,
+      "q_joint": -0.7453822493553162,
+      "dq_joint": 0.5702335834503174,
+      "contacts": [
+        0.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "height": 0.271592942550875
+    },
+    "8": {
+      "local_step": 12,
+      "requested": 0.5,
+      "applied_joint": 0.23999999463558197,
+      "desired_target_joint": 1.719999997317791,
+      "q_joint": 1.6146665811538696,
+      "dq_joint": 0.3434187173843384,
+      "contacts": [
+        1.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "height": 0.2710525587799762
+    },
+    "9": {
+      "local_step": 12,
+      "requested": 0.5,
+      "applied_joint": 0.23999999463558197,
+      "desired_target_joint": 0.22199999839067458,
+      "q_joint": 0.16466471552848816,
+      "dq_joint": 0.3434285521507263,
+      "contacts": [
+        0.0,
+        1.0,
+        1.0,
+        0.0
+      ],
+      "height": 0.2710564548409254
+    },
+    "10": {
+      "local_step": 16,
+      "requested": 0.5,
+      "applied_joint": 0.5,
+      "desired_target_joint": -0.55,
+      "q_joint": -0.7453822493553162,
+      "dq_joint": 0.5702335834503174,
+      "contacts": [
+        1.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "height": 0.2715930445693461
+    },
+    "11": {
+      "local_step": 12,
+      "requested": 0.5,
+      "applied_joint": 0.23999999463558197,
+      "desired_target_joint": 1.719999997317791,
+      "q_joint": 1.6146665811538696,
+      "dq_joint": 0.3434187173843384,
+      "contacts": [
+        0.0,
+        1.0,
+        1.0,
+        0.0
+      ],
+      "height": 0.27105255446613263
+    }
+  },
+  "contact_loss_steps_by_joint": {
+    "0": 18,
+    "1": 14,
+    "2": 18,
+    "3": 18,
+    "4": 14,
+    "5": 18,
+    "6": 18,
+    "7": 14,
+    "8": 18,
+    "9": 18,
+    "10": 14,
+    "11": 18
+  },
+  "errors": [],
+  "trace_errors": [
+    "RL_RESET_DIAGNOSTIC {\"height\": 0.27129421749216426, \"target_min\": -0.8, \"target_max\": 1.6, \"target_errors\": [8.783148437996324e-07, 6.481726755325212e-08, 2.3787021470322856e-06, 8.783148438828992e-07, 6.481726810836363e-08, 2.3787021474763748e-06, 9.308041056532712e-07, 4.650952989404544e-08, 2.4482349612053866e-06, 9.308041070132944e-07, 4.6509530005067745e-08, 2.448234960539253e-06], \"available_torque_min\": 20.0, \"available_torque_max\": 20.0, \"position_infinite\": false}",
+    "RL_CONTROL_DIAGNOSTIC {\"cycle\": 0, \"feedback_valid\": true, \"target_min\": -0.8, \"target_max\": 1.6, \"targets_equal_requested\": true, \"available_torque_min\": 20.0, \"available_torque_max\": 20.0, \"height_before\": 0.27129421749216426, \"used_position_target\": true, \"used_zero_torque_branch\": false, \"position_infinite\": false, \"target_rate_limit\": 0.75, \"target_delta_max\": 0.0, \"desired_target_delta_max\": 0.0, \"height_after\": 0.27129421749216426}",
+    "RL_RESET_DIAGNOSTIC {\"height\": 0.2712942174932404, \"target_min\": -0.8, \"target_max\": 1.6, \"target_errors\": [8.783148444102551e-07, 6.481726810836363e-08, 2.3787021488086424e-06, 8.783148430779875e-07, 6.481726888551975e-08, 2.378702145700018e-06, 9.308041049593818e-07, 4.650953022711235e-08, 2.44823495942903e-06, 9.308041075406503e-07, 4.6509529560978535e-08, 2.4482349612053866e-06], \"available_torque_min\": 20.0, \"available_torque_max\": 20.0, \"position_infinite\": false}",
+    "RL_CONTROL_DIAGNOSTIC {\"cycle\": 0, \"feedback_valid\": true, \"target_min\": -0.8, \"target_max\": 1.6, \"targets_equal_requested\": true, \"available_torque_min\": 20.0, \"available_torque_max\": 20.0, \"height_before\": 0.2712942174932404, \"used_position_target\": true, \"used_zero_torque_branch\": false, \"position_infinite\": false, \"target_rate_limit\": 0.75, \"target_delta_max\": 0.0, \"desired_target_delta_max\": 0.0, \"height_after\": 0.2712942174932404}",
+    "RL_RESET_DIAGNOSTIC {\"height\": 0.27129421749236843, \"target_min\": -0.8, \"target_max\": 1.6, \"target_errors\": [8.783148424396092e-07, 6.481726866347515e-08, 2.3787021448118395e-06, 8.78314845464967e-07, 6.481726688711831e-08, 2.3787021488086424e-06, 9.308041081790286e-07, 4.650952878382242e-08, 2.4482349623156097e-06, 9.308041050704041e-07, 4.6509530005067745e-08, 2.4482349583188068e-06], \"available_torque_min\": 20.0, \"available_torque_max\": 20.0, \"position_infinite\": false}",
+    "RL_CONTROL_DIAGNOSTIC {\"cycle\": 0, \"feedback_valid\": true, \"target_min\": -0.8, \"target_max\": 1.6, \"targets_equal_requested\": true, \"available_torque_min\": 20.0, \"available_torque_max\": 20.0, \"height_before\": 0.27129421749236843, \"used_position_target\": true, \"used_zero_torque_branch\": false, \"position_infinite\": false, \"target_rate_limit\": 0.75, \"target_delta_max\": 0.0, \"desired_target_delta_max\": 0.0, \"height_after\": 0.27129421749236843}",
+    "RL_RESET_DIAGNOSTIC {\"height\": 0.2712942174917085, \"target_min\": -0.8, \"target_max\": 1.6, \"target_errors\": [8.78314841606942e-07, 6.481726966267587e-08, 2.3787021419252596e-06, 8.78314847491124e-07, 6.481726688711831e-08, 2.378702151917267e-06, 9.308041084565843e-07, 4.6509528228710906e-08, 2.448234962759699e-06, 9.308041030997583e-07, 4.650953111529077e-08, 2.4482349552101823e-06], \"available_torque_min\": 20.0, \"available_torque_max\": 20.0, \"position_infinite\": false}",
+    "RL_CONTROL_DIAGNOSTIC {\"cycle\": 0, \"feedback_valid\": true, \"target_min\": -0.8, \"target_max\": 1.6, \"targets_equal_requested\": true, \"available_torque_min\": 20.0, \"available_torque_max\": 20.0, \"height_before\": 0.2712942174917085, \"used_position_target\": true, \"used_zero_torque_branch\": false, \"position_infinite\": false, \"target_rate_limit\": 0.75, \"target_delta_max\": 0.0, \"desired_target_delta_max\": 0.0, \"height_after\": 0.2712942174917085}",
+    "RL_RESET_DIAGNOSTIC {\"height\": 0.27129421749234867, \"target_min\": -0.8, \"target_max\": 1.6, \"target_errors\": [8.783148466584567e-07, 6.481726699814061e-08, 2.378702150807044e-06, 8.78314841606942e-07, 6.481726921858666e-08, 2.3787021441457057e-06, 9.308041037936476e-07, 4.6509530449156955e-08, 2.448234956986539e-06, 9.308041085398511e-07, 4.650952878382242e-08, 2.4482349647581003e-06], \"available_torque_min\": 20.0, \"available_torque_max\": 20.0, \"position_infinite\": false}",
+    "RL_CONTROL_DIAGNOSTIC {\"cycle\": 0, \"feedback_valid\": true, \"target_min\": -0.8, \"target_max\": 1.6, \"targets_equal_requested\": true, \"available_torque_min\": 20.0, \"available_torque_max\": 20.0, \"height_before\": 0.27129421749234867, \"used_position_target\": true, \"used_zero_torque_branch\": false, \"position_infinite\": false, \"target_rate_limit\": 0.75, \"target_delta_max\": 0.0, \"desired_target_delta_max\": 0.0, \"height_after\": 0.27129421749234867}",
+    "RL_RESET_DIAGNOSTIC {\"height\": 0.2712942174924207, \"target_min\": -0.8, \"target_max\": 1.6, \"target_errors\": [8.783148456870116e-07, 6.481726766427442e-08, 2.3787021499188654e-06, 8.783148420510312e-07, 6.481726888551975e-08, 2.378702144589795e-06, 9.308041044042703e-07, 4.650953078222386e-08, 2.4482349572085838e-06, 9.308041077904505e-07, 4.6509529560978535e-08, 2.448234961649476e-06], \"available_torque_min\": 20.0, \"available_torque_max\": 20.0, \"position_infinite\": false}",
+    "RL_CONTROL_DIAGNOSTIC {\"cycle\": 0, \"feedback_valid\": true, \"target_min\": -0.8, \"target_max\": 1.6, \"targets_equal_requested\": true, \"available_torque_min\": 20.0, \"available_torque_max\": 20.0, \"height_before\": 0.2712942174924207, \"used_position_target\": true, \"used_zero_torque_branch\": false, \"position_infinite\": false, \"target_rate_limit\": 0.75, \"target_delta_max\": 0.0, \"desired_target_delta_max\": 0.0, \"height_after\": 0.2712942174924207}",
+    "RL_RESET_DIAGNOSTIC {\"height\": 0.2712942174918932, \"target_min\": -0.8, \"target_max\": 1.6, \"target_errors\": [8.783148460200785e-07, 6.481726699814061e-08, 2.3787021499188654e-06, 8.783148421620535e-07, 6.481726833040824e-08, 2.3787021448118395e-06, 9.30804103377314e-07, 4.6509530005067745e-08, 2.4482349585408514e-06, 9.30804108151273e-07, 4.650952845075551e-08, 2.4482349625376543e-06], \"available_torque_min\": 20.0, \"available_torque_max\": 20.0, \"position_infinite\": false}",
+    "RL_CONTROL_DIAGNOSTIC {\"cycle\": 0, \"feedback_valid\": true, \"target_min\": -0.8, \"target_max\": 1.6, \"targets_equal_requested\": true, \"available_torque_min\": 20.0, \"available_torque_max\": 20.0, \"height_before\": 0.2712942174918932, \"used_position_target\": true, \"used_zero_torque_branch\": false, \"position_infinite\": false, \"target_rate_limit\": 0.75, \"target_delta_max\": 0.0, \"desired_target_delta_max\": 0.0, \"height_after\": 0.2712942174918932}",
+    "RL_RESET_DIAGNOSTIC {\"height\": 0.2712942174919861, \"target_min\": -0.8, \"target_max\": 1.6, \"target_errors\": [8.783148459645673e-07, 6.481726755325212e-08, 2.3787021505849992e-06, 8.783148415236752e-07, 6.481726833040824e-08, 2.378702143923661e-06, 9.308041037658921e-07, 4.6509530449156955e-08, 2.448234957652673e-06, 9.308041085120955e-07, 4.650952845075551e-08, 2.4482349629817435e-06], \"available_torque_min\": 20.0, \"available_torque_max\": 20.0, \"position_infinite\": false}",
+    "RL_CONTROL_DIAGNOSTIC {\"cycle\": 0, \"feedback_valid\": true, \"target_min\": -0.8, \"target_max\": 1.6, \"targets_equal_requested\": true, \"available_torque_min\": 20.0, \"available_torque_max\": 20.0, \"height_before\": 0.2712942174919861, \"used_position_target\": true, \"used_zero_torque_branch\": false, \"position_infinite\": false, \"target_rate_limit\": 0.75, \"target_delta_max\": 0.0, \"desired_target_delta_max\": 0.0, \"height_after\": 0.2712942174919861}",
+    "RL_RESET_DIAGNOSTIC {\"height\": 0.27129421749206994, \"target_min\": -0.8, \"target_max\": 1.6, \"target_errors\": [8.783148419400089e-07, 6.481726888551975e-08, 2.3787021443677503e-06, 8.783148456315004e-07, 6.481726766427442e-08, 2.3787021492527316e-06, 9.308041073186057e-07, 4.6509529116889325e-08, 2.448234962093565e-06, 9.308041042377369e-07, 4.650953011609005e-08, 2.4482349574306284e-06], \"available_torque_min\": 20.0, \"available_torque_max\": 20.0, \"position_infinite\": false}",
+    "RL_CONTROL_DIAGNOSTIC {\"cycle\": 0, \"feedback_valid\": true, \"target_min\": -0.8, \"target_max\": 1.6, \"targets_equal_requested\": true, \"available_torque_min\": 20.0, \"available_torque_max\": 20.0, \"height_before\": 0.27129421749206994, \"used_position_target\": true, \"used_zero_torque_branch\": false, \"position_infinite\": false, \"target_rate_limit\": 0.75, \"target_delta_max\": 0.0, \"desired_target_delta_max\": 0.0, \"height_after\": 0.27129421749206994}",
+    "RL_RESET_DIAGNOSTIC {\"height\": 0.27129421749303806, \"target_min\": -0.8, \"target_max\": 1.6, \"target_errors\": [8.783148437441213e-07, 6.481726821938594e-08, 2.37870214725433e-06, 8.783148441326993e-07, 6.481726844143054e-08, 2.3787021465881963e-06, 9.308041069855388e-07, 4.650952944995623e-08, 2.448234960539253e-06, 9.308041060696048e-07, 4.6509530005067745e-08, 2.448234959206985e-06], \"available_torque_min\": 20.0, \"available_torque_max\": 20.0, \"position_infinite\": false}",
+    "RL_CONTROL_DIAGNOSTIC {\"cycle\": 0, \"feedback_valid\": true, \"target_min\": -0.8, \"target_max\": 1.6, \"targets_equal_requested\": true, \"available_torque_min\": 20.0, \"available_torque_max\": 20.0, \"height_before\": 0.27129421749303806, \"used_position_target\": true, \"used_zero_torque_branch\": false, \"position_infinite\": false, \"target_rate_limit\": 0.75, \"target_delta_max\": 0.0, \"desired_target_delta_max\": 0.0, \"height_after\": 0.27129421749303806}",
+    "RL_RESET_DIAGNOSTIC {\"height\": 0.27129421749195165, \"target_min\": -0.8, \"target_max\": 1.6, \"target_errors\": [8.783148463253898e-07, 6.481726766427442e-08, 2.3787021503629546e-06, 8.783148414959197e-07, 6.481726866347515e-08, 2.3787021448118395e-06, 9.308041032385361e-07, 4.650953022711235e-08, 2.448234957652673e-06, 9.308041080680063e-07, 4.650952856177781e-08, 2.4482349636478773e-06], \"available_torque_min\": 20.0, \"available_torque_max\": 20.0, \"position_infinite\": false}",
+    "RL_CONTROL_DIAGNOSTIC {\"cycle\": 0, \"feedback_valid\": true, \"target_min\": -0.8, \"target_max\": 1.6, \"targets_equal_requested\": true, \"available_torque_min\": 20.0, \"available_torque_max\": 20.0, \"height_before\": 0.27129421749195165, \"used_position_target\": true, \"used_zero_torque_branch\": false, \"position_infinite\": false, \"target_rate_limit\": 0.75, \"target_delta_max\": 0.0, \"desired_target_delta_max\": 0.0, \"height_after\": 0.27129421749195165}",
+    "RL_RESET_DIAGNOSTIC {\"height\": 0.2712942174920457, \"target_min\": -0.8, \"target_max\": 1.6, \"target_errors\": [8.783148455759893e-07, 6.481726766427442e-08, 2.378702149474776e-06, 8.783148420510312e-07, 6.481726833040824e-08, 2.3787021448118395e-06, 9.308041041544701e-07, 4.650952967200084e-08, 2.4482349578747176e-06, 9.308041081235174e-07, 4.650952856177781e-08, 2.448234963203788e-06], \"available_torque_min\": 20.0, \"available_torque_max\": 20.0, \"position_infinite\": false}",
+    "RL_CONTROL_DIAGNOSTIC {\"cycle\": 0, \"feedback_valid\": true, \"target_min\": -0.8, \"target_max\": 1.6, \"targets_equal_requested\": true, \"available_torque_min\": 20.0, \"available_torque_max\": 20.0, \"height_before\": 0.2712942174920457, \"used_position_target\": true, \"used_zero_torque_branch\": false, \"position_infinite\": false, \"target_rate_limit\": 0.75, \"target_delta_max\": 0.0, \"desired_target_delta_max\": 0.0, \"height_after\": 0.2712942174920457}",
+    "INFO: 'mini_cheetah' extern controller: Waiting for local or remote connection on port 1234 targeting robot named 'mini_cheetah'.",
+    "INFO: 'mini_cheetah' extern controller: connected.",
+    "INFO: 'mini_cheetah' extern controller: disconnected, waiting for new connection.",
+    "INFO: 'mini_cheetah' extern controller: disconnected."
+  ],
+  "target_rate_limit": 0.75,
+  "target_delta_bound_per_control_cycle": 0.015,
+  "evidence_paths": {
+    "diagnostic_json": "logs/official_mini_cheetah_flat_jump_v1_r3/action_chain_probe_after_target_rate_20261005_183913.json",
+    "controller_log": "logs/official_mini_cheetah_flat_jump_v1_r3/webots_0.log",
+    "world_log": "logs/official_mini_cheetah_flat_jump_v1_r3/webots_eval_world.log"
+  }
+}

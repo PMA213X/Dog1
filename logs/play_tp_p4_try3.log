@@ -1,0 +1,5 @@
+【世界】已生成第三人称视图世界：/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/webots-sim/worlds/.parkour_view.wbt
+【模型】加载 checkpoints/p4_stairs_final.zip ...
+【模型】加载完成（0.8s） device=cpu
+【环境】已启动  turn=False  bridge_port=11554
+【回放】第 1/2 集：奖励=909.15  步数=1000  路径长=4.27m  位移=0.82m  转向=+5.8°  摔倒=False

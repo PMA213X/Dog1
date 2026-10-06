@@ -1,0 +1,1 @@
+setsid env PYTHONPATH=/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah CUDA_VISIBLE_DEVICES=0 PYTHONUNBUFFERED=1 DISPLAY=:0 python3 /tmp/r3_p2_resume_1220000_20261006_020302.py

@@ -1,0 +1,7 @@
+INFO: rl_agent: Starting controller: python3 -u rl_agent.py
+【rl_agent】已连接 walk_env 127.0.0.1:11452
+【rl_agent】reset 开始
+【rl_agent】reset physics 完成
+【rl_agent】reset 关节完成
+【rl_agent】reset 设备完成
+INFO: rl_agent: Terminating.
