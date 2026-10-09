@@ -1,0 +1,244 @@
+[3gH    H    H    H    H    H    H    H    H    H    H    H    H    H    H    H    H    H    H    H   [INFO] Using python from: /home/pma213x/.venvs/minicheetah-isaaclab/bin/python
+[INFO][AppLauncher]: Loading experience file: /home/pma213x/IsaacLab/apps/isaaclab.python.headless.kit
+[Warning] [simulation_app.simulation_app] Modules: ['omni.kit_app'] were loaded before SimulationApp was started and might not be loaded correctly.
+[Warning] [simulation_app.simulation_app] Please check to make sure no extra omniverse or pxr modules are imported before the call to SimulationApp(...)
+Loading user config located at: '/home/pma213x/.venvs/minicheetah-isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.5/user.config.json'
+[Info] [carb] Logging to file: /home/pma213x/.venvs/minicheetah-isaaclab/lib/python3.10/site-packages/omni/logs/Kit/Isaac-Sim/4.5/kit_20261008_203454.log
+2026-10-08 12:34:54 [0ms] [Warning] [omni.kit.app.plugin] No crash reporter present, dumps uploading isn't available.
+2026-10-08 12:34:54 [98ms] [Warning] [omni.usd_config.extension] Enable omni.materialx.libs extension to use MaterialX
+2026-10-08 12:34:54 [415ms] [Warning] [omni.datastore] OmniHub is inaccessible
+2026-10-08 12:34:54 [476ms] [Warning] [omni.isaac.dynamic_control] omni.isaac.dynamic_control is deprecated as of Isaac Sim 4.5. No action is needed from end-users.
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+/home/pma213x/.venvs/minicheetah-isaaclab/lib/python3.10/site-packages/isaacsim/extscache/omni.usd.libs-1.0.1+d02c707b.lx64.r.cp310/pxr/PxOsd/__DOC.py:270: DeprecationWarning: invalid escape sequence '\w'
+  result["MeshTopologyValidation"].__doc__ = """
+/home/pma213x/.venvs/minicheetah-isaaclab/lib/python3.10/site-packages/isaacsim/extscache/omni.usd.libs-1.0.1+d02c707b.lx64.r.cp310/pxr/UsdSkel/__DOC.py:500: DeprecationWarning: invalid escape sequence '\e'
+  result["AnimMapper"].Remap.func_doc = """Remap(source, target, elementSize, defaultValue) -> bool
+2026-10-08 12:34:58 [4,081ms] [Warning] [gpu.foundation.plugin] Skipping unsupported non-NVIDIA GPU: Intel(R) UHD Graphics (ADL-S GT0.5)
+2026-10-08 12:34:58 [4,081ms] [Warning] [gpu.foundation.plugin] Skipping unsupported non-NVIDIA GPU: Intel(R) UHD Graphics (ADL-S GT0.5)
+
+|---------------------------------------------------------------------------------------------|
+| Driver Version: 580.178.04    | Graphics API: Vulkan
+|=============================================================================================|
+| GPU | Name                             | Active | LDA | GPU Memory | Vendor-ID | LUID       |
+|     |                                  |        |     |            | Device-ID | UUID       |
+|     |                                  |        |     |            | Bus-ID    |            |
+|---------------------------------------------------------------------------------------------|
+| 0   | NVIDIA GeForce RTX 4060 Laptop.. | Yes: 0 |     | 8188    MB | 10de      | 0          |
+|     |                                  |        |     |            | 28e0      | 4d090564.. |
+|     |                                  |        |     |            | 1         |            |
+|---------------------------------------------------------------------------------------------|
+| 1   | Intel(R) UHD Graphics (ADL-S G.. |        |     | 11374   MB | 8086      | 0          |
+|     |                                  |        |     |            | 468b      | 86808b46.. |
+|     |                                  |        |     |            | 0         |            |
+|=============================================================================================|
+| OS: 26.04.1 LTS (Resolute Raccoon) ubuntu, Version: 26.04.1, Kernel: 7.0.0-34-generic
+| XServer Vendor: The X.Org Foundation, XServer Version: 12401010 (1.24.1.10)
+| Processor: 13th Gen Intel(R) Core(TM) i5-13500HX
+| Bare Metal Cores: 14 | Bare Metal Logical Cores: 28
+| Available Cores:  20 
+|---------------------------------------------------------------------------------------------|
+| Total Memory (MB): 15166 | Free Memory: 5964
+| Total Page/Swap (MB): 20479 | Free Page/Swap: 20437
+|---------------------------------------------------------------------------------------------|
+2026-10-08 12:34:58 [4,290ms] [Warning] [gpu.foundation.plugin] IOMMU is enabled.
+2026-10-08 12:34:58 [4,290ms] [Warning] [gpu.foundation.plugin] Detected IOMMU is enabled. Running CUDA peer-to-peer bandwidth and latency validation.
+Unidirectional P2P=Enabled Bandwidth (P2P Writes) Matrix (GB/s)
+   D\D     0 
+     0 225.48 
+P2P=Enabled Latency (P2P Writes) Matrix (us)
+   GPU     0 
+     0   1.38 
+
+   CPU     0 
+     0   1.49 
+[STAGE] config_start
+[INFO]: Parsing configuration from: training.envs.velocity_flat_env_cfg:YoboGoVelocityFlatEnvCfg
+[STAGE] config_done
+[STAGE] environment_create_start
+2026-10-08 12:34:58 [4,488ms] [Warning] [isaaclab.envs.manager_based_env] Seed not set for the environment. The environment creation may not be deterministic.
+[INFO]: Base environment:
+	Environment device    : cuda:0
+	Environment seed      : None
+	Physics step-size     : 0.0004
+	Rendering step-size   : 0.002
+	Environment step-size : 0.002
+2026-10-08 12:34:58 [4,551ms] [Warning] [isaaclab.terrains.terrain_importer] Visual material specified for ground plane but no diffuse color found. Using default color: (0.0, 0.0, 0.0)
+[INFO]: Time taken for scene creation : 3.352424 seconds
+[INFO]: Scene manager:  <class InteractiveScene>
+	Number of environments: 1
+	Environment spacing   : 2.5
+	Source prim name      : /World/envs/env_0
+	Global prim paths     : ['/World/ground']
+	Replicate physics     : True
+[INFO]: Starting the simulation. This may take a few seconds. Please wait...
+[INFO]: Time taken for simulation start : 0.355445 seconds
+2026-10-08 12:35:02 [8,475ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of /builds/omniverse/usd-ci/USD/pxr/usd/usdShade/shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPreviewSurface.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+2026-10-08 12:35:02 [8,475ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of /builds/omniverse/usd-ci/USD/pxr/usd/usdShade/shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdUVTexture.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+2026-10-08 12:35:02 [8,475ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of /builds/omniverse/usd-ci/USD/pxr/usd/usdShade/shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_float.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+2026-10-08 12:35:02 [8,475ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of /builds/omniverse/usd-ci/USD/pxr/usd/usdShade/shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_float2.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+2026-10-08 12:35:02 [8,475ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of /builds/omniverse/usd-ci/USD/pxr/usd/usdShade/shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_float3.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+2026-10-08 12:35:02 [8,475ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of /builds/omniverse/usd-ci/USD/pxr/usd/usdShade/shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_float4.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+2026-10-08 12:35:02 [8,476ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of /builds/omniverse/usd-ci/USD/pxr/usd/usdShade/shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_int.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+2026-10-08 12:35:02 [8,476ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of /builds/omniverse/usd-ci/USD/pxr/usd/usdShade/shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_string.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+2026-10-08 12:35:02 [8,476ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of /builds/omniverse/usd-ci/USD/pxr/usd/usdShade/shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_normal.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+2026-10-08 12:35:02 [8,476ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of /builds/omniverse/usd-ci/USD/pxr/usd/usdShade/shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_point.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+2026-10-08 12:35:02 [8,476ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of /builds/omniverse/usd-ci/USD/pxr/usd/usdShade/shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_vector.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+2026-10-08 12:35:02 [8,476ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of /builds/omniverse/usd-ci/USD/pxr/usd/usdShade/shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_matrix.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+2026-10-08 12:35:02 [8,476ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of /builds/omniverse/usd-ci/USD/pxr/usd/usdShade/shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdTransform2d.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+[INFO] Command Manager:  <CommandManager> contains 1 active terms.
++------------------------------------------------+
+|              Active Command Terms              |
++-------+---------------+------------------------+
+| Index | Name          |          Type          |
++-------+---------------+------------------------+
+|   0   | base_velocity | UniformVelocityCommand |
++-------+---------------+------------------------+
+
+[INFO] Recorder Manager:  <RecorderManager> contains 0 active terms.
++---------------------+
+| Active Recorder Terms |
++-----------+---------+
+|   Index   | Name    |
++-----------+---------+
++-----------+---------+
+
+[INFO] Action Manager:  <ActionManager> contains 1 active terms.
++------------------------------------+
+|  Active Action Terms (shape: 12)   |
++--------+-------------+-------------+
+| Index  | Name        |   Dimension |
++--------+-------------+-------------+
+|   0    | joint_pos   |          12 |
++--------+-------------+-------------+
+
+[INFO] Observation Manager: <ObservationManager> contains 1 groups.
++---------------------------------------------------------+
+| Active Observation Terms in Group: 'policy' (shape: (48,)) |
++-----------+---------------------------------+-----------+
+|   Index   | Name                            |   Shape   |
++-----------+---------------------------------+-----------+
+|     0     | base_lin_vel                    |    (3,)   |
+|     1     | base_ang_vel                    |    (3,)   |
+|     2     | projected_gravity               |    (3,)   |
+|     3     | velocity_commands               |    (3,)   |
+|     4     | joint_pos                       |   (12,)   |
+|     5     | joint_vel                       |   (12,)   |
+|     6     | actions                         |   (12,)   |
++-----------+---------------------------------+-----------+
+
+[INFO] Event Manager:  <EventManager> contains 3 active terms.
++--------------------------------------+
+| Active Event Terms in Mode: 'startup' |
++----------+---------------------------+
+|  Index   | Name                      |
++----------+---------------------------+
+|    0     | physics_material          |
++----------+---------------------------+
++---------------------------------------+
+|  Active Event Terms in Mode: 'reset'  |
++--------+------------------------------+
+| Index  | Name                         |
++--------+------------------------------+
+|   0    | base_external_force_torque   |
+|   1    | reset_base                   |
+|   2    | reset_robot_joints           |
++--------+------------------------------+
++----------------------------------------------+
+|    Active Event Terms in Mode: 'interval'    |
++-------+------------+-------------------------+
+| Index | Name       | Interval time range (s) |
++-------+------------+-------------------------+
+|   0   | push_robot |       (10.0, 15.0)      |
++-------+------------+-------------------------+
+
+[INFO] Termination Manager:  <TerminationManager> contains 2 active terms.
++---------------------------------+
+|     Active Termination Terms    |
++-------+--------------+----------+
+| Index | Name         | Time Out |
++-------+--------------+----------+
+|   0   | time_out     |   True   |
+|   1   | base_contact |  False   |
++-------+--------------+----------+
+
+[INFO] Reward Manager:  <RewardManager> contains 11 active terms.
++-----------------------------------------+
+|           Active Reward Terms           |
++-------+----------------------+----------+
+| Index | Name                 |   Weight |
++-------+----------------------+----------+
+|   0   | track_lin_vel_xy_exp |      1.0 |
+|   1   | track_ang_vel_z_exp  |      0.5 |
+|   2   | lin_vel_z_l2         |     -2.0 |
+|   3   | ang_vel_xy_l2        |    -0.05 |
+|   4   | dof_torques_l2       | -2.5e-05 |
+|   5   | dof_acc_l2           | -2.5e-07 |
+|   6   | action_rate_l2       |    -0.01 |
+|   7   | feet_air_time        |      0.5 |
+|   8   | undesired_contacts   |     -1.0 |
+|   9   | flat_orientation_l2  |     -5.0 |
+|   10  | dof_pos_limits       |      0.0 |
++-------+----------------------+----------+
+
+[INFO] Curriculum Manager:  <CurriculumManager> contains 0 active terms.
++----------------------+
+| Active Curriculum Terms |
++-----------+----------+
+|   Index   | Name     |
++-----------+----------+
++-----------+----------+
+
+[INFO]: Completed setting up the environment...
+[STAGE] environment_create_done
+[STAGE] policy_adapter_setup_start
+[STAGE] policy_adapter_setup_done
+[INFO] task=YoboGo-Velocity-Flat-v0
+[INFO] weights_adaptation=/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/mini-cheetah-isaaclab/external_models/rapid-locomotion-rl/runs/rapid-locomotion/example/train/201852.132488/checkpoints/adaptation_module_latest.jit
+[INFO] weights_body=/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/mini-cheetah-isaaclab/external_models/rapid-locomotion-rl/runs/rapid-locomotion/example/train/201852.132488/checkpoints/body_latest.jit
+[INFO] yobogo_observation_dim=48 rapid_observation_dim=42
+[INFO] history_dim=630 action_dim=12
+[INFO] inference_period=10 control_period_s=0.002 inference_hz=50
+[INFO] rapid_replay_actuator_kp=20 kd=0.5 effort=18/18/26
+[INFO] yobogo_command=[0.0, 0.0, 0.0] rapid_command=[0.0, 0.0, 0.0]
+[INFO] model_dummy_action_shape=(1, 12)
+[INFO] model_dummy_latent_shape=(1, 18)
+[STAGE] event_loop_start
+[DIAG_INFER] step=1 policy_action_max=1.179989 applied_action_max=0.500000 obs_max=1.000000 history_nonzero_rows=0 position_clip=0 torque_clip=0 action=[-0.2197718471288681, 0.8110653162002563, -0.3086050748825073, -0.10791683197021484, 0.7024935483932495, 0.4472934603691101, 0.14830228686332703, -1.1799888610839844, 0.8864452838897705, 0.2235875427722931, -0.5151157379150391, -0.732103168964386]
+[DIAG_TARGET] step=1 target_error=0.000000000 default=[0.0, -0.7853981852531433, 1.8654682636260986, 0.0, -0.7853981852531433, 1.8654682636260986, 0.0, -0.7853981852531433, 1.8654682636260986, 0.0, -0.7853981852531433, 1.8654682636260986] desired=[-0.12747147679328918, -0.675000011920929, 1.5428487062454224, 0.08651039749383926, -0.675000011920929, 1.7318233251571655, -0.08146221935749054, -0.925000011920929, 1.7450000047683716, 0.12794844806194305, -0.925000011920929, 1.4950000047683716] applied=[-0.12747147679328918, -0.675000011920929, 1.5428487062454224, 0.08651039749383926, -0.675000011920929, 1.7318233251571655, -0.08146221935749054, -0.925000011920929, 1.7450000047683716, 0.12794844806194305, -0.925000011920929, 1.4950000047683716] current=[-0.000569404975976795, -0.7833974361419678, 1.8635364770889282, 0.0008801906951703131, -0.784094512462616, 1.8621865510940552, -0.00029259093571454287, -0.7857523560523987, 1.8650623559951782, 0.0015533888945356011, -0.7844239473342896, 1.863037347793579]
+[STAGE] first_step_done
+[DIAG_INFER] step=11 policy_action_max=4.495992 applied_action_max=0.500000 obs_max=1.386433 history_nonzero_rows=1 position_clip=0 torque_clip=1 action=[4.495992183685303, 3.072333574295044, 2.3695952892303467, 0.07100346684455872, 0.988334596157074, -0.978816568851471, -3.1993117332458496, 0.3914854824542999, -3.507486343383789, -3.6756958961486816, -0.6207802295684814, 2.1705844402313232]
+[DIAG_TARGET] step=11 target_error=0.000000000 default=[0.0, -0.7853981852531433, 1.8654682636260986, 0.0, -0.7853981852531433, 1.8654682636260986, 0.0, -0.7853981852531433, 1.8654682636260986, 0.0, -0.7853981852531433, 1.8654682636260986] desired=[-0.03750000149011612, -0.675000011920929, 1.7450000047683716, 0.10887543857097626, -0.675000011920929, 1.4950000047683716, -0.16249999403953552, -0.7021286487579346, 1.4950000047683716, 0.03750000149011612, -0.30804741382598877, 1.7450000047683716] applied=[-0.03750000149011612, -0.675000011920929, 1.7450000047683716, 0.10887543857097626, -0.675000011920929, 1.4950000047683716, -0.16249999403953552, -0.7021286487579346, 1.4950000047683716, 0.03750000149011612, -0.30804741382598877, 1.7450000047683716] current=[3.156152388328337e-06, -0.7532788515090942, 1.8430514335632324, 0.016149571165442467, -0.7320863604545593, 1.8146508932113647, -0.021418919786810875, -0.8085169196128845, 1.8611156940460205, 0.026849474757909775, -0.7541242837905884, 1.8318933248519897]
+[DIAG_INFER] step=21 policy_action_max=5.062855 applied_action_max=0.500000 obs_max=4.495992 history_nonzero_rows=2 position_clip=0 torque_clip=1 action=[5.062854766845703, 0.6620885133743286, 2.2340173721313477, -0.15834876894950867, 0.5580059885978699, 0.9882760047912598, -2.855344772338867, 0.4459681510925293, -3.7590138912200928, -3.489297866821289, -0.9844636917114258, 3.2000808715820312]
+[DIAG_TARGET] step=21 target_error=0.000000000 default=[0.0, -0.7853981852531433, 1.8654682636260986, 0.0, -0.7853981852531433, 1.8654682636260986, 0.0, -0.7853981852531433, 1.8654682636260986, 0.0, -0.7853981852531433, 1.8654682636260986] desired=[-0.03750000149011612, -0.675000011920929, 1.7450000047683716, 0.08020640909671783, -0.675000011920929, 1.7450000047683716, -0.16249999403953552, -0.6885079741477966, 1.4950000047683716, 0.03750000149011612, 0.3544378876686096, 1.7450000047683716] applied=[-0.03750000149011612, -0.675000011920929, 1.7450000047683716, 0.08020640909671783, -0.675000011920929, 1.7450000047683716, -0.16249999403953552, -0.6885079741477966, 1.4950000047683716, 0.03750000149011612, 0.3544378876686096, 1.7450000047683716] current=[-0.003976096399128437, -0.7164052724838257, 1.8219143152236938, 0.012406419031322002, -0.6816712617874146, 1.769484043121338, -0.02324727550148964, -0.7762560248374939, 1.8543086051940918, 0.028974678367376328, -0.5593037605285645, 1.772977590560913]
+[DIAG_INFER] step=31 policy_action_max=7.256362 applied_action_max=0.500000 obs_max=5.062855 history_nonzero_rows=3 position_clip=0 torque_clip=2 action=[7.256361961364746, -0.8613744974136353, 3.713968515396118, -2.0037734508514404, 2.3173129558563232, 1.5098966360092163, -1.8225305080413818, -0.6691584587097168, -5.293543815612793, -4.303476333618164, -2.6648788452148438, 5.886040210723877]
+[DIAG_TARGET] step=31 target_error=0.000000000 default=[0.0, -0.7853981852531433, 1.8654682636260986, 0.0, -0.7853981852531433, 1.8654682636260986, 0.0, -0.7853981852531433, 1.8654682636260986, 0.0, -0.7853981852531433, 1.8654682636260986] desired=[-0.03750000149011612, -0.925000011920929, 1.7450000047683716, 0.03750000149011612, -0.675000011920929, 1.7450000047683716, -0.16249999403953552, -0.45946764945983887, 1.4950000047683716, 0.03750000149011612, 0.4992108941078186, 1.7450000047683716] applied=[-0.03750000149011612, -0.925000011920929, 1.7450000047683716, 0.03750000149011612, -0.675000011920929, 1.7450000047683716, -0.16249999403953552, -0.45946764945983887, 1.4950000047683716, 0.03750000149011612, 0.4992108941078186, 1.7450000047683716] current=[-0.00304231233894825, -0.6732426881790161, 1.812072992324829, 0.03619563952088356, -0.6572067737579346, 1.7566351890563965, -0.02036879025399685, -0.7294764518737793, 1.8422523736953735, 0.01787133701145649, -0.10620181262493134, 1.7268320322036743]
+[DIAG_INFER] step=41 policy_action_max=5.983908 applied_action_max=0.500000 obs_max=7.256362 history_nonzero_rows=4 position_clip=0 torque_clip=3 action=[4.419449329376221, 1.2638630867004395, 2.437176465988159, -5.983908176422119, -1.385327935218811, -0.27114081382751465, -1.1416213512420654, -4.039140224456787, -0.8641911149024963, -0.8797025084495544, -2.6342666149139404, 1.0266706943511963]
+[DIAG_TARGET] step=41 target_error=0.000000000 default=[0.0, -0.7853981852531433, 1.8654682636260986, 0.0, -0.7853981852531433, 1.8654682636260986, 0.0, -0.7853981852531433, 1.8654682636260986, 0.0, -0.7853981852531433, 1.8654682636260986] desired=[-0.03750000149011612, -0.675000011920929, 1.7450000047683716, 0.03750000149011612, -0.925000011920929, 1.5522148609161377, -0.16249999403953552, -0.20780622959136963, 1.4950000047683716, 0.03750000149011612, -3.5882503986358643, 2.162842273712158] applied=[-0.03750000149011612, -0.675000011920929, 1.7450000047683716, 0.03750000149011612, -0.925000011920929, 1.5522148609161377, -0.16249999403953552, -0.20780622959136963, 1.4950000047683716, 0.03750000149011612, -3.5882503986358643, 2.162842273712158] current=[-0.012024135328829288, -0.7239259481430054, 1.837769627571106, 0.04704009369015694, -0.6638020873069763, 1.7458781003952026, -0.02216433733701706, -0.6766195893287659, 1.8318469524383545, -0.002858957042917609, 0.3004318177700043, 1.7452529668807983]
+[DIAG_INFER] step=51 policy_action_max=5.901195 applied_action_max=0.500000 obs_max=5.983908 history_nonzero_rows=5 position_clip=0 torque_clip=2 action=[5.901195049285889, 2.487330436706543, 5.379384517669678, -4.096312522888184, 2.82466983795166, -3.4879751205444336, -0.02068859338760376, -3.0344417095184326, 1.8988003730773926, -3.6590332984924316, -2.4608874320983887, 5.231008529663086]
+[DIAG_TARGET] step=51 target_error=0.000000000 default=[0.0, -0.7853981852531433, 1.8654682636260986, 0.0, -0.7853981852531433, 1.8654682636260986, 0.0, -0.7853981852531433, 1.8654682636260986, 0.0, -0.7853981852531433, 1.8654682636260986] desired=[-0.03750000149011612, -0.675000011920929, 1.7450000047683716, 0.03750000149011612, -0.675000011920929, 1.4950000047683716, -0.10258607566356659, -0.925000011920929, 1.7450000047683716, 0.15123188495635986, 0.17823225259780884, 1.7450000047683716] applied=[-0.03750000149011612, -0.675000011920929, 1.7450000047683716, 0.03750000149011612, -0.675000011920929, 1.4950000047683716, -0.10258607566356659, -0.925000011920929, 1.7450000047683716, 0.15123188495635986, 0.17823225259780884, 1.7450000047683716] current=[-0.007236631587147713, -0.700083315372467, 1.851003885269165, 0.05875691398978233, -0.7114297747612, 1.7424654960632324, -0.07223967462778091, -0.5381541848182678, 1.7766149044036865, 0.010089633986353874, -0.082417331635952, 1.9930219650268555]
+[DIAG_INFER] step=61 policy_action_max=5.916054 applied_action_max=0.500000 obs_max=5.901195 history_nonzero_rows=6 position_clip=0 torque_clip=1 action=[5.916053771972656, -1.2807263135910034, 3.9772918224334717, -5.307050704956055, 4.142295837402344, 0.8164955377578735, -1.2203474044799805, -0.9937518835067749, -3.083629608154297, -3.685453414916992, -3.5849294662475586, 3.5910658836364746]
+[DIAG_TARGET] step=61 target_error=0.000000000 default=[0.0, -0.7853981852531433, 1.8654682636260986, 0.0, -0.7853981852531433, 1.8654682636260986, 0.0, -0.7853981852531433, 1.8654682636260986, 0.0, -0.7853981852531433, 1.8654682636260986] desired=[-0.03750000149011612, -0.925000011920929, 1.7450000047683716, 0.03750000149011612, -0.675000011920929, 1.7450000047683716, -0.16249999403953552, -0.925000011920929, 1.4950000047683716, 0.03750000149011612, 0.0035451650619506836, 1.7450000047683716] applied=[-0.03750000149011612, -0.925000011920929, 1.7450000047683716, 0.03750000149011612, -0.675000011920929, 1.7450000047683716, -0.16249999403953552, -0.925000011920929, 1.4950000047683716, 0.03750000149011612, 0.0035451650619506836, 1.7450000047683716] current=[0.005028911866247654, -0.6667715311050415, 1.8665202856063843, 0.0695919394493103, -0.6882898211479187, 1.7343276739120483, -0.105483278632164, -0.6171779036521912, 1.8179707527160645, 0.06046765670180321, -0.25248169898986816, 1.8103607892990112]
+[DIAG_INFER] step=71 policy_action_max=7.244748 applied_action_max=0.500000 obs_max=5.916054 history_nonzero_rows=7 position_clip=0 torque_clip=3 action=[-0.21089564263820648, 0.28185757994651794, -0.5760802030563354, -7.244747638702393, 1.0198360681533813, 1.838521122932434, 2.280197858810425, -2.7419750690460205, 2.81119966506958, 0.8553676605224609, -2.2330286502838135, 0.6709294319152832]
+[DIAG_TARGET] step=71 target_error=0.000000000 default=[0.0, -0.7853981852531433, 1.8654682636260986, 0.0, -0.7853981852531433, 1.8654682636260986, 0.0, -0.7853981852531433, 1.8654682636260986, 0.0, -0.7853981852531433, 1.8654682636260986] desired=[-0.12636195123195648, -0.7295356392860413, 1.4950000047683716, 0.03750000149011612, -0.675000011920929, 1.7450000047683716, -0.03750000149011612, -0.8674072623252869, 1.7450000047683716, 0.16249999403953552, -2.263953447341919, 2.4260201454162598] applied=[-0.12636195123195648, -0.7295356392860413, 1.4950000047683716, 0.03750000149011612, -0.675000011920929, 1.7450000047683716, -0.03750000149011612, -0.8674072623252869, 1.7450000047683716, 0.16249999403953552, -2.263953447341919, 2.4260201454162598] current=[-0.005093561951071024, -0.6975348591804504, 1.9016982316970825, 0.05495322495698929, -0.6734559535980225, 1.7459217309951782, -0.1469624936580658, -0.6524665951728821, 1.8523707389831543, 0.07209761440753937, -0.127438485622406, 1.794181227684021]
+[DIAG_INFER] step=81 policy_action_max=8.189110 applied_action_max=0.500000 obs_max=7.244748 history_nonzero_rows=8 position_clip=0 torque_clip=1 action=[8.189109802246094, 1.838249683380127, 0.6991300582885742, -1.5899754762649536, -0.14226771891117096, -4.099393844604492, -3.319851875305176, -3.788414716720581, -1.7338097095489502, 5.52387809753418, -2.0403339862823486, -1.4746278524398804]
+[DIAG_TARGET] step=81 target_error=0.000000000 default=[0.0, -0.7853981852531433, 1.8654682636260986, 0.0, -0.7853981852531433, 1.8654682636260986, 0.0, -0.7853981852531433, 1.8654682636260986, 0.0, -0.7853981852531433, 1.8654682636260986] desired=[-0.03750000149011612, -0.675000011920929, 1.7450000047683716, 0.03750000149011612, -0.8355669379234314, 1.4950000047683716, -0.16249999403953552, -0.925000011920929, 1.4950000047683716, 1.2197444438934326, -0.925000011920929, 1.4950000047683716] applied=[-0.03750000149011612, -0.675000011920929, 1.7450000047683716, 0.03750000149011612, -0.8355669379234314, 1.4950000047683716, -0.16249999403953552, -0.925000011920929, 1.4950000047683716, 1.2197444438934326, -0.925000011920929, 1.4950000047683716] current=[0.03225165978074074, -0.6863956451416016, 1.9053435325622559, 0.07394634932279587, -0.6767390370368958, 1.7644288539886475, -0.12549439072608948, -0.6835212111473083, 1.9026199579238892, 0.10812098532915115, -0.6895036101341248, 2.1234748363494873]
+[DIAG_INFER] step=91 policy_action_max=5.819428 applied_action_max=0.500000 obs_max=8.189110 history_nonzero_rows=9 position_clip=0 torque_clip=4 action=[5.096160411834717, 0.6756341457366943, 2.1248509883880615, 1.3477387428283691, 2.620567560195923, -0.5140120983123779, -4.4964985847473145, 0.5470762252807617, -1.726513385772705, -5.819428443908691, -1.977622151374817, 0.3166377544403076]
+[DIAG_TARGET] step=91 target_error=0.000000000 default=[0.0, -0.7853981852531433, 1.8654682636260986, 0.0, -0.7853981852531433, 1.8654682636260986, 0.0, -0.7853981852531433, 1.8654682636260986, 0.0, -0.7853981852531433, 1.8654682636260986] desired=[-0.03750000149011612, -0.675000011920929, 1.7450000047683716, 0.16249999403953552, -0.675000011920929, 1.4950000047683716, 0.34117183089256287, -0.675000011920929, 1.4950000047683716, -0.7522466778755188, -0.5620532035827637, 1.6495856046676636] applied=[-0.03750000149011612, -0.675000011920929, 1.7450000047683716, 0.16249999403953552, -0.675000011920929, 1.4950000047683716, 0.34117183089256287, -0.675000011920929, 1.4950000047683716, -0.7522466778755188, -0.5620532035827637, 1.6495856046676636] current=[0.06325489282608032, -0.6694108843803406, 1.8788360357284546, 0.14503762125968933, -0.6895191073417664, 1.7902220487594604, -0.06932615488767624, -0.6974157691001892, 1.9537206888198853, 0.614902913570404, -0.9722952246665955, 1.718239665031433]
+[STAGE] video_encoding_start
+[SUMMARY] {"task": "YoboGo-Velocity-Flat-v0", "mode": "smoke", "yobogo_walk_speed_m_s": 0.0, "rapid_walk_speed_m_s": 0.0, "adaptation_weight": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/mini-cheetah-isaaclab/external_models/rapid-locomotion-rl/runs/rapid-locomotion/example/train/201852.132488/checkpoints/adaptation_module_latest.jit", "body_weight": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/mini-cheetah-isaaclab/external_models/rapid-locomotion-rl/runs/rapid-locomotion/example/train/201852.132488/checkpoints/body_latest.jit", "completed_steps": 100, "inference_steps": 10, "expected_inference_steps": 10, "reset_count": 0, "safety_clip_count": 18, "position_clip_count": 0, "torque_clip_count": 18, "large_action_inference_count": 0, "official_clip_inference_count": 0, "max_abs_rapid_action": 0.5, "max_abs_policy_action": 8.189109802246094, "ood_guard_count": 104, "base_height_min_m": 0.24043795466423035, "max_abs_roll_deg": 5.24373510225408, "max_abs_pitch_deg": 3.6511437409320333, "xy_displacement_m": 0.09114164859056473, "mean_measured_velocity_m_s": -0.44352834969758986, "final_command": [0.0, 0.0, 0.0], "terminated_steps": 0, "stability_errors": [], "interface_ok": true, "stable_walking": true, "video": null, "video_frames_written": 0}
+[STAGE] event_loop_done

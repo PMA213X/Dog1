@@ -65,6 +65,28 @@ class WorldStaticTests(unittest.TestCase):
             else:
                 raise AssertionError("Robot 花括号未闭合")
 
+    @staticmethod
+    def _node_block(text: str, marker: str) -> str:
+        """按花括号提取 marker 起始的单个节点块。"""
+        start = text.index(marker)
+        opening = text.index("{", start)
+        depth = 0
+        for index in range(opening, len(text)):
+            if text[index] == "{":
+                depth += 1
+            elif text[index] == "}":
+                depth -= 1
+                if depth == 0:
+                    return text[start:index + 1]
+        raise AssertionError(f"{marker} 花括号未闭合")
+
+    @staticmethod
+    def _contact_properties(text: str) -> str:
+        match = re.search(r"contactProperties\s*\[(.*?)\n\s*\]", text, re.S)
+        if match is None:
+            raise AssertionError("缺少 contactProperties 块")
+        return re.sub(r"\s+", " ", match.group(1)).strip()
+
     def test_new_world_is_flat_and_isolated(self) -> None:
         self.assertIn("basicTimeStep 4", self.world)
         self.assertIn("optimalThreadCount 1", self.world)
@@ -90,6 +112,64 @@ class WorldStaticTests(unittest.TestCase):
         self.assertNotIn("ElevationGrid", self.world)
         self.assertNotIn("stairs", self.world.lower())
         self.assertNotIn("hurdle", self.world.lower())
+
+    def test_floor_visual_grid_is_identical_and_non_physical(self) -> None:
+        """两个 world 使用同一视觉网格，且不改变平地物理与摩擦语义。"""
+        floor = self._node_block(self.world, "DEF FLAT_FLOOR Solid {")
+        eval_floor = self._node_block(self.eval_world, "DEF FLAT_FLOOR Solid {")
+        self.assertEqual(floor, eval_floor)
+        self.assertIn("translation 0 0 -0.05", floor)
+        self.assertIn("baseColor 0.22 0.32 0.38", floor)
+        self.assertIn("geometry IndexedLineSet", floor)
+        self.assertIn("castShadows FALSE", floor)
+        self.assertIn("diffuseColor 0.1 0.78 0.95", floor)
+        self.assertIn("emissiveColor 0.02 0.22 0.3", floor)
+
+        # 物理面仍是原 20 m × 20 m × 0.1 m Box；网格只位于 children。
+        self.assertEqual(floor.count("geometry Box"), 1)
+        self.assertEqual(floor.count("boundingObject Box"), 1)
+        self.assertEqual(floor.count("size 20 20 0.1"), 2)
+        bounding = self._node_block(floor, "boundingObject Box {")
+        self.assertIn("size 20 20 0.1", bounding)
+        self.assertNotIn("Shape", bounding)
+        self.assertNotIn("IndexedLineSet", bounding)
+        self.assertNotIn("physics Physics", floor)
+        self.assertNotIn("contactMaterial", floor)
+
+        point_array = re.search(r"point\s*\[(.*?)\]", floor, re.S)
+        index_array = re.search(r"coordIndex\s*\[(.*?)\]", floor, re.S)
+        self.assertIsNotNone(point_array)
+        self.assertIsNotNone(index_array)
+        number = re.compile(r"[-+]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][-+]?\d+)?")
+        point_numbers = number.findall(point_array.group(1))
+        points = [
+            tuple(float(value) for value in point_numbers[index:index + 3])
+            for index in range(0, len(point_numbers), 3)
+        ]
+        indices = [int(value) for value in number.findall(index_array.group(1))]
+        self.assertEqual(len(points), 84)
+        self.assertTrue(all(point[2] == 0.0502 for point in points))
+        self.assertEqual(len(indices), 126)
+        self.assertEqual(indices.count(-1), 42)
+        self.assertTrue(all(value == -1 or 0 <= value < 84 for value in indices))
+        self.assertTrue(all(indices[index + 2] == -1 for index in range(0, 126, 3)))
+
+        line_pairs = [
+            (points[indices[index]], points[indices[index + 1]])
+            for index in range(0, 126, 3)
+        ]
+        horizontal = [pair for pair in line_pairs if pair[0][1] == pair[1][1]]
+        vertical = [pair for pair in line_pairs if pair[0][0] == pair[1][0]]
+        self.assertEqual(len(horizontal), 21)
+        self.assertEqual(len(vertical), 21)
+        self.assertEqual({pair[0][1] for pair in horizontal}, set(range(-10, 11)))
+        self.assertEqual({pair[0][0] for pair in vertical}, set(range(-10, 11)))
+
+        template_contact = self._contact_properties(self.template)
+        self.assertEqual(self._contact_properties(self.world), template_contact)
+        self.assertEqual(self._contact_properties(self.eval_world), template_contact)
+        self.assertEqual(template_contact.count("coulombFriction [ 0.9 ]"), 4)
+        self.assertEqual(template_contact.count("coulombFriction [ 0.8 ]"), 2)
 
     def test_local_mesh_assets_are_official_only(self) -> None:
         urls = re.findall(r'url\s*\[\s*"([^"]+)"\s*\]', self.world)
@@ -156,7 +236,61 @@ class WorldStaticTests(unittest.TestCase):
         template_robot = self._robot_blocks(self.template)[0]
         expected = self._physical_signature(template_robot)
         for robot in self._robot_blocks(self.world):
-            self.assertEqual(self._physical_signature(robot), expected)
+            actual = self._physical_signature(robot)
+            # 小腿由 fr_*_toe 改为 default 是本次接触语义修复的预期差异；
+            # 其余动力学字段必须仍与未修改模板一致。
+            expected_without_materials = dict(expected)
+            actual_without_materials = dict(actual)
+            expected_without_materials.pop("contact_materials")
+            actual_without_materials.pop("contact_materials")
+            self.assertEqual(actual_without_materials, expected_without_materials)
+            self.assertEqual(actual["contact_materials"][:4], ["default"] * 4)
+            self.assertEqual(actual["contact_materials"][4:], ["body"])
+
+    def test_shank_box_uses_default_and_toe_collision_is_offset(self) -> None:
+        """小腿 Box 不得冒充 toe；足端球碰撞固定在局部末端。"""
+        robot_blocks = self._robot_blocks(self.world)
+        self.assertEqual(len(robot_blocks), 4)
+        for robot in robot_blocks:
+            for leg in ("fr", "fl", "hr", "hl"):
+                shank_name = f'name "{leg}_shank_link"'
+                shank_start = robot.index(shank_name)
+                bounding_start = robot.index(
+                    "boundingObject Group {",
+                    shank_start,
+                )
+                bounding_open = robot.index("{", bounding_start)
+                depth = 0
+                for index in range(bounding_open, len(robot)):
+                    if robot[index] == "{":
+                        depth += 1
+                    elif robot[index] == "}":
+                        depth -= 1
+                        if depth == 0:
+                            bounding_end = index + 1
+                            break
+                else:
+                    raise AssertionError(f"{leg} shank boundingObject 未闭合")
+                bounding = robot[bounding_start:bounding_end]
+                self.assertIn("Box { size 0.03 0.03 0.18 }", bounding)
+                self.assertIn("Transform {", bounding)
+                self.assertIn("translation 0 0 -0.09", bounding)
+                self.assertIn("Sphere { radius 0.015 }", bounding)
+
+                physics_start = robot.index("physics Physics {", shank_start)
+                next_name = robot.find('name "', physics_start)
+                shank_tail = robot[physics_start:next_name]
+                self.assertIn('contactMaterial "default"', shank_tail)
+                self.assertNotIn(f'contactMaterial "{leg}_toe"', shank_tail)
+
+        # WorldInfo 仍保留四个 toe 的零回弹摩擦配置，地面安全语义不变。
+        world_info = self._node_block(self.eval_world, "WorldInfo {")
+        for leg in ("fr", "fl", "hr", "hl"):
+            self.assertIn(f'material1 "{leg}_toe"', world_info)
+        self.assertEqual(
+            self.eval_world.count('contactMaterial "default"'),
+            4,
+        )
 
     def test_twelve_devices_and_axes(self) -> None:
         motors = re.findall(r'name "((?:fr|fl|hr|hl)_(?:abd|hip|kn)_motor)"', self.world)
@@ -235,6 +369,9 @@ class ControllerStaticTests(unittest.TestCase):
             self.controller,
         )
         self.assertIn("_contact_node_foot_index(contact)", self.controller)
+        self.assertIn("TOE_CENTER_LOCAL", self.controller)
+        self.assertIn("TOE_COLLISION_RADIUS", self.controller)
+        self.assertIn("shank Box", self.controller)
         self.assertIn('_resolve_foot_shank_nodes()', self.controller)
         self.assertIn("self.robot.getFromDevice(tag)", self.controller)
         self.assertIn("_device_tag(device)", self.controller)
@@ -468,7 +605,11 @@ class CliTests(unittest.TestCase):
 
         def fake_run(command: list[str], **kwargs: object) -> object:
             del kwargs
-            if command and command[0] == "ss":
+            diagnostic_prefixes = {
+                ("ss", "-H", "-ltnp"),
+                ("ss", "-H", "-tanp"),
+            }
+            if tuple(command) in diagnostic_prefixes:
                 diagnostic_commands.append(list(command))
                 return type(
                     "Completed",

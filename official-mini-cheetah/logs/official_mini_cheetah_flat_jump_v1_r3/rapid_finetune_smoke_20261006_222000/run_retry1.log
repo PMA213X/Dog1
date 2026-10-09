@@ -1,0 +1,23 @@
+/home/pma213x/.local/lib/python3.14/site-packages/stable_baselines3/common/vec_env/base_vec_env.py:78: UserWarning: The `render_mode` attribute is not defined in your environment. It will be set to None.
+  warnings.warn("The `render_mode` attribute is not defined in your environment. It will be set to None.")
+SMOKE_PROGRESS case=zero step=100 reward_mean=-0.218459 done_count=0
+SMOKE_PROGRESS case=zero step=200 reward_mean=0.114087 done_count=0
+SMOKE_PROGRESS case=zero step=300 reward_mean=0.260291 done_count=0
+SMOKE_PROGRESS case=zero step=400 reward_mean=0.260329 done_count=0
+SMOKE_PROGRESS case=zero step=500 reward_mean=0.260088 done_count=0
+SMOKE_PROGRESS case=zero step=600 reward_mean=0.261069 done_count=0
+SMOKE_PROGRESS case=zero step=700 reward_mean=0.260951 done_count=0
+SMOKE_PROGRESS case=zero step=800 reward_mean=0.260936 done_count=0
+SMOKE_PROGRESS case=zero step=900 reward_mean=0.260937 done_count=0
+SMOKE_PROGRESS case=zero step=1000 reward_mean=0.260939 done_count=1
+SMOKE_PROGRESS case=forward step=100 reward_mean=1.885195 done_count=0
+SMOKE_PROGRESS case=forward step=200 reward_mean=1.284209 done_count=0
+SMOKE_PROGRESS case=forward step=300 reward_mean=1.636032 done_count=0
+SMOKE_PROGRESS case=forward step=400 reward_mean=1.888849 done_count=0
+SMOKE_PROGRESS case=forward step=500 reward_mean=1.908783 done_count=0
+SMOKE_PROGRESS case=forward step=600 reward_mean=1.911372 done_count=0
+SMOKE_PROGRESS case=forward step=700 reward_mean=1.911799 done_count=0
+SMOKE_PROGRESS case=forward step=800 reward_mean=1.911868 done_count=0
+SMOKE_PROGRESS case=forward step=900 reward_mean=1.911880 done_count=0
+SMOKE_PROGRESS case=forward step=1000 reward_mean=1.911883 done_count=1
+SMOKE_SUMMARY {"status": "passed", "contract": "official_mini_cheetah_flat_jump_v1_r3", "world": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/worlds/flat_move_jump_rl.wbt", "num_envs": 4, "ports": [11452, 11453, 11454, 11455], "steps_per_case": 1000, "cases": [{"name": "zero", "command": [0.0, 0.0, 0.0], "steps": 1000, "robot_steps": 4000, "rewards_finite": true, "reward_mean": 0.1914400352736702, "mean_vx": 0.0, "mean_vx_abs": 0.0, "average_contact_feet": 2.857, "zero_contact_ratio": 0.0, "synchronous_done_count": 1, "source_action_saturation_mean": 0.017749999999999995, "elapsed_seconds": 8.508000387999346}, {"name": "forward", "command": [0.18, 0.0, 0.0], "steps": 1000, "robot_steps": 4000, "rewards_finite": true, "reward_mean": 2.0087278440240772, "mean_vx": 0.0, "mean_vx_abs": 0.0, "average_contact_feet": 2.854, "zero_contact_ratio": 0.0, "synchronous_done_count": 1, "source_action_saturation_mean": 0.021166666666666667, "elapsed_seconds": 8.464152723001462}], "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU"}

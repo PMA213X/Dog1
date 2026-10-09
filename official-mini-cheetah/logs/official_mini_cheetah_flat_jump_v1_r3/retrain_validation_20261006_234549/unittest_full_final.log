@@ -1,0 +1,59 @@
+.....................................RL_RSI_STAGE_DIAGNOSTIC {"stage": "rsi_height_boundary", "height": 0.3023, "rpy": [0.0, -0.0, 0.0], "orientation": [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0], "joint_error": 0.0, "targets": [-0.15, -0.8, 1.6, 0.15, -0.8, 1.6, -0.15, -0.8, 1.6, 0.15, -0.8, 1.6], "positions": [-0.15, -0.8, 1.6, 0.15, -0.8, 1.6, -0.15, -0.8, 1.6, 0.15, -0.8, 1.6], "failures": ["height=0.302300, expected=0.271300\u00b10.030"]}
+RL_RSI_STAGE_DIAGNOSTIC {"stage": "rsi_posture_boundary", "height": 0.2713, "rpy": [0.08100000000000002, -0.0, 0.0], "orientation": [1.0, 0.0, 0.0, 0.0, 0.9967212932211577, -0.08091145555199805, 0.0, 0.08091145555199805, 0.9967212932211577], "joint_error": 0.0, "targets": [-0.15, -0.8, 1.6, 0.15, -0.8, 1.6, -0.15, -0.8, 1.6, 0.15, -0.8, 1.6], "positions": [-0.15, -0.8, 1.6, 0.15, -0.8, 1.6, -0.15, -0.8, 1.6, 0.15, -0.8, 1.6], "failures": ["posture=0.081000"]}
+RL_RSI_STAGE_DIAGNOSTIC {"stage": "rsi_joint_boundary", "height": 0.2713, "rpy": [0.0, -0.0, 0.0], "orientation": [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0], "joint_error": 0.05099999999999999, "targets": [-0.15, -0.8, 1.6, 0.15, -0.8, 1.6, -0.15, -0.8, 1.6, 0.15, -0.8, 1.6], "positions": [-0.099, -0.8, 1.6, 0.15, -0.8, 1.6, -0.15, -0.8, 1.6, 0.15, -0.8, 1.6], "failures": ["joint_error=0.051000"]}
+........................./home/pma213x/.local/lib/python3.14/site-packages/torch/jit/_serialization.py:170: FutureWarning: `torch.jit.load` is not supported in Python 3.14+ and may break. Please switch to `torch.export`.
+  warnings.warn(
+...................../home/pma213x/.local/lib/python3.14/site-packages/torch/jit/_serialization.py:170: FutureWarning: `torch.jit.load` is not supported in Python 3.14+ and may break. Please switch to `torch.export`.
+  warnings.warn(
+...usage: python3 -m unittest [-h] --phase {P0,P1,P2,P3,P4,P5,P6,P7}
+                           [--total-steps TOTAL_STEPS] [--resume RESUME]
+                           [--init-from {none,rapid}]
+                           [--pretrained-dir PRETRAINED_DIR]
+                           [--ckptdir CKPTDIR] [--ckpt-prefix CKPT_PREFIX]
+                           [--logdir LOGDIR] [--bridge-port BRIDGE_PORT]
+                           [--randomization-mode {fixed,curriculum,dr1,dr2,dr3,dr4,dr5,dr6,dr7,full}]
+                           [--device {cuda}]
+                           [--checkpoint-interval CHECKPOINT_INTERVAL]
+                           [--webots-gui] [--num-envs {4}] [--seed SEED]
+                           [--phase-step-offset PHASE_STEP_OFFSET] [--dry-run]
+python3 -m unittest: error: --init-from rapid 当前只支持 P2
+../home/pma213x/.local/lib/python3.14/site-packages/stable_baselines3/common/vec_env/base_vec_env.py:78: UserWarning: The `render_mode` attribute is not defined in your environment. It will be set to None.
+  warnings.warn("The `render_mode` attribute is not defined in your environment. It will be set to None.")
+...../home/pma213x/.local/lib/python3.14/site-packages/torch/jit/_serialization.py:170: FutureWarning: `torch.jit.load` is not supported in Python 3.14+ and may break. Please switch to `torch.export`.
+  warnings.warn(
+................./home/pma213x/.local/lib/python3.14/site-packages/stable_baselines3/common/vec_env/base_vec_env.py:78: UserWarning: The `render_mode` attribute is not defined in your environment. It will be set to None.
+  warnings.warn("The `render_mode` attribute is not defined in your environment. It will be set to None.")
+..............PLAY_MODEL_READY model_type=rapid pretrained_dir=/tmp/tmp60j8xz6c
+PLAY_INPUT_READY source=keyboard-joystick
+PLAY_LOG_READY path=<Mock name='mock.path' id='130025338383264'>
+PLAY_SESSION_DONE {"steps":1,"estop":false,"reason":""}
+[2026-10-06T23:58:26+0800] P1 连续 Gate 批次结果=[True, False, True]
+.......usage: python3 -m unittest [-h] --phase {P0,P1,P2,P3,P4,P5,P6,P7}
+                           [--total-steps TOTAL_STEPS] [--resume RESUME]
+                           [--init-from {none,rapid}]
+                           [--pretrained-dir PRETRAINED_DIR]
+                           [--ckptdir CKPTDIR] [--ckpt-prefix CKPT_PREFIX]
+                           [--logdir LOGDIR] [--bridge-port BRIDGE_PORT]
+                           [--randomization-mode {fixed,curriculum,dr1,dr2,dr3,dr4,dr5,dr6,dr7,full}]
+                           [--device {cuda}]
+                           [--checkpoint-interval CHECKPOINT_INTERVAL]
+                           [--webots-gui] [--num-envs {4}] [--seed SEED]
+                           [--phase-step-offset PHASE_STEP_OFFSET] [--dry-run]
+python3 -m unittest: error: argument --device: invalid choice: 'cpu' (choose from cuda)
+usage: python3 -m unittest [-h] --phase {P0,P1,P2,P3,P4,P5,P6,P7}
+                           [--total-steps TOTAL_STEPS] [--resume RESUME]
+                           [--init-from {none,rapid}]
+                           [--pretrained-dir PRETRAINED_DIR]
+                           [--ckptdir CKPTDIR] [--ckpt-prefix CKPT_PREFIX]
+                           [--logdir LOGDIR] [--bridge-port BRIDGE_PORT]
+                           [--randomization-mode {fixed,curriculum,dr1,dr2,dr3,dr4,dr5,dr6,dr7,full}]
+                           [--device {cuda}]
+                           [--checkpoint-interval CHECKPOINT_INTERVAL]
+                           [--webots-gui] [--num-envs {4}] [--seed SEED]
+                           [--phase-step-offset PHASE_STEP_OFFSET] [--dry-run]
+python3 -m unittest: error: TCP 端口必须为 11452
+...............
+----------------------------------------------------------------------
+Ran 146 tests in 1.530s
+
+OK

@@ -2485,3 +2485,174 @@ INFO: 'mini_cheetah' extern controller: Waiting for local or remote connection o
 INFO: 'mini_cheetah' extern controller: connected.
 INFO: 'mini_cheetah' extern controller: disconnected, waiting for new connection.
 INFO: 'mini_cheetah' extern controller: disconnected.
+INFO: 'mini_cheetah' extern controller: Waiting for local or remote connection on port 1234 targeting robot named 'mini_cheetah'.
+INFO: 'mini_cheetah' extern controller: connected.
+WARNING: DEF MINI_CHEETAH Robot: No free joystick found.
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fr_abd_link" > RotationalMotor "fr_abd_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fr_abd_link" > Solid "fr_abd_link" > HingeJoint "fr_thigh_link" > RotationalMotor "fr_hip_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fr_abd_link" > Solid "fr_abd_link" > HingeJoint "fr_thigh_link" > Solid "fr_thigh_link" > HingeJoint "fr_shank_link" > RotationalMotor "fr_kn_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fl_abd_link" > RotationalMotor "fl_abd_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fl_abd_link" > Solid "fl_abd_link" > HingeJoint "fl_thigh_link" > RotationalMotor "fl_hip_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fl_abd_link" > Solid "fl_abd_link" > HingeJoint "fl_thigh_link" > Solid "fl_thigh_link" > HingeJoint "fl_shank_link" > RotationalMotor "fl_kn_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hr_abd_link" > RotationalMotor "hr_abd_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hr_abd_link" > Solid "hr_abd_link" > HingeJoint "hr_thigh_link" > RotationalMotor "hr_hip_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hr_abd_link" > Solid "hr_abd_link" > HingeJoint "hr_thigh_link" > Solid "hr_thigh_link" > HingeJoint "hr_shank_link" > RotationalMotor "hr_kn_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hl_abd_link" > RotationalMotor "hl_abd_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hl_abd_link" > Solid "hl_abd_link" > HingeJoint "hl_thigh_link" > RotationalMotor "hl_hip_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hl_abd_link" > Solid "hl_abd_link" > HingeJoint "hl_thigh_link" > Solid "hl_thigh_link" > HingeJoint "hl_shank_link" > RotationalMotor "hl_kn_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+INFO: 'mini_cheetah' extern controller: disconnected, waiting for new connection.
+INFO: 'mini_cheetah' extern controller: disconnected.
+INFO: 'mini_cheetah' extern controller: Waiting for local or remote connection on port 1234 targeting robot named 'mini_cheetah'.
+INFO: 'mini_cheetah' extern controller: connected.
+WARNING: DEF MINI_CHEETAH Robot: No free joystick found.
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fr_abd_link" > RotationalMotor "fr_abd_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fr_abd_link" > Solid "fr_abd_link" > HingeJoint "fr_thigh_link" > RotationalMotor "fr_hip_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fr_abd_link" > Solid "fr_abd_link" > HingeJoint "fr_thigh_link" > Solid "fr_thigh_link" > HingeJoint "fr_shank_link" > RotationalMotor "fr_kn_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fl_abd_link" > RotationalMotor "fl_abd_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fl_abd_link" > Solid "fl_abd_link" > HingeJoint "fl_thigh_link" > RotationalMotor "fl_hip_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fl_abd_link" > Solid "fl_abd_link" > HingeJoint "fl_thigh_link" > Solid "fl_thigh_link" > HingeJoint "fl_shank_link" > RotationalMotor "fl_kn_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hr_abd_link" > RotationalMotor "hr_abd_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hr_abd_link" > Solid "hr_abd_link" > HingeJoint "hr_thigh_link" > RotationalMotor "hr_hip_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hr_abd_link" > Solid "hr_abd_link" > HingeJoint "hr_thigh_link" > Solid "hr_thigh_link" > HingeJoint "hr_shank_link" > RotationalMotor "hr_kn_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hl_abd_link" > RotationalMotor "hl_abd_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hl_abd_link" > Solid "hl_abd_link" > HingeJoint "hl_thigh_link" > RotationalMotor "hl_hip_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hl_abd_link" > Solid "hl_abd_link" > HingeJoint "hl_thigh_link" > Solid "hl_thigh_link" > HingeJoint "hl_shank_link" > RotationalMotor "hl_kn_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+INFO: 'mini_cheetah' extern controller: disconnected, waiting for new connection.
+INFO: 'mini_cheetah' extern controller: disconnected.
+INFO: 'mini_cheetah' extern controller: Waiting for local or remote connection on port 1234 targeting robot named 'mini_cheetah'.
+INFO: 'mini_cheetah' extern controller: connected.
+WARNING: DEF MINI_CHEETAH Robot: No free joystick found.
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fr_abd_link" > RotationalMotor "fr_abd_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fr_abd_link" > Solid "fr_abd_link" > HingeJoint "fr_thigh_link" > RotationalMotor "fr_hip_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fr_abd_link" > Solid "fr_abd_link" > HingeJoint "fr_thigh_link" > Solid "fr_thigh_link" > HingeJoint "fr_shank_link" > RotationalMotor "fr_kn_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fl_abd_link" > RotationalMotor "fl_abd_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fl_abd_link" > Solid "fl_abd_link" > HingeJoint "fl_thigh_link" > RotationalMotor "fl_hip_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fl_abd_link" > Solid "fl_abd_link" > HingeJoint "fl_thigh_link" > Solid "fl_thigh_link" > HingeJoint "fl_shank_link" > RotationalMotor "fl_kn_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hr_abd_link" > RotationalMotor "hr_abd_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hr_abd_link" > Solid "hr_abd_link" > HingeJoint "hr_thigh_link" > RotationalMotor "hr_hip_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hr_abd_link" > Solid "hr_abd_link" > HingeJoint "hr_thigh_link" > Solid "hr_thigh_link" > HingeJoint "hr_shank_link" > RotationalMotor "hr_kn_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hl_abd_link" > RotationalMotor "hl_abd_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hl_abd_link" > Solid "hl_abd_link" > HingeJoint "hl_thigh_link" > RotationalMotor "hl_hip_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hl_abd_link" > Solid "hl_abd_link" > HingeJoint "hl_thigh_link" > Solid "hl_thigh_link" > HingeJoint "hl_shank_link" > RotationalMotor "hl_kn_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+INFO: 'mini_cheetah' extern controller: disconnected, waiting for new connection.
+INFO: 'mini_cheetah' extern controller: disconnected.
+INFO: 'mini_cheetah' extern controller: Waiting for local or remote connection on port 1234 targeting robot named 'mini_cheetah'.
+INFO: 'mini_cheetah' extern controller: connected.
+WARNING: DEF MINI_CHEETAH Robot: No free joystick found.
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fr_abd_link" > RotationalMotor "fr_abd_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fr_abd_link" > Solid "fr_abd_link" > HingeJoint "fr_thigh_link" > RotationalMotor "fr_hip_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fr_abd_link" > Solid "fr_abd_link" > HingeJoint "fr_thigh_link" > Solid "fr_thigh_link" > HingeJoint "fr_shank_link" > RotationalMotor "fr_kn_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fl_abd_link" > RotationalMotor "fl_abd_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fl_abd_link" > Solid "fl_abd_link" > HingeJoint "fl_thigh_link" > RotationalMotor "fl_hip_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fl_abd_link" > Solid "fl_abd_link" > HingeJoint "fl_thigh_link" > Solid "fl_thigh_link" > HingeJoint "fl_shank_link" > RotationalMotor "fl_kn_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hr_abd_link" > RotationalMotor "hr_abd_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hr_abd_link" > Solid "hr_abd_link" > HingeJoint "hr_thigh_link" > RotationalMotor "hr_hip_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hr_abd_link" > Solid "hr_abd_link" > HingeJoint "hr_thigh_link" > Solid "hr_thigh_link" > HingeJoint "hr_shank_link" > RotationalMotor "hr_kn_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hl_abd_link" > RotationalMotor "hl_abd_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hl_abd_link" > Solid "hl_abd_link" > HingeJoint "hl_thigh_link" > RotationalMotor "hl_hip_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hl_abd_link" > Solid "hl_abd_link" > HingeJoint "hl_thigh_link" > Solid "hl_thigh_link" > HingeJoint "hl_shank_link" > RotationalMotor "hl_kn_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+INFO: 'mini_cheetah' extern controller: disconnected, waiting for new connection.
+INFO: 'mini_cheetah' extern controller: disconnected.
+INFO: 'mini_cheetah' extern controller: Waiting for local or remote connection on port 1234 targeting robot named 'mini_cheetah'.
+INFO: 'mini_cheetah' extern controller: connected.
+WARNING: DEF MINI_CHEETAH Robot: No free joystick found.
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fr_abd_link" > RotationalMotor "fr_abd_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fr_abd_link" > Solid "fr_abd_link" > HingeJoint "fr_thigh_link" > RotationalMotor "fr_hip_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fr_abd_link" > Solid "fr_abd_link" > HingeJoint "fr_thigh_link" > Solid "fr_thigh_link" > HingeJoint "fr_shank_link" > RotationalMotor "fr_kn_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fl_abd_link" > RotationalMotor "fl_abd_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fl_abd_link" > Solid "fl_abd_link" > HingeJoint "fl_thigh_link" > RotationalMotor "fl_hip_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fl_abd_link" > Solid "fl_abd_link" > HingeJoint "fl_thigh_link" > Solid "fl_thigh_link" > HingeJoint "fl_shank_link" > RotationalMotor "fl_kn_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hr_abd_link" > RotationalMotor "hr_abd_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hr_abd_link" > Solid "hr_abd_link" > HingeJoint "hr_thigh_link" > RotationalMotor "hr_hip_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hr_abd_link" > Solid "hr_abd_link" > HingeJoint "hr_thigh_link" > Solid "hr_thigh_link" > HingeJoint "hr_shank_link" > RotationalMotor "hr_kn_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hl_abd_link" > RotationalMotor "hl_abd_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hl_abd_link" > Solid "hl_abd_link" > HingeJoint "hl_thigh_link" > RotationalMotor "hl_hip_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hl_abd_link" > Solid "hl_abd_link" > HingeJoint "hl_thigh_link" > Solid "hl_thigh_link" > HingeJoint "hl_shank_link" > RotationalMotor "hl_kn_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+INFO: 'mini_cheetah' extern controller: disconnected, waiting for new connection.
+INFO: 'mini_cheetah' extern controller: disconnected.
+INFO: 'mini_cheetah' extern controller: Waiting for local or remote connection on port 1234 targeting robot named 'mini_cheetah'.
+INFO: 'mini_cheetah' extern controller: connected.
+WARNING: DEF MINI_CHEETAH Robot: No free joystick found.
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fr_abd_link" > RotationalMotor "fr_abd_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fr_abd_link" > Solid "fr_abd_link" > HingeJoint "fr_thigh_link" > RotationalMotor "fr_hip_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fr_abd_link" > Solid "fr_abd_link" > HingeJoint "fr_thigh_link" > Solid "fr_thigh_link" > HingeJoint "fr_shank_link" > RotationalMotor "fr_kn_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fl_abd_link" > RotationalMotor "fl_abd_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fl_abd_link" > Solid "fl_abd_link" > HingeJoint "fl_thigh_link" > RotationalMotor "fl_hip_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fl_abd_link" > Solid "fl_abd_link" > HingeJoint "fl_thigh_link" > Solid "fl_thigh_link" > HingeJoint "fl_shank_link" > RotationalMotor "fl_kn_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hr_abd_link" > RotationalMotor "hr_abd_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hr_abd_link" > Solid "hr_abd_link" > HingeJoint "hr_thigh_link" > RotationalMotor "hr_hip_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hr_abd_link" > Solid "hr_abd_link" > HingeJoint "hr_thigh_link" > Solid "hr_thigh_link" > HingeJoint "hr_shank_link" > RotationalMotor "hr_kn_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hl_abd_link" > RotationalMotor "hl_abd_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hl_abd_link" > Solid "hl_abd_link" > HingeJoint "hl_thigh_link" > RotationalMotor "hl_hip_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hl_abd_link" > Solid "hl_abd_link" > HingeJoint "hl_thigh_link" > Solid "hl_thigh_link" > HingeJoint "hl_shank_link" > RotationalMotor "hl_kn_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+INFO: 'mini_cheetah' extern controller: disconnected, waiting for new connection.
+INFO: 'mini_cheetah' extern controller: disconnected.
+INFO: 'mini_cheetah' extern controller: Waiting for local or remote connection on port 1234 targeting robot named 'mini_cheetah'.
+INFO: 'mini_cheetah' extern controller: connected.
+WARNING: DEF MINI_CHEETAH Robot: No free joystick found.
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fr_abd_link" > RotationalMotor "fr_abd_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fr_abd_link" > Solid "fr_abd_link" > HingeJoint "fr_thigh_link" > RotationalMotor "fr_hip_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fr_abd_link" > Solid "fr_abd_link" > HingeJoint "fr_thigh_link" > Solid "fr_thigh_link" > HingeJoint "fr_shank_link" > RotationalMotor "fr_kn_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fl_abd_link" > RotationalMotor "fl_abd_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fl_abd_link" > Solid "fl_abd_link" > HingeJoint "fl_thigh_link" > RotationalMotor "fl_hip_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fl_abd_link" > Solid "fl_abd_link" > HingeJoint "fl_thigh_link" > Solid "fl_thigh_link" > HingeJoint "fl_shank_link" > RotationalMotor "fl_kn_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hr_abd_link" > RotationalMotor "hr_abd_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hr_abd_link" > Solid "hr_abd_link" > HingeJoint "hr_thigh_link" > RotationalMotor "hr_hip_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hr_abd_link" > Solid "hr_abd_link" > HingeJoint "hr_thigh_link" > Solid "hr_thigh_link" > HingeJoint "hr_shank_link" > RotationalMotor "hr_kn_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hl_abd_link" > RotationalMotor "hl_abd_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hl_abd_link" > Solid "hl_abd_link" > HingeJoint "hl_thigh_link" > RotationalMotor "hl_hip_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hl_abd_link" > Solid "hl_abd_link" > HingeJoint "hl_thigh_link" > Solid "hl_thigh_link" > HingeJoint "hl_shank_link" > RotationalMotor "hl_kn_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+INFO: <extern>: Terminating.
+INFO: 'mini_cheetah' extern controller: disconnected.
+INFO: 'mini_cheetah' extern controller: Waiting for local or remote connection on port 1234 targeting robot named 'mini_cheetah'.
+INFO: 'mini_cheetah' extern controller: connected.
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fr_abd_link" > RotationalMotor "fr_abd_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fr_abd_link" > Solid "fr_abd_link" > HingeJoint "fr_thigh_link" > RotationalMotor "fr_hip_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fr_abd_link" > Solid "fr_abd_link" > HingeJoint "fr_thigh_link" > Solid "fr_thigh_link" > HingeJoint "fr_shank_link" > RotationalMotor "fr_kn_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fl_abd_link" > RotationalMotor "fl_abd_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fl_abd_link" > Solid "fl_abd_link" > HingeJoint "fl_thigh_link" > RotationalMotor "fl_hip_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fl_abd_link" > Solid "fl_abd_link" > HingeJoint "fl_thigh_link" > Solid "fl_thigh_link" > HingeJoint "fl_shank_link" > RotationalMotor "fl_kn_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hr_abd_link" > RotationalMotor "hr_abd_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hr_abd_link" > Solid "hr_abd_link" > HingeJoint "hr_thigh_link" > RotationalMotor "hr_hip_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hr_abd_link" > Solid "hr_abd_link" > HingeJoint "hr_thigh_link" > Solid "hr_thigh_link" > HingeJoint "hr_shank_link" > RotationalMotor "hr_kn_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hl_abd_link" > RotationalMotor "hl_abd_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hl_abd_link" > Solid "hl_abd_link" > HingeJoint "hl_thigh_link" > RotationalMotor "hl_hip_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hl_abd_link" > Solid "hl_abd_link" > HingeJoint "hl_thigh_link" > Solid "hl_thigh_link" > HingeJoint "hl_shank_link" > RotationalMotor "hl_kn_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+INFO: 'mini_cheetah' extern controller: disconnected, waiting for new connection.
+INFO: 'mini_cheetah' extern controller: disconnected.
+INFO: 'mini_cheetah' extern controller: Waiting for local or remote connection on port 1234 targeting robot named 'mini_cheetah'.
+INFO: 'mini_cheetah' extern controller: connected.
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fr_abd_link" > RotationalMotor "fr_abd_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fr_abd_link" > Solid "fr_abd_link" > HingeJoint "fr_thigh_link" > RotationalMotor "fr_hip_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fr_abd_link" > Solid "fr_abd_link" > HingeJoint "fr_thigh_link" > Solid "fr_thigh_link" > HingeJoint "fr_shank_link" > RotationalMotor "fr_kn_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fl_abd_link" > RotationalMotor "fl_abd_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fl_abd_link" > Solid "fl_abd_link" > HingeJoint "fl_thigh_link" > RotationalMotor "fl_hip_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fl_abd_link" > Solid "fl_abd_link" > HingeJoint "fl_thigh_link" > Solid "fl_thigh_link" > HingeJoint "fl_shank_link" > RotationalMotor "fl_kn_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hr_abd_link" > RotationalMotor "hr_abd_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hr_abd_link" > Solid "hr_abd_link" > HingeJoint "hr_thigh_link" > RotationalMotor "hr_hip_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hr_abd_link" > Solid "hr_abd_link" > HingeJoint "hr_thigh_link" > Solid "hr_thigh_link" > HingeJoint "hr_shank_link" > RotationalMotor "hr_kn_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hl_abd_link" > RotationalMotor "hl_abd_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hl_abd_link" > Solid "hl_abd_link" > HingeJoint "hl_thigh_link" > RotationalMotor "hl_hip_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hl_abd_link" > Solid "hl_abd_link" > HingeJoint "hl_thigh_link" > Solid "hl_thigh_link" > HingeJoint "hl_shank_link" > RotationalMotor "hl_kn_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+INFO: 'mini_cheetah' extern controller: disconnected, waiting for new connection.
+INFO: 'mini_cheetah' extern controller: disconnected.
+INFO: 'mini_cheetah' extern controller: Waiting for local or remote connection on port 1234 targeting robot named 'mini_cheetah'.
+INFO: 'mini_cheetah' extern controller: connected.
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fr_abd_link" > RotationalMotor "fr_abd_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fr_abd_link" > Solid "fr_abd_link" > HingeJoint "fr_thigh_link" > RotationalMotor "fr_hip_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fr_abd_link" > Solid "fr_abd_link" > HingeJoint "fr_thigh_link" > Solid "fr_thigh_link" > HingeJoint "fr_shank_link" > RotationalMotor "fr_kn_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fl_abd_link" > RotationalMotor "fl_abd_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fl_abd_link" > Solid "fl_abd_link" > HingeJoint "fl_thigh_link" > RotationalMotor "fl_hip_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "fl_abd_link" > Solid "fl_abd_link" > HingeJoint "fl_thigh_link" > Solid "fl_thigh_link" > HingeJoint "fl_shank_link" > RotationalMotor "fl_kn_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hr_abd_link" > RotationalMotor "hr_abd_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hr_abd_link" > Solid "hr_abd_link" > HingeJoint "hr_thigh_link" > RotationalMotor "hr_hip_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hr_abd_link" > Solid "hr_abd_link" > HingeJoint "hr_thigh_link" > Solid "hr_thigh_link" > HingeJoint "hr_shank_link" > RotationalMotor "hr_kn_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hl_abd_link" > RotationalMotor "hl_abd_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hl_abd_link" > Solid "hl_abd_link" > HingeJoint "hl_thigh_link" > RotationalMotor "hl_hip_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+WARNING: DEF MINI_CHEETAH Robot > HingeJoint "hl_abd_link" > Solid "hl_abd_link" > HingeJoint "hl_thigh_link" > Solid "hl_thigh_link" > HingeJoint "hl_shank_link" > RotationalMotor "hl_kn_motor": The requested available motor torque 20.8659 exceeds 'maxTorque' = 20
+INFO: 'mini_cheetah' extern controller: disconnected, waiting for new connection.
+INFO: 'mini_cheetah' extern controller: disconnected.
+INFO: 'mini_cheetah' extern controller: Waiting for local or remote connection on port 1234 targeting robot named 'mini_cheetah'.
+INFO: 'mini_cheetah' extern controller: connected.
+INFO: 'mini_cheetah' extern controller: disconnected, waiting for new connection.
+INFO: 'mini_cheetah' extern controller: disconnected.

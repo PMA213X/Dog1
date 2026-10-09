@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/tmp/rapid_webots_smoke.py", line 23, in <module>
+    from rl import contract  # noqa: E402
+    ^^^^^^^^^^^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'rl'

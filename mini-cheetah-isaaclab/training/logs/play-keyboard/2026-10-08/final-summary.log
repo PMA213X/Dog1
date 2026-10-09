@@ -1,0 +1,17 @@
+== final exit codes ==
+py-compile=exit_code=0
+static-check=exit_code=0
+help=exit_code=0
+headless-smoke=exit_code=0
+gui-smoke=exit_code=137
+docs-verify=exit_code=0
+== headless evidence ==
+224:[INFO] checkpoint_loaded=true
+226:[INFO] completed_steps=5
+227:[INFO] final_command=[0.15000000596046448, 0.0, 0.0]
+== output files ==
+10339 training/scripts/play_keyboard.py
+6739 README.md
+4987 ../docs/changes/2026-10-08.md
+14543 ../docs/features/mini-cheetah-isaaclab-training-workspace.md
+== residual play/training processes ==

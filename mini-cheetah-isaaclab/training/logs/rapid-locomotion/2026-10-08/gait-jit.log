@@ -1,0 +1,2 @@
+action_shape=(2, 12)
+latent_shape=(2, 18)

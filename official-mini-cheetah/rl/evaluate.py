@@ -14,6 +14,13 @@ import numpy as np
 
 from . import contract
 from .env import require_ports_free
+from .rapid_policy import (
+    RAPID_MODEL_DIR,
+    SOURCE_HISTORY_DIM,
+    SOURCE_OBS_DIM,
+    RapidActionMapper,
+    RapidPolicyAdapter,
+)
 
 
 # 所有阈值集中定义，避免评估、JSON 和 Gate 各自维护一套数值。
@@ -45,6 +52,18 @@ MOVE_THRESHOLDS: dict[str, float] = {
     "turn_rate_min": 0.40,
     "cross_axis_abs_mean_max": 0.16,
     "planar_speed_max_for_turn": 0.22,
+}
+# Rapid 微调只替换接触和命令 case 门槛；其余物理门槛仍复用
+# PHYSICAL_THRESHOLDS。仅在 `--gate-mode rapid-finetune` 生效。
+RAPID_FINETUNE_THRESHOLDS: dict[str, float] = {
+    "stop_true_four_contact_ratio_min": 0.85,
+    "stop_planar_speed_max": 0.12,
+    "moving_average_contact_feet_min": 2.50,
+    "moving_zero_contact_ratio_max": 0.01,
+    "forward_speed_min": 0.18,
+    "forward_speed_error_mean_max": 0.20,
+    "fall_rate_max": 0.05,
+    "baseline_interval_steps": 50_000,
 }
 JUMP_THRESHOLDS: dict[str, float] = {
     "jump_success_rate_min": 0.80,
@@ -101,6 +120,17 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
     parser.add_argument("--max-steps", type=int, default=contract.MAX_EPISODE_STEPS)
     parser.add_argument("--seed", type=int, default=20261004)
     parser.add_argument("--gate", action="store_true")
+    parser.add_argument(
+        "--gate-mode",
+        choices=("legacy", "rapid-finetune"),
+        default="legacy",
+        help="legacy 保持 P0～P7 旧 Gate；rapid-finetune 仅用于 P2 微调",
+    )
+    parser.add_argument(
+        "--baseline-checkpoint",
+        default=None,
+        help="rapid-finetune 模式下用于 50k 固定基线对比的冻结 checkpoint",
+    )
     parser.add_argument("--policy-mode", choices=("both", "deterministic", "stochastic"))
     parser.add_argument("--connect-timeout", type=float, default=20.0)
     parser.add_argument("--socket-timeout", type=float, default=30.0)
@@ -117,6 +147,14 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args(argv)
     args.phase = contract.normalize_phase(args.phase)
+    if args.gate_mode == "rapid-finetune" and args.phase != "P2":
+        parser.error("--gate-mode rapid-finetune 只能用于 P2")
+    if args.baseline_checkpoint is not None:
+        if args.gate_mode != "rapid-finetune":
+            parser.error("--baseline-checkpoint 只能用于 rapid-finetune")
+        args.baseline_checkpoint = str(
+            contract.validate_checkpoint_path(args.baseline_checkpoint)
+        )
     if args.episodes <= 0 or args.max_steps <= 0:
         parser.error("episodes 和 max-steps 必须为正")
     if args.connect_timeout <= 0.0 or args.socket_timeout <= 0.0:
@@ -135,23 +173,65 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
     return args
 
 
-def load_model(checkpoint: str, device: str = "cuda") -> Any:
-    """加载并校验 R3 checkpoint 的 57/12 契约。"""
+def load_model(
+    checkpoint: str,
+    device: str = "cuda",
+    *,
+    gate_mode: str = "legacy",
+) -> Any:
+    """加载并校验 legacy 57/12 或 Rapid Dict/源动作 checkpoint。
+
+    legacy 默认仍严格要求 57 维观测；rapid-finetune 才接受 Dict 观测和
+    `Box(-100,100)^12` 源动作空间，避免把旧 Gate 悄悄切换到新语义。
+    """
     from stable_baselines3 import PPO
 
     path = contract.validate_checkpoint_path(checkpoint)
     if not path.is_file():
         raise FileNotFoundError(f"checkpoint 不存在：{path}")
     model = PPO.load(str(path), device=device)
-    if tuple(model.observation_space.shape) != (contract.OBS_DIM,):
+    observation_space = getattr(model, "observation_space", None)
+    action_space = getattr(model, "action_space", None)
+    rapid_spaces = _is_rapid_observation_space(observation_space)
+    if gate_mode == "rapid-finetune":
+        if not rapid_spaces:
+            raise RuntimeError("rapid-finetune checkpoint 观测必须是 current/history Dict")
+        if tuple(action_space.shape) != (contract.ACTION_DIM,):
+            raise RuntimeError("Rapid checkpoint 动作维度错误")
+        if float(action_space.low.min()) != -100.0 or float(
+            action_space.high.max()
+        ) != 100.0:
+            raise RuntimeError("Rapid checkpoint 动作空间必须是 Box(-100,100)")
+    elif tuple(getattr(observation_space, "shape", ())) != (contract.OBS_DIM,):
         raise RuntimeError("checkpoint 观测维度错误")
-    if tuple(model.action_space.shape) != (contract.ACTION_DIM,):
+    if tuple(action_space.shape) != (contract.ACTION_DIM,):
         raise RuntimeError("checkpoint 动作维度错误")
     expected_device = torch_device_name(device)
     actual_device = str(model.device)
     if actual_device != expected_device:
         raise RuntimeError(f"checkpoint 设备错误：{actual_device} != {expected_device}")
     return model
+
+
+def _is_rapid_observation_space(observation_space: Any) -> bool:
+    """识别 Rapid Dict 观测空间，不依赖具体 SB3 Policy 类。"""
+    spaces = getattr(observation_space, "spaces", None)
+    if not isinstance(spaces, Mapping):
+        return False
+    if set(spaces) != {"current", "history"}:
+        return False
+    current = getattr(spaces["current"], "shape", None)
+    history = getattr(spaces["history"], "shape", None)
+    return tuple(current or ()) == (SOURCE_OBS_DIM,) and tuple(
+        history or ()
+    ) == (SOURCE_HISTORY_DIM,)
+
+
+def is_rapid_model(model: Any) -> bool:
+    """判断加载后的模型是否为 Rapid Dict 源动作策略。"""
+    return _is_rapid_observation_space(
+        getattr(model, "observation_space", None)
+    )
 
 
 def torch_device_name(device: str) -> str:
@@ -342,9 +422,18 @@ def summarize_episode(
     else:
         drift_component = "planned_residual"
         drift = planned_residual
+    contact_counts = np.asarray(
+        [
+            float(np.sum(np.asarray(item["contacts"]) >= 0.5))
+            for item in samples
+        ],
+        dtype=np.float64,
+    )
     contact_ratio = float(
         np.mean([bool(np.all(np.asarray(item["contacts"]) >= 0.5)) for item in samples])
     )
+    average_contact_feet = float(np.mean(contact_counts))
+    zero_contact_ratio = float(np.mean(contact_counts == 0.0))
     true_contact_ratio = (
         contact_ratio
         if all(bool(item["true_contact_source"]) for item in samples)
@@ -402,8 +491,12 @@ def summarize_episode(
         "planned_residual_m": planned_residual,
         "displacement_x": float(displacement[0]),
         "displacement_y": float(displacement[1]),
+        "position_x": float(np.mean(positions[:, 0])),
+        "position_y": float(np.mean(positions[:, 1])),
+        "position_z": float(np.mean(positions[:, 2])),
         "mean_vx": float(np.mean(velocities[:, 0])),
         "mean_vy": float(np.mean(velocities[:, 1])),
+        "mean_vz": float(np.mean(velocities[:, 2])),
         "mean_wz": float(np.mean(yaw_rates)),
         "planar_speed_abs_mean": float(np.mean(np.linalg.norm(velocities[:, :2], axis=1))),
         "speed_error_mean": float(np.mean(velocity_error)),
@@ -411,6 +504,8 @@ def summarize_episode(
         "yaw_rate_abs_mean": float(np.mean(np.abs(yaw_rates))),
         "four_contact_ratio": contact_ratio,
         "true_four_contact_ratio": true_contact_ratio,
+        "average_contact_feet": average_contact_feet,
+        "zero_contact_ratio": zero_contact_ratio,
         "foot_slip_mean": float(np.mean(foot_slip)),
         "foot_slip_max": float(np.max(foot_slip)),
         "foot_slip_source": str(samples[-1]["foot_slip_source"]),
@@ -495,10 +590,121 @@ def _technical_failure_reasons(
     return reasons
 
 
-def _predict_action(model: Any, observation: Any, *, deterministic: bool) -> np.ndarray:
-    """调用 SB3 兼容模型并严格校验动作。"""
-    action, _state = model.predict(observation, deterministic=deterministic)
-    return _finite_array(action, contract.ACTION_DIM, "action")
+class RapidEvaluationContext:
+    """Rapid checkpoint 的单集 Dict 观测历史与统一动作映射上下文。
+
+    观测历史只服务评估 episode；动作映射始终复用 core 的
+    `RapidActionMapper`，不在 evaluate 中重复实现尺度换算。
+    """
+
+    def __init__(
+        self,
+        model_dir: Any = RAPID_MODEL_DIR,
+        *,
+        adapter: Any = None,
+        action_mapper: Any = None,
+    ) -> None:
+        self.adapter = (
+            RapidPolicyAdapter(model_dir)
+            if adapter is None
+            else adapter
+        )
+        self.action_mapper = (
+            action_mapper
+            if action_mapper is not None
+            else getattr(self.adapter, "action_mapper", None)
+            or RapidActionMapper(model_dir)
+        )
+        self._pending_current: np.ndarray | None = None
+        self.last_source_action = np.zeros(
+            contract.ACTION_DIM,
+            dtype=np.float32,
+        )
+
+    def reset(self) -> None:
+        """清空历史和上一源动作，保证 episode 不串状态。"""
+        self.adapter.reset()
+        self._pending_current = None
+        self.last_source_action.fill(0.0)
+
+    def encode(self, observation: Any) -> dict[str, np.ndarray]:
+        """把当前 57 维状态编码为 Rapid `current/history` Dict。"""
+        raw = _finite_array(observation, contract.OBS_DIM, "observation")
+        current = self.adapter.build_source_observation(
+            raw,
+            previous_source_action=self.last_source_action,
+        )
+        history, _warmup = self.adapter.build_history(
+            current,
+            previous_frames=self.adapter._history,
+        )
+        self._pending_current = current.copy()
+        return {
+            "current": current.astype(np.float32, copy=False),
+            "history": history.astype(np.float32, copy=False),
+        }
+
+    def map_source_action(self, source_action: Any) -> np.ndarray:
+        """调用 core 统一门面，把源动作裁剪/换算为当前动作。"""
+        source = _finite_array(
+            source_action,
+            contract.ACTION_DIM,
+            "Rapid source action",
+        )
+        mapped = self.action_mapper.map_source_to_current(source)
+        return _finite_array(
+            mapped,
+            contract.ACTION_DIM,
+            "Rapid mapped action",
+        )
+
+    def commit(self, source_action: Any) -> None:
+        """在模型预测成功后推进历史和 previous source action。"""
+        if self._pending_current is None:
+            raise RuntimeError("Rapid 评估观测尚未编码")
+        source = _finite_array(
+            source_action,
+            contract.ACTION_DIM,
+            "Rapid source action",
+        )
+        self.adapter._history.append(self._pending_current)
+        if len(self.adapter._history) > 15:
+            self.adapter._history = self.adapter._history[-15:]
+        self.adapter._previous_source_action = source.astype(
+            np.float32,
+            copy=True,
+        )
+        self.last_source_action = source.astype(np.float32, copy=True)
+        self._pending_current = None
+
+
+def _predict_action(
+    model: Any,
+    observation: Any,
+    *,
+    deterministic: bool,
+    rapid_context: RapidEvaluationContext | None = None,
+) -> np.ndarray:
+    """调用 SB3 兼容模型并严格校验动作；Rapid 分支统一走 core 映射。"""
+    if rapid_context is None:
+        action, _state = model.predict(
+            observation,
+            deterministic=deterministic,
+        )
+        return _finite_array(action, contract.ACTION_DIM, "action")
+    encoded = rapid_context.encode(observation)
+    source_action, _state = model.predict(
+        encoded,
+        deterministic=deterministic,
+    )
+    source_action = _finite_array(
+        source_action,
+        contract.ACTION_DIM,
+        "Rapid source action",
+    )
+    mapped_action = rapid_context.map_source_action(source_action)
+    rapid_context.commit(source_action)
+    return mapped_action
 
 
 def _step_with_jump(
@@ -527,8 +733,13 @@ def _episode(
     deterministic: bool = True,
     jump_steps: Iterable[int] = (),
     max_steps: Optional[int] = None,
+    rapid_context: RapidEvaluationContext | None = None,
 ) -> dict[str, Any]:
     """执行一集并返回物理 Gate 所需的完整汇总。"""
+    if rapid_context is None and is_rapid_model(model):
+        rapid_context = RapidEvaluationContext()
+    if rapid_context is not None:
+        rapid_context.reset()
     options = {"command": list(command), "command_fixed": True} if command is not None else None
     obs, _info = env.reset(seed=seed, options=options)
     observation = _finite_array(obs, contract.OBS_DIM, "observation")
@@ -554,7 +765,12 @@ def _episode(
     fallen = False
     steps = 0
     for steps in range(1, steps_limit + 1):
-        action = _predict_action(model, observation, deterministic=deterministic)
+        action = _predict_action(
+            model,
+            observation,
+            deterministic=deterministic,
+            rapid_context=rapid_context,
+        )
         safe_action = np.asarray(
             contract.sanitize_action(action, previous_action),
             dtype=np.float64,
@@ -609,7 +825,12 @@ def _max(episodes: Sequence[Mapping[str, Any]], key: str) -> float:
     return float(np.max([float(item[key]) for item in episodes])) if episodes else math.inf
 
 
-def physical_gate(episodes: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
+def physical_gate(
+    episodes: Sequence[Mapping[str, Any]],
+    *,
+    enforce_four_contact: bool = True,
+    enforce_speed_error: bool = True,
+) -> dict[str, Any]:
     """P1～P6 共用的物理 Gate；无效 reset 不进入任何均值。"""
     technical = [
         item for item in episodes if bool(item.get("technical_failure", False))
@@ -676,10 +897,15 @@ def physical_gate(episodes: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
         "posture_mean": _mean(valid, "posture_abs_mean") <= PHYSICAL_THRESHOLDS["posture_mean_max"],
         "posture_p95": _max(valid, "posture_abs_p95") <= PHYSICAL_THRESHOLDS["posture_p95_max"],
         "drift": _max(valid, "drift_m") <= PHYSICAL_THRESHOLDS["drift_m_max"],
-        "speed_error": _mean(valid, "speed_error_mean") <= PHYSICAL_THRESHOLDS["speed_error_mean_max"],
+        "speed_error": (
+            not enforce_speed_error
+            or _mean(valid, "speed_error_mean")
+            <= PHYSICAL_THRESHOLDS["speed_error_mean_max"]
+        ),
         "yaw_rate": _mean(valid, "yaw_rate_abs_mean") <= PHYSICAL_THRESHOLDS["yaw_rate_abs_mean_max"],
         "true_four_contact": (
-            _mean(valid, "true_four_contact_ratio")
+            not enforce_four_contact
+            or _mean(valid, "true_four_contact_ratio")
             >= PHYSICAL_THRESHOLDS["true_four_contact_ratio_min"]
         ),
         "foot_slip": _mean(valid, "foot_slip_mean") <= PHYSICAL_THRESHOLDS["foot_slip_mean_max"],
@@ -690,6 +916,7 @@ def physical_gate(episodes: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
         ) <= PHYSICAL_THRESHOLDS["joint_jitter_rms_max"],
     }
     return {
+        "gate_mode": "legacy",
         "passed": all(checks.values()),
         "technical_failure": bool(technical),
         "technical_failure_count": len(technical),
@@ -713,6 +940,110 @@ def physical_gate(episodes: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
             "valid_episode_count": float(len(valid)),
         },
         "thresholds": dict(PHYSICAL_THRESHOLDS),
+    }
+
+
+def rapid_finetune_gate(
+    episodes: Sequence[Mapping[str, Any]],
+    cases: Sequence[str],
+) -> dict[str, Any]:
+    """P2 Rapid 微调 Gate：旧物理门槛保留，接触按 stop/forward 分 case。"""
+    names = set(cases)
+    if names != {"stop", "forward"}:
+        raise ValueError("Rapid 微调 Gate 必须同时包含 stop 与 forward case")
+    # 四足比例和通用速度误差改由 case 专用门槛判断，避免 forward 被旧
+    # `0.85` 四足要求或 `0.16` 速度误差提前卡死；其余物理检查原样保留。
+    physical = physical_gate(
+        episodes,
+        enforce_four_contact=False,
+        enforce_speed_error=False,
+    )
+    stop = _select(episodes, ("stop",), cases)
+    forward = _select(episodes, ("forward",), cases)
+    stop_four = _mean(stop, "true_four_contact_ratio")
+    stop_speed = _mean(stop, "planar_speed_abs_mean")
+    moving_contact = _mean(forward, "average_contact_feet")
+    moving_zero_contact = _mean(forward, "zero_contact_ratio")
+    forward_speed = _mean(forward, "mean_vx")
+    forward_error = _mean(forward, "speed_error_mean")
+    fall_rate = float(physical.get("values", {}).get("fall_rate", math.inf))
+    checks = dict(physical["checks"])
+    checks.update(
+        {
+            "stop_present": bool(stop),
+            "forward_present": bool(forward),
+            "stop_four_contact": (
+                bool(stop)
+                and stop_four
+                >= RAPID_FINETUNE_THRESHOLDS[
+                    "stop_true_four_contact_ratio_min"
+                ]
+            ),
+            "stop_speed": (
+                bool(stop)
+                and stop_speed
+                <= RAPID_FINETUNE_THRESHOLDS["stop_planar_speed_max"]
+            ),
+            "moving_contact": (
+                bool(forward)
+                and moving_contact
+                >= RAPID_FINETUNE_THRESHOLDS[
+                    "moving_average_contact_feet_min"
+                ]
+            ),
+            "moving_zero_contact": (
+                bool(forward)
+                and moving_zero_contact
+                <= RAPID_FINETUNE_THRESHOLDS[
+                    "moving_zero_contact_ratio_max"
+                ]
+            ),
+            "forward_speed": (
+                bool(forward)
+                and forward_speed
+                >= RAPID_FINETUNE_THRESHOLDS["forward_speed_min"]
+            ),
+            "forward_speed_error": (
+                bool(forward)
+                and forward_error
+                <= RAPID_FINETUNE_THRESHOLDS[
+                    "forward_speed_error_mean_max"
+                ]
+            ),
+            "fall_rate": (
+                fall_rate
+                <= RAPID_FINETUNE_THRESHOLDS["fall_rate_max"]
+            ),
+        }
+    )
+    values = dict(physical["values"])
+    values.update(
+        {
+            "stop_true_four_contact_ratio": stop_four,
+            "stop_planar_speed_abs_mean": stop_speed,
+            "forward_average_contact_feet": moving_contact,
+            "forward_zero_contact_ratio": moving_zero_contact,
+            "forward_speed": forward_speed,
+            "forward_speed_error": forward_error,
+        }
+    )
+    return {
+        "gate_mode": "rapid-finetune",
+        "passed": all(checks.values()),
+        "technical_failure": bool(physical.get("technical_failure", False)),
+        "technical_failure_count": int(
+            physical.get("technical_failure_count", 0)
+        ),
+        "valid_episode_count": int(
+            physical.get("valid_episode_count", 0)
+        ),
+        "physical": physical,
+        "checks": checks,
+        "values": values,
+        "thresholds": {
+            **dict(PHYSICAL_THRESHOLDS),
+            **dict(RAPID_FINETUNE_THRESHOLDS),
+        },
     }
 
 
@@ -850,8 +1181,16 @@ def case_telemetry(
                 selected,
                 "planned_residual_m",
             ),
+            "position_x": _mean_present(selected, "position_x"),
+            "position_y": _mean_present(selected, "position_y"),
+            "position_z": _mean_present(selected, "position_z"),
             "mean_vx": _mean_present(selected, "mean_vx"),
             "mean_vy": _mean_present(selected, "mean_vy"),
+            "mean_vz": _mean_present(selected, "mean_vz"),
+            "actual_displacement_m": _mean_present(
+                selected,
+                "raw_displacement_m",
+            ),
             "speed_error_mean": _mean_present(
                 selected,
                 "speed_error_mean",
@@ -859,6 +1198,14 @@ def case_telemetry(
             "true_four_contact_ratio": _mean_present(
                 selected,
                 "true_four_contact_ratio",
+            ),
+            "average_contact_feet": _mean_present(
+                selected,
+                "average_contact_feet",
+            ),
+            "zero_contact_ratio": _mean_present(
+                selected,
+                "zero_contact_ratio",
             ),
         }
     return result
@@ -937,6 +1284,84 @@ def capability_gate(
     }
 
 
+def baseline_evaluation_due(
+    step: int,
+    gate_mode: str = "legacy",
+) -> bool:
+    """Rapid 微调每 50k 步触发一次固定 zero/forward 基线评估。"""
+    if gate_mode != "rapid-finetune":
+        return False
+    if int(step) <= 0:
+        return False
+    interval = int(RAPID_FINETUNE_THRESHOLDS["baseline_interval_steps"])
+    return int(step) % interval == 0
+
+
+def compare_rapid_finetune_to_baseline(
+    current: Mapping[str, Any],
+    baseline: Mapping[str, Any],
+) -> dict[str, Any]:
+    """比较当前模型和冻结基线的 fixed stop/forward case 遥测。"""
+    current_cases = current.get("case_values", {})
+    baseline_cases = baseline.get("case_values", {})
+    if not isinstance(current_cases, Mapping) or not isinstance(
+        baseline_cases,
+        Mapping,
+    ):
+        raise ValueError("当前与基线报告缺少 case_values")
+
+    def _value(cases: Mapping[str, Any], case: str, key: str) -> float:
+        case_value = cases.get(case, {})
+        if not isinstance(case_value, Mapping) or key not in case_value:
+            return 0.0
+        value = float(case_value[key])
+        return value if math.isfinite(value) else 0.0
+
+    current_forward = _value(current_cases, "forward", "mean_vx")
+    baseline_forward = _value(baseline_cases, "forward", "mean_vx")
+    current_contact = _value(
+        current_cases,
+        "forward",
+        "average_contact_feet",
+    )
+    baseline_contact = _value(
+        baseline_cases,
+        "forward",
+        "average_contact_feet",
+    )
+    current_stop = _value(
+        current_cases,
+        "stop",
+        "true_four_contact_ratio",
+    )
+    baseline_stop = _value(
+        baseline_cases,
+        "stop",
+        "true_four_contact_ratio",
+    )
+    forward_gain = current_forward - baseline_forward
+    return {
+        "baseline_interval_steps": int(
+            RAPID_FINETUNE_THRESHOLDS["baseline_interval_steps"]
+        ),
+        "current_forward_speed": current_forward,
+        "baseline_forward_speed": baseline_forward,
+        "forward_speed_delta": forward_gain,
+        "forward_speed_improvement_ratio": (
+            forward_gain / abs(baseline_forward)
+            if abs(baseline_forward) > 1e-9
+            else 0.0
+        ),
+        "current_forward_average_contact_feet": current_contact,
+        "baseline_forward_average_contact_feet": baseline_contact,
+        "forward_average_contact_delta": current_contact - baseline_contact,
+        "current_stop_true_four_contact_ratio": current_stop,
+        "baseline_stop_true_four_contact_ratio": baseline_stop,
+        "stop_true_four_contact_delta": current_stop - baseline_stop,
+        "improved": bool(forward_gain > 0.0),
+    }
+
+
 def _case_plan(phase: str, episodes: int) -> list[tuple[str, tuple[float, float, float], tuple[int, ...]]]:
     """生成阶段用例、固定命令和显式跳跃步。"""
     if phase == "P1":
@@ -967,6 +1392,12 @@ def _run_mode(
     plan = _case_plan(phase, args.episodes)
     episodes = []
     cases = []
+    rapid_context = (
+        RapidEvaluationContext()
+        if is_rapid_model(model)
+        or str(getattr(args, "gate_mode", "legacy")) == "rapid-finetune"
+        else None
+    )
     for index, (case, command, jumps) in enumerate(plan):
         cases.append(case)
         episodes.append(
@@ -978,6 +1409,7 @@ def _run_mode(
                 deterministic=deterministic,
                 jump_steps=jumps,
                 max_steps=args.max_steps,
+                rapid_context=rapid_context,
             )
         )
     if phase == "P1":
@@ -987,6 +1419,8 @@ def _run_mode(
             episodes,
             four_robot_handshake=p0_four_robot_handshake(),
         )
+    elif getattr(args, "gate_mode", "legacy") == "rapid-finetune":
+        report = rapid_finetune_gate(episodes, cases)
     else:
         report = capability_gate(episodes, cases)
     return {
@@ -1047,6 +1481,24 @@ def run_phase(model: Any, env: Any, args: argparse.Namespace) -> dict[str, Any]:
             "policy_modes_required": ["deterministic", "stochastic"],
         }
     return deterministic
+
+
+def run_rapid_finetune_baseline(
+    model: Any,
+    env: Any,
+    args: argparse.Namespace,
+) -> dict[str, Any]:
+    """执行固定 stop/forward 基线；调用方可按 50k 步钩子调度。"""
+    if str(getattr(args, "gate_mode", "legacy")) != "rapid-finetune":
+        raise ValueError("Rapid 基线只支持 gate-mode=rapid-finetune")
+    report = _run_mode(
+        model,
+        env,
+        args,
+        deterministic=True,
+        phase="P2",
+    )
+    return report
 
 
 # 兼容明确命名的调用入口。
@@ -1115,15 +1567,38 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     if args.dry_run:
         print(
             f"EVAL_DRY_RUN phase={args.phase} episodes={args.episodes} "
-            f"policy_mode={args.policy_mode} gate={args.gate} checkpoint={args.checkpoint}"
+            f"policy_mode={args.policy_mode} gate={args.gate} "
+            f"gate_mode={args.gate_mode} checkpoint={args.checkpoint} "
+            f"baseline_checkpoint={args.baseline_checkpoint}"
         )
         return 0
     if args.phase == "P7":
         raise SystemExit("P7 是 play 模式，请使用 python -m rl.play")
-    model = load_model(args.checkpoint, device=args.device)
+    model = load_model(
+        args.checkpoint,
+        device=args.device,
+        gate_mode=args.gate_mode,
+    )
     env = start_eval_environment(args)
     try:
         report = run_phase(model, env, args)
+        baseline_report = None
+        baseline_comparison = None
+        if args.baseline_checkpoint is not None:
+            baseline_model = load_model(
+                args.baseline_checkpoint,
+                device=args.device,
+                gate_mode=args.gate_mode,
+            )
+            baseline_report = run_rapid_finetune_baseline(
+                baseline_model,
+                env,
+                args,
+            )
+            baseline_comparison = compare_rapid_finetune_to_baseline(
+                report,
+                baseline_report,
+            )
     finally:
         env.close()
     payload = {
@@ -1131,8 +1606,12 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         "phase": args.phase,
         "checkpoint": args.checkpoint,
         "gate": args.gate,
+        "gate_mode": args.gate_mode,
         "policy_mode": args.policy_mode,
         "report": report,
+        "baseline_checkpoint": args.baseline_checkpoint,
+        "baseline_report": baseline_report,
+        "baseline_comparison": baseline_comparison,
     }
     output = Path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)

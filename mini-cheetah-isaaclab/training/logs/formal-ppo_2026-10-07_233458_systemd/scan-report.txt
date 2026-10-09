@@ -1,0 +1,14 @@
+snapshot_time=2026-10-07 23:42:01 +0800
+logs_scope=formal-ppo_*_systemd/train.log
+nan_inf_method=case-insensitive whole-token match (grep -Eaiw)
+oom=0
+cuda_error=0
+traceback=0
+killed=0
+nan=0
+inf=0
+infinity=0
+error_pattern_total=0
+--- files ---
+/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/mini-cheetah-isaaclab/training/logs/formal-ppo_2026-10-07_233356_systemd/train.log 184 bytes
+/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/mini-cheetah-isaaclab/training/logs/formal-ppo_2026-10-07_233458_systemd/train.log 715173 bytes

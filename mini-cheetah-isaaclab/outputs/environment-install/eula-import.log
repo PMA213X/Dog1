@@ -1,0 +1,11 @@
+START 2026-10-07T16:15:45+08:00
+
+By installing or using Omniverse Kit, I agree to the terms of NVIDIA OMNIVERSE LICENSE AGREEMENT (EULA)
+in https://docs.omniverse.nvidia.com/platform/latest/common/NVIDIA_Omniverse_License_Agreement.html
+
+Do you accept the EULA? (Yes/No): The EULA was accepted.
+
+IMPORT_OK no-version /home/pma213x/.venvs/minicheetah-isaaclab/lib/python3.10/site-packages/isaacsim/__init__.py
+EXIT 0
+END 2026-10-07T16:15:45+08:00
+import_exit_code=0

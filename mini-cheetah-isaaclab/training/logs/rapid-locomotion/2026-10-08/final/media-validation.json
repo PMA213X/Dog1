@@ -1,0 +1,72 @@
+{
+  "forward": {
+    "path": "mini-cheetah-isaaclab/outputs/rapid-locomotion/scenarios/forward.mp4",
+    "ffprobe_exit": 0,
+    "ffmpeg_decode_exit": 0,
+    "count_frames_exit": 0,
+    "duration_s": 5.0,
+    "width": 960,
+    "height": 540,
+    "r_frame_rate": "20/1",
+    "nb_frames": 100,
+    "codec": "h264",
+    "in_5_8s": true,
+    "all_ok": true
+  },
+  "backward": {
+    "path": "mini-cheetah-isaaclab/outputs/rapid-locomotion/scenarios/backward.mp4",
+    "ffprobe_exit": 0,
+    "ffmpeg_decode_exit": 0,
+    "count_frames_exit": 0,
+    "duration_s": 5.0,
+    "width": 960,
+    "height": 540,
+    "r_frame_rate": "20/1",
+    "nb_frames": 100,
+    "codec": "h264",
+    "in_5_8s": true,
+    "all_ok": true
+  },
+  "left": {
+    "path": "mini-cheetah-isaaclab/outputs/rapid-locomotion/scenarios/left.mp4",
+    "ffprobe_exit": 0,
+    "ffmpeg_decode_exit": 0,
+    "count_frames_exit": 0,
+    "duration_s": 5.0,
+    "width": 960,
+    "height": 540,
+    "r_frame_rate": "20/1",
+    "nb_frames": 100,
+    "codec": "h264",
+    "in_5_8s": true,
+    "all_ok": true
+  },
+  "right": {
+    "path": "mini-cheetah-isaaclab/outputs/rapid-locomotion/scenarios/right.mp4",
+    "ffprobe_exit": 0,
+    "ffmpeg_decode_exit": 0,
+    "count_frames_exit": 0,
+    "duration_s": 5.0,
+    "width": 960,
+    "height": 540,
+    "r_frame_rate": "20/1",
+    "nb_frames": 100,
+    "codec": "h264",
+    "in_5_8s": true,
+    "all_ok": true
+  },
+  "yaw": {
+    "path": "mini-cheetah-isaaclab/outputs/rapid-locomotion/scenarios/yaw.mp4",
+    "ffprobe_exit": 0,
+    "ffmpeg_decode_exit": 0,
+    "count_frames_exit": 0,
+    "duration_s": 5.0,
+    "width": 960,
+    "height": 540,
+    "r_frame_rate": "20/1",
+    "nb_frames": 100,
+    "codec": "h264",
+    "in_5_8s": true,
+    "all_ok": true
+  }
+}

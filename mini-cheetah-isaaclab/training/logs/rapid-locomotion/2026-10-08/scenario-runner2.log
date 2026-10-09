@@ -1,0 +1,2 @@
+[SCENARIO] start name=forward command=(0.6, 0.0, 0.0)
+[SCENARIOS] FAILED 场景 forward Gate 失败：['direction_incorrect_or_not_dominant']

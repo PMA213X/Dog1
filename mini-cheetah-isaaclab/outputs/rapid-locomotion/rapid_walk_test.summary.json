@@ -1,0 +1,457 @@
+{
+  "task": "YoboGo-Velocity-Flat-v0",
+  "mode": "record_video",
+  "yobogo_walk_speed_m_s": 0.6,
+  "rapid_walk_speed_m_s": 0.6,
+  "adaptation_weight": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/mini-cheetah-isaaclab/external_models/rapid-locomotion-rl/runs/rapid-locomotion/example/train/201852.132488/checkpoints/adaptation_module_latest.jit",
+  "body_weight": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/mini-cheetah-isaaclab/external_models/rapid-locomotion-rl/runs/rapid-locomotion/example/train/201852.132488/checkpoints/body_latest.jit",
+  "completed_steps": 300,
+  "inference_steps": 30,
+  "expected_inference_steps": 30,
+  "reset_count": 0,
+  "safety_clip_count": 54,
+  "position_clip_count": 0,
+  "torque_clip_count": 54,
+  "large_action_inference_count": 6,
+  "official_clip_inference_count": 0,
+  "max_abs_rapid_action": 0.25,
+  "max_abs_policy_action": 18.977323532104492,
+  "ood_guard_count": 341,
+  "base_height_min_m": 0.25224125385284424,
+  "max_abs_roll_deg": 20.2634641191857,
+  "max_abs_pitch_deg": 9.198123946184083,
+  "xy_displacement_m": 0.07037563621997833,
+  "mean_measured_velocity_m_s": 0.11729272703329723,
+  "final_command": [
+    0.6000000238418579,
+    0.0,
+    0.0
+  ],
+  "terminated_steps": 0,
+  "stability_errors": [],
+  "interface_ok": true,
+  "stable_walking": true,
+  "video": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/mini-cheetah-isaaclab/outputs/rapid-locomotion/rapid_walk_test.mp4",
+  "video_frames_written": 100,
+  "leg_motion_stats": {
+    "FR": {
+      "joints": {
+        "haa": {
+          "target": {
+            "min": -0.13124999403953552,
+            "max": -0.06875000149011612,
+            "rms": 0.09595368303237391,
+            "range": 0.0624999925494194,
+            "motion_rms": 0.029656144505367913
+          },
+          "actual": {
+            "min": -0.4179289937019348,
+            "max": 0.00942196324467659,
+            "rms": 0.16671474153971763,
+            "range": 0.4273509569466114,
+            "motion_rms": 0.1118094389368198
+          },
+          "raw_action": {
+            "min": -6.185177803039551,
+            "max": 9.93178653717041,
+            "rms": 4.627264935105758,
+            "range": 16.11696434020996,
+            "motion_rms": 4.155371597850779
+          },
+          "applied_action": {
+            "min": -0.25,
+            "max": 0.25,
+            "rms": 0.24734726880965616,
+            "range": 0.5,
+            "motion_rms": 0.2372491823737445
+          },
+          "position_clip_count": 0,
+          "torque_clip_count": 0
+        },
+        "hip": {
+          "target": {
+            "min": -0.862500011920929,
+            "max": -0.737500011920929,
+            "rms": 0.7961829737218542,
+            "range": 0.125,
+            "motion_rms": 0.06055474277568804
+          },
+          "actual": {
+            "min": -0.9084884524345398,
+            "max": -0.6051294207572937,
+            "rms": 0.7851622575147151,
+            "range": 0.3033590316772461,
+            "motion_rms": 0.09045129141573728
+          },
+          "raw_action": {
+            "min": -5.282919883728027,
+            "max": 5.381687164306641,
+            "rms": 2.1841788376702858,
+            "range": 10.664607048034668,
+            "motion_rms": 2.1428589105359435
+          },
+          "applied_action": {
+            "min": -0.25,
+            "max": 0.25,
+            "rms": 0.24345414179175973,
+            "range": 0.5,
+            "motion_rms": 0.2422189697131505
+          },
+          "position_clip_count": 0,
+          "torque_clip_count": 0
+        },
+        "knee": {
+          "target": {
+            "min": 1.5575000047683716,
+            "max": 1.6825000047683716,
+            "rms": 1.6431339469245954,
+            "range": 0.125,
+            "motion_rms": 0.05726166512901906
+          },
+          "actual": {
+            "min": 1.844679594039917,
+            "max": 2.0063111782073975,
+            "rms": 1.9088312985323852,
+            "range": 0.16163158416748047,
+            "motion_rms": 0.039358118482239454
+          },
+          "raw_action": {
+            "min": -2.4442594051361084,
+            "max": 10.911901473999023,
+            "rms": 3.410476263289471,
+            "range": 13.356160879135132,
+            "motion_rms": 2.955476656038618
+          },
+          "applied_action": {
+            "min": -0.25,
+            "max": 0.25,
+            "rms": 0.24556532277694204,
+            "range": 0.5,
+            "motion_rms": 0.22904665718484374
+          },
+          "position_clip_count": 0,
+          "torque_clip_count": 0
+        }
+      },
+      "target_range_min": 0.0624999925494194,
+      "actual_range_min": 0.16163158416748047,
+      "actual_motion_rms_min": 0.039358118482239454
+    },
+    "FL": {
+      "joints": {
+        "haa": {
+          "target": {
+            "min": 0.06875000149011612,
+            "max": 0.13124999403953552,
+            "rms": 0.08492639321481325,
+            "range": 0.0624999925494194,
+            "motion_rms": 0.024364492267094338
+          },
+          "actual": {
+            "min": -0.05397617071866989,
+            "max": 0.375393807888031,
+            "rms": 0.12306997400195596,
+            "range": 0.4293699786067009,
+            "motion_rms": 0.10083462169659682
+          },
+          "raw_action": {
+            "min": -10.917879104614258,
+            "max": 10.35520076751709,
+            "rms": 4.563721940525448,
+            "range": 21.273079872131348,
+            "motion_rms": 3.9142171857450503
+          },
+          "applied_action": {
+            "min": -0.25,
+            "max": 0.25,
+            "rms": 0.2454334858696208,
+            "range": 0.5,
+            "motion_rms": 0.19491595655159655
+          },
+          "position_clip_count": 0,
+          "torque_clip_count": 0
+        },
+        "hip": {
+          "target": {
+            "min": -0.862500011920929,
+            "max": -0.37800389528274536,
+            "rms": 0.744857531340891,
+            "range": 0.4844961166381836,
+            "motion_rms": 0.10766656300490048
+          },
+          "actual": {
+            "min": -0.9039490222930908,
+            "max": -0.694896399974823,
+            "rms": 0.7860410245297444,
+            "range": 0.20905262231826782,
+            "motion_rms": 0.06195362602648195
+          },
+          "raw_action": {
+            "min": -1.4402436017990112,
+            "max": 7.112049102783203,
+            "rms": 2.4969390833492624,
+            "range": 8.552292704582214,
+            "motion_rms": 2.0281855229800696
+          },
+          "applied_action": {
+            "min": -0.25,
+            "max": 0.25,
+            "rms": 0.2435604861348325,
+            "range": 0.5,
+            "motion_rms": 0.1998429800590227
+          },
+          "position_clip_count": 0,
+          "torque_clip_count": 3
+        },
+        "knee": {
+          "target": {
+            "min": 1.5575000047683716,
+            "max": 1.6825000047683716,
+            "rms": 1.6367218150206198,
+            "range": 0.125,
+            "motion_rms": 0.05885544858814979
+          },
+          "actual": {
+            "min": 1.6092627048492432,
+            "max": 1.9322701692581177,
+            "rms": 1.8061778437920886,
+            "range": 0.3230074644088745,
+            "motion_rms": 0.09397117760276047
+          },
+          "raw_action": {
+            "min": -12.028515815734863,
+            "max": 2.62934947013855,
+            "rms": 2.754681149921459,
+            "range": 14.657865285873413,
+            "motion_rms": 2.752045673391648
+          },
+          "applied_action": {
+            "min": -0.25,
+            "max": 0.25,
+            "rms": 0.24361614993250028,
+            "range": 0.5,
+            "motion_rms": 0.23542179385823028
+          },
+          "position_clip_count": 0,
+          "torque_clip_count": 0
+        }
+      },
+      "target_range_min": 0.0624999925494194,
+      "actual_range_min": 0.20905262231826782,
+      "actual_motion_rms_min": 0.06195362602648195
+    },
+    "RR": {
+      "joints": {
+        "haa": {
+          "target": {
+            "min": -0.7763749361038208,
+            "max": 0.5628880858421326,
+            "rms": 0.25154817734424173,
+            "range": 1.3392630219459534,
+            "motion_rms": 0.21898651128457694
+          },
+          "actual": {
+            "min": -0.3215774595737457,
+            "max": 0.140009805560112,
+            "rms": 0.1262575672780342,
+            "range": 0.4615872651338577,
+            "motion_rms": 0.10123304697667021
+          },
+          "raw_action": {
+            "min": -13.254340171813965,
+            "max": 5.118661403656006,
+            "rms": 4.5358507000221095,
+            "range": 18.37300157546997,
+            "motion_rms": 4.446120258639857
+          },
+          "applied_action": {
+            "min": -0.25,
+            "max": 0.25,
+            "rms": 0.24878101831320634,
+            "range": 0.5,
+            "motion_rms": 0.24877751292081496
+          },
+          "position_clip_count": 0,
+          "torque_clip_count": 6
+        },
+        "hip": {
+          "target": {
+            "min": -0.8959035873413086,
+            "max": 0.3209685683250427,
+            "rms": 0.7879149843725268,
+            "range": 1.2168721556663513,
+            "motion_rms": 0.39054885070400597
+          },
+          "actual": {
+            "min": -1.0550283193588257,
+            "max": 0.2591951787471771,
+            "rms": 0.7655113701194436,
+            "range": 1.3142234981060028,
+            "motion_rms": 0.3341790944266863
+          },
+          "raw_action": {
+            "min": -13.580610275268555,
+            "max": 3.732872486114502,
+            "rms": 4.226430202401563,
+            "range": 17.313482761383057,
+            "motion_rms": 3.35354614107246
+          },
+          "applied_action": {
+            "min": -0.25,
+            "max": 0.25,
+            "rms": 0.24604656907555508,
+            "range": 0.5,
+            "motion_rms": 0.15173962993204484
+          },
+          "position_clip_count": 0,
+          "torque_clip_count": 6
+        },
+        "knee": {
+          "target": {
+            "min": 1.5575000047683716,
+            "max": 1.6825000047683716,
+            "rms": 1.6295110510607116,
+            "range": 0.125,
+            "motion_rms": 0.06194195311382701
+          },
+          "actual": {
+            "min": 1.5284507274627686,
+            "max": 1.9177160263061523,
+            "rms": 1.7433089310607195,
+            "range": 0.3892652988433838,
+            "motion_rms": 0.121801387035784
+          },
+          "raw_action": {
+            "min": -12.08377742767334,
+            "max": 4.869768142700195,
+            "rms": 3.722060475845181,
+            "range": 16.953545570373535,
+            "motion_rms": 3.700704872671393
+          },
+          "applied_action": {
+            "min": -0.25,
+            "max": 0.25,
+            "rms": 0.25,
+            "range": 0.5,
+            "motion_rms": 0.24776781245530838
+          },
+          "position_clip_count": 0,
+          "torque_clip_count": 0
+        }
+      },
+      "target_range_min": 0.125,
+      "actual_range_min": 0.3892652988433838,
+      "actual_motion_rms_min": 0.10123304697667021
+    },
+    "RL": {
+      "joints": {
+        "haa": {
+          "target": {
+            "min": -1.5,
+            "max": 1.5,
+            "rms": 0.7684413213255143,
+            "range": 3.0,
+            "motion_rms": 0.7660389410891214
+          },
+          "actual": {
+            "min": -1.1234862804412842,
+            "max": 0.8304375410079956,
+            "rms": 0.39252097844501443,
+            "range": 1.9539238214492798,
+            "motion_rms": 0.3884763814924011
+          },
+          "raw_action": {
+            "min": -14.793166160583496,
+            "max": 8.031519889831543,
+            "rms": 5.91865355510267,
+            "range": 22.82468605041504,
+            "motion_rms": 5.283180788083996
+          },
+          "applied_action": {
+            "min": -0.25,
+            "max": 0.25,
+            "rms": 0.24642650789733841,
+            "range": 0.5,
+            "motion_rms": 0.23000360200081654
+          },
+          "position_clip_count": 0,
+          "torque_clip_count": 13
+        },
+        "hip": {
+          "target": {
+            "min": -2.0495762825012207,
+            "max": 1.5314652919769287,
+            "rms": 1.0418691937653881,
+            "range": 3.5810415744781494,
+            "motion_rms": 0.8850384124353038
+          },
+          "actual": {
+            "min": -1.5206923484802246,
+            "max": 0.9615852236747742,
+            "rms": 0.9569528265980459,
+            "range": 2.482277572154999,
+            "motion_rms": 0.6759110253591579
+          },
+          "raw_action": {
+            "min": -14.649477005004883,
+            "max": 1.1968523263931274,
+            "rms": 3.9369031276274176,
+            "range": 15.84632933139801,
+            "motion_rms": 3.1097555579401726
+          },
+          "applied_action": {
+            "min": -0.25,
+            "max": 0.25,
+            "rms": 0.24227775937673546,
+            "range": 0.5,
+            "motion_rms": 0.15249519529957545
+          },
+          "position_clip_count": 0,
+          "torque_clip_count": 20
+        },
+        "knee": {
+          "target": {
+            "min": 1.5575000047683716,
+            "max": 2.700000047683716,
+            "rms": 1.7105625922538912,
+            "range": 1.1425000429153442,
+            "motion_rms": 0.25395518675861173
+          },
+          "actual": {
+            "min": 1.5106940269470215,
+            "max": 2.191663980484009,
+            "rms": 1.68732447391711,
+            "range": 0.6809699535369873,
+            "motion_rms": 0.1615585220752953
+          },
+          "raw_action": {
+            "min": -4.577024936676025,
+            "max": 18.977323532104492,
+            "rms": 4.564695654672959,
+            "range": 23.554348468780518,
+            "motion_rms": 4.500272595299584
+          },
+          "applied_action": {
+            "min": -0.25,
+            "max": 0.25,
+            "rms": 0.24783108256356237,
+            "range": 0.5,
+            "motion_rms": 0.23939347430595756
+          },
+          "position_clip_count": 0,
+          "torque_clip_count": 6
+        }
+      },
+      "target_range_min": 1.1425000429153442,
+      "actual_range_min": 0.6809699535369873,
+      "actual_motion_rms_min": 0.1615585220752953
+    },
+    "_gate": {
+      "front_target_range_min": 0.0624999925494194,
+      "front_actual_range_min": 0.16163158416748047,
+      "front_target_threshold_rad": 0.04,
+      "front_actual_threshold_rad": 0.05,
+      "ok": true
+    }
+  }
+}

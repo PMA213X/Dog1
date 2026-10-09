@@ -1,0 +1,2 @@
+audit_zero_wrapper_exit=0
+audit_zero_semantic_exit=1

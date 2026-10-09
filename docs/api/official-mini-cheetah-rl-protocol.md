@@ -108,12 +108,19 @@ P1/P3 Gate，任一级 randomized `fall_rate <= 0.05` 才能继续。
   不启用这两项。
 - 执行层 `ACTION_RATE_LIMIT=0.08`，训练和评估共用同一限幅，对齐
   `action_delta_rms <= 0.10` Gate。
-- `ACTION_TARGET_RATE_LIMIT=0.03 rad/s`，仅用于策略动作映射后的关节目标；
-  `apply_pd_action()` 在 `motor.setPosition()` 前按 `CONTROL_DT_SECONDS`
-  将每周期目标增量限制为 `0.0006 rad`，10 s 最多变化 `0.30 rad`。
-  选择依据为 `0.01` 探针 contact `1.0` 但 10 s 仅 `0.10 rad`、无法解释
-  forward≈0，而 `0.75` 探针 contact 仅 `0.333`；故取比 `0.75` 低 25 倍的
-  候选下界。RSI/reset 使用直接 `set_targets()`，不经过该限速。
+- `ACTION_TARGET_RATE_LADDER=(0.25,0.5,1.0) rad/s`，默认和运行时档位只能来自
+  该阶梯；`ACTION_TARGET_RATE_LIMIT=1.0` 是 200 步 fixed-forward 短测选出的
+  最小通过值（lag `0.04094<0.05 rad`、饱和 `7.58%<10%`、无 NaN/跌倒），旧 `0.03`
+  被显式拒绝。`apply_pd_action()`、`PlayPolicy._limit_targets()` 和
+  `contract.limit_joint_targets()` 共享同一 `CONTROL_DT_SECONDS` 限速语义，
+  50 Hz 下分别为 `0.005/0.01/0.02 rad` 每周期。RSI/reset 的直接
+  `set_targets()` 不经过该限速。运行时可用 `RL_ACTION_TARGET_RATE_LIMIT`
+  或 play CLI `--action-target-rate-limit` 选择阶梯档位。
+- 执行遥测每帧记录 `desired_targets`、`rate_limited_targets`、
+  `executed_targets`、目标差 `desired_executed_target_delta`，以及
+  `target_lag_mean/rms/max`、`action_saturation_rate`、`position`、
+  `v_body`、`displacement_world` 和累计 `episode_distance_world`。
+  这些字段同时进入 controller state、env info 和 play JSONL。
 - P1 episode 固定为 500 步；足滑只惩罚超过 `0.02 m/s` 的接触期平均滑移。
 - P0/P1 加强 `foot_slip`、`action_rate` 和相邻关节速度差
   `joint_jitter` 惩罚，直接对应 P1 Gate 失败项。
@@ -130,6 +137,76 @@ P1/P3 Gate，任一级 randomized `fall_rate <= 0.05` 才能继续。
 - 接触遥测接受 `numpy.ndarray`、`list`、`tuple` 等 array-like 数据，
   仅 `foot_contact_source=node_id` 的四值样本进入比例统计。
 - P2 起才逐步加入低速跟踪和轻微步态；移动奖励不得压过安全和平滑。
+
+## Rapid 微调奖励与评估接口
+
+- `RewardInputs` 新增可选字段 `finetune_mode: bool=False` 和
+  `source_action: Sequence[float]|None=None`。只有
+  `finetune_mode=true`、`phase=P2` 且命令非零才进入移动接触新分支，
+  默认关闭时 P0～P7 reward 完全兼容。
+- 移动接触分项 `finetune_moving_contact`：平均接触足 `n>=2` 时为
+  `0.5*n`；`n<2` 时为 `-2.0*(4-n)`。该分支的四足、`support_gap` 和
+  `gait` 权重为零；零命令继续执行 P2 原有四足和缺足奖励。
+- `rl.reward.source_action_saturation_penalty()` 接收 12 维未裁剪源动作，
+  使用等效边界 `(2.4,2.0,2.0)` 重复四腿，返回
+  `-0.5*mean(max(0,abs(action)-limit)/limit)`。VecEnv 在 `env.step()` 后
+  调用该纯函数；不得改变执行动作 `[-1,1]`、`0.08/frame` 限速或双层
+  目标限速，也不得在同一 transition 重复叠加。
+- `rl.evaluate` 新增 `--gate-mode rapid-finetune`，只允许 P2，并要求
+  `stop`、`forward` case 同时存在；`legacy` 是默认值，P0/P1/P2 旧 Gate
+  不传该参数时语义不变。
+- Rapid stop 门槛为真实四足比例 `>=0.85`、平面速度 `<=0.12 m/s`；
+  forward 门槛为平均接触足 `>=2.5`、零接触比例 `<=1%`、前向速度
+  `>=0.18 m/s`、速度误差 `<=0.20 m/s`；跌倒率 `<=0.05`。其他高度、
+  姿态、漂移、足滑、动作差和关节抖动物理门槛继续复用
+  `PHYSICAL_THRESHOLDS`。
+- episode 和 case 遥测新增 `position_x/y/z`、`mean_vx/vy/vz`、
+  `average_contact_feet`、`zero_contact_ratio`，并把 `raw_displacement_m`
+  暴露为 case 的 `actual_displacement_m`；四足比例对移动 case 只记录。
+- `baseline_evaluation_due(step, "rapid-finetune")` 每 `50_000` 步返回
+  `True`；`rl.evaluate --baseline-checkpoint` 在同一 stop/forward case
+  上运行冻结基线，输出 `baseline_report` 与
+  `compare_rapid_finetune_to_baseline()` 的速度、接触差值和
+  `improved`，不自动修改 Gate 结论。
+- `rl.evaluate` 的 Rapid 加载要求 `current=42/history=630` Dict 与
+  `Box(-100,100)^12` 动作空间；评估观测由 57 维状态逐集生成，模型源
+  动作只通过 `rl.rapid_policy.RapidActionMapper.map_source_to_current()`
+  转成当前动作，再进入现有 `[-1,1]` 裁剪、`0.08/frame` 限速和
+  `env.step()`。legacy checkpoint 不创建该上下文，旧 `_predict_action`
+  路径保持不变。
+
+## Rapid SB3 微调训练接口
+
+- `rl.train --init-from rapid` 仅允许 P2，目标固定 `500,000` transition，
+  随机化固定为 `fixed`；默认资产目录仍是固定提交 Rapid 目录并执行
+  manifest/SHA256 校验。省略该参数时原 57 维 MlpPolicy 路径不变。
+- 底层仍产生 57 维观测和 `[-1,1]^12` 动作；`RapidFinetuneVecEnv` 对外暴露
+  Dict 观测 `current=42`、`history=630` 和动作 `Box(-100,100)^12`。
+- 每个并行环境独立维护 15 帧历史。同步终止必须从 info 中的原始
+  `terminal_observation` 生成终止 Dict，随后清空该环境；自动 reset 后只用
+  新首帧补齐，禁止跨 episode 复用历史或 previous action。
+- `RapidActorCriticPolicy` 严格载入 `ac_weights_last.pt` 的 adaptation、
+  actor、critic 和源 `std`；结构为
+  `630→18` adaptation、`60→512→256→128→12` actor、
+  `60→512→256→128→1` critic，全部使用 ELU。相同输入下确定性输出与
+  `RapidPolicyAdapter` 的误差必须 `<=1e-5`。
+- 策略动作保持源语义 `Box(-100,100)^12`；`RapidActionMapper` 是 play、
+  训练和 Gate 的统一动作门面，执行顺序为源/当前尺度换算、裁剪 `[-1,1]`、
+  `0.08/frame` 限速和 controller 目标限速。历史 previous action 保存源动作。
+- Rapid VecEnv 创建时将四个底层环境的 `finetune_mode` 设为 `true` 并传入
+  `RewardInputs`；旧 SB3 路径保持 `false`。源动作饱和惩罚只允许写入
+  `reward_parts.source_action_saturation` 一次：env 已提供非零同号值时
+  VecEnv 不再叠加，否则由 VecEnv 补齐一次。
+- PPO 为 `n_steps=512/env`、`batch=256`、`epochs=5`、
+  actor LR `1e-5`、critic LR `1e-4`、entropy `0.003`。`0–20k` 只训练
+  critic；`20–300k` 训练 actor+critic；`300–500k` 仅在 200k～300k
+  前进进度平台时以 `1e-6` 解冻 adaptation。
+- 命令课程全程 75% `vx=0.10–0.18`、25% 零命令，每 250 transition 重采样；
+  本阶段无横移、转向、跳跃、DR、噪声、延迟或外力随机化。
+- TensorBoard 额外记录 `rapid/action_saturation_rate`、
+  `rapid/source_action_abs_mean`、`rapid/speed_progress_mean`、
+  `rapid/stage`、`rapid/adaptation_platform` 和三个参数组学习率；
+  SB3 原生 `train/*` 指标继续作为 PPO 更新健康依据。
 
 ## Controller 初始化与能力降级
 

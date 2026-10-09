@@ -5,11 +5,13 @@
 from __future__ import annotations
 
 import sys
+import tempfile
 import types
 import unittest
 from pathlib import Path
 from unittest.mock import patch
 
+from gymnasium import spaces
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -18,14 +20,22 @@ if str(ROOT) not in sys.path:
 
 from rl import contract
 from rl.evaluate import (
+    RAPID_FINETUNE_THRESHOLDS,
+    RapidEvaluationContext,
     _episode,
+    _predict_action,
     _state_sample,
+    baseline_evaluation_due,
     case_telemetry,
     capability_gate,
+    compare_rapid_finetune_to_baseline,
     configure_eval_connection,
     engineering_gate,
+    is_rapid_model,
+    load_model,
     physical_gate,
     p0_four_robot_handshake,
+    rapid_finetune_gate,
     run_p1,
     start_eval_environment,
 )
@@ -55,6 +65,20 @@ def state(**changes: object) -> dict[str, object]:
 class RecordingModel:
     """记录 deterministic 参数的 12 维策略替身。"""
 
+    device = "cpu"
+    observation_space = spaces.Box(
+        low=-np.inf,
+        high=np.inf,
+        shape=(contract.OBS_DIM,),
+        dtype=np.float32,
+    )
+    action_space = spaces.Box(
+        low=-1.0,
+        high=1.0,
+        shape=(contract.ACTION_DIM,),
+        dtype=np.float32,
+    )
+
     def __init__(self) -> None:
         self.calls: list[bool] = []
 
@@ -69,6 +93,60 @@ class RecordingModel:
             raise AssertionError("观测维度错误")
 
 
+class RapidRecordingModel:
+    """返回 source Box(-100,100) 动作并记录 Dict 观测的替身。"""
+
+    device = "cpu"
+
+    observation_space = spaces.Dict(
+        {
+            "current": spaces.Box(
+                low=-np.inf,
+                high=np.inf,
+                shape=(42,),
+                dtype=np.float32,
+            ),
+            "history": spaces.Box(
+                low=-np.inf,
+                high=np.inf,
+                shape=(630,),
+                dtype=np.float32,
+            ),
+        }
+    )
+    action_space = spaces.Box(
+        low=-100.0,
+        high=100.0,
+        shape=(contract.ACTION_DIM,),
+        dtype=np.float32,
+    )
+
+    def __init__(self, source_action: Sequence[float] | None = None) -> None:
+        self.source_action = np.asarray(
+            source_action if source_action is not None else [100.0] * 12,
+            dtype=np.float32,
+        )
+        self.observations: list[dict[str, np.ndarray]] = []
+        self.deterministic: list[bool] = []
+
+    def predict(
+        self,
+        observation: dict[str, np.ndarray],
+        deterministic: bool,
+    ) -> tuple[np.ndarray, None]:
+        if set(observation) != {"current", "history"}:
+            raise AssertionError("Rapid 模型观测必须是 current/history Dict")
+        if observation["current"].shape != (42,):
+            raise AssertionError("Rapid current 维度错误")
+        if observation["history"].shape != (630,):
+            raise AssertionError("Rapid history 维度错误")
+        self.observations.append(
+            {key: np.asarray(value).copy() for key, value in observation.items()}
+        )
+        self.deterministic.append(bool(deterministic))
+        return self.source_action.copy(), None
+
+
 class FakeEnv:
     """无 Webots 的固定物理轨迹环境。"""
 
@@ -80,6 +158,7 @@ class FakeEnv:
         self._last_state: dict[str, object] = {}
         self._command = np.zeros(3, dtype=np.float32)
         self.prepared_jump: list[bool] = []
+        self.received_actions: list[np.ndarray] = []
 
     def reset(self, *, seed: int, options: object) -> tuple[np.ndarray, dict[str, object]]:
         del seed, options
@@ -89,17 +168,20 @@ class FakeEnv:
         return np.zeros(contract.OBS_DIM, dtype=np.float32), {}
 
     def prepare_step(self, action: np.ndarray) -> None:
-        del action
-        self._pending_step = {"type": "act", "jump_request": False}
+        self._pending_step = {
+            "type": "act",
+            "jump_request": False,
+            "action": np.asarray(action, dtype=np.float64).copy(),
+        }
 
     def send_prepared_step(self) -> None:
         self.prepared_jump.append(bool(self._pending_step["jump_request"]))
 
     def finish_step(self) -> tuple[np.ndarray, float, bool, bool, dict[str, object]]:
-        return self.step(np.zeros(contract.ACTION_DIM, dtype=np.float32))
+        return self.step(self._pending_step["action"])
 
     def step(self, action: np.ndarray) -> tuple[np.ndarray, float, bool, bool, dict[str, object]]:
-        del action
+        self.received_actions.append(np.asarray(action, dtype=np.float64).copy())
         self.index += 1
         velocity = self.moving or (0.0, 0.0, 0.0)
         self._last_state = state(
@@ -175,6 +257,101 @@ class EvaluationMetricTests(unittest.TestCase):
         self.assertAlmostEqual(report["joint_jitter_rms"], 0.0)
         self.assertTrue(report["finite"])
 
+    def test_rapid_predict_uses_core_mapper_and_history(self) -> None:
+        source = np.asarray(
+            [1.0, 2.0, 2.0] * 4,
+            dtype=np.float32,
+        )
+        model = RapidRecordingModel(source)
+        context = RapidEvaluationContext()
+        observation = np.zeros(contract.OBS_DIM, dtype=np.float32)
+        first = _predict_action(
+            model,
+            observation,
+            deterministic=True,
+            rapid_context=context,
+        )
+        expected = np.clip(
+            source
+            * np.asarray((0.125, 0.25, 0.25) * 4, dtype=np.float32)
+            / np.asarray(contract.ACTION_SCALE, dtype=np.float32),
+            -1.0,
+            1.0,
+        )
+        np.testing.assert_allclose(first, expected, atol=1e-6)
+        self.assertTrue(np.all(np.abs(first) <= 1.0))
+        self.assertEqual(len(context.adapter._history), 1)
+        np.testing.assert_allclose(
+            context.last_source_action,
+            source,
+            atol=0.0,
+        )
+        second = _predict_action(
+            model,
+            observation,
+            deterministic=True,
+            rapid_context=context,
+        )
+        np.testing.assert_allclose(second, first, atol=1e-6)
+        self.assertEqual(len(context.adapter._history), 2)
+        np.testing.assert_allclose(
+            model.observations[1]["current"][-12:],
+            source,
+            atol=0.0,
+        )
+        self.assertTrue(all(model.deterministic))
+
+    def test_rapid_episode_sends_mapped_action_not_source_action(self) -> None:
+        model = RapidRecordingModel([100.0] * contract.ACTION_DIM)
+        env = FakeEnv()
+        report = _episode(
+            model,
+            env,
+            seed=1,
+            command=(0.0, 0.0, 0.0),
+            deterministic=True,
+            max_steps=3,
+            rapid_context=RapidEvaluationContext(),
+        )
+        self.assertEqual(report["steps"], 3)
+        self.assertTrue(env.received_actions)
+        self.assertTrue(
+            all(
+                np.all(np.abs(action) <= 1.0 + 1e-9)
+                for action in env.received_actions
+            )
+        )
+        self.assertTrue(
+            any(np.any(np.abs(action) < 100.0) for action in env.received_actions)
+        )
+        self.assertFalse(np.any(np.abs(env.received_actions[0]) > 1.0))
+        self.assertTrue(is_rapid_model(model))
+
+    def test_load_model_accepts_rapid_and_rejects_legacy_in_rapid_gate(self) -> None:
+        rapid_model = RapidRecordingModel()
+        legacy_model = RecordingModel()
+        checkpoint = str(
+            contract.CHECKPOINT_ROOT
+            / f"{contract.CONTRACT_VERSION}_final.zip"
+        )
+        with patch("stable_baselines3.PPO.load", return_value=rapid_model):
+            loaded = load_model(
+                checkpoint,
+                device="cpu",
+                gate_mode="rapid-finetune",
+            )
+        self.assertIs(loaded, rapid_model)
+        with patch("stable_baselines3.PPO.load", return_value=legacy_model):
+            with self.assertRaises(RuntimeError):
+                load_model(
+                    checkpoint,
+                    device="cpu",
+                    gate_mode="rapid-finetune",
+                )
+        with patch("stable_baselines3.PPO.load", return_value=legacy_model):
+            loaded_legacy = load_model(checkpoint, device="cpu")
+        self.assertIs(loaded_legacy, legacy_model)
+
     def test_raw_displacement_and_planned_residual_are_separate(self) -> None:
         moving = _episode(
             RecordingModel(),
@@ -228,6 +405,45 @@ class EvaluationMetricTests(unittest.TestCase):
             4.96,
         )
         self.assertEqual(telemetry["stop"]["drift_m"], 0.01)
+
+    def test_case_telemetry_records_position_velocity_and_contacts(self) -> None:
+        telemetry = case_telemetry(
+            [
+                episode(
+                    position_x=1.2,
+                    position_y=-0.3,
+                    position_z=contract.REFERENCE_HEIGHT,
+                    mean_vx=0.21,
+                    mean_vy=0.01,
+                    mean_vz=0.0,
+                    raw_displacement_m=0.8,
+                    average_contact_feet=2.75,
+                    zero_contact_ratio=0.005,
+                )
+            ],
+            ["forward"],
+        )
+        self.assertAlmostEqual(telemetry["forward"]["position_x"], 1.2)
+        self.assertAlmostEqual(telemetry["forward"]["position_y"], -0.3)
+        self.assertAlmostEqual(
+            telemetry["forward"]["position_z"],
+            contract.REFERENCE_HEIGHT,
+        )
+        self.assertAlmostEqual(telemetry["forward"]["mean_vx"], 0.21)
+        self.assertAlmostEqual(telemetry["forward"]["mean_vy"], 0.01)
+        self.assertAlmostEqual(telemetry["forward"]["mean_vz"], 0.0)
+        self.assertAlmostEqual(
+            telemetry["forward"]["actual_displacement_m"],
+            0.8,
+        )
+        self.assertAlmostEqual(
+            telemetry["forward"]["average_contact_feet"],
+            2.75,
+        )
+        self.assertAlmostEqual(
+            telemetry["forward"]["zero_contact_ratio"],
+            0.005,
+        )
 
     def test_height_action_and_joint_jitter_use_contract_units(self) -> None:
         previous = state(dq=[0.10] * 12, height=contract.REFERENCE_HEIGHT)
@@ -471,6 +687,121 @@ class EvaluationMetricTests(unittest.TestCase):
             ["moving_jump"],
         )
         self.assertFalse(failed["passed"])
+
+    def test_rapid_finetune_stop_and_forward_gate(self) -> None:
+        stop = episode(
+            true_four_contact_ratio=1.0,
+            average_contact_feet=4.0,
+            zero_contact_ratio=0.0,
+            planar_speed_abs_mean=0.01,
+            mean_vx=0.0,
+            speed_error_mean=0.01,
+        )
+        forward = episode(
+            # 移动时只要求平均接触足，不要求四足同时落地。
+            true_four_contact_ratio=0.0,
+            average_contact_feet=2.60,
+            zero_contact_ratio=0.005,
+            planar_speed_abs_mean=0.22,
+            mean_vx=0.22,
+            mean_vy=0.01,
+            speed_error_mean=0.07,
+        )
+        report = rapid_finetune_gate(
+            [stop, forward],
+            ["stop", "forward"],
+        )
+        self.assertTrue(report["passed"], report)
+        self.assertEqual(report["gate_mode"], "rapid-finetune")
+        self.assertTrue(report["checks"]["stop_four_contact"])
+        self.assertTrue(report["checks"]["moving_contact"])
+        self.assertTrue(report["checks"]["moving_zero_contact"])
+        self.assertTrue(report["checks"]["forward_speed"])
+        self.assertEqual(
+            report["values"]["forward_average_contact_feet"],
+            2.60,
+        )
+        self.assertEqual(
+            report["values"]["forward_zero_contact_ratio"],
+            0.005,
+        )
+        self.assertEqual(
+            report["thresholds"]["moving_average_contact_feet_min"],
+            RAPID_FINETUNE_THRESHOLDS["moving_average_contact_feet_min"],
+        )
+
+    def test_rapid_finetune_gate_rejects_case_threshold_misses(self) -> None:
+        weak_stop = episode(
+            true_four_contact_ratio=0.84,
+            average_contact_feet=3.6,
+            zero_contact_ratio=0.0,
+            planar_speed_abs_mean=0.13,
+        )
+        weak_forward = episode(
+            true_four_contact_ratio=1.0,
+            average_contact_feet=2.40,
+            zero_contact_ratio=0.02,
+            planar_speed_abs_mean=0.17,
+            mean_vx=0.17,
+            speed_error_mean=0.21,
+        )
+        report = rapid_finetune_gate(
+            [weak_stop, weak_forward],
+            ["stop", "forward"],
+        )
+        self.assertFalse(report["passed"])
+        self.assertFalse(report["checks"]["stop_four_contact"])
+        self.assertFalse(report["checks"]["stop_speed"])
+        self.assertFalse(report["checks"]["moving_contact"])
+        self.assertFalse(report["checks"]["moving_zero_contact"])
+        self.assertFalse(report["checks"]["forward_speed"])
+        self.assertFalse(report["checks"]["forward_speed_error"])
+
+    def test_rapid_finetune_requires_stop_and_forward(self) -> None:
+        with self.assertRaises(ValueError):
+            rapid_finetune_gate([episode()], ["stop"])
+
+    def test_fixed_50k_baseline_comparison_hook(self) -> None:
+        self.assertFalse(baseline_evaluation_due(50_000, "legacy"))
+        self.assertFalse(baseline_evaluation_due(49_999, "rapid-finetune"))
+        self.assertTrue(baseline_evaluation_due(50_000, "rapid-finetune"))
+        self.assertTrue(baseline_evaluation_due(100_000, "rapid-finetune"))
+        current = {
+            "case_values": {
+                "stop": {
+                    "true_four_contact_ratio": 0.90,
+                },
+                "forward": {
+                    "mean_vx": 0.24,
+                    "average_contact_feet": 2.7,
+                },
+            }
+        }
+        frozen = {
+            "case_values": {
+                "stop": {
+                    "true_four_contact_ratio": 0.95,
+                },
+                "forward": {
+                    "mean_vx": 0.20,
+                    "average_contact_feet": 3.0,
+                },
+            }
+        }
+        comparison = compare_rapid_finetune_to_baseline(
+            current,
+            frozen,
+        )
+        self.assertAlmostEqual(
+            comparison["forward_speed_delta"],
+            0.04,
+        )
+        self.assertAlmostEqual(
+            comparison["forward_speed_improvement_ratio"],
+            0.20,
+        )
+        self.assertTrue(comparison["improved"])
+        self.assertEqual(comparison["baseline_interval_steps"], 50_000)
 
     def test_eval_network_timeouts_are_explicit(self) -> None:
         class Socket:

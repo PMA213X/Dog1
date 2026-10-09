@@ -1,0 +1,40 @@
+RECORD_FINAL_VERIFY_OK docs=3 media=3 tests=5
+== exit codes ==
+record-pycompile=exit_code=0
+record-static-check=exit_code=0
+record-help=exit_code=0
+record-headless=exit_code=0
+record-media=exit_code=0
+== ffprobe ==
+{
+    "programs": [
+
+    ],
+    "stream_groups": [
+
+    ],
+    "streams": [
+        {
+            "index": 0,
+            "codec_name": "h264",
+            "width": 960,
+            "height": 540,
+            "r_frame_rate": "40/1",
+            "nb_frames": "400"
+        }
+    ],
+    "format": {
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": "10.000000",
+        "size": "533678"
+    }
+}
+== output files ==
+533678 outputs/yobogo-walk/yobogo_walk_final.mp4
+52074 outputs/yobogo-walk/yobogo_walk_final_first_frame.png
+321428 outputs/yobogo-walk/yobogo_walk_final_last_frame.png
+16531 training/scripts/play_keyboard.py
+10826 README.md
+8407 ../docs/changes/2026-10-08.md
+16972 ../docs/features/mini-cheetah-isaaclab-training-workspace.md
+== residual processes ==

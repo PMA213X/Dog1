@@ -1,0 +1,4 @@
+截图路径: /tmp/dog1_webots_train_visual_1791300885.png
+世界文件: worlds/flat_move_jump_rl.wbt
+人工视觉确认: Webots GUI 地面呈深蓝灰底色，青色网格线清晰可见；场景树包含 FLAT_FLOOR 与四台 MINI_CHEETAH_0～3。
+控制台确认: 四台 extern controller 均显示等待 port 1234。

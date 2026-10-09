@@ -1,0 +1,56 @@
+[3gH    H    H    H    H    H    H    H    H    H    H    H    H    H    H    H    H    H    H    H   [INFO] Using python from: /home/pma213x/.venvs/minicheetah-isaaclab/bin/python
+usage: play_rapid.py [-h] [--task TASK] [--num_envs NUM_ENVS]
+                     [--weights-dir WEIGHTS_DIR] [--smoke-steps SMOKE_STEPS]
+                     [--walk-speed WALK_SPEED] [--record-video]
+                     [--video-steps VIDEO_STEPS] [--video-fps VIDEO_FPS]
+                     [--video-sample-every VIDEO_SAMPLE_EVERY]
+                     [--output OUTPUT] [--headless] [--livestream {0,1,2}]
+                     [--enable_cameras] [--device DEVICE] [--verbose] [--info]
+                     [--experience EXPERIENCE] [--kit_args KIT_ARGS]
+
+Rapid Locomotion 50 Hz 冻结策略接入与 Isaac Lab 回放
+
+options:
+  -h, --help            show this help message and exit
+  --task TASK           Gym 任务名
+  --num_envs NUM_ENVS   并行环境数
+  --weights-dir WEIGHTS_DIR
+                        含 adaptation_module_latest.jit 与 body_latest.jit 的目录
+  --smoke-steps SMOKE_STEPS
+                        非录制模式的有限控制周期数；每个周期为 0.002 s
+  --walk-speed WALK_SPEED
+                        YoboGo 前进命令，单位 m/s；0 用于零速 smoke
+  --record-video        录制低速行走视频并执行稳定性 Gate
+  --video-steps VIDEO_STEPS
+                        录制模式控制周期数；3000 步为 6.0 s 仿真时间
+  --video-fps VIDEO_FPS
+                        录制 MP4 帧率
+  --video-sample-every VIDEO_SAMPLE_EVERY
+                        每 20 个 500 Hz 控制周期采样一帧，即 25 Hz
+  --output OUTPUT       录制 MP4 输出路径
+
+app_launcher arguments:
+  Arguments for the AppLauncher. For more details, please check the
+  documentation.
+
+  --headless            Force display off at all times.
+  --livestream {0,1,2}  Force enable livestreaming. Mapping corresponds to
+                        that for the `LIVESTREAM` environment variable.
+  --enable_cameras      Enable camera sensors and relevant extension
+                        dependencies.
+  --device DEVICE       The device to run the simulation on. Can be "cpu",
+                        "cuda", "cuda:N", where N is the device ID
+  --verbose             Enable verbose-level log output from the
+                        SimulationApp.
+  --info                Enable info-level log output from the SimulationApp.
+  --experience EXPERIENCE
+                        The experience file to load when launching the
+                        SimulationApp. If an empty string is provided, the
+                        experience file is determined based on the headless
+                        flag. If a relative path is provided, it is resolved
+                        relative to the `apps` folder in Isaac Sim and Isaac
+                        Lab (in that order).
+  --kit_args KIT_ARGS   Command line arguments for Omniverse Kit as a string
+                        separated by a space delimiter. Example usage:
+                        --kit_args "--ext-folder=/path/to/ext1 --ext-
+                        folder=/path/to/ext2"

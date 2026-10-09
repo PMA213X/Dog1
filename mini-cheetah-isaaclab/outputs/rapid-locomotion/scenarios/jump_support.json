@@ -1,0 +1,13 @@
+{
+  "jump_supported": false,
+  "jump_video": null,
+  "reason": "官方 Mini Cheetah 配置只提供 vx/vy/yaw 命令；impulse_height_commands=False，且没有激活跳跃动作/奖励。",
+  "evidence": {
+    "mini_config": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/mini-cheetah-isaaclab/external_models/rapid-locomotion-rl/mini_gym/envs/mini_cheetah/mini_cheetah_config.py",
+    "mini_has_vx": true,
+    "mini_has_vy": true,
+    "mini_has_yaw": true,
+    "impulse_height_commands_false": true,
+    "active_jump_reward": false
+  }
+}

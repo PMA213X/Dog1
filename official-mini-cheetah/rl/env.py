@@ -97,6 +97,7 @@ class MiniCheetahFlatJumpEnv(gym.Env):
         robot_name: str | None = None,
         birth_position: Sequence[float] | None = None,
         supervisor_port: int = contract.WEBOTS_SUPERVISOR_PORT,
+        finetune_mode: bool = False,
     ) -> None:
         super().__init__()
         self.phase = contract.normalize_phase(phase)
@@ -110,6 +111,7 @@ class MiniCheetahFlatJumpEnv(gym.Env):
         self.world_path = (Path(world) if world else contract.WORLD_PATH).resolve()
         self.worker_id = int(worker_id)
         self.supervisor_port = int(supervisor_port)
+        self.finetune_mode = bool(finetune_mode)
         if not 1 <= self.supervisor_port <= 65535:
             raise ValueError("supervisor_port 必须位于 1～65535")
         if not 0 <= self.worker_id < contract.PARALLEL_WORKERS:
@@ -173,6 +175,14 @@ class MiniCheetahFlatJumpEnv(gym.Env):
         self._previous_action = np.zeros(contract.ACTION_DIM, dtype=np.float32)
         self._last_policy_action = np.zeros(contract.ACTION_DIM, dtype=np.float32)
         self._delayed_actions: list[np.ndarray] = []
+        self._pending_input_action: np.ndarray | None = None
+        self._pending_input_saturation_rate = 0.0
+        self._episode_lag_absolute_sum = 0.0
+        self._episode_lag_squared_sum = 0.0
+        self._episode_lag_max = 0.0
+        self._episode_saturation_sum = 0.0
+        self._episode_telemetry_steps = 0
+        self._episode_distance_world = 0.0
         self._unsupported_steps = 0
         self._termination_reason = ""
         self._jump_request_step = int(
@@ -720,6 +730,14 @@ class MiniCheetahFlatJumpEnv(gym.Env):
         self._previous_action = np.zeros(contract.ACTION_DIM, dtype=np.float32)
         self._last_policy_action = np.zeros(contract.ACTION_DIM, dtype=np.float32)
         self._delayed_actions = []
+        self._pending_input_action = None
+        self._pending_input_saturation_rate = 0.0
+        self._episode_lag_absolute_sum = 0.0
+        self._episode_lag_squared_sum = 0.0
+        self._episode_lag_max = 0.0
+        self._episode_saturation_sum = 0.0
+        self._episode_telemetry_steps = 0
+        self._episode_distance_world = 0.0
         self._unsupported_steps = 0
         self._termination_reason = ""
         self._randomization = self._sample_randomization()
@@ -830,9 +848,14 @@ class MiniCheetahFlatJumpEnv(gym.Env):
         if self._pending_step is not None:
             raise RuntimeError("已有待完成的 step")
         previous_action = self._previous_action.copy()
+        input_action = np.asarray(action, dtype=np.float32)
         safe = np.asarray(
             contract.sanitize_action(action, self._last_policy_action),
             dtype=np.float32,
+        )
+        self._pending_input_action = input_action.copy()
+        self._pending_input_saturation_rate = contract.action_saturation_rate(
+            input_action
         )
         self._delayed_actions.append(safe)
         delayed = self._delayed_actions.pop(0)
@@ -933,6 +956,37 @@ class MiniCheetahFlatJumpEnv(gym.Env):
             "dq",
             [0.0] * contract.ACTION_DIM,
         )
+        execution_telemetry = state.get("execution_telemetry")
+        if isinstance(execution_telemetry, Mapping):
+            desired_targets = execution_telemetry.get(
+                "desired_targets",
+                contract.action_to_target(delayed),
+            )
+            executed_targets = execution_telemetry.get(
+                "executed_targets",
+                desired_targets,
+            )
+        else:
+            desired_targets = contract.action_to_target(delayed)
+            executed_targets = desired_targets
+        target_telemetry = contract.target_telemetry(
+            desired_targets,
+            executed_targets,
+        )
+        input_saturation_rate = (
+            self._pending_input_saturation_rate
+            if self._pending_input_action is not None
+            else contract.action_saturation_rate(delayed)
+        )
+        lag_mean = float(target_telemetry["mean"])
+        lag_rms = float(target_telemetry["rms"])
+        lag_max = float(target_telemetry["max"])
+        self._episode_lag_absolute_sum += lag_mean
+        self._episode_lag_squared_sum += lag_rms * lag_rms
+        self._episode_lag_max = max(self._episode_lag_max, lag_max)
+        self._episode_saturation_sum += float(input_saturation_rate)
+        self._episode_telemetry_steps += 1
+        telemetry_steps = max(1, self._episode_telemetry_steps)
         reward, reward_parts = compute_reward(
             RewardInputs(
                 phase=self.phase,
@@ -956,6 +1010,7 @@ class MiniCheetahFlatJumpEnv(gym.Env):
                 jump_success_event=bool(state["jump_success"]),
                 jump_landing_event=bool(state["jump_landing"]),
                 displacement=local_displacement,
+                finetune_mode=self.finetune_mode,
             )
         )
         observation = self._observation()
@@ -977,7 +1032,79 @@ class MiniCheetahFlatJumpEnv(gym.Env):
             "torque_source": state["torque_source"],
             "applied_action": delayed.copy(),
             "unsupported_steps": self._unsupported_steps,
+            "position": np.asarray(state["position"], dtype=np.float32),
+            "v_body": state["v_body"].copy(),
+            "displacement_world": np.asarray(
+                world_displacement,
+                dtype=np.float32,
+            ),
+            "displacement_body": np.asarray(
+                local_displacement,
+                dtype=np.float32,
+            ),
+            "displacement_step_norm": float(
+                math.sqrt(
+                    sum(float(value) * float(value) for value in world_displacement)
+                )
+            ),
+            "desired_targets": np.asarray(
+                target_telemetry["desired"],
+                dtype=np.float32,
+            ),
+            "executed_targets": np.asarray(
+                target_telemetry["executed"],
+                dtype=np.float32,
+            ),
+            "desired_executed_target_delta": np.asarray(
+                target_telemetry["delta"],
+                dtype=np.float32,
+            ),
+            "target_rate_limit": float(target_telemetry["rate_limit"]),
+            "target_lag_mean": lag_mean,
+            "target_lag_rms": lag_rms,
+            "target_lag_max": lag_max,
+            "episode_target_lag_mean": (
+                self._episode_lag_absolute_sum / telemetry_steps
+            ),
+            "episode_target_lag_rms": math.sqrt(
+                self._episode_lag_squared_sum / telemetry_steps
+            ),
+            "episode_target_lag_max": self._episode_lag_max,
+            "action_saturation_rate": float(input_saturation_rate),
+            "episode_action_saturation_rate": (
+                self._episode_saturation_sum / telemetry_steps
+            ),
+            "execution/target_rate_limit": float(
+                target_telemetry["rate_limit"]
+            ),
+            "execution/target_lag_mean": lag_mean,
+            "execution/target_lag_rms": lag_rms,
+            "execution/target_lag_max": lag_max,
+            "execution/action_saturation_rate": float(
+                input_saturation_rate
+            ),
+            "state/position_x": float(state["position"][0]),
+            "state/position_y": float(state["position"][1]),
+            "state/position_z": float(state["position"][2]),
+            "state/v_body_x": float(state["v_body"][0]),
+            "state/v_body_y": float(state["v_body"][1]),
+            "state/v_body_z": float(state["v_body"][2]),
+            "state/displacement_step_norm": float(
+                math.sqrt(
+                    sum(float(value) * float(value) for value in world_displacement)
+                )
+            ),
         }
+        self._episode_distance_world += float(
+            math.sqrt(
+                sum(float(value) * float(value) for value in world_displacement)
+            )
+        )
+        self._episode_telemetry_steps = telemetry_steps
+        info["episode_distance_world"] = self._episode_distance_world
+        info["state/distance_world"] = self._episode_distance_world
+        self._pending_input_action = None
+        self._pending_input_saturation_rate = 0.0
         return observation, reward, terminated, truncated, info
 
     def step(

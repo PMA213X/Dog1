@@ -1,0 +1,473 @@
+<?xml version='1.0' encoding='utf-8'?>
+<robot name="yobogo_mini_cheetah_v1">
+  <!--
+YoboGo-10S 资产元数据（静态验收口径）
+leg_mapping=leg0:FR,leg1:FL,leg2:RR,leg3:RL
+joint_order=leg0_abad_joint,leg0_hip_joint,leg0_knee_joint,leg1_abad_joint,leg1_hip_joint,leg1_knee_joint,leg2_abad_joint,leg2_hip_joint,leg2_knee_joint,leg3_abad_joint,leg3_hip_joint,leg3_knee_joint
+target_joint_positions_flat=[-0.6,-1,2.7,0.6,-1,2.7,-0.6,-1,2.7,0.6,-1,2.7]
+sim_initial_joint_positions_flat=[0,-0.785398163,1.865468294,0,-0.785398163,1.865468294,0,-0.785398163,1.865468294,0,-0.785398163,1.865468294]
+sim_initial_root_xyz=0,0,0.26
+target_joint_semantics=YoboGo control-side logical coordinates; not direct MIT URDF geometric angles
+sim_initial_joint_semantics=ORCAgym geometry stance for foot collision minimum -0.26 m relative root
+foot_visual_collision_origin_xyz=0,0,0.024
+control_period_s=0.002
+control_frequency_hz=500
+pd_kp=3,3,3
+pd_kd=1,0.2,0.2
+effort_limit=17,17,26
+source_total_mass_kg=8.292
+target_total_mass_kg=9
+mass_scale=9/8.292=1.08538350217
+dynamics_source=MIT ORCAgym commit 5aaff694ae5f1c31e08040d59787f2cca4c5cfe0
+visual_source=local ../visual_dae four DAE only
+control_source=YoboGo-control local files
+softstop_source=MIT Cheetah-Software SpineBoard reference
+limit_semantics=URDF limit is software/safety candidate, mechanical hard stop unknown
+knee_limit_semantics=knee [-2.7,2.7] is local initial/safety candidate only
+collision_status=MIT conservative candidates, CAD not split into links
+source_foot_inertia=all four MIT source tensors are zero
+foot_inertia_derivation=solid_sphere_i=2/5*m*r^2
+foot_inertia_mass_kg=0.0108538350217
+foot_inertia_radius_m=0.0202
+foot_inertia_diagonal_kg_m2=1.7715195369e-06
+foot_inertia_status=derived from trusted foot mass and MIT collision sphere radius for PhysX positive definiteness; not MIT original inertia; not a guessed epsilon
+-->
+  <material name="foot_gray">
+    <color rgba="0.35 0.35 0.35 1" />
+  </material>
+  <link name="base_link">
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="3.58176555716" />
+      <inertia ixx="0.0122138205499" ixy="0" ixz="0" iyy="0.392941389291" iyz="0" izz="0.0463165701881" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="../visual_dae/mini_body.dae" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.01" />
+      <geometry>
+        <box size="0.30 0.20 0.10" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="leg0_hip_link">
+    <inertial>
+      <origin xyz="0.055 -0.036 0" />
+      <mass value="0.586107091172" />
+      <inertia ixx="0.000413531114327" ixy="6.29522431259e-05" ixz="4.88422575977e-07" iyy="0.000607814761216" iyz="1.03111432706e-06" izz="0.000481910274964" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="3.14159265359 0 0" />
+      <geometry>
+        <mesh filename="../visual_dae/mini_abad.dae" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0.052 -0.02 0" rpy="1.57079632679 0 0" />
+      <geometry>
+        <cylinder length="0.025" radius="0.05" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="leg0_thigh_link">
+    <inertial>
+      <origin xyz="0 -0.016 -0.02" />
+      <mass value="0.688133140376" />
+      <inertia ixx="0.0021523154848" ixy="0.000265918958032" ixz="1.41099855282e-05" iyy="0.00228256150507" iyz="1.62807525326e-06" izz="0.000442836468886" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -1.57079632679 0" />
+      <geometry>
+        <mesh filename="../visual_dae/mini_upper_link.dae" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 -0.05 -0.092" />
+      <geometry>
+        <cylinder length="0.17" radius="0.015" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="leg0_shank_link">
+    <inertial>
+      <origin xyz="0 0 -0.061" />
+      <mass value="0.0694645441389" />
+      <inertia ixx="0.000265918958032" ixy="0" ixz="0" iyy="0.000269175108538" iyz="0" izz="6.51230101302e-06" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 3.14159265359 0" />
+      <geometry>
+        <mesh filename="../visual_dae/mini_lower_link.dae" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 -0.1" />
+      <geometry>
+        <cylinder length="0.10" radius="0.010" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="leg0_foot_link">
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="0.0108538350217" />
+      <inertia ixx="1.7715195369e-06" ixy="0" ixz="0" iyy="1.7715195369e-06" iyz="0" izz="1.7715195369e-06" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.024" />
+      <geometry>
+        <sphere radius="0.0202" />
+      </geometry>
+      <material name="foot_gray" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.024" />
+      <geometry>
+        <sphere radius="0.0202" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="leg1_hip_link">
+    <inertial>
+      <origin xyz="0.055 0.036 0" />
+      <mass value="0.586107091172" />
+      <inertia ixx="0.000413531114327" ixy="6.29522431259e-05" ixz="4.88422575977e-07" iyy="0.000607814761216" iyz="1.03111432706e-06" izz="0.000481910274964" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="../visual_dae/mini_abad.dae" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0.052 0.02 0" rpy="1.57079632679 0 0" />
+      <geometry>
+        <cylinder length="0.025" radius="0.05" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="leg1_thigh_link">
+    <inertial>
+      <origin xyz="0 0.016 -0.02" />
+      <mass value="0.688133140376" />
+      <inertia ixx="0.0021523154848" ixy="0.000265918958032" ixz="1.41099855282e-05" iyy="0.00228256150507" iyz="1.62807525326e-06" izz="0.000442836468886" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -1.57079632679 0" />
+      <geometry>
+        <mesh filename="../visual_dae/mini_upper_link.dae" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0.05 -0.092" />
+      <geometry>
+        <cylinder length="0.17" radius="0.015" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="leg1_shank_link">
+    <inertial>
+      <origin xyz="0 0 -0.061" />
+      <mass value="0.0694645441389" />
+      <inertia ixx="0.000265918958032" ixy="0" ixz="0" iyy="0.000269175108538" iyz="0" izz="6.51230101302e-06" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 3.14159265359 0" />
+      <geometry>
+        <mesh filename="../visual_dae/mini_lower_link.dae" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 -0.1" />
+      <geometry>
+        <cylinder length="0.10" radius="0.010" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="leg1_foot_link">
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="0.0108538350217" />
+      <inertia ixx="1.7715195369e-06" ixy="0" ixz="0" iyy="1.7715195369e-06" iyz="0" izz="1.7715195369e-06" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.024" />
+      <geometry>
+        <sphere radius="0.0202" />
+      </geometry>
+      <material name="foot_gray" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.024" />
+      <geometry>
+        <sphere radius="0.0202" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="leg2_hip_link">
+    <inertial>
+      <origin xyz="0.055 -0.036 0" />
+      <mass value="0.586107091172" />
+      <inertia ixx="0.000413531114327" ixy="6.29522431259e-05" ixz="4.88422575977e-07" iyy="0.000607814761216" iyz="1.03111432706e-06" izz="0.000481910274964" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="3.14159265359 0 0" />
+      <geometry>
+        <mesh filename="../visual_dae/mini_abad.dae" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0.052 -0.02 0" rpy="1.57079632679 0 0" />
+      <geometry>
+        <cylinder length="0.025" radius="0.05" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="leg2_thigh_link">
+    <inertial>
+      <origin xyz="0 -0.016 -0.02" />
+      <mass value="0.688133140376" />
+      <inertia ixx="0.0021523154848" ixy="0.000265918958032" ixz="1.41099855282e-05" iyy="0.00228256150507" iyz="1.62807525326e-06" izz="0.000442836468886" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -1.57079632679 0" />
+      <geometry>
+        <mesh filename="../visual_dae/mini_upper_link.dae" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 -0.05 -0.092" />
+      <geometry>
+        <cylinder length="0.17" radius="0.015" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="leg2_shank_link">
+    <inertial>
+      <origin xyz="0 0 -0.061" />
+      <mass value="0.0694645441389" />
+      <inertia ixx="0.000265918958032" ixy="0" ixz="0" iyy="0.000269175108538" iyz="0" izz="6.51230101302e-06" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 3.14159265359 0" />
+      <geometry>
+        <mesh filename="../visual_dae/mini_lower_link.dae" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 -0.1" />
+      <geometry>
+        <cylinder length="0.10" radius="0.010" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="leg2_foot_link">
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="0.0108538350217" />
+      <inertia ixx="1.7715195369e-06" ixy="0" ixz="0" iyy="1.7715195369e-06" iyz="0" izz="1.7715195369e-06" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.024" />
+      <geometry>
+        <sphere radius="0.0202" />
+      </geometry>
+      <material name="foot_gray" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.024" />
+      <geometry>
+        <sphere radius="0.0202" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="leg3_hip_link">
+    <inertial>
+      <origin xyz="0.055 0.036 0" />
+      <mass value="0.586107091172" />
+      <inertia ixx="0.000413531114327" ixy="6.29522431259e-05" ixz="4.88422575977e-07" iyy="0.000607814761216" iyz="1.03111432706e-06" izz="0.000481910274964" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="../visual_dae/mini_abad.dae" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0.052 0.02 0" rpy="1.57079632679 0 0" />
+      <geometry>
+        <cylinder length="0.025" radius="0.05" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="leg3_thigh_link">
+    <inertial>
+      <origin xyz="0 0.016 -0.02" />
+      <mass value="0.688133140376" />
+      <inertia ixx="0.0021523154848" ixy="0.000265918958032" ixz="1.41099855282e-05" iyy="0.00228256150507" iyz="1.62807525326e-06" izz="0.000442836468886" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -1.57079632679 0" />
+      <geometry>
+        <mesh filename="../visual_dae/mini_upper_link.dae" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0.05 -0.092" />
+      <geometry>
+        <cylinder length="0.17" radius="0.015" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="leg3_shank_link">
+    <inertial>
+      <origin xyz="0 0 -0.061" />
+      <mass value="0.0694645441389" />
+      <inertia ixx="0.000265918958032" ixy="0" ixz="0" iyy="0.000269175108538" iyz="0" izz="6.51230101302e-06" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 3.14159265359 0" />
+      <geometry>
+        <mesh filename="../visual_dae/mini_lower_link.dae" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 -0.1" />
+      <geometry>
+        <cylinder length="0.10" radius="0.010" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="leg3_foot_link">
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="0.0108538350217" />
+      <inertia ixx="1.7715195369e-06" ixy="0" ixz="0" iyy="1.7715195369e-06" iyz="0" izz="1.7715195369e-06" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.024" />
+      <geometry>
+        <sphere radius="0.0202" />
+      </geometry>
+      <material name="foot_gray" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.024" />
+      <geometry>
+        <sphere radius="0.0202" />
+      </geometry>
+    </collision>
+  </link>
+  <!-- FR / YoboGo leg0 / ORCAgym rf -->
+  <joint name="leg0_abad_joint" type="revolute">
+    <origin xyz="0.14775 -0.049 0" />
+    <parent link="base_link" />
+    <child link="leg0_hip_link" />
+    <axis xyz="1 0 0" />
+    <limit lower="-1.5" upper="1.5" effort="17" velocity="41" />
+  </joint>
+  <joint name="leg0_hip_joint" type="revolute">
+    <origin xyz="0.055 -0.019 0" />
+    <parent link="leg0_hip_link" />
+    <child link="leg0_thigh_link" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-5" upper="5" effort="17" velocity="41" />
+  </joint>
+  <joint name="leg0_knee_joint" type="revolute">
+    <origin xyz="0 -0.049 -0.2085" />
+    <parent link="leg0_thigh_link" />
+    <child link="leg0_shank_link" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-2.7" upper="2.7" effort="26" velocity="26.8" />
+  </joint>
+  <joint name="leg0_shank_to_foot_joint" type="fixed">
+    <origin xyz="0 0 -0.22" />
+    <parent link="leg0_shank_link" />
+    <child link="leg0_foot_link" />
+  </joint>
+  <!-- FL / YoboGo leg1 / ORCAgym lf -->
+  <joint name="leg1_abad_joint" type="revolute">
+    <origin xyz="0.14775 0.049 0" />
+    <parent link="base_link" />
+    <child link="leg1_hip_link" />
+    <axis xyz="1 0 0" />
+    <limit lower="-1.5" upper="1.5" effort="17" velocity="41" />
+  </joint>
+  <joint name="leg1_hip_joint" type="revolute">
+    <origin xyz="0.055 0.019 0" />
+    <parent link="leg1_hip_link" />
+    <child link="leg1_thigh_link" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-5" upper="5" effort="17" velocity="41" />
+  </joint>
+  <joint name="leg1_knee_joint" type="revolute">
+    <origin xyz="0 0.049 -0.2085" />
+    <parent link="leg1_thigh_link" />
+    <child link="leg1_shank_link" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-2.7" upper="2.7" effort="26" velocity="26.8" />
+  </joint>
+  <joint name="leg1_shank_to_foot_joint" type="fixed">
+    <origin xyz="0 0 -0.22" />
+    <parent link="leg1_shank_link" />
+    <child link="leg1_foot_link" />
+  </joint>
+  <!-- RR / YoboGo leg2 / ORCAgym rh -->
+  <joint name="leg2_abad_joint" type="revolute">
+    <origin xyz="-0.14775 -0.049 0" rpy="0 3.14159265359 0" />
+    <parent link="base_link" />
+    <child link="leg2_hip_link" />
+    <axis xyz="-1 0 0" />
+    <limit lower="-1.5" upper="1.5" effort="17" velocity="41" />
+  </joint>
+  <joint name="leg2_hip_joint" type="revolute">
+    <origin xyz="0.055 -0.019 0" rpy="0 3.14159265359 0" />
+    <parent link="leg2_hip_link" />
+    <child link="leg2_thigh_link" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-5" upper="5" effort="17" velocity="41" />
+  </joint>
+  <joint name="leg2_knee_joint" type="revolute">
+    <origin xyz="0 -0.049 -0.2085" />
+    <parent link="leg2_thigh_link" />
+    <child link="leg2_shank_link" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-2.7" upper="2.7" effort="26" velocity="26.8" />
+  </joint>
+  <joint name="leg2_shank_to_foot_joint" type="fixed">
+    <origin xyz="0 0 -0.22" />
+    <parent link="leg2_shank_link" />
+    <child link="leg2_foot_link" />
+  </joint>
+  <!-- RL / YoboGo leg3 / ORCAgym lh -->
+  <joint name="leg3_abad_joint" type="revolute">
+    <origin xyz="-0.14775 0.049 0" rpy="0 3.14159265359 0" />
+    <parent link="base_link" />
+    <child link="leg3_hip_link" />
+    <axis xyz="-1 0 0" />
+    <limit lower="-1.5" upper="1.5" effort="17" velocity="41" />
+  </joint>
+  <joint name="leg3_hip_joint" type="revolute">
+    <origin xyz="0.055 0.019 0" rpy="0 3.14159265359 0" />
+    <parent link="leg3_hip_link" />
+    <child link="leg3_thigh_link" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-5" upper="5" effort="17" velocity="41" />
+  </joint>
+  <joint name="leg3_knee_joint" type="revolute">
+    <origin xyz="0 0.049 -0.2085" />
+    <parent link="leg3_thigh_link" />
+    <child link="leg3_shank_link" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-2.7" upper="2.7" effort="26" velocity="26.8" />
+  </joint>
+  <joint name="leg3_shank_to_foot_joint" type="fixed">
+    <origin xyz="0 0 -0.22" />
+    <parent link="leg3_shank_link" />
+    <child link="leg3_foot_link" />
+  </joint>
+</robot>

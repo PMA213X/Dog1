@@ -1,0 +1,73 @@
+{
+  "status": "passed",
+  "contract": "official_mini_cheetah_flat_jump_v1_r3",
+  "world": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/worlds/flat_move_jump_rl.wbt",
+  "num_envs": 4,
+  "ports": [
+    11452,
+    11453,
+    11454,
+    11455
+  ],
+  "steps_per_case": 200,
+  "action_target_rate_limit": 1.0,
+  "cases": [
+    {
+      "name": "zero",
+      "command": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "steps": 200,
+      "robot_steps": 800,
+      "rewards_finite": true,
+      "reward_mean": -2.667621288895607,
+      "mean_vx": 0.018814405935117975,
+      "mean_vx_abs": 0.06879705577041023,
+      "average_contact_feet": 2.51,
+      "zero_contact_ratio": 0.0,
+      "synchronous_done_count": 0,
+      "source_action_saturation_mean": 0.07624999999999998,
+      "action_saturation_mean": 0.07624999999999998,
+      "target_rate_limit_values": [
+        1.0
+      ],
+      "target_lag_mean": 0.043417004689678136,
+      "target_lag_max": 0.1995777731512984,
+      "fall_count": 0,
+      "emergency_stop_count": 0,
+      "termination_reasons": [],
+      "elapsed_seconds": 1.9311468990017602
+    },
+    {
+      "name": "forward",
+      "command": [
+        0.18,
+        0.0,
+        0.0
+      ],
+      "steps": 200,
+      "robot_steps": 800,
+      "rewards_finite": true,
+      "reward_mean": 0.4043403256498277,
+      "mean_vx": 0.018013154777581804,
+      "mean_vx_abs": 0.05864275411993731,
+      "average_contact_feet": 2.525,
+      "zero_contact_ratio": 0.0,
+      "synchronous_done_count": 0,
+      "source_action_saturation_mean": 0.07375,
+      "action_saturation_mean": 0.07375,
+      "target_rate_limit_values": [
+        1.0
+      ],
+      "target_lag_mean": 0.02876253479882963,
+      "target_lag_max": 0.07152469422978651,
+      "fall_count": 0,
+      "emergency_stop_count": 0,
+      "termination_reasons": [],
+      "elapsed_seconds": 1.6702608320010768
+    }
+  ],
+  "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU"
+}

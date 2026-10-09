@@ -17,7 +17,18 @@ if str(ROOT) not in sys.path:
 
 import rl.contract as contract
 from rl.evaluate import PHYSICAL_THRESHOLDS
-from rl.reward import RewardInputs, compute_reward
+from rl.reward import (
+    EFFECTIVE_SUPPORT_MAX_POSTURE,
+    EFFECTIVE_SUPPORT_MIN_HEIGHT,
+    NON_FOOT_COLLISION_WEIGHT,
+    RAPID_SOURCE_ACTION_LIMITS,
+    RAPID_SOURCE_ACTION_SATURATION_RAMP_START,
+    RAPID_FINETUNE_FOOT_SLIP_THRESHOLD,
+    RAPID_FINETUNE_FOOT_SLIP_WEIGHT,
+    RewardInputs,
+    compute_reward,
+    source_action_saturation_penalty,
+)
 
 
 class ContractTests(unittest.TestCase):
@@ -27,11 +38,15 @@ class ContractTests(unittest.TestCase):
         self.assertEqual(contract.CONTROL_RATE_HZ, 50)
         self.assertEqual(contract.BRIDGE_PORT, 11452)
         self.assertEqual(contract.ACTION_RATE_LIMIT, 0.08)
-        self.assertEqual(contract.ACTION_TARGET_RATE_LIMIT, 0.03)
+        self.assertEqual(contract.ACTION_TARGET_RATE_LIMIT, 1.0)
+        self.assertIn(
+            contract.ACTION_TARGET_RATE_LIMIT,
+            contract.ACTION_TARGET_RATE_LADDER,
+        )
         self.assertAlmostEqual(
             contract.ACTION_TARGET_RATE_LIMIT
             * contract.CONTROL_DT_SECONDS,
-            0.0006,
+            0.02,
         )
         self.assertEqual(contract.P1_EPISODE_STEPS, 500)
         self.assertEqual(contract.P1_CONTACT_TRANSITION_START, 280_000)
@@ -371,6 +386,270 @@ class RewardTests(unittest.TestCase):
         self.assertEqual(later["command_speed_progress"], 0.0)
         self.assertEqual(later["command_displacement_progress"], 0.0)
         self.assertAlmostEqual(later["gait"], 0.0)
+
+    def test_rapid_finetune_zero_command_keeps_four_foot_reward(self) -> None:
+        full = compute_reward(
+            inputs(
+                "P2",
+                finetune_mode=True,
+                command=[0.0, 0.0, 0.0],
+                contacts=[1.0] * 4,
+            )
+        )[1]
+        partial = compute_reward(
+            inputs(
+                "P2",
+                finetune_mode=True,
+                command=[0.0, 0.0, 0.0],
+                contacts=[1.0, 1.0, 0.0, 0.0],
+            )
+        )[1]
+        self.assertGreater(full["true_four_foot_contact"], 0.0)
+        self.assertEqual(full["support_gap"], 0.0)
+        self.assertEqual(partial["true_four_foot_contact"], 0.0)
+        self.assertEqual(partial["support_gap"], -2.0)
+        self.assertEqual(partial["finetune_moving_contact"], 0.0)
+        self.assertGreater(
+            sum(full.values()),
+            sum(partial.values()),
+        )
+
+    def test_rapid_finetune_moving_contact_branch(self) -> None:
+        command = [0.15, 0.0, 0.0]
+        common = {
+            "phase": "P2",
+            "finetune_mode": True,
+            "command": command,
+            "displacement": [0.003, 0.0, 0.0],
+        }
+        two_feet = compute_reward(
+            inputs(
+                velocity=[0.15, 0.0, 0.0],
+                contacts=[1.0, 1.0, 0.0, 0.0],
+                **common,
+            )
+        )[1]
+        one_foot = compute_reward(
+            inputs(
+                velocity=[0.15, 0.0, 0.0],
+                contacts=[1.0, 0.0, 0.0, 0.0],
+                **common,
+            )
+        )[1]
+        zero_feet = compute_reward(
+            inputs(
+                velocity=[0.0, 0.0, 0.0],
+                contacts=[0.0] * 4,
+                **common,
+            )
+        )[1]
+        self.assertEqual(two_feet["finetune_moving_contact"], 0.0)
+        four_feet = compute_reward(
+            inputs(
+                velocity=[0.15, 0.0, 0.0],
+                contacts=[1.0] * 4,
+                **common,
+            )
+        )[1]
+        self.assertEqual(four_feet["finetune_moving_contact"], 0.0)
+        self.assertLess(one_foot["finetune_moving_contact"], -3.0)
+        self.assertLess(
+            zero_feet["finetune_moving_contact"],
+            one_foot["finetune_moving_contact"],
+        )
+        self.assertEqual(two_feet["true_four_foot_contact"], 0.0)
+        self.assertEqual(two_feet["support_gap"], 0.0)
+        self.assertEqual(two_feet["gait"], 0.0)
+        self.assertGreater(two_feet["command_speed_progress"], 0.0)
+        self.assertGreater(two_feet["command_displacement_progress"], 0.0)
+        three_feet = compute_reward(
+            inputs(
+                velocity=[0.15, 0.0, 0.0],
+                contacts=[1.0, 1.0, 1.0, 0.0],
+                **common,
+            )
+        )[1]
+        self.assertEqual(
+            two_feet["finetune_moving_contact_guard"],
+            -1.0,
+        )
+        self.assertEqual(
+            three_feet["finetune_moving_contact_guard"],
+            0.0,
+        )
+
+    def test_rapid_finetune_gate_failures_get_actionable_penalty(self) -> None:
+        """按 final Gate 数值验证微调分支能形成足够负反馈。"""
+        stop = compute_reward(
+            inputs(
+                "P2",
+                finetune_mode=True,
+                command=[0.0, 0.0, 0.0],
+                velocity=[0.16534, 0.0, 0.0],
+                height=0.23623,
+                contacts=[1.0, 1.0, 1.0, 0.0],
+                foot_velocities=[0.05394, 0.0, 0.0] * 4,
+            )
+        )[1]
+        self.assertLess(stop["command_tracking"], -0.20)
+        # height_p05 实测低于 0.25，低姿 toe 触地不再算有效支撑。
+        self.assertEqual(stop["support_gap"], -4.0)
+        self.assertEqual(stop["true_four_foot_contact"], 0.0)
+        self.assertLess(stop["height"], -0.35)
+        self.assertEqual(stop["foot_slip"], 0.0)
+        stop_slip = compute_reward(
+            inputs(
+                "P2",
+                finetune_mode=True,
+                command=[0.0, 0.0, 0.0],
+                velocity=[0.16534, 0.0, 0.0],
+                height=0.26,
+                contacts=[1.0, 1.0, 1.0, 0.0],
+                foot_velocities=[0.05394, 0.0, 0.0] * 4,
+            )
+        )[1]
+        self.assertLess(stop_slip["foot_slip"], -1.50)
+
+        forward = compute_reward(
+            inputs(
+                "P2",
+                finetune_mode=True,
+                command=[0.25, 0.0, 0.0],
+                velocity=[0.08751, 0.08823, 0.0],
+                height=0.23623,
+                contacts=[1.0, 1.0, 1.0, 0.0],
+                foot_velocities=[0.05394, 0.0, 0.0] * 4,
+            )
+        )[1]
+        # 横向速度被纳入同一命令平方误差，直接压低 forward 漂移。
+        self.assertLess(forward["command_tracking"], -0.25)
+        self.assertEqual(forward["finetune_moving_contact_guard"], -5.0)
+        legacy_forward = compute_reward(
+            inputs(
+                "P2",
+                finetune_mode=False,
+                command=[0.25, 0.0, 0.0],
+                velocity=[0.08751, 0.08823, 0.0],
+                height=0.23623,
+                contacts=[1.0, 1.0, 1.0, 0.0],
+                foot_velocities=[0.05394, 0.0, 0.0] * 4,
+            )
+        )[1]
+        self.assertLess(
+            forward["command_tracking"],
+            legacy_forward["command_tracking"],
+        )
+        self.assertLess(forward["height"], legacy_forward["height"])
+        self.assertEqual(forward["foot_slip"], 0.0)
+        self.assertEqual(legacy_forward["foot_slip"], 0.0)
+
+    def test_effective_support_requires_upright_height_and_posture(self) -> None:
+        low = compute_reward(
+            inputs(
+                "P1",
+                height=EFFECTIVE_SUPPORT_MIN_HEIGHT - 0.001,
+                contacts=[1.0] * 4,
+                foot_velocities=[0.2] * 12,
+            )
+        )[1]
+        tilted = compute_reward(
+            inputs(
+                "P1",
+                roll=EFFECTIVE_SUPPORT_MAX_POSTURE + 0.001,
+                contacts=[1.0] * 4,
+                foot_velocities=[0.2] * 12,
+            )
+        )[1]
+        for parts in (low, tilted):
+            self.assertEqual(parts["true_four_foot_contact"], 0.0)
+            self.assertEqual(parts["support_gap"], -4.0)
+            self.assertEqual(parts["foot_slip"], 0.0)
+
+    def test_non_foot_shank_or_body_contact_is_large_penalty(self) -> None:
+        parts = compute_reward(inputs("P2", non_foot_contact=True))[1]
+        self.assertEqual(
+            parts["non_foot_collision"],
+            NON_FOOT_COLLISION_WEIGHT,
+        )
+        self.assertLess(parts["non_foot_collision"], -50.0)
+
+    def test_foot_slip_aggregates_every_effective_toe(self) -> None:
+        foot_velocities = [
+            0.01, 0.0, 0.0,
+            0.02, 0.0, 0.0,
+            0.03, 0.0, 0.0,
+            0.04, 0.0, 0.0,
+        ]
+        parts = compute_reward(
+            inputs(
+                "P1",
+                contacts=[1.0] * 4,
+                foot_velocities=foot_velocities,
+            )
+        )[1]
+        # 四足均值为 0.025，超过 legacy 0.02 起罚线 0.005，再乘 -20；
+        # 若错误地只保留最后一足，结果会是 -0.40。
+        self.assertAlmostEqual(parts["foot_slip"], -0.10, places=12)
+
+    def test_rapid_foot_slip_uses_stricter_gate_margin(self) -> None:
+        parts = compute_reward(
+            inputs(
+                "P2",
+                finetune_mode=True,
+                command=[0.15, 0.0, 0.0],
+                velocity=[0.15, 0.0, 0.0],
+                contacts=[1.0] * 4,
+                foot_velocities=[0.03, 0.0, 0.0] * 4,
+            )
+        )[1]
+        expected = RAPID_FINETUNE_FOOT_SLIP_WEIGHT * max(
+            0.0,
+            math.hypot(0.03, 0.0)
+            - RAPID_FINETUNE_FOOT_SLIP_THRESHOLD,
+        )
+        self.assertLess(RAPID_FINETUNE_FOOT_SLIP_THRESHOLD, 0.02)
+        self.assertAlmostEqual(parts["foot_slip"], expected, places=12)
+
+    def test_rapid_source_action_saturation_penalty(self) -> None:
+        boundary = list(RAPID_SOURCE_ACTION_LIMITS)
+        below = [
+            RAPID_SOURCE_ACTION_SATURATION_RAMP_START * value
+            for value in boundary
+        ]
+        self.assertEqual(source_action_saturation_penalty(below), 0.0)
+        self.assertLess(source_action_saturation_penalty(boundary), 0.0)
+        overflowing = boundary.copy()
+        overflowing[0] = 2.5
+        first_joint_excess = (
+            (2.5 / 2.4 - RAPID_SOURCE_ACTION_SATURATION_RAMP_START)
+            / (1.0 - RAPID_SOURCE_ACTION_SATURATION_RAMP_START)
+        )
+        expected = -0.5 * (
+            (first_joint_excess + (len(boundary) - 1)) / len(boundary)
+        )
+        self.assertAlmostEqual(
+            source_action_saturation_penalty(overflowing),
+            expected,
+            places=12,
+        )
+        parts = compute_reward(
+            inputs(
+                "P2",
+                finetune_mode=True,
+                command=[0.15, 0.0, 0.0],
+                source_action=overflowing,
+            )
+        )[1]
+        self.assertAlmostEqual(
+            parts["source_action_saturation"],
+            expected,
+            places=12,
+        )
+        self.assertLess(parts["source_action_saturation"], 0.0)
+        with self.assertRaises(ValueError):
+            source_action_saturation_penalty(
+                [math.nan] + [0.0] * 11
+            )
 
     def test_gate_failure_terms_are_penalized_more_in_p1(self) -> None:
         fast_feet = [0.2] * 12

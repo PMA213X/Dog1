@@ -1,0 +1,55 @@
+[3gH    H    H    H    H    H    H    H    H    H    H    H    H    H    H    H    H    H    H    H   [INFO] Using python from: /home/pma213x/.venvs/minicheetah-isaaclab/bin/python
+usage: play_keyboard.py [-h] [--task TASK] [--checkpoint CHECKPOINT]
+                        [--num_envs NUM_ENVS] [--smoke-steps SMOKE_STEPS]
+                        [--no-keyboard] [--record-video]
+                        [--walk-steps WALK_STEPS] [--walk-speed WALK_SPEED]
+                        [--video-fps VIDEO_FPS] [--output OUTPUT] [--headless]
+                        [--livestream {0,1,2}] [--enable_cameras]
+                        [--device DEVICE] [--verbose] [--info]
+                        [--experience EXPERIENCE] [--kit_args KIT_ARGS]
+
+YoboGo Isaac Lab 官方键盘速度回放
+
+options:
+  -h, --help            show this help message and exit
+  --task TASK           Gym 任务名
+  --checkpoint CHECKPOINT
+                        RSL-RL checkpoint；默认使用最终 model_4799.pt
+  --num_envs NUM_ENVS   并行环境数
+  --smoke-steps SMOKE_STEPS
+                        有限回放步数；0 表示运行到窗口关闭
+  --no-keyboard         不创建 Se2Keyboard；使用固定速度命令
+  --record-video        录制固定前进命令的机器人行走视频
+  --walk-steps WALK_STEPS
+                        录制模式的环境步数；400 步配合 40 FPS 约为 10 秒
+  --walk-speed WALK_SPEED
+                        录制模式的固定前进速度，单位 m/s
+  --video-fps VIDEO_FPS
+                        录制视频帧率
+  --output OUTPUT       录制视频输出路径；默认写入 outputs/yobogo-walk/
+
+app_launcher arguments:
+  Arguments for the AppLauncher. For more details, please check the
+  documentation.
+
+  --headless            Force display off at all times.
+  --livestream {0,1,2}  Force enable livestreaming. Mapping corresponds to
+                        that for the `LIVESTREAM` environment variable.
+  --enable_cameras      Enable camera sensors and relevant extension
+                        dependencies.
+  --device DEVICE       The device to run the simulation on. Can be "cpu",
+                        "cuda", "cuda:N", where N is the device ID
+  --verbose             Enable verbose-level log output from the
+                        SimulationApp.
+  --info                Enable info-level log output from the SimulationApp.
+  --experience EXPERIENCE
+                        The experience file to load when launching the
+                        SimulationApp. If an empty string is provided, the
+                        experience file is determined based on the headless
+                        flag. If a relative path is provided, it is resolved
+                        relative to the `apps` folder in Isaac Sim and Isaac
+                        Lab (in that order).
+  --kit_args KIT_ARGS   Command line arguments for Omniverse Kit as a string
+                        separated by a space delimiter. Example usage:
+                        --kit_args "--ext-folder=/path/to/ext1 --ext-
+                        folder=/path/to/ext2"

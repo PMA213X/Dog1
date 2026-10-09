@@ -1,0 +1,31 @@
+test_action_scale_and_safety_clip (training.tests.test_rapid_locomotion_adapter.RapidActionTests) ... ok
+test_history_keeps_raw_policy_action (training.tests.test_rapid_locomotion_adapter.RapidActionTests) ... ok
+test_yobogo_action_formula (training.tests.test_rapid_locomotion_adapter.RapidActionTests) ... FAIL
+test_zero_raw_action_targets_rapid_defaults (training.tests.test_rapid_locomotion_adapter.RapidActionTests) ... ok
+test_real_jit_load_and_dummy_forward (training.tests.test_rapid_locomotion_adapter.RapidModelTests) ... ok
+test_command_clips_before_scale (training.tests.test_rapid_locomotion_adapter.RapidObservationTests) ... ok
+test_observation_rejects_wrong_shape (training.tests.test_rapid_locomotion_adapter.RapidObservationTests) ... ok
+test_rear_haa_axis_sign (training.tests.test_rapid_locomotion_adapter.RapidObservationTests) ... ok
+test_yobogo_48_to_rapid_42 (training.tests.test_rapid_locomotion_adapter.RapidObservationTests) ... ok
+test_10_cycle_schedule_and_history_shape (training.tests.test_rapid_locomotion_adapter.RapidScheduleTests) ... ok
+test_partial_reset_only_clears_selected_env (training.tests.test_rapid_locomotion_adapter.RapidScheduleTests) ... ok
+test_reset_clears_all_state (training.tests.test_rapid_locomotion_adapter.RapidScheduleTests) ... ok
+
+======================================================================
+FAIL: test_yobogo_action_formula (training.tests.test_rapid_locomotion_adapter.RapidActionTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/mini-cheetah-isaaclab/training/tests/test_rapid_locomotion_adapter.py", line 149, in test_yobogo_action_formula
+    torch.testing.assert_close(yobogo_action[0], expected)
+  File "/home/pma213x/.venvs/minicheetah-isaaclab/lib/python3.10/site-packages/torch/testing/_comparison.py", line 1530, in assert_close
+    raise error_metas[0].to_error(msg)
+AssertionError: Tensor-likes are not close!
+
+Mismatched elements: 12 / 12 (100.0%)
+Greatest absolute difference: 0.07500000298023224 at index (1,) (up to 1e-05 allowed)
+Greatest relative difference: 0.43911945819854736 at index (1,) (up to 1.3e-06 allowed)
+
+----------------------------------------------------------------------
+Ran 12 tests in 0.044s
+
+FAILED (failures=1)

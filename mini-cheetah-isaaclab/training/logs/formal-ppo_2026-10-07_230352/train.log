@@ -1,0 +1,13 @@
+[3gH    H    H    H    H    H    H    H    H    H    H    H    H    H    H    H    H    H    H    H   [INFO] Using python from: /home/pma213x/.venvs/minicheetah-isaaclab/bin/python
+Traceback (most recent call last):
+  File "<string>", line 13, in <module>
+  File "/home/pma213x/.local/share/uv/python/cpython-3.10-linux-x86_64-gnu/lib/python3.10/runpy.py", line 289, in run_path
+    return _run_module_code(code, init_globals, run_name,
+  File "/home/pma213x/.local/share/uv/python/cpython-3.10-linux-x86_64-gnu/lib/python3.10/runpy.py", line 96, in _run_module_code
+    _run_code(code, mod_globals, init_globals,
+  File "/home/pma213x/.local/share/uv/python/cpython-3.10-linux-x86_64-gnu/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/home/pma213x/IsaacLab/scripts/reinforcement_learning/rsl_rl/train.py", line 16, in <module>
+    import cli_args  # isort: skip
+  File "<string>", line 7, in _delayed_import
+ModuleNotFoundError: No module named 'cli_args'

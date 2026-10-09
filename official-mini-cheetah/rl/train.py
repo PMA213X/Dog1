@@ -8,11 +8,28 @@ import argparse
 import math
 import os
 import time
+from collections import deque
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Callable, Mapping, Optional, Sequence
 
+import numpy as np
+
 from . import contract
+from .rapid_policy import RAPID_MODEL_DIR
+from .rapid_finetune_policy import (
+    RAPID_ACTOR_LR,
+    RAPID_CRITIC_LR,
+    RAPID_ADAPTATION_LR,
+    RAPID_ENT_COEF,
+    RAPID_PPO_PARAMS,
+    RAPID_STAGE_ADAPTATION_START,
+    RAPID_STAGE_ACTOR_START,
+    RAPID_STAGE_CRITIC_ONLY,
+    RAPID_TOTAL_STEPS,
+    RapidActorCriticPolicy,
+    RapidPPO,
+)
 
 
 GPU_NAME = "NVIDIA GeForce RTX 4060 Laptop GPU"
@@ -138,6 +155,18 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
     parser.add_argument("--phase", required=True, choices=tuple(contract.PHASE_TOTAL_STEPS))
     parser.add_argument("--total-steps", type=int, default=None)
     parser.add_argument("--resume", type=str, default=None)
+    parser.add_argument(
+        "--init-from",
+        choices=("none", "rapid"),
+        default="none",
+        help="rapid 使用固定提交 Rapid 权重初始化 500k 微调",
+    )
+    parser.add_argument(
+        "--pretrained-dir",
+        type=str,
+        default=str(RAPID_MODEL_DIR),
+        help="Rapid 固定提交资产目录",
+    )
     parser.add_argument("--ckptdir", type=str, default=str(contract.CHECKPOINT_ROOT))
     parser.add_argument("--ckpt-prefix", type=str, default=contract.CONTRACT_VERSION)
     parser.add_argument("--logdir", type=str, default=None)
@@ -163,11 +192,22 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
     args = parser.parse_args(argv)
 
     args.phase = contract.normalize_phase(args.phase)
+    args.pretrained_dir = str(
+        Path(args.pretrained_dir).expanduser().resolve()
+    )
+    if args.init_from == "rapid":
+        if args.phase != "P2":
+            parser.error("--init-from rapid 当前只支持 P2")
+        if args.total_steps is None:
+            args.total_steps = RAPID_TOTAL_STEPS
+        args.randomization_mode = "fixed"
     target = (
         contract.PHASE_DEFAULT_TARGETS[args.phase]
         if args.total_steps is None
         else int(args.total_steps)
     )
+    if args.init_from == "rapid" and target != RAPID_TOTAL_STEPS:
+        parser.error(f"Rapid 微调目标必须为 {RAPID_TOTAL_STEPS} 步")
     max_target = contract.PHASE_TOTAL_STEPS[args.phase]
     if target <= 0 or target > max_target:
         parser.error(f"累计目标必须位于 (0, {max_target}]")
@@ -231,7 +271,56 @@ def validate_cuda() -> None:
     print(f"CUDA_OK name={name} device=cuda:0 capability={torch.cuda.get_device_capability(0)}")
 
 
-def make_callback(target: int, save_dir: Path, interval: int) -> list[Any]:
+def _rapid_adaptation_platform(
+    samples: Sequence[tuple[int, float]],
+    *,
+    current_step: int,
+) -> bool:
+    """按 200k-250k 与 250k-300k 的前进进度判断是否已平台。"""
+    early = [
+        value
+        for step, value in samples
+        if RAPID_STAGE_ADAPTATION_START - 100_000
+        <= step
+        < RAPID_STAGE_ADAPTATION_START - 50_000
+    ]
+    late = [
+        value
+        for step, value in samples
+        if RAPID_STAGE_ADAPTATION_START - 50_000
+        <= step
+        < current_step
+    ]
+    if len(early) < 1_000 or len(late) < 1_000:
+        return False
+    early_mean = sum(early) / len(early)
+    late_mean = sum(late) / len(late)
+    return abs(late_mean - early_mean) <= 0.02 and late_mean < 0.95
+
+
+def rapid_finetune_stage(steps: int) -> int:
+    """按累计步数返回 0/1/2，先稳定 critic 再允许 actor 漂移。
+
+    冻结 smoke 的 stop/forward 接触与饱和明显优于 500k final；把 actor
+    解冻推迟到命令课程切换的 100k，可先让 critic 拟合新的 Gate 对齐奖励，
+    不改变 300k adaptation 平台判定或任何执行安全边界。
+    """
+    if steps < 0:
+        raise ValueError("Rapid 微调累计步数不能为负")
+    if steps < RAPID_STAGE_CRITIC_ONLY:
+        return 0
+    if steps < RAPID_STAGE_ACTOR_START:
+        return 1
+    return 2
+
+
+def make_callback(
+    target: int,
+    save_dir: Path,
+    interval: int,
+    *,
+    rapid: bool = False,
+) -> list[Any]:
     """在精确累计目标停止并按步数或时间保存。"""
     from stable_baselines3.common.callbacks import BaseCallback
 
@@ -243,12 +332,113 @@ def make_callback(target: int, save_dir: Path, interval: int) -> list[Any]:
             self.last_seconds = 0.0
             self.last_heartbeat = 0
             self.telemetry = TelemetryState()
+            self.rapid = bool(rapid)
+            self.speed_samples: deque[tuple[int, float]] = deque(
+                maxlen=200_000
+            )
+            self.applied_stages: set[int] = set()
+            self.adaptation_platform = False
 
         def _init_callback(self) -> None:
             self.started = time.monotonic()
             self.last_steps = int(self.model.num_timesteps)
             self.last_seconds = 0.0
             self.last_heartbeat = int(self.model.num_timesteps)
+            self._update_rapid_stage(int(self.model.num_timesteps), [])
+
+        def _record_rapid(
+            self,
+            steps: int,
+            infos: Sequence[Mapping[str, Any]],
+        ) -> None:
+            saturation: list[float] = []
+            source_abs: list[float] = []
+            for info in infos:
+                mapped = info.get("rapid_mapped_action")
+                source = info.get("rapid_source_action")
+                if mapped is not None:
+                    values = np.asarray(mapped, dtype=np.float32)
+                    if values.shape == (contract.ACTION_DIM,):
+                        saturation.append(
+                            float(np.mean(np.abs(values) >= 0.999999))
+                        )
+                if source is not None:
+                    values = np.asarray(source, dtype=np.float32)
+                    if values.shape == (contract.ACTION_DIM,):
+                        source_abs.append(float(np.mean(np.abs(values))))
+                command = info.get("command")
+                parts = info.get("reward_parts")
+                command_values = (
+                    np.asarray(command, dtype=np.float32)
+                    if command is not None
+                    else np.empty(0, dtype=np.float32)
+                )
+                if (
+                    command_values.shape == (3,)
+                    and bool(np.all(np.isfinite(command_values)))
+                    and float(command_values[0]) > 1e-6
+                    and isinstance(parts, Mapping)
+                    and "command_speed_progress" in parts
+                ):
+                    self.speed_samples.append(
+                        (steps, float(parts["command_speed_progress"]))
+                    )
+            if saturation:
+                self.logger.record(
+                    "rapid/action_saturation_rate",
+                    sum(saturation) / len(saturation),
+                )
+            if source_abs:
+                self.logger.record(
+                    "rapid/source_action_abs_mean",
+                    sum(source_abs) / len(source_abs),
+                )
+            self.logger.record(
+                "rapid/speed_progress_mean",
+                sum(value for _step, value in self.speed_samples)
+                / max(1, len(self.speed_samples)),
+            )
+            self._update_rapid_stage(steps, infos)
+
+        def _update_rapid_stage(
+            self,
+            steps: int,
+            infos: Sequence[Mapping[str, Any]],
+        ) -> None:
+            del infos
+            if not self.rapid:
+                return
+            policy = getattr(self.model, "policy", None)
+            if not hasattr(policy, "apply_finetune_stage"):
+                return
+            stage = rapid_finetune_stage(steps)
+            adaptation = False
+            if stage == 2:
+                if 2 not in self.applied_stages:
+                    self.adaptation_platform = _rapid_adaptation_platform(
+                        list(self.speed_samples),
+                        current_step=steps,
+                    )
+                adaptation = self.adaptation_platform
+            if stage in self.applied_stages:
+                return
+            message = policy.apply_finetune_stage(
+                stage,
+                adaptation_enabled=adaptation,
+            )
+            self.applied_stages.add(stage)
+            self.logger.record(
+                "rapid/stage",
+                float(stage),
+            )
+            self.logger.record(
+                "rapid/adaptation_platform",
+                float(adaptation),
+            )
+            print(
+                f"RAPID_STAGE steps={steps} {message}",
+                flush=True,
+            )
 
         def _on_step(self) -> bool:
             steps = int(self.num_timesteps)
@@ -257,6 +447,8 @@ def make_callback(target: int, save_dir: Path, interval: int) -> list[Any]:
             step_rewards = self.locals.get("rewards", [])
             dones = self.locals.get("dones", [])
             update_telemetry(self.telemetry, infos, step_rewards, dones)
+            if self.rapid:
+                self._record_rapid(steps, infos)
             totals: dict[str, list[float]] = {}
             for info in infos:
                 if not isinstance(info, dict):
@@ -305,6 +497,38 @@ def load_or_create(args: argparse.Namespace, env: Any) -> Any:
     """创建新模型或严格加载同前缀 checkpoint。"""
     from stable_baselines3 import PPO
 
+    if args.init_from == "rapid":
+        overrides = dict(RAPID_PPO_PARAMS)
+        if args.resume:
+            path = contract.validate_checkpoint_path(args.resume)
+            if not path.is_file():
+                raise SystemExit(f"checkpoint 不存在：{path}")
+            model = RapidPPO.load(
+                str(path),
+                env=env,
+                device="cuda",
+                tensorboard_log=args.logdir,
+                **overrides,
+            )
+            if set(model.observation_space.spaces) != {"current", "history"}:
+                raise SystemExit("Rapid checkpoint 观测空间不是 current/history")
+            if model.action_space.shape != (contract.ACTION_DIM,):
+                raise SystemExit("Rapid checkpoint 动作维度不是 12")
+            print(f"MODEL_LOADED path={path} steps={model.num_timesteps}")
+            return model
+        return RapidPPO(
+            RapidActorCriticPolicy,
+            env,
+            policy_kwargs={
+                "rapid_model_dir": args.pretrained_dir,
+            },
+            tensorboard_log=args.logdir,
+            device="cuda",
+            seed=args.seed,
+            verbose=1,
+            **overrides,
+        )
+
     overrides = dict(PPO_PARAMS)
     if args.resume:
         path = contract.validate_checkpoint_path(args.resume)
@@ -339,11 +563,12 @@ def train(args: argparse.Namespace) -> Path:
     """执行单阶段训练并返回最终 checkpoint。"""
     validate_cuda()
     from .shared_world_vec_env import SharedWorldVecEnv
+    from .rapid_finetune_vec_env import RapidFinetuneVecEnv
 
     Path(args.logdir).mkdir(parents=True, exist_ok=True)
     save_dir = Path(args.ckptdir)
     save_dir.mkdir(parents=True, exist_ok=True)
-    env = SharedWorldVecEnv(
+    base_env = SharedWorldVecEnv(
         num_envs=args.num_envs,
         phase=args.phase,
         bridge_port=args.bridge_port,
@@ -351,8 +576,17 @@ def train(args: argparse.Namespace) -> Path:
         render_mode="human" if args.webots_gui else None,
         seed=args.seed,
     )
+    env = base_env
+    if args.init_from == "rapid":
+        env = RapidFinetuneVecEnv(
+            base_env,
+            model_dir=args.pretrained_dir,
+            command_course=True,
+            finetune_mode=True,
+            seed=args.seed,
+        )
     try:
-        configure_phase_step_offset(env, args.phase_step_offset)
+        configure_phase_step_offset(base_env, args.phase_step_offset)
         model = load_or_create(args, env)
         current = int(model.num_timesteps)
         if current > args.total_steps:
@@ -367,7 +601,10 @@ def train(args: argparse.Namespace) -> Path:
             model.learn(
                 total_timesteps=remaining,
                 callback=make_callback(
-                    args.total_steps, save_dir, args.checkpoint_interval
+                    args.total_steps,
+                    save_dir,
+                    args.checkpoint_interval,
+                    rapid=args.init_from == "rapid",
                 ),
                 reset_num_timesteps=not args.resume,
                 progress_bar=False,
@@ -390,6 +627,20 @@ def print_config(args: argparse.Namespace) -> None:
     print("=" * 72)
     print(f"CONTRACT {contract.CONTRACT_VERSION}")
     print(f"PHASE {args.phase} TARGET {args.total_steps}")
+    print(
+        f"INIT_FROM {args.init_from} "
+        f"PRETRAINED_DIR {args.pretrained_dir}"
+    )
+    if args.init_from == "rapid":
+        print(
+            "RAPID_PPO "
+            f"n_steps={RAPID_PPO_PARAMS['n_steps']} "
+            f"batch={RAPID_PPO_PARAMS['batch_size']} "
+            f"epochs={RAPID_PPO_PARAMS['n_epochs']} "
+            f"actor_lr={RAPID_ACTOR_LR} critic_lr={RAPID_CRITIC_LR} "
+            f"adaptation_lr={RAPID_ADAPTATION_LR} "
+            f"entropy={RAPID_ENT_COEF}"
+        )
     print(f"DIMS obs={contract.OBS_DIM} action={contract.ACTION_DIM} rate={contract.CONTROL_RATE_HZ}Hz")
     print("DEVICE cuda CUDA_VISIBLE_DEVICES=0")
     print(f"GPU {GPU_NAME}")

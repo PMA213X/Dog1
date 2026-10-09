@@ -1,0 +1,7 @@
+{
+  "task": "YoboGo-Velocity-Flat-v0",
+  "mode": "all",
+  "seed": 0,
+  "status": "fail",
+  "error": "RuntimeError: Could not infer dtype of dict"
+}

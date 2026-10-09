@@ -1,0 +1,7 @@
+{
+  "task": "YoboGo-Velocity-Flat-v0",
+  "mode": "all",
+  "seed": 0,
+  "status": "fail",
+  "error": "AssertionError: 站立四足有效接触比例 >= 0.95"
+}

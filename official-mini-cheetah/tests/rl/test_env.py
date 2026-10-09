@@ -675,7 +675,9 @@ class EnvironmentTests(unittest.TestCase):
         self.assertTrue(math.isfinite(reward))
         env.close()
 
-    def test_true_contact_requires_cached_shank_node_ids(self) -> None:
+    def test_true_contact_requires_toe_region_and_rejects_shank_box(
+        self,
+    ) -> None:
         class Shank:
             def __init__(self, node_id: int, velocity: list[float]) -> None:
                 self.node_id = node_id
@@ -686,6 +688,14 @@ class EnvironmentTests(unittest.TestCase):
 
             def getPosition(self) -> list[float]:
                 return [0.0, 0.0, 0.0]
+
+            @staticmethod
+            def getOrientation() -> list[float]:
+                return [
+                    1.0, 0.0, 0.0,
+                    0.0, 1.0, 0.0,
+                    0.0, 0.0, 1.0,
+                ]
 
             def getVelocity(self) -> list[float]:
                 return self.velocity
@@ -722,7 +732,7 @@ class EnvironmentTests(unittest.TestCase):
         }
         controller._previous_foot_points = [None] * 4
         controller.contact_points = lambda: [
-            Contact(101, [0.20, -0.10, 0.0]),
+            Contact(101, [0.0, 0.0, -0.09]),
             Contact(999, [0.18, -0.10, 0.0]),
         ]
         contacts, velocities, non_foot, body, source = (
@@ -733,6 +743,16 @@ class EnvironmentTests(unittest.TestCase):
         self.assertTrue(body)
         self.assertEqual(source, "node_id")
         self.assertAlmostEqual(velocities[0], 0.01)
+
+        # 同一 shank node 上的 Box 接触不得伪装成 toe。
+        controller._previous_foot_points = [None] * 4
+        controller.contact_points = lambda: [
+            Contact(101, [0.015, 0.0, -0.02]),
+        ]
+        contacts, _, non_foot, _, source = controller.foot_contacts_and_slip()
+        self.assertEqual(contacts, [0.0] * 4)
+        self.assertTrue(non_foot)
+        self.assertEqual(source, "unmapped_fail_closed")
 
         controller._foot_shank_node_ids = {}
         controller._foot_shank_nodes = {}

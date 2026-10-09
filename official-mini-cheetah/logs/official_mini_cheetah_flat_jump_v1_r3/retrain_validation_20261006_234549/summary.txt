@@ -1,0 +1,15 @@
+状态: PASS
+证据目录: /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/official-mini-cheetah/logs/official_mini_cheetah_flat_jump_v1_r3/retrain_validation_20261006_234549
+全量单测: 146 tests, OK, exit=0 (unittest_full_final.log / unittest_full_final.exit)
+修改文件 py_compile: exit=0 (py_compile_final.log / py_compile_final.exit)
+Rapid train dry-run: P2, init rapid, 500000, 4 env, exit=0 (train_rapid_dry_run_final.log / .exit)
+Rapid evaluate dry-run: P2, gate, rapid-finetune, exit=0 (evaluate_rapid_dry_run_final.log / .exit)
+真实四机 Webots 冒烟: zero/forward 各 200 vector step = 800 robot step/case, exit=0 (webots_smoke.log / webots_smoke.exit)
+限速: RL_ACTION_TARGET_RATE_LIMIT=1.0，两个 case 的 target_rate_limit_values 均为 [1.0]
+NaN/Traceback 扫描: 无匹配；对应 rg 退出码 1 表示 0 处命中 (webots_smoke_bad_tokens.exit / webots_smoke_result_bad_tokens.exit)
+跌倒/急停: fall_count=0，emergency_stop_count=0，termination_reasons=[]，同步 done=0
+最终端口: 1234/11452-11455 无 LISTEN、无 ANY 状态 (ports_final_listen.txt / ports_final_all_states.txt)
+最终进程: 无 webots-bin、rl_agent、rl.run_stages 残留 (processes_final.txt)
+训练 world 截图: /tmp/dog1_webots_train_visual_1791300885.png，深蓝灰底+青色网格可见 (world_visual_confirmation.txt)
+证据脚本修复: 首次辅助脚本 py_compile/运行失败均已先报告，仅修复该证据脚本自身缩进与 ndarray 判断；失败日志保留于 webots_smoke_attempt1_failed.*
+生产代码/文档: 未修改；未启动正式训练；未执行 Git。

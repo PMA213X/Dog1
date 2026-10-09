@@ -1,0 +1,35 @@
+usage: python3 -m rl.train [-h] --phase {P0,P1,P2,P3,P4,P5,P6,P7}
+                           [--total-steps TOTAL_STEPS] [--resume RESUME]
+                           [--init-from {none,rapid}]
+                           [--pretrained-dir PRETRAINED_DIR]
+                           [--ckptdir CKPTDIR] [--ckpt-prefix CKPT_PREFIX]
+                           [--logdir LOGDIR] [--bridge-port BRIDGE_PORT]
+                           [--randomization-mode {fixed,curriculum,dr1,dr2,dr3,dr4,dr5,dr6,dr7,full}]
+                           [--device {cuda}]
+                           [--checkpoint-interval CHECKPOINT_INTERVAL]
+                           [--webots-gui] [--num-envs {4}] [--seed SEED]
+                           [--phase-step-offset PHASE_STEP_OFFSET] [--dry-run]
+
+official_mini_cheetah_flat_jump_v1_r3
+
+options:
+  -h, --help            show this help message and exit
+  --phase {P0,P1,P2,P3,P4,P5,P6,P7}
+  --total-steps TOTAL_STEPS
+  --resume RESUME
+  --init-from {none,rapid}
+                        rapid 使用固定提交 Rapid 权重初始化 500k 微调
+  --pretrained-dir PRETRAINED_DIR
+                        Rapid 固定提交资产目录
+  --ckptdir CKPTDIR
+  --ckpt-prefix CKPT_PREFIX
+  --logdir LOGDIR
+  --bridge-port BRIDGE_PORT
+  --randomization-mode {fixed,curriculum,dr1,dr2,dr3,dr4,dr5,dr6,dr7,full}
+  --device {cuda}
+  --checkpoint-interval CHECKPOINT_INTERVAL
+  --webots-gui
+  --num-envs {4}        共享单 world 固定使用四台机器人
+  --seed SEED
+  --phase-step-offset PHASE_STEP_OFFSET
+  --dry-run

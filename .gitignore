@@ -40,3 +40,7 @@ frame_preview/
 __pycache__/
 *.pyc
 webots-sim/rl/.mock_test/
+
+# 本地大文件与机器人备份（不提交到 GitHub）
+robot_backups/
+official-mini-cheetah/logs/official_mini_cheetah_flat_jump_v1_r3/play/rapid_play_20261006_190917.jsonl

@@ -1,0 +1,31 @@
+START 2026-10-07T16:45:40+08:00
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/home/pma213x/IsaacLab/source/isaaclab_rl/isaaclab_rl/__init__.py", line 21, in <module>
+    from . import rl_games, rsl_rl, sb3, skrl
+  File "/home/pma213x/IsaacLab/source/isaaclab_rl/isaaclab_rl/rl_games.py", line 44, in <module>
+    from isaaclab.envs import DirectRLEnv, ManagerBasedRLEnv, VecEnvObs
+  File "/home/pma213x/IsaacLab/source/isaaclab/isaaclab/envs/__init__.py", line 45, in <module>
+    from . import mdp, ui
+  File "/home/pma213x/IsaacLab/source/isaaclab/isaaclab/envs/mdp/__init__.py", line 18, in <module>
+    from .actions import *  # noqa: F401, F403
+  File "/home/pma213x/IsaacLab/source/isaaclab/isaaclab/envs/mdp/actions/__init__.py", line 8, in <module>
+    from .actions_cfg import *
+  File "/home/pma213x/IsaacLab/source/isaaclab/isaaclab/envs/mdp/actions/actions_cfg.py", line 9, in <module>
+    from isaaclab.managers.action_manager import ActionTerm, ActionTermCfg
+  File "/home/pma213x/IsaacLab/source/isaaclab/isaaclab/managers/__init__.py", line 13, in <module>
+    from .action_manager import ActionManager, ActionTerm
+  File "/home/pma213x/IsaacLab/source/isaaclab/isaaclab/managers/action_manager.py", line 20, in <module>
+    from isaaclab.assets import AssetBase
+  File "/home/pma213x/IsaacLab/source/isaaclab/isaaclab/assets/__init__.py", line 41, in <module>
+    from .articulation import Articulation, ArticulationCfg, ArticulationData
+  File "/home/pma213x/IsaacLab/source/isaaclab/isaaclab/assets/articulation/__init__.py", line 8, in <module>
+    from .articulation import Articulation
+  File "/home/pma213x/IsaacLab/source/isaaclab/isaaclab/assets/articulation/articulation.py", line 16, in <module>
+    import isaacsim.core.utils.stage as stage_utils
+ModuleNotFoundError: No module named 'isaacsim.core'
+EXIT 1
+END 2026-10-07T16:45:42+08:00

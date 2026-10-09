@@ -33,6 +33,12 @@ from joint_safety import (  # noqa: E402
     SLIGHTLY_EXTENDED,
     validate_joint_feedback,
 )
+from teleop_input import (  # noqa: E402
+    JOYSTICK_DEADZONE,
+    KeyboardState,
+    normalize_joystick_axis,
+    read_webots_keyboard,
+)
 from tcp_protocol import decode, encode, validate_message  # noqa: E402
 
 
@@ -49,6 +55,10 @@ RSI_POSTURE_TOLERANCE = 0.08
 TOE_CONTACT_MATERIALS = frozenset(
     {"fr_toe", "fl_toe", "hr_toe", "hl_toe"}
 )
+# 小腿局部坐标中的 toe 球心和半径；与生成器的碰撞 Transform 严格对应。
+TOE_CENTER_LOCAL = (0.0, 0.0, -0.09)
+TOE_COLLISION_RADIUS = 0.015
+TOE_CONTACT_POSITION_TOLERANCE = 0.0005
 ROBOT_SPAWNS: Dict[int, tuple[float, float, float]] = {
     0: (-4.0, -4.0, contract.BIRTH_HEIGHT),
     1: (4.0, -4.0, contract.BIRTH_HEIGHT),
@@ -124,20 +134,10 @@ def action_to_stance_targets(action: Sequence[float]) -> tuple[float, ...]:
 def smooth_action_targets(
     previous: Sequence[float],
     desired: Sequence[float],
+    rate_limit: float | str | None = None,
 ) -> tuple[float, ...]:
-    """限制策略动作映射后的相邻目标变化；不用于 reset/RSI。"""
-    if len(previous) != contract.ACTION_DIM or len(desired) != contract.ACTION_DIM:
-        raise ValueError("关节目标必须为 12 维")
-    previous_values = tuple(float(value) for value in previous)
-    desired_values = tuple(float(value) for value in desired)
-    if not all(math.isfinite(value) for value in previous_values + desired_values):
-        raise ValueError("关节目标必须为有限值")
-    limit = contract.ACTION_TARGET_RATE_LIMIT * CONTROL_DT
-    limited = tuple(
-        max(current - limit, min(current + limit, target))
-        for current, target in zip(previous_values, desired_values)
-    )
-    return clamp_joint_targets(limited)
+    """限制策略动作映射后的相邻目标变化；与 contract/play 使用同一语义。"""
+    return contract.limit_joint_targets(previous, desired, rate_limit)
 
 
 def connection_failure_report(error: BaseException) -> str:
@@ -190,6 +190,12 @@ class RlAgentController:
         self._control_cycle = 0
         self._last_control_diagnostics: Dict[str, Any] = {}
         self._action_targets: tuple[float, ...] | None = None
+        # play 输入只在真实 play 分支初始化，训练和无 TCP 模式保持不变。
+        self._play_input_enabled = False
+        self._play_keyboard: Any = None
+        self._play_joystick: Any = None
+        self._play_keyboard_state: KeyboardState | None = None
+        self._play_last_input_at = 0.0
 
     def _fail_initialization(
         self,
@@ -381,6 +387,87 @@ class RlAgentController:
             )
         return True
 
+    def initialize_play_input(self) -> None:
+        """初始化 Webots 键盘与手柄；至少必须有一种可用输入设备。"""
+        if getattr(self, "_play_input_enabled", False):
+            return
+        errors: list[str] = []
+        try:
+            keyboard = self.robot.getKeyboard()
+            if keyboard is None:
+                raise RuntimeError("Webots 返回空 Keyboard")
+            keyboard.enable(self.timestep)
+            self._play_keyboard = keyboard
+        except Exception as exc:
+            self._play_keyboard = None
+            errors.append(f"keyboard={type(exc).__name__}: {exc}")
+        try:
+            joystick = self.robot.getJoystick()
+            if joystick is None:
+                raise RuntimeError("Webots 返回空 Joystick")
+            joystick.enable(self.timestep)
+            self._play_joystick = joystick
+        except Exception as exc:
+            self._play_joystick = None
+            errors.append(f"joystick={type(exc).__name__}: {exc}")
+        if self._play_keyboard is None and self._play_joystick is None:
+            raise RuntimeError(
+                "play 输入初始化失败，键盘和手柄均不可用："
+                + "；".join(errors)
+            )
+        self._play_keyboard_state = KeyboardState()
+        self._play_last_input_at = time.monotonic()
+        self._play_input_enabled = True
+
+    def _read_play_input(self) -> Dict[str, Any]:
+        """读取一帧键盘/手柄原始数据，供 host 端 InputAdapter 统一判定。"""
+        if not self._play_input_enabled:
+            raise RuntimeError("play 输入尚未初始化")
+        now = time.monotonic()
+        keys: list[int] = []
+        if (
+            self._play_keyboard is not None
+            and self._play_keyboard_state is not None
+        ):
+            events = read_webots_keyboard(self._play_keyboard)
+            frame = self._play_keyboard_state.update(events, now)
+            keys = sorted(int(code) for code in frame.active_codes)
+        axes = [0.0, 0.0, 0.0]
+        buttons: list[int] = []
+        joystick_connected = False
+        if self._play_joystick is not None:
+            try:
+                joystick_connected = bool(self._play_joystick.isConnected())
+            except Exception:
+                joystick_connected = False
+            if joystick_connected:
+                for index in range(3):
+                    value = normalize_joystick_axis(
+                        self._play_joystick.getAxisValue(index)
+                    )
+                    axes[index] = 0.0 if value is None else float(value)
+                while True:
+                    pressed = int(self._play_joystick.getPressedButton())
+                    if pressed < 0:
+                        break
+                    buttons.append(pressed)
+        if (
+            keys
+            or any(abs(value) >= JOYSTICK_DEADZONE for value in axes)
+            or buttons
+        ):
+            self._play_last_input_at = now
+        # 键盘或手柄任一可用即可；两者都不可用才向 host 报断连。
+        disconnected = self._play_keyboard is None and not joystick_connected
+        return {
+            "keys": keys,
+            "axes": axes,
+            "buttons": buttons,
+            "now": now,
+            "last_input_at": self._play_last_input_at,
+            "disconnected": disconnected,
+        }
+
     @staticmethod
     def _node_name(node: Any) -> str:
         """读取节点 name 字段；协议节点缺失时返回空串。"""
@@ -568,6 +655,24 @@ class RlAgentController:
         target_positions = tuple(
             float(motor.getTargetPosition()) for motor in self.motors
         )
+        feedback_positions_finite = all(
+            math.isfinite(value) for value in positions
+        )
+        target_positions_finite = all(
+            math.isfinite(value) for value in target_positions
+        )
+        # Webots 在异常分支可能返回无限目标；遥测只写有限值，禁止传播 NaN/Inf。
+        executed_for_telemetry = (
+            target_positions if target_positions_finite else targets
+        )
+        target_info = contract.target_telemetry(
+            desired_targets,
+            executed_for_telemetry,
+        )
+        limited_target_info = contract.target_telemetry(
+            desired_targets,
+            targets,
+        )
         available_torque = tuple(
             float(motor.getAvailableTorque()) for motor in self.motors
         )
@@ -575,9 +680,17 @@ class RlAgentController:
         diagnostics = {
             "cycle": self._control_cycle,
             "feedback_valid": bool(valid),
-            "target_min": min(target_positions),
-            "target_max": max(target_positions),
-            "targets_equal_requested": all(
+            "desired_targets": [float(value) for value in desired_targets],
+            "rate_limited_targets": [float(value) for value in targets],
+            "executed_targets": [float(value) for value in executed_for_telemetry],
+            "feedback_positions": [float(value) for value in positions],
+            "feedback_positions_finite": feedback_positions_finite,
+            "executed_targets_finite": target_positions_finite,
+            "previous_targets": [float(value) for value in previous_targets],
+            "target_min": min(executed_for_telemetry),
+            "target_max": max(executed_for_telemetry),
+            "targets_equal_requested": target_positions_finite
+            and all(
                 abs(actual - requested) <= 1e-9
                 for actual, requested in zip(target_positions, targets)
             ),
@@ -586,17 +699,26 @@ class RlAgentController:
             "height_before": height_before,
             "used_position_target": bool(valid),
             "used_zero_torque_branch": not valid,
-            "position_infinite": any(
-                not math.isfinite(value) for value in target_positions
-            ),
+            "position_infinite": not target_positions_finite,
             "target_rate_limit": contract.ACTION_TARGET_RATE_LIMIT,
             "target_delta_max": max(
                 abs(actual - previous)
-                for actual, previous in zip(target_positions, previous_targets)
+                for actual, previous in zip(
+                    executed_for_telemetry,
+                    previous_targets,
+                )
             ),
             "desired_target_delta_max": max(
                 abs(actual - previous)
                 for actual, previous in zip(desired_targets, previous_targets)
+            ),
+            "target_lag_mean": target_info["mean"],
+            "target_lag_rms": target_info["rms"],
+            "target_lag_max": target_info["max"],
+            "rate_limited_lag_mean": limited_target_info["mean"],
+            "desired_executed_target_delta": list(target_info["delta"]),
+            "desired_rate_limited_target_delta": list(
+                limited_target_info["delta"]
             ),
         }
         for _ in range(5):
@@ -1155,14 +1277,46 @@ class RlAgentController:
             return []
 
     def _contact_node_foot_index(self, contact: Any) -> tuple[int | None, Any]:
-        """只接受预先解析并缓存的小腿 node_id，不做象限猜测。"""
+        """只把 shank node 上落入局部 toe 球区域的接触计为足端。"""
         try:
             contact_node_id = int(contact.getNodeId())
         except Exception:
             return None, None
         for index, shank_node_id in self._foot_shank_node_ids.items():
             if contact_node_id == shank_node_id:
-                return index, self._foot_shank_nodes.get(index)
+                shank_node = self._foot_shank_nodes.get(index)
+                if shank_node is None:
+                    return None, None
+                try:
+                    point = tuple(float(value) for value in contact.getPoint())
+                    shank_position = tuple(
+                        float(value) for value in shank_node.getPosition()
+                    )
+                    shank_orientation = tuple(
+                        float(value) for value in shank_node.getOrientation()
+                    )
+                    relative = tuple(
+                        point[axis] - shank_position[axis]
+                        for axis in range(3)
+                    )
+                    local_point = world_to_body(relative, shank_orientation)
+                    distance = math.sqrt(
+                        sum(
+                            (local_point[axis] - TOE_CENTER_LOCAL[axis]) ** 2
+                            for axis in range(3)
+                        )
+                    )
+                except Exception:
+                    # 无法证明是 toe 球接触时按 shank 非足端 fail closed。
+                    return None, shank_node
+                if (
+                    math.isfinite(distance)
+                    and distance
+                    <= TOE_COLLISION_RADIUS + TOE_CONTACT_POSITION_TOLERANCE
+                ):
+                    return index, shank_node
+                # Box/小腿接触返回 shank 节点，调用方据此标记非足端。
+                return None, shank_node
         return None, None
 
     def foot_contacts_and_slip(
@@ -1206,6 +1360,8 @@ class RlAgentController:
             index, contact_node = self._contact_node_foot_index(contact)
             if index is None:
                 non_foot_contact = True
+                # 明确来自 shank Box 的接触必须进入非足端惩罚路径；
+                # 位于机身低矮范围时继续触发 body_contact 终止。
                 if (
                     point[2] <= 0.08
                     and abs(local_point[0]) <= 0.28
@@ -1357,7 +1513,7 @@ class RlAgentController:
         )
         if not all(math.isfinite(float(value)) for value in values):
             raise RuntimeError("状态包含 NaN/Inf")
-        return {
+        result = {
             "q": list(positions),
             "dq": list(velocities),
             "rpy": [roll, pitch, yaw],
@@ -1379,6 +1535,61 @@ class RlAgentController:
             "jump_landing": self._jump_landing_event,
             "done": False,
         }
+        diagnostics = getattr(self, "_last_control_diagnostics", {})
+        if "executed_targets" in diagnostics:
+            # 训练和 play 共用同一控制遥测；额外字段不影响 57 维观测。
+            result["execution_telemetry"] = {
+                "desired_targets": diagnostics["desired_targets"],
+                "rate_limited_targets": diagnostics["rate_limited_targets"],
+                "executed_targets": diagnostics["executed_targets"],
+                "feedback_positions": diagnostics["feedback_positions"],
+                "previous_targets": diagnostics["previous_targets"],
+                "target_rate_limit": diagnostics["target_rate_limit"],
+                "target_lag_mean": diagnostics["target_lag_mean"],
+                "target_lag_rms": diagnostics["target_lag_rms"],
+                "target_lag_max": diagnostics["target_lag_max"],
+                "desired_executed_target_delta": diagnostics[
+                    "desired_executed_target_delta"
+                ],
+                "desired_rate_limited_target_delta": diagnostics[
+                    "desired_rate_limited_target_delta"
+                ],
+                "executed_targets_finite": diagnostics[
+                    "executed_targets_finite"
+                ],
+                "feedback_positions_finite": diagnostics[
+                    "feedback_positions_finite"
+                ],
+            }
+        if getattr(self, "_play_input_enabled", False):
+            result["play_input"] = self._read_play_input()
+            if "execution_telemetry" in result:
+                # 保留既有 play 字段，避免旧测试/日志兼容性破坏。
+                telemetry = result["execution_telemetry"]
+                result["play_control"] = {
+                    "desired_targets": telemetry["desired_targets"],
+                    "rate_limited_targets": telemetry["rate_limited_targets"],
+                    "executed_targets": telemetry["executed_targets"],
+                    "feedback_positions": telemetry["feedback_positions"],
+                    "previous_targets": telemetry["previous_targets"],
+                    "target_rate_limit": telemetry["target_rate_limit"],
+                    "target_lag_mean": telemetry["target_lag_mean"],
+                    "target_lag_rms": telemetry["target_lag_rms"],
+                    "target_lag_max": telemetry["target_lag_max"],
+                    "desired_executed_target_delta": telemetry[
+                        "desired_executed_target_delta"
+                    ],
+                    "desired_rate_limited_target_delta": telemetry[
+                        "desired_rate_limited_target_delta"
+                    ],
+                    "executed_targets_finite": telemetry[
+                        "executed_targets_finite"
+                    ],
+                    "feedback_positions_finite": telemetry[
+                        "feedback_positions_finite"
+                    ],
+                }
+        return result
 
     def update_jump(self, requested: bool, height: float, contacts: int) -> None:
         """维护二进制跳跃锁存、峰值与成功/落地事件。"""
@@ -1594,6 +1805,9 @@ def requested_mode() -> str:
         ),
         "",
     )
+    # rl.play 在启动环境子进程时继承该标记；覆盖 env 固定写入的 train。
+    if os.environ.get("RL_PLAY_INTEGRATION", "").strip() == "1":
+        return "play"
     environment = os.environ.get("RL_AGENT_MODE", "").strip().lower()
     if environment in {"train", "smoke", "settle", "play"}:
         return environment
@@ -1637,7 +1851,24 @@ def main() -> int:
         for report in controller.capability_error_reports():
             print(report, flush=True)
         mode = requested_mode()
-        if mode == "train":
+        if mode in {"train", "play"}:
+            if mode == "play":
+                try:
+                    controller.initialize_play_input()
+                except Exception as exc:
+                    print(
+                        "RL_CONTROLLER_ERROR play_input_initialization_failed: "
+                        f"{type(exc).__name__}: {exc}",
+                        flush=True,
+                    )
+                    traceback.print_exc()
+                    return 1
+                print(
+                    "RL_CONTROLLER_PLAY_INPUT_READY "
+                    f"keyboard={controller._play_keyboard is not None} "
+                    f"joystick={controller._play_joystick is not None}",
+                    flush=True,
+                )
             try:
                 return controller.tcp_loop()
             except (ConnectionError, TimeoutError, OSError) as exc:

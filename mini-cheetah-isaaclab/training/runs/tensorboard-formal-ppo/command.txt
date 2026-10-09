@@ -1,0 +1,4 @@
+systemd-run --user --unit=yobogo-tensorboard-20261007233806 --property=Type=exec /home/pma213x/.local/bin/tensorboard --logdir /run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/mini-cheetah-isaaclab/training/logs/rsl_rl/yobogo_velocity_flat --host 127.0.0.1 --port 6007 --reload_interval 5
+logdir=/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/mini-cheetah-isaaclab/training/logs/rsl_rl/yobogo_velocity_flat
+bind=127.0.0.1
+port=6007

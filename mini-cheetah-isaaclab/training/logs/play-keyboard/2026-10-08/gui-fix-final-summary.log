@@ -1,0 +1,15 @@
+GUI_FINAL_DOCS_VERIFY_OK files=3 logs=7
+== exit codes ==
+gui-fix-pycompile=exit_code=0
+gui-fix-static-check=exit_code=0
+gui-fix-help=exit_code=0
+gui-fix-headless-smoke=exit_code=0
+gui-diagnostic=exit_code=0
+gui-fix-docs-verify=exit_code=0
+gui-smoke=exit_code=137
+== files ==
+11145 training/scripts/play_keyboard.py
+8022 README.md
+6210 ../docs/changes/2026-10-08.md
+15420 ../docs/features/mini-cheetah-isaaclab-training-workspace.md
+== residual processes ==

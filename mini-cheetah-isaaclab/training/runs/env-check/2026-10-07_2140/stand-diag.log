@@ -1,0 +1,231 @@
+[3gH    H    H    H    H    H    H    H    H    H    H    H    H    H    H    H    H    H    H    H   [INFO] Using python from: /home/pma213x/.venvs/minicheetah-isaaclab/bin/python
+[INFO][AppLauncher]: Loading experience file: /home/pma213x/IsaacLab/apps/isaaclab.python.headless.kit
+[Warning] [simulation_app.simulation_app] Modules: ['omni.kit_app'] were loaded before SimulationApp was started and might not be loaded correctly.
+[Warning] [simulation_app.simulation_app] Please check to make sure no extra omniverse or pxr modules are imported before the call to SimulationApp(...)
+Loading user config located at: '/home/pma213x/.venvs/minicheetah-isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.5/user.config.json'
+[Info] [carb] Logging to file: /home/pma213x/.venvs/minicheetah-isaaclab/lib/python3.10/site-packages/omni/logs/Kit/Isaac-Sim/4.5/kit_20261007_210735.log
+2026-10-07 13:07:35 [0ms] [Warning] [omni.kit.app.plugin] No crash reporter present, dumps uploading isn't available.
+2026-10-07 13:07:35 [98ms] [Warning] [omni.usd_config.extension] Enable omni.materialx.libs extension to use MaterialX
+2026-10-07 13:07:35 [341ms] [Warning] [omni.datastore] OmniHub is inaccessible
+2026-10-07 13:07:35 [440ms] [Warning] [omni.isaac.dynamic_control] omni.isaac.dynamic_control is deprecated as of Isaac Sim 4.5. No action is needed from end-users.
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+2026-10-07 13:07:38 [3,370ms] [Warning] [gpu.foundation.plugin] Skipping unsupported non-NVIDIA GPU: Intel(R) UHD Graphics (ADL-S GT0.5)
+2026-10-07 13:07:38 [3,370ms] [Warning] [gpu.foundation.plugin] Skipping unsupported non-NVIDIA GPU: Intel(R) UHD Graphics (ADL-S GT0.5)
+
+|---------------------------------------------------------------------------------------------|
+| Driver Version: 580.178.04    | Graphics API: Vulkan
+|=============================================================================================|
+| GPU | Name                             | Active | LDA | GPU Memory | Vendor-ID | LUID       |
+|     |                                  |        |     |            | Device-ID | UUID       |
+|     |                                  |        |     |            | Bus-ID    |            |
+|---------------------------------------------------------------------------------------------|
+| 0   | NVIDIA GeForce RTX 4060 Laptop.. | Yes: 0 |     | 8188    MB | 10de      | 0          |
+|     |                                  |        |     |            | 28e0      | 4d090564.. |
+|     |                                  |        |     |            | 1         |            |
+|---------------------------------------------------------------------------------------------|
+| 1   | Intel(R) UHD Graphics (ADL-S G.. |        |     | 11374   MB | 8086      | 0          |
+|     |                                  |        |     |            | 468b      | 86808b46.. |
+|     |                                  |        |     |            | 0         |            |
+|=============================================================================================|
+| OS: 26.04.1 LTS (Resolute Raccoon) ubuntu, Version: 26.04.1, Kernel: 7.0.0-34-generic
+| XServer Vendor: The X.Org Foundation, XServer Version: 12401010 (1.24.1.10)
+| Processor: 13th Gen Intel(R) Core(TM) i5-13500HX
+| Bare Metal Cores: 14 | Bare Metal Logical Cores: 28
+| Available Cores:  20 
+|---------------------------------------------------------------------------------------------|
+| Total Memory (MB): 15166 | Free Memory: 6788
+| Total Page/Swap (MB): 20479 | Free Page/Swap: 15890
+|---------------------------------------------------------------------------------------------|
+2026-10-07 13:07:39 [3,624ms] [Warning] [gpu.foundation.plugin] IOMMU is enabled.
+2026-10-07 13:07:39 [3,626ms] [Warning] [gpu.foundation.plugin] Detected IOMMU is enabled. Running CUDA peer-to-peer bandwidth and latency validation.
+Unidirectional P2P=Enabled Bandwidth (P2P Writes) Matrix (GB/s)
+   D\D     0 
+     0 226.55 
+P2P=Enabled Latency (P2P Writes) Matrix (us)
+   GPU     0 
+     0   1.38 
+
+   CPU     0 
+     0   2.38 
+[INFO]: Parsing configuration from: training.envs.velocity_flat_env_cfg:YoboGoVelocityFlatEnvCfg
+2026-10-07 13:07:39 [3,835ms] [Warning] [isaaclab.envs.manager_based_env] Seed not set for the environment. The environment creation may not be deterministic.
+[INFO]: Base environment:
+	Environment device    : cuda:0
+	Environment seed      : None
+	Physics step-size     : 0.0004
+	Rendering step-size   : 0.002
+	Environment step-size : 0.002
+2026-10-07 13:07:39 [3,940ms] [Warning] [isaaclab.terrains.terrain_importer] Visual material specified for ground plane but no diffuse color found. Using default color: (0.0, 0.0, 0.0)
+[INFO]: Time taken for scene creation : 2.945602 seconds
+[INFO]: Scene manager:  <class InteractiveScene>
+	Number of environments: 1
+	Environment spacing   : 2.5
+	Source prim name      : /World/envs/env_0
+	Global prim paths     : ['/World/ground']
+	Replicate physics     : True
+[INFO]: Starting the simulation. This may take a few seconds. Please wait...
+[INFO]: Time taken for simulation start : 0.474246 seconds
+2026-10-07 13:07:43 [7,641ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of /builds/omniverse/usd-ci/USD/pxr/usd/usdShade/shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPreviewSurface.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+2026-10-07 13:07:43 [7,642ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of /builds/omniverse/usd-ci/USD/pxr/usd/usdShade/shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdUVTexture.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+2026-10-07 13:07:43 [7,642ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of /builds/omniverse/usd-ci/USD/pxr/usd/usdShade/shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_float.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+2026-10-07 13:07:43 [7,642ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of /builds/omniverse/usd-ci/USD/pxr/usd/usdShade/shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_float2.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+2026-10-07 13:07:43 [7,642ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of /builds/omniverse/usd-ci/USD/pxr/usd/usdShade/shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_float3.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+2026-10-07 13:07:43 [7,642ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of /builds/omniverse/usd-ci/USD/pxr/usd/usdShade/shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_float4.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+2026-10-07 13:07:43 [7,642ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of /builds/omniverse/usd-ci/USD/pxr/usd/usdShade/shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_int.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+2026-10-07 13:07:43 [7,642ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of /builds/omniverse/usd-ci/USD/pxr/usd/usdShade/shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_string.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+2026-10-07 13:07:43 [7,643ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of /builds/omniverse/usd-ci/USD/pxr/usd/usdShade/shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_normal.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+2026-10-07 13:07:43 [7,643ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of /builds/omniverse/usd-ci/USD/pxr/usd/usdShade/shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_point.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+2026-10-07 13:07:43 [7,644ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of /builds/omniverse/usd-ci/USD/pxr/usd/usdShade/shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_vector.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+2026-10-07 13:07:43 [7,644ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of /builds/omniverse/usd-ci/USD/pxr/usd/usdShade/shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_matrix.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+2026-10-07 13:07:43 [7,645ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of /builds/omniverse/usd-ci/USD/pxr/usd/usdShade/shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdTransform2d.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+[INFO] Command Manager:  <CommandManager> contains 1 active terms.
++------------------------------------------------+
+|              Active Command Terms              |
++-------+---------------+------------------------+
+| Index | Name          |          Type          |
++-------+---------------+------------------------+
+|   0   | base_velocity | UniformVelocityCommand |
++-------+---------------+------------------------+
+
+[INFO] Recorder Manager:  <RecorderManager> contains 0 active terms.
++---------------------+
+| Active Recorder Terms |
++-----------+---------+
+|   Index   | Name    |
++-----------+---------+
++-----------+---------+
+
+[INFO] Action Manager:  <ActionManager> contains 1 active terms.
++------------------------------------+
+|  Active Action Terms (shape: 12)   |
++--------+-------------+-------------+
+| Index  | Name        |   Dimension |
++--------+-------------+-------------+
+|   0    | joint_pos   |          12 |
++--------+-------------+-------------+
+
+[INFO] Observation Manager: <ObservationManager> contains 1 groups.
++---------------------------------------------------------+
+| Active Observation Terms in Group: 'policy' (shape: (48,)) |
++-----------+---------------------------------+-----------+
+|   Index   | Name                            |   Shape   |
++-----------+---------------------------------+-----------+
+|     0     | base_lin_vel                    |    (3,)   |
+|     1     | base_ang_vel                    |    (3,)   |
+|     2     | projected_gravity               |    (3,)   |
+|     3     | velocity_commands               |    (3,)   |
+|     4     | joint_pos                       |   (12,)   |
+|     5     | joint_vel                       |   (12,)   |
+|     6     | actions                         |   (12,)   |
++-----------+---------------------------------+-----------+
+
+[INFO] Event Manager:  <EventManager> contains 3 active terms.
++--------------------------------------+
+| Active Event Terms in Mode: 'startup' |
++----------+---------------------------+
+|  Index   | Name                      |
++----------+---------------------------+
+|    0     | physics_material          |
++----------+---------------------------+
++---------------------------------------+
+|  Active Event Terms in Mode: 'reset'  |
++--------+------------------------------+
+| Index  | Name                         |
++--------+------------------------------+
+|   0    | base_external_force_torque   |
+|   1    | reset_base                   |
+|   2    | reset_robot_joints           |
++--------+------------------------------+
++----------------------------------------------+
+|    Active Event Terms in Mode: 'interval'    |
++-------+------------+-------------------------+
+| Index | Name       | Interval time range (s) |
++-------+------------+-------------------------+
+|   0   | push_robot |       (10.0, 15.0)      |
++-------+------------+-------------------------+
+
+[INFO] Termination Manager:  <TerminationManager> contains 2 active terms.
++---------------------------------+
+|     Active Termination Terms    |
++-------+--------------+----------+
+| Index | Name         | Time Out |
++-------+--------------+----------+
+|   0   | time_out     |   True   |
+|   1   | base_contact |  False   |
++-------+--------------+----------+
+
+[INFO] Reward Manager:  <RewardManager> contains 11 active terms.
++-----------------------------------------+
+|           Active Reward Terms           |
++-------+----------------------+----------+
+| Index | Name                 |   Weight |
++-------+----------------------+----------+
+|   0   | track_lin_vel_xy_exp |      1.0 |
+|   1   | track_ang_vel_z_exp  |      0.5 |
+|   2   | lin_vel_z_l2         |     -2.0 |
+|   3   | ang_vel_xy_l2        |    -0.05 |
+|   4   | dof_torques_l2       | -2.5e-05 |
+|   5   | dof_acc_l2           | -2.5e-07 |
+|   6   | action_rate_l2       |    -0.01 |
+|   7   | feet_air_time        |      0.5 |
+|   8   | undesired_contacts   |     -1.0 |
+|   9   | flat_orientation_l2  |     -5.0 |
+|   10  | dof_pos_limits       |      0.0 |
++-------+----------------------+----------+
+
+[INFO] Curriculum Manager:  <CurriculumManager> contains 0 active terms.
++----------------------+
+| Active Curriculum Terms |
++-----------+----------+
+|   Index   | Name     |
++-----------+----------+
++-----------+----------+
+
+[INFO]: Completed setting up the environment...
+Setting seed: 0
+STEP 0 root [-0.47997570037841797, 0.2726156711578369, 0.2994147837162018] ratio 0.0
+ FORCE_NORMS [[0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0]]
+ FOOT_W [[-0.5412799119949341, 0.4156990349292755, 0.2995249032974243], [-0.5660117268562317, 0.46725839376449585, 0.3102937638759613], [-0.6045029759407043, 0.667618453502655, 0.2451210618019104], [-0.4717974364757538, 0.4936956465244293, 0.2683602571487427]]
+ JOINT_POS [-0.6000013947486877, -1.0, 2.6999998092651367, 0.5999981760978699, -1.0, 2.6999998092651367, -0.6000017523765564, -1.0, 2.6999998092651367, 0.5999987125396729, -1.0, 2.6999998092651367]
+ ACTION_TARGET [-0.6000000238418579, -1.0, 2.6999998092651367, 0.6000000238418579, -1.0, 2.6999998092651367, -0.6000000238418579, -1.0, 2.6999998092651367, 0.6000000238418579, -1.0, 2.6999998092651367]
+ BASE_LIN_VEL [0.28736212849617004, -0.36559557914733887, -0.30065757036209106] ANG [0.32045871019363403, 0.19554457068443298, 0.2303462028503418]
+STEP 4 root [-0.47767674922943115, 0.2696894705295563, 0.29668128490448] ratio 0.0
+ FORCE_NORMS [[0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0]]
+ FOOT_W [[-0.5392296314239502, 0.4126650094985962, 0.2972326874732971], [-0.5640348792076111, 0.4641549289226532, 0.3081638514995575], [-0.6029728055000305, 0.6646051406860352, 0.24353565275669098], [-0.4699299931526184, 0.4908580780029297, 0.26615312695503235]]
+ JOINT_POS [-0.6000388264656067, -1.0, 2.6999998092651367, 0.5999602675437927, -0.9999980926513672, 2.6999998092651367, -0.6000396609306335, -1.0, 2.6999998092651367, 0.5999614000320435, -1.0, 2.6999998092651367]
+ ACTION_TARGET [-0.6000000238418579, -1.0, 2.6999998092651367, 0.6000000238418579, -1.0, 2.6999998092651367, -0.6000000238418579, -1.0, 2.6999998092651367, 0.6000000238418579, -1.0, 2.6999998092651367]
+ BASE_LIN_VEL [0.28736254572868347, -0.36557939648628235, -0.3791278302669525] ANG [0.32286691665649414, 0.19270381331443787, 0.23004566133022308]
+STEP 19 root [-0.46905598044395447, 0.25871750712394714, 0.2808386981487274] ratio 0.0
+ FORCE_NORMS [[0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0]]
+ FOOT_W [[-0.5315341949462891, 0.40127500891685486, 0.28305333852767944], [-0.5566138625144958, 0.45249801874160767, 0.2945950925350189], [-0.5972081422805786, 0.6532766222953796, 0.23203881084918976], [-0.46291571855545044, 0.4802045226097107, 0.25232577323913574]]
+ JOINT_POS [-0.6001530289649963, -1.0, 2.6999998092651367, 0.5998172163963318, -0.9998550415039062, 2.6999998092651367, -0.6001798510551453, -1.000143051147461, 2.6999998092651367, 0.5998485088348389, -1.0, 2.6999998092651367]
+ ACTION_TARGET [-0.6000000238418579, -1.0, 2.6999998092651367, 0.6000000238418579, -1.0, 2.6999998092651367, -0.6000000238418579, -1.0, 2.6999998092651367, 0.6000000238418579, -1.0, 2.6999998092651367]
+ BASE_LIN_VEL [0.2873777151107788, -0.36550459265708923, -0.6733871698379517] ANG [0.33105719089508057, 0.18318083882331848, 0.22854797542095184]
+STEP 49 root [-0.45181068778038025, 0.23678144812583923, 0.22267253696918488] ratio 0.0
+ FORCE_NORMS [[0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0]]
+ FOOT_W [[-0.5161027908325195, 0.37843772768974304, 0.22824789583683014], [-0.5417259335517883, 0.42909693717956543, 0.24101895093917847], [-0.5855413675308228, 0.6304848194122314, 0.18274067342281342], [-0.4488236606121063, 0.45883458852767944, 0.19837482273578644]]
+ JOINT_POS [-0.600254476070404, -1.0, 2.6999998092651367, 0.5996027588844299, -0.9996014833450317, 2.6999998092651367, -0.6003347635269165, -1.0002206563949585, 2.6999998092651367, 0.599759578704834, -1.0, 2.6999998092651367]
+ ACTION_TARGET [-0.6000000238418579, -1.0, 2.6999998092651367, 0.6000000238418579, -1.0, 2.6999998092651367, -0.6000000238418579, -1.0, 2.6999998092651367, 0.6000000238418579, -1.0, 2.6999998092651367]
+ BASE_LIN_VEL [0.28742000460624695, -0.36535075306892395, -1.2619248628616333] ANG [0.3472710847854614, 0.1649857759475708, 0.22426961362361908]
+STEP 99 root [-0.42381197214126587, 0.20157234370708466, 0.050435006618499756] ratio 0.5
+ FORCE_NORMS [[146.49024963378906, 174.2536163330078, 0.0, 0.0], [149.12379455566406, 178.34585571289062, 0.0, 0.0], [151.27635192871094, 182.5287322998047, 0.0, 0.0]]
+ FOOT_W [[-0.49124231934547424, 0.34157320857048035, 0.05959894508123398], [-0.5177876949310303, 0.39138391613960266, 0.07374941557645798], [-0.5676299929618835, 0.5927129983901978, 0.02031206712126732], [-0.42637285590171814, 0.42431509494781494, 0.029721682891249657]]
+ JOINT_POS [-0.7658256888389587, -1.0327370166778564, 2.7000176906585693, 0.7508457899093628, -1.0182886123657227, 2.7000174522399902, -0.5872997641563416, -0.9959515333175659, 2.6942949295043945, 0.6027682423591614, -1.0023771524429321, 2.6988303661346436]
+ ACTION_TARGET [-0.6000000238418579, -1.0, 2.6999998092651367, 0.6000000238418579, -1.0, 2.6999998092651367, -0.6000000238418579, -1.0, 2.6999998092651367, 0.6000000238418579, -1.0, 2.6999998092651367]
+ BASE_LIN_VEL [0.17784973978996277, -0.2257002741098404, -1.6745601892471313] ANG [-1.4315087795257568, -0.3880182206630707, 0.36811646819114685]
+SENSOR_CFG ContactSensorCfg(class_type=<class 'isaaclab.sensors.contact_sensor.contact_sensor.ContactSensor'>, prim_path='/World/envs/env_.*/Robot/.*', update_period=0.0004, history_length=3, debug_vis=False, track_pose=False, track_air_time=True, force_threshold=1.0, filter_prim_paths_expr=[], visualizer_cfg=VisualizationMarkersCfg(prim_path='/Visuals/ContactSensor', markers={'contact': SphereCfg(func=<function spawn_sphere at 0x7fde41dcfe20>, visible=True, semantic_tags=None, copy_from_source=True, mass_props=None, rigid_props=None, collision_props=None, activate_contact_sensors=False, visual_material_path='material', visual_material=PreviewSurfaceCfg(func=<function spawn_preview_surface at 0x7fde41d79000>, diffuse_color=(1.0, 0.0, 0.0), emissive_color=(0.0, 0.0, 0.0), roughness=0.5, metallic=0.0, opacity=1.0), physics_material_path='material', physics_material=None, radius=0.02), 'no_contact': SphereCfg(func=<function spawn_sphere at 0x7fde41dcfe20>, visible=False, semantic_tags=None, copy_from_source=True, mass_props=None, rigid_props=None, collision_props=None, activate_contact_sensors=False, visual_material_path='material', visual_material=PreviewSurfaceCfg(func=<function spawn_preview_surface at 0x7fde41d79000>, diffuse_color=(0.0, 1.0, 0.0), emissive_color=(0.0, 0.0, 0.0), roughness=0.5, metallic=0.0, opacity=1.0), physics_material_path='material', physics_material=None, radius=0.02)}))

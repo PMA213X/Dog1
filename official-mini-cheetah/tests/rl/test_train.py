@@ -19,6 +19,7 @@ from rl.train import (
     TelemetryState,
     configure_phase_step_offset,
     parse_args,
+    rapid_finetune_stage,
     record_telemetry,
     update_telemetry,
 )
@@ -35,6 +36,16 @@ class RecordingLogger:
 
 
 class TrainingTelemetryTests(unittest.TestCase):
+    def test_rapid_finetune_stage_delays_actor_until_command_switch(self) -> None:
+        self.assertEqual(rapid_finetune_stage(0), 0)
+        self.assertEqual(rapid_finetune_stage(19_999), 0)
+        self.assertEqual(rapid_finetune_stage(20_000), 1)
+        self.assertEqual(rapid_finetune_stage(99_999), 1)
+        self.assertEqual(rapid_finetune_stage(100_000), 2)
+        self.assertEqual(rapid_finetune_stage(499_999), 2)
+        with self.assertRaises(ValueError):
+            rapid_finetune_stage(-1)
+
     def test_parse_and_configure_phase_step_offset(self) -> None:
         args = parse_args(
             ["--phase", "P1", "--total-steps", "20000", "--dry-run"]

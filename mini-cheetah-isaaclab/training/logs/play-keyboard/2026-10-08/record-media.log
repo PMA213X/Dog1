@@ -1,0 +1,27 @@
+path=outputs/yobogo-walk/yobogo_walk_final.mp4 size=533678 mtime=2026-10-08 01:46:14.156721700 +0800
+{
+    "programs": [
+
+    ],
+    "stream_groups": [
+
+    ],
+    "streams": [
+        {
+            "index": 0,
+            "codec_name": "h264",
+            "width": 960,
+            "height": 540,
+            "r_frame_rate": "40/1",
+            "nb_frames": "400"
+        }
+    ],
+    "format": {
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": "10.000000",
+        "size": "533678"
+    }
+}
+nb_read_frames=400
+path=outputs/yobogo-walk/yobogo_walk_final_first_frame.png size=52074
+path=outputs/yobogo-walk/yobogo_walk_final_last_frame.png size=321428

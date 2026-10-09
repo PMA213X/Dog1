@@ -1,0 +1,16 @@
+-- file --
+path=outputs/rapid-locomotion/rapid_walk_test.mp4 size=2362742 bytes
+index=0
+codec_name=h264
+codec_type=video
+width=960
+height=540
+r_frame_rate=20/1
+nb_frames=100
+format_name=mov,mp4,m4a,3gp,3g2,mj2
+duration=5.000000
+size=2362742
+nb_read_frames=100
+ffprobe_exit=0
+ffmpeg_decode_exit=0
+count_frames_exit=0

@@ -23,6 +23,20 @@
 - Gate 使用单机器人 `flat_move_jump_rl_eval.wbt`，不改变四机训练拓扑。
 - `docs/` 只在仓库根目录保留一份，不在其他目录复制。
 
+### 1.1 平地视觉网格
+
+训练与评估 world 的 `FLAT_FLOOR` 使用完全一致的视觉地面：
+
+- 物理面仍为 `translation 0 0 -0.05`、`20 m × 20 m × 0.1 m` 的
+  `boundingObject Box`，上表面严格保持 `z=0`；
+- Box 外观改为深蓝灰底色，并叠加 Webots 原生 `IndexedLineSet`
+  1 m 彩色网格（`-10..10 m` 的横向、纵向各 21 条线）；
+- 网格仅放在 `children` 中，`castShadows FALSE`，不进入
+  `boundingObject`，因此不增加碰撞几何、接触点或摩擦参数；
+- `tests/rl/test_world_and_cli.py` 校验两个 world 的
+  `FLAT_FLOOR` 块逐字一致，并将 `contactProperties` 与模板对照，
+  防止视觉改动意外改变物理地面或摩擦语义。
+
 R3 从 0 开始，**不加载旧 `450000` 或 `2000000` checkpoint**。旧
 `official_mini_cheetah_flat_jump_v1_r2_2000000_steps.zip` 及其余 R2
 checkpoint 仅作历史归档，不是 R3 resume、热启动或验收来源；禁止覆盖旧文件。
@@ -140,17 +154,19 @@ R3 必须按下列分项记录和调试，不能只看总 reward：
 - `action_rate` 必须用实际执行动作的相邻差，并在 P0/P1 加强惩罚以对齐 jitter Gate；
 - 执行层动作变化率限幅为 `0.08`，让实际 `action_delta_rms` 不超过 Gate 的 `0.10`；
 - 策略动作映射为关节位置目标后，在 `setPosition` 前执行目标变化率限速：
-  `ACTION_TARGET_RATE_LIMIT=0.03 rad/s`，50 Hz 下每周期目标增量不超过
-  `0.0006 rad`，10 s episode 最多允许关节目标变化 `0.30 rad`；该限速只作用于
-  策略动作路径，reset/RSI 的直接目标写入保持原样。
-- 限速依据：历史隔离探针 `0.01 rad/s` 为 `360/360 finite`、contact `1.0`，
-  但 10 s 只允许 `0.10 rad`，无法解释 P2 forward 持续接近 `0`；`0.75 rad/s`
-  探针 contact 均值仅 `0.333`。因此选择候选下界 `0.03 rad/s`，比已出现
-  接触丢失的 `0.75` 低 25 倍；后续训练必须继续监测 contact 不得低于 `0.95`
-  的隔离验证目标，P1 Gate 的 `0.85` 阈值不降低。
-- 动作链根因验证：原实现中单关节动作即可导致膝/abad/hip 接触丢失；
-  增加目标限速后的 12 关节×30 步隔离探针为 `360/360 finite`、接触丢失
-  `0` 步、每个关节首动作期四足接触比例均为 `1.0`。
+  `ACTION_TARGET_RATE_LADDER=(0.25,0.5,1.0) rad/s`，短测选择默认 `1.0`；
+  50 Hz 下每周期目标增量分别为 `0.005/0.01/0.02 rad`。该限速只作用于
+  策略动作路径，reset/RSI 的直接目标写入保持原样；旧 `0.03` 不再允许。
+- 限速选择必须用固定 forward 短测比较三档，按平均目标滞后 `<0.05 rad`、
+  动作饱和 `<10%`、无 NaN/跌倒选择满足条件的最小值；不满足时升档。
+  2026-10-06 的 200 步 `vx=0.15` 短测结果：`0.25` 的 lag/饱和为
+  `0.14079/12.67%`，`0.5` 为 `0.10308/9.71%`，`1.0` 为
+  `0.04094/7.58%`；仅 `1.0` 全部通过，且三档均无 NaN/跌倒，
+  因此当前默认选 `1.0`。
+  训练和 play 还需持续记录 lag、饱和、position、v_body 和实际位移。
+- `contract.limit_joint_targets()` 是 controller、play 和 env 的唯一目标限速
+  实现；执行遥测统一暴露 desired/executed target delta、lag mean/RMS/max、
+  action saturation、机身位置/速度和逐步/累计位移。
 - `joint_jitter` 使用相邻控制周期关节速度差，P0/P1 单独惩罚高频关节抖动；
 - `foot_slip` 在 P0/P1 对超过 `0.02 m/s` 的接触期平均滑移施加惩罚，直接对应 Gate 阈值；
 - P2 的 `distance` 权重提高到 `0.50`；`gait` 由正奖励改为 `-0.05`，

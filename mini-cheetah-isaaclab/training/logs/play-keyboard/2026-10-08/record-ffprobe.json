@@ -1,0 +1,23 @@
+{
+    "programs": [
+
+    ],
+    "stream_groups": [
+
+    ],
+    "streams": [
+        {
+            "index": 0,
+            "codec_name": "h264",
+            "width": 960,
+            "height": 540,
+            "r_frame_rate": "40/1",
+            "nb_frames": "400"
+        }
+    ],
+    "format": {
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": "10.000000",
+        "size": "533678"
+    }
+}

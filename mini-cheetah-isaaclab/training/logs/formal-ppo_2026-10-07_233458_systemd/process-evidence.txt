@@ -1,0 +1,33 @@
+snapshot_time=2026-10-07 23:40:06 +0800
+old_pid_2032357_exists=no
+unit=yobogo-ppo-20261007233458
+unit_active_state=active
+unit_sub_state=running
+unit_main_pid=2064669
+recorded_pid=2064669
+    PID    PPID     SID    PGID   TPGID                  STARTED     ELAPSED STAT TT       WCHAN                    CMD
+2064669    1574 2064669 2064669      -1 Wed Oct  7 23:34:57 2026       05:08 Ss   ?        do_wait                  bash /home/pma213x/IsaacLab/isaaclab.sh -p -c import builtins, os, runpy, sys train_path = "/home/pma213x/IsaacLab/scripts/reinforcement_learning/rsl_rl/train.py" sys.argv = [train_path] + sys.argv[1:] sys.path.insert(0, os.path.dirname(train_path)) _original_import = builtins.__import__ _registration_done = False def _delayed_import(name, globals=None, locals=None, fromlist=(), level=0):     global _registration_done     module = _original_import(name, globals, locals, fromlist, level)     if name == "isaaclab_tasks" and not _registration_done:         _registration_done = True         _original_import("training.envs", globals, locals, (), 0)     return module builtins.__import__ = _delayed_import runpy.run_path(train_path, run_name="__main__") --task YoboGo-Velocity-Flat-v0 --headless --num_envs 4 --seed 0 --max_iterations 3000 --logger tensorboard --resume True --load_run 2026-10-07_23-08-19_repair-v1-resume_2026-10-07_230815 --checkpoint model_1800.pt --experiment_name yobogo_velocity_flat --run_name repair-v1-systemd_2026-10-07_233458
+--- direct child ---
+    PID    PPID     SID    PGID   TPGID                  STARTED     ELAPSED STAT TT       WCHAN                    CMD
+2064690 2064669 2064669 2064669      -1 Wed Oct  7 23:34:58 2026       05:08 Rl   ?        -                        /home/pma213x/.venvs/minicheetah-isaaclab/bin/python -c import builtins, os, runpy, sys train_path = "/home/pma213x/IsaacLab/scripts/reinforcement_learning/rsl_rl/train.py" sys.argv = [train_path] + sys.argv[1:] sys.path.insert(0, os.path.dirname(train_path)) _original_import = builtins.__import__ _registration_done = False def _delayed_import(name, globals=None, locals=None, fromlist=(), level=0):     global _registration_done     module = _original_import(name, globals, locals, fromlist, level)     if name == "isaaclab_tasks" and not _registration_done:         _registration_done = True         _original_import("training.envs", globals, locals, (), 0)     return module builtins.__import__ = _delayed_import runpy.run_path(train_path, run_name="__main__") --task YoboGo-Velocity-Flat-v0 --headless --num_envs 4 --seed 0 --max_iterations 3000 --logger tensorboard --resume True --load_run 2026-10-07_23-08-19_repair-v1-resume_2026-10-07_230815 --checkpoint model_1800.pt --experiment_name yobogo_velocity_flat --run_name repair-v1-systemd_2026-10-07_233458
+--- gpu ---
+2064690, /home/pma213x/.venvs/minicheetah-isaaclab/bin/python, 2359 MiB
+gpu_training_line=
+--- progress ---
+iteration_line=Learning iteration 2152/4800
+current_iteration=2152
+total_iterations=4800
+total_environment_steps=460800
+checkpoint_interval=50
+latest_checkpoint=model_2150.pt
+latest_checkpoint_iteration=2150
+formal_checkpoint_count=46
+event_file=/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/mini-cheetah-isaaclab/training/logs/rsl_rl/yobogo_velocity_flat/2026-10-07_23-35-03_repair-v1-systemd_2026-10-07_233458/events.out.tfevents.1791387318.pma213x-OMEN-Ubuntu.2064690.0
+--- tensorboard ---
+tensorboard_active_state=active
+tensorboard_sub_state=running
+tensorboard_pid=2069531
+tensorboard_bind=127.0.0.1
+tensorboard_port=6007
+tensorboard_http_bytes=205748
+tensorboard_url=http://127.0.0.1:6007/

@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "source_repository": "https://github.com/SellCXHarsha/rapid-locomotion-rl",
+  "commit": "f5143ef940e934849c00284e34caf164d6ce7b6e",
+  "commit_url": "https://github.com/SellCXHarsha/rapid-locomotion-rl/commit/f5143ef940e934849c00284e34caf164d6ce7b6e",
+  "download_method": "fixed raw URL",
+  "license": "MIT",
+  "generated_at": "2026-10-06T17:04:19+08:00",
+  "files": {
+    "ac_weights_last.pt": {
+      "raw_url": "https://raw.githubusercontent.com/SellCXHarsha/rapid-locomotion-rl/f5143ef940e934849c00284e34caf164d6ce7b6e/runs/rapid-locomotion/example/train/201852.132488/checkpoints/ac_weights_last.pt",
+      "sha256": "2cc32a6131a4e117c5c619aae05fcbab4c0403f8f398954e9bf222cc3430a54b"
+    },
+    "body_latest.jit": {
+      "raw_url": "https://raw.githubusercontent.com/SellCXHarsha/rapid-locomotion-rl/f5143ef940e934849c00284e34caf164d6ce7b6e/runs/rapid-locomotion/example/train/201852.132488/checkpoints/body_latest.jit",
+      "sha256": "002a6da699022113b19c57021ecac1fd10a165639ee4fda7ef06c4abfab9a79a"
+    },
+    "adaptation_module_latest.jit": {
+      "raw_url": "https://raw.githubusercontent.com/SellCXHarsha/rapid-locomotion-rl/f5143ef940e934849c00284e34caf164d6ce7b6e/runs/rapid-locomotion/example/train/201852.132488/checkpoints/adaptation_module_latest.jit",
+      "sha256": "36fbfab4f3331d64f50ce54ec53924bc2108557607e092ce954e37b015346867"
+    },
+    "parameters.pkl": {
+      "raw_url": "https://raw.githubusercontent.com/SellCXHarsha/rapid-locomotion-rl/f5143ef940e934849c00284e34caf164d6ce7b6e/runs/rapid-locomotion/example/train/201852.132488/parameters.pkl",
+      "sha256": "871599ed8575bcee1c8d750bb7489bf2257daab8698e68b6ef8497f4b094ce8f"
+    },
+    "mini_cheetah.urdf": {
+      "raw_url": "https://raw.githubusercontent.com/SellCXHarsha/rapid-locomotion-rl/f5143ef940e934849c00284e34caf164d6ce7b6e/resources/robots/mini_cheetah/urdf/mini_cheetah.urdf",
+      "sha256": "c9074e8c256a41d365f45cce214477f92fc2763c301c70fb3397a8d8b964032d"
+    },
+    "LICENSE": {
+      "raw_url": "https://raw.githubusercontent.com/SellCXHarsha/rapid-locomotion-rl/f5143ef940e934849c00284e34caf164d6ce7b6e/LICENSE",
+      "sha256": "7dc66e1919dbcc2b49af464ceac3518b230e0e253d57988d418e23f01ef675b9"
+    }
+  }
+}

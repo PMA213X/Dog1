@@ -1,0 +1,5 @@
+State      Recv-Q Send-Q      Local Address:Port            Peer Address:Port Process                                    
+TIME-WAIT  0      0               127.0.0.1:39648              127.0.0.1:11453                                           
+TIME-WAIT  0      0               127.0.0.1:58582              127.0.0.1:11454                                           
+TIME-WAIT  0      0               127.0.0.1:11452              127.0.0.1:52856                                           
+TIME-WAIT  0      0               127.0.0.1:54600              127.0.0.1:11455                                           

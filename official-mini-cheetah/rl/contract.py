@@ -5,6 +5,7 @@
 from __future__ import annotations
 
 import math
+import os
 from pathlib import Path
 from typing import Dict, Iterable, Sequence, Tuple, Union
 
@@ -25,12 +26,12 @@ ACTION_HIGH = 1.0
 # 保证训练和评估实际执行动作的相邻差不会把该指标推过门槛。
 ACTION_RATE_LIMIT = 0.08
 ACTION_SCALE = (0.30, 0.50, 0.50) * 4
-# 策略动作映射到关节目标后，按 50 Hz 控制周期限制目标变化；
-# 0.03 rad/s 对应每周期最多 0.0006 rad、10 s episode 最多 0.30 rad。
-# 0.01 时 10 s 只允许 0.10 rad，隔离探针虽 contact=1.0，但无法解释
-# P2 forward 持续为 0；0.75 探针 contact 仅 0.333。取候选下界 0.03，
-# 仍比已出现接触丢失的 0.75 低 25 倍，作为 forward 单变量修复。
-ACTION_TARGET_RATE_LIMIT = 0.03
+# 关节目标限速只允许使用经短测验证的三档；0.03 会把 Rapid 目标压成
+# 严重滞后，禁止作为默认值回退。环境变量必须继承给 Webots controller。
+ACTION_TARGET_RATE_LADDER: Tuple[float, ...] = (0.25, 0.5, 1.0)
+ACTION_TARGET_RATE_DEFAULT_LIMIT = 1.0
+ACTION_TARGET_RATE_ENV_VAR = "RL_ACTION_TARGET_RATE_LIMIT"
+ACTION_TARGET_RATE_TOLERANCE = 1e-9
 
 CONTROL_RATE_HZ = 50
 CONTROL_DT_SECONDS = 0.02
@@ -219,6 +220,53 @@ BIRTH_POSITIONS: Tuple[Tuple[float, float, float], ...] = (
 EVAL_BIRTH_POSITION: Tuple[float, float, float] = (0.0, 0.0, BIRTH_HEIGHT)
 
 
+def validate_action_target_rate_limit(value: float | str) -> float:
+    """校验限速必须来自 0.25/0.5/1.0 阶梯，拒绝静默回退到 0.03。"""
+    try:
+        selected = float(value)
+    except (TypeError, ValueError) as exc:
+        raise ValueError(f"ACTION_TARGET_RATE_LIMIT 非法：{value!r}") from exc
+    if not math.isfinite(selected):
+        raise ValueError("ACTION_TARGET_RATE_LIMIT 必须有限")
+    matched = next(
+        (
+            candidate
+            for candidate in ACTION_TARGET_RATE_LADDER
+            if math.isclose(
+                selected,
+                candidate,
+                rel_tol=0.0,
+                abs_tol=ACTION_TARGET_RATE_TOLERANCE,
+            )
+        ),
+        None,
+    )
+    if matched is None:
+        raise ValueError(
+            "ACTION_TARGET_RATE_LIMIT 必须属于阶梯："
+            f"{ACTION_TARGET_RATE_LADDER}"
+        )
+    return float(matched)
+
+
+def _configured_action_target_rate_limit() -> float:
+    """读取启动进程的限速档位；空值使用短测通过的 1.0。"""
+    raw = os.environ.get(ACTION_TARGET_RATE_ENV_VAR, "").strip()
+    return validate_action_target_rate_limit(
+        raw or ACTION_TARGET_RATE_DEFAULT_LIMIT
+    )
+
+
+ACTION_TARGET_RATE_LIMIT = _configured_action_target_rate_limit()
+
+
+def resolve_action_target_rate_limit(value: float | str | None = None) -> float:
+    """返回显式档位或当前进程档位，供 controller/play/env 共用。"""
+    if value is None:
+        return validate_action_target_rate_limit(ACTION_TARGET_RATE_LIMIT)
+    return validate_action_target_rate_limit(value)
+
+
 def bridge_ports(num_envs: int = PARALLEL_WORKERS) -> Tuple[int, ...]:
     """返回单 Webots world 内各 Robot controller 的连续 TCP 端口。"""
     if num_envs != PARALLEL_WORKERS:
@@ -364,6 +412,64 @@ def action_to_target(action: Sequence[float]) -> Tuple[float, ...]:
             action, DEFAULT_CROUCH, ACTION_SCALE, TARGET_POSITION_LIMITS
         )
     )
+
+
+def limit_joint_targets(
+    previous: Sequence[float],
+    desired: Sequence[float],
+    rate_limit: float | str | None = None,
+) -> Tuple[float, ...]:
+    """按统一 rad/s 阶梯限制相邻关节目标，并保留关节位置边界。"""
+    if not finite(previous, ACTION_DIM) or not finite(desired, ACTION_DIM):
+        raise ValueError("关节目标必须是 12 个有限数")
+    selected_rate = resolve_action_target_rate_limit(rate_limit)
+    max_delta = selected_rate * CONTROL_DT_SECONDS
+    limited = tuple(
+        max(float(old) - max_delta, min(float(old) + max_delta, float(target)))
+        for old, target in zip(previous, desired)
+    )
+    return tuple(
+        max(low, min(high, value))
+        for value, (low, high) in zip(limited, TARGET_POSITION_LIMITS)
+    )
+
+
+def target_telemetry(
+    desired: Sequence[float],
+    executed: Sequence[float],
+    *,
+    rate_limit: float | str | None = None,
+) -> Dict[str, Union[float, Tuple[float, ...]]]:
+    """返回目标滞后向量和绝对滞后 mean/RMS/max，供三端统一记录。"""
+    if not finite(desired, ACTION_DIM) or not finite(executed, ACTION_DIM):
+        raise ValueError("目标遥测必须是 12 个有限数")
+    delta = tuple(
+        float(actual) - float(wanted)
+        for wanted, actual in zip(desired, executed)
+    )
+    absolute = tuple(abs(value) for value in delta)
+    mean = sum(absolute) / ACTION_DIM
+    return {
+        "desired": tuple(float(value) for value in desired),
+        "executed": tuple(float(value) for value in executed),
+        "delta": delta,
+        "absolute_delta": absolute,
+        "mean": mean,
+        "rms": math.sqrt(sum(value * value for value in absolute) / ACTION_DIM),
+        "max": max(absolute),
+        "rate_limit": resolve_action_target_rate_limit(rate_limit),
+    }
+
+
+def action_saturation_rate(action: Sequence[float]) -> float:
+    """计算归一化动作被裁到 [-1,1] 的分量比例。"""
+    if not finite(action, ACTION_DIM):
+        raise ValueError("动作必须是 12 个有限数")
+    bound = max(abs(ACTION_LOW), abs(ACTION_HIGH))
+    return sum(
+        abs(float(value)) >= bound - 1e-6
+        for value in action
+    ) / ACTION_DIM
 
 
 def rsi_targets(perturbation: Sequence[float] | None = None) -> Tuple[float, ...]:

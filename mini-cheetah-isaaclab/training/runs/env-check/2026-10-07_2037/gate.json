@@ -1,0 +1,7 @@
+{
+  "task": "YoboGo-Velocity-Flat-v0",
+  "mode": "all",
+  "seed": 0,
+  "status": "fail",
+  "error": "ValueError: Error while parsing 'base_external_force_torque:asset_cfg'. Not all regular expressions are matched! Please check that the regular expressions are correct: \n\tbase: []\nAvailable strings: ['base_link', 'leg0_hip_link', 'leg1_hip_link', 'leg2_hip_link', 'leg3_hip_link', 'leg0_thigh_link', 'leg1_thigh_link', 'leg2_thigh_link', 'leg3_thigh_link', 'leg0_shank_link', 'leg1_shank_link', 'leg2_shank_link', 'leg3_shank_link', 'leg0_foot_link', 'leg1_foot_link', 'leg2_foot_link', 'leg3_foot_link']\n"
+}

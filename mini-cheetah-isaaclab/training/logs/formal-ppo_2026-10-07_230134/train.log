@@ -1,0 +1,69 @@
+[3gH    H    H    H    H    H    H    H    H    H    H    H    H    H    H    H    H    H    H    H   [INFO] Using python from: /home/pma213x/.venvs/minicheetah-isaaclab/bin/python
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+[INFO][AppLauncher]: Loading experience file: /home/pma213x/IsaacLab/apps/isaaclab.python.headless.kit
+[Warning] [simulation_app.simulation_app] Modules: ['omni.kit_app'] were loaded before SimulationApp was started and might not be loaded correctly.
+[Warning] [simulation_app.simulation_app] Please check to make sure no extra omniverse or pxr modules are imported before the call to SimulationApp(...)
+Loading user config located at: '/home/pma213x/.venvs/minicheetah-isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.5/user.config.json'
+[Info] [carb] Logging to file: /home/pma213x/.venvs/minicheetah-isaaclab/lib/python3.10/site-packages/omni/logs/Kit/Isaac-Sim/4.5/kit_20261007_230134.log
+2026-10-07 15:01:34 [0ms] [Warning] [omni.kit.app.plugin] No crash reporter present, dumps uploading isn't available.
+2026-10-07 15:01:34 [90ms] [Warning] [omni.usd_config.extension] Enable omni.materialx.libs extension to use MaterialX
+2026-10-07 15:01:35 [320ms] [Warning] [omni.datastore] OmniHub is inaccessible
+2026-10-07 15:01:35 [378ms] [Warning] [omni.isaac.dynamic_control] omni.isaac.dynamic_control is deprecated as of Isaac Sim 4.5. No action is needed from end-users.
+2026-10-07 15:01:37 [2,671ms] [Warning] [gpu.foundation.plugin] Skipping unsupported non-NVIDIA GPU: Intel(R) UHD Graphics (ADL-S GT0.5)
+2026-10-07 15:01:37 [2,671ms] [Warning] [gpu.foundation.plugin] Skipping unsupported non-NVIDIA GPU: Intel(R) UHD Graphics (ADL-S GT0.5)
+
+|---------------------------------------------------------------------------------------------|
+| Driver Version: 580.178.04    | Graphics API: Vulkan
+|=============================================================================================|
+| GPU | Name                             | Active | LDA | GPU Memory | Vendor-ID | LUID       |
+|     |                                  |        |     |            | Device-ID | UUID       |
+|     |                                  |        |     |            | Bus-ID    |            |
+|---------------------------------------------------------------------------------------------|
+| 0   | NVIDIA GeForce RTX 4060 Laptop.. | Yes: 0 |     | 8188    MB | 10de      | 0          |
+|     |                                  |        |     |            | 28e0      | 4d090564.. |
+|     |                                  |        |     |            | 1         |            |
+|---------------------------------------------------------------------------------------------|
+| 1   | Intel(R) UHD Graphics (ADL-S G.. |        |     | 11374   MB | 8086      | 0          |
+|     |                                  |        |     |            | 468b      | 86808b46.. |
+|     |                                  |        |     |            | 0         |            |
+|=============================================================================================|
+| OS: 26.04.1 LTS (Resolute Raccoon) ubuntu, Version: 26.04.1, Kernel: 7.0.0-34-generic
+| XServer Vendor: The X.Org Foundation, XServer Version: 12401010 (1.24.1.10)
+| Processor: 13th Gen Intel(R) Core(TM) i5-13500HX
+| Bare Metal Cores: 14 | Bare Metal Logical Cores: 28
+| Available Cores:  20 
+|---------------------------------------------------------------------------------------------|
+| Total Memory (MB): 15166 | Free Memory: 7022
+| Total Page/Swap (MB): 20479 | Free Page/Swap: 14340
+|---------------------------------------------------------------------------------------------|
+2026-10-07 15:01:37 [2,915ms] [Warning] [gpu.foundation.plugin] IOMMU is enabled.
+2026-10-07 15:01:37 [2,915ms] [Warning] [gpu.foundation.plugin] Detected IOMMU is enabled. Running CUDA peer-to-peer bandwidth and latency validation.
+Unidirectional P2P=Enabled Bandwidth (P2P Writes) Matrix (GB/s)
+   D\D     0 
+     0 226.41 
+P2P=Enabled Latency (P2P Writes) Matrix (us)
+   GPU     0 
+     0   1.47 
+
+   CPU     0 
+     0   1.59 
+Traceback (most recent call last):
+  File "/home/pma213x/IsaacLab/scripts/reinforcement_learning/rsl_rl/train.py", line 154, in <module>
+    main()
+  File "/home/pma213x/IsaacLab/source/isaaclab_tasks/isaaclab_tasks/utils/hydra.py", line 81, in wrapper
+    env_cfg, agent_cfg = register_task_to_hydra(task_name, agent_cfg_entry_point)
+  File "/home/pma213x/IsaacLab/source/isaaclab_tasks/isaaclab_tasks/utils/hydra.py", line 42, in register_task_to_hydra
+    env_cfg = load_cfg_from_registry(task_name, "env_cfg_entry_point")
+  File "/home/pma213x/IsaacLab/source/isaaclab_tasks/isaaclab_tasks/utils/parse_cfg.py", line 55, in load_cfg_from_registry
+    cfg_entry_point = gym.spec(task_name).kwargs.get(entry_point_key)
+  File "/home/pma213x/.venvs/minicheetah-isaaclab/lib/python3.10/site-packages/gymnasium/envs/registration.py", line 1000, in spec
+    _check_version_exists(ns, name, version)
+  File "/home/pma213x/.venvs/minicheetah-isaaclab/lib/python3.10/site-packages/gymnasium/envs/registration.py", line 392, in _check_version_exists
+    _check_name_exists(ns, name)
+  File "/home/pma213x/.venvs/minicheetah-isaaclab/lib/python3.10/site-packages/gymnasium/envs/registration.py", line 369, in _check_name_exists
+    raise error.NameNotFound(
+gymnasium.error.NameNotFound: Environment `YoboGo-Velocity-Flat` doesn't exist. Did you mean: `Isaac-Velocity-Flat-H1`?
+2026-10-07 15:01:38 [3,327ms] [Warning] [omni.fabric.plugin] gFabricState->gUsdStageToSimStageWithHistoryMap had 1 outstanding SimStageWithHistory(s) at shutdown
+2026-10-07 15:01:38 [3,391ms] [Warning] [carb] Recursive unloadAllPlugins() detected!

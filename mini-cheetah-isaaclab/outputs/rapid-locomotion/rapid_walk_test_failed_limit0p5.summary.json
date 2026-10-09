@@ -1,0 +1,41 @@
+{
+  "task": "YoboGo-Velocity-Flat-v0",
+  "mode": "record_video",
+  "yobogo_walk_speed_m_s": 0.15,
+  "rapid_walk_speed_m_s": 0.3,
+  "adaptation_weight": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/mini-cheetah-isaaclab/external_models/rapid-locomotion-rl/runs/rapid-locomotion/example/train/201852.132488/checkpoints/adaptation_module_latest.jit",
+  "body_weight": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/mini-cheetah-isaaclab/external_models/rapid-locomotion-rl/runs/rapid-locomotion/example/train/201852.132488/checkpoints/body_latest.jit",
+  "completed_steps": 1500,
+  "inference_steps": 151,
+  "expected_inference_steps": 150,
+  "reset_count": 1,
+  "safety_clip_count": 443,
+  "position_clip_count": 0,
+  "torque_clip_count": 443,
+  "large_action_inference_count": 113,
+  "official_clip_inference_count": 0,
+  "max_abs_rapid_action": 0.5,
+  "max_abs_policy_action": 43.49717330932617,
+  "ood_guard_count": 1671,
+  "base_height_min_m": 0.09587552398443222,
+  "max_abs_roll_deg": 179.99760846999328,
+  "max_abs_pitch_deg": 89.68907099015728,
+  "xy_displacement_m": 0.26803308725357056,
+  "mean_measured_velocity_m_s": 0.062412807983579115,
+  "final_command": [
+    0.15000000596046448,
+    0.0,
+    0.0
+  ],
+  "terminated_steps": 1,
+  "stability_errors": [
+    "base_height_min=0.095876<0.15",
+    "max_abs_roll_deg=179.998>=45",
+    "max_abs_pitch_deg=89.689>=45",
+    "terminated_steps=1>0"
+  ],
+  "interface_ok": true,
+  "stable_walking": false,
+  "video": "/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/mini-cheetah-isaaclab/outputs/rapid-locomotion/rapid_walk_test.mp4",
+  "video_frames_written": 150
+}

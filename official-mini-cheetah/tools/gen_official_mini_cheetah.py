@@ -18,12 +18,22 @@ from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 REPOSITORY_ROOT = PROJECT_ROOT.parent
-DEFAULT_SOURCE_WORLD = REPOSITORY_ROOT / "webots-sim/worlds/mini_cheetah.wbt"
+CANONICAL_REFERENCE_ROOT = REPOSITORY_ROOT / "webots-sim"
+# 仓库中的官方参考目录当前带“已废弃”后缀；仍按 canonical webots-sim
+# URL 生成，保证现有 world 资源路径不变。
+OFFICIAL_REFERENCE_ROOT = CANONICAL_REFERENCE_ROOT
+if not OFFICIAL_REFERENCE_ROOT.is_dir():
+    deprecated_reference_root = (
+        REPOSITORY_ROOT / "webots-sim 已废弃老模型不要使用"
+    )
+    if deprecated_reference_root.is_dir():
+        OFFICIAL_REFERENCE_ROOT = deprecated_reference_root
+DEFAULT_SOURCE_WORLD = OFFICIAL_REFERENCE_ROOT / "worlds/mini_cheetah.wbt"
 MINI_CHEETAH_HEADER = (
     REPOSITORY_ROOT
     / "Cheetah-Software/common/include/Dynamics/MiniCheetah.h"
 )
-MINI_CHEETAH_URDF = REPOSITORY_ROOT / "webots-sim/urdf/mini_cheetah.urdf"
+MINI_CHEETAH_URDF = OFFICIAL_REFERENCE_ROOT / "urdf/mini_cheetah.urdf"
 
 EXPECTED_LEGS = ("fr", "fl", "hr", "hl")
 EXPECTED_JOINTS = ("abd", "hip", "kn")
@@ -474,8 +484,10 @@ def _official_visual_data() -> dict[str, dict[str, object]]:
             mesh_path.parent == (MINI_CHEETAH_URDF.parent / "meshes").resolve(),
             f"官方 mesh 不在预期资源目录：{filename}",
         )
-        relative = mesh_path.relative_to(REPOSITORY_ROOT)
-        world_relative = Path("../..") / relative
+        relative = mesh_path.relative_to(OFFICIAL_REFERENCE_ROOT)
+        world_relative = (
+            Path("../..") / "webots-sim" / relative
+        )
         result[link_name] = {
             "kind": "mesh",
             "xyz": xyz,
@@ -699,10 +711,16 @@ def _add_bounding_objects(robot: str) -> str:
         else:
             geometry = (
                 "Box { size 0.03 0.03 0.18 }\n"
-                f"{indent}  Sphere {{ radius 0.015 }}"
+                f"{indent}  Transform {{\n"
+                f"{indent}    translation 0 0 -0.09\n"
+                f"{indent}    children [\n"
+                f"{indent}      Sphere {{ radius 0.015 }}\n"
+                f"{indent}    ]\n"
+                f"{indent}  }}"
             )
         # R2025a 对 boundingObject 内的 Pose 只接受一个子节点；小腿需要
-        # 同时保留箱体和 toe 球体，因此用 Group 承载多个碰撞几何。
+        # 同时保留箱体和 toe 球体，因此用 Group 承载多个碰撞几何，并把
+        # toe 球明确平移到小腿局部末端，避免整根小腿复用 toe 语义。
         return (
             f"{match.group(0)}"
             f"{indent}boundingObject Group {{\n"
@@ -715,6 +733,24 @@ def _add_bounding_objects(robot: str) -> str:
     robot, link_count = link_pattern.subn(insert_link, robot)
     _require(link_count == 12, f"连杆 boundingObject 数量错误：{link_count}")
     _require(robot.count("boundingObject") == 13, "boundingObject 总数不是 13")
+    toe_material_count = len(
+        re.findall(r'contactMaterial "(?:fr|fl|hr|hl)_toe"', robot),
+    )
+    _require(
+        toe_material_count == 4,
+        f"小腿 toe 接触材料数量错误：{toe_material_count}",
+    )
+    # 与 toe 同属 shank node 的 Box 必须回退到 default；只有控制器通过
+    # 局部 toe 球区域验证的接触点才允许计为 foot_contact。
+    robot, default_material_count = re.subn(
+        r'(?m)^(\s*)contactMaterial "(?:fr|fl|hr|hl)_toe"$',
+        r'\1contactMaterial "default"',
+        robot,
+    )
+    _require(
+        default_material_count == 4,
+        f"小腿接触材料回退数量错误：{default_material_count}",
+    )
     return robot
 
 
@@ -1089,9 +1125,22 @@ def _validate_official_robot(
             "size 0.04 0.04 0.209",
             "size 0.03 0.03 0.18",
             "radius 0.015",
+            "translation 0 0 -0.09",
         )
         for literal in generated_literals:
             _require(literal in robot, f"生成结果碰撞常量缺失：{literal}")
+        _require(
+            robot.count('contactMaterial "default"') == 4,
+            "生成结果小腿未全部回退 default 接触材料",
+        )
+        _require(
+            re.search(
+                r'contactMaterial "(?:fr|fl|hr|hl)_toe"',
+                robot,
+            )
+            is None,
+            "生成结果小腿仍复用 toe 接触材料",
+        )
     else:
         source_literals = (
             "Box {\n      size 0.38 0.1 0.06\n    }",

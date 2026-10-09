@@ -1,0 +1,2 @@
+record_wrapper_exit=0
+record_semantic_exit=0

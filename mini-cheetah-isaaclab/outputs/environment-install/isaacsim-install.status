@@ -1,0 +1,6 @@
+state=success
+pid=1529211
+started_at=2026-10-07T15:21:56+08:00
+finished_at=2026-10-07T16:10:41+08:00
+exit_code=0
+log=/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/mini-cheetah-isaaclab/outputs/environment-install/isaacsim-install.log

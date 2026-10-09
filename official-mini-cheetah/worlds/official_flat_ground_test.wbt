@@ -296,7 +296,12 @@ DEF MINI_CHEETAH Robot {
                 boundingObject Group {
                   children [
                     Box { size 0.03 0.03 0.18 }
-                  Sphere { radius 0.015 }
+                  Transform {
+                    translation 0 0 -0.09
+                    children [
+                      Sphere { radius 0.015 }
+                    ]
+                  }
                   ]
                 }
                 physics Physics {
@@ -308,7 +313,7 @@ DEF MINI_CHEETAH Robot {
     ]
                   density -1
                 }
-                contactMaterial "fr_toe"
+                contactMaterial "default"
               }
             }
 ]
@@ -494,7 +499,12 @@ DEF MINI_CHEETAH Robot {
                 boundingObject Group {
                   children [
                     Box { size 0.03 0.03 0.18 }
-                  Sphere { radius 0.015 }
+                  Transform {
+                    translation 0 0 -0.09
+                    children [
+                      Sphere { radius 0.015 }
+                    ]
+                  }
                   ]
                 }
                 physics Physics {
@@ -506,7 +516,7 @@ DEF MINI_CHEETAH Robot {
     ]
                   density -1
                 }
-                contactMaterial "fl_toe"
+                contactMaterial "default"
               }
             }
 ]
@@ -690,7 +700,12 @@ DEF MINI_CHEETAH Robot {
                 boundingObject Group {
                   children [
                     Box { size 0.03 0.03 0.18 }
-                  Sphere { radius 0.015 }
+                  Transform {
+                    translation 0 0 -0.09
+                    children [
+                      Sphere { radius 0.015 }
+                    ]
+                  }
                   ]
                 }
                 physics Physics {
@@ -702,7 +717,7 @@ DEF MINI_CHEETAH Robot {
     ]
                   density -1
                 }
-                contactMaterial "hr_toe"
+                contactMaterial "default"
               }
             }
 ]
@@ -886,7 +901,12 @@ DEF MINI_CHEETAH Robot {
                 boundingObject Group {
                   children [
                     Box { size 0.03 0.03 0.18 }
-                  Sphere { radius 0.015 }
+                  Transform {
+                    translation 0 0 -0.09
+                    children [
+                      Sphere { radius 0.015 }
+                    ]
+                  }
                   ]
                 }
                 physics Physics {
@@ -898,7 +918,7 @@ DEF MINI_CHEETAH Robot {
     ]
                   density -1
                 }
-                contactMaterial "hl_toe"
+                contactMaterial "default"
               }
             }
 ]

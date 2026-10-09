@@ -1,0 +1,144 @@
+environment-install start: 2026-10-07T14:48:49+08:00
+workspace=/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/mini-cheetah-isaaclab/outputs/environment-install
+venv=/home/pma213x/.venvs/minicheetah-isaaclab
+
+===== uv-python-install-3.10 =====
+START 2026-10-07T14:49:09+08:00
+CMD: uv python install 3.10
+Downloading cpython-3.10.21-linux-x86_64-gnu (download) (28.1MiB)
+ Downloaded cpython-3.10.21-linux-x86_64-gnu (download)
+Installed Python 3.10.21 in 14.45s
+ + cpython-3.10.21-linux-x86_64-gnu (python3.10)
+EXIT 0
+END 2026-10-07T14:49:23+08:00
+
+===== create-python310-venv =====
+START 2026-10-07T14:49:35+08:00
+CMD: uv venv --python 3.10 --seed /home/pma213x/.venvs/minicheetah-isaaclab
+Using CPython 3.10.21
+Creating virtual environment with seed packages at: /home/pma213x/.venvs/minicheetah-isaaclab
+ + packaging==26.3
+ + pip==26.2.1
+ + setuptools==84.0.0
+ + wheel==0.48.0
+Activate with: source /home/pma213x/.venvs/minicheetah-isaaclab/bin/activate
+EXIT 0
+END 2026-10-07T14:49:41+08:00
+
+===== verify-venv-python =====
+START 2026-10-07T14:49:41+08:00
+CMD: /home/pma213x/.venvs/minicheetah-isaaclab/bin/python -c import\ sys\,platform\;\ print\(\"executable=\"+sys.executable\)\;\ print\(\"version=\"+sys.version.replace\(\"\\n\"\,\"\ \"\)\)\;\ print\(\"platform=\"+platform.platform\(\)\)
+executable=/home/pma213x/.venvs/minicheetah-isaaclab/bin/python
+version=3.10.21 (main, Aug 14 2026, 15:33:52) [Clang 22.1.3 ]
+platform=Linux-7.0.0-34-generic-x86_64-with-glibc2.43
+EXIT 0
+END 2026-10-07T14:49:41+08:00
+
+===== pip-index-isaacsim-nvidia =====
+START 2026-10-07T14:50:01+08:00
+CMD: /home/pma213x/.venvs/minicheetah-isaaclab/bin/python -m pip index versions isaacsim --extra-index-url https://pypi.nvidia.com
+isaacsim (4.5.0.0)
+Available versions: 4.5.0.0, 4.2.0.2, 4.2.0.1, 4.1.0.0, 4.0.0.0
+EXIT 0
+END 2026-10-07T14:50:11+08:00
+
+===== pip-index-rsl-rl =====
+START 2026-10-07T14:50:11+08:00
+CMD: /home/pma213x/.venvs/minicheetah-isaaclab/bin/python -m pip index versions rsl-rl
+ERROR: No matching distribution found for rsl-rl
+EXIT 1
+END 2026-10-07T14:50:13+08:00
+
+===== install-isaacsim-4.5.0.0 =====
+START 2026-10-07T14:50:37+08:00
+CMD: /home/pma213x/.venvs/minicheetah-isaaclab/bin/python -m pip install --progress-bar off isaacsim\[all\,extscache\]==4.5.0.0 --extra-index-url https://pypi.nvidia.com
+Looking in indexes: https://pypi.org/simple, https://pypi.nvidia.com
+Collecting isaacsim==4.5.0.0 (from isaacsim[all,extscache]==4.5.0.0)
+  Downloading isaacsim-4.5.0.0-cp310-none-manylinux_2_34_x86_64.whl (30 kB)
+Collecting isaacsim-kernel==4.5.0.0 (from isaacsim==4.5.0.0->isaacsim[all,extscache]==4.5.0.0)
+  Downloading isaacsim_kernel-4.5.0.0-cp310-none-manylinux_2_34_x86_64.whl (19 kB)
+Collecting omniverse-kit==106.5.0.162521 (from isaacsim-kernel==4.5.0.0->isaacsim==4.5.0.0->isaacsim[all,extscache]==4.5.0.0)
+  Downloading omniverse_kit-106.5.0.162521-cp310-none-manylinux_2_34_x86_64.whl (52.5 MB)
+Collecting isaacsim-app==4.5.0.0 (from isaacsim[all,extscache]==4.5.0.0)
+  Downloading isaacsim_app-4.5.0.0-cp310-none-manylinux_2_34_x86_64.whl (7.1 MB)
+Collecting isaacsim-asset==4.5.0.0 (from isaacsim[all,extscache]==4.5.0.0)
+  Downloading isaacsim_asset-4.5.0.0-cp310-none-manylinux_2_34_x86_64.whl (18.9 MB)
+Collecting isaacsim-benchmark==4.5.0.0 (from isaacsim[all,extscache]==4.5.0.0)
+  Downloading isaacsim_benchmark-4.5.0.0-cp310-none-manylinux_2_34_x86_64.whl (3.3 MB)
+Collecting isaacsim-code-editor==4.5.0.0 (from isaacsim[all,extscache]==4.5.0.0)
+  Downloading isaacsim_code_editor-4.5.0.0-cp310-none-manylinux_2_34_x86_64.whl (7.9 MB)
+Collecting isaacsim-core==4.5.0.0 (from isaacsim[all,extscache]==4.5.0.0)
+  Downloading isaacsim_core-4.5.0.0-cp310-none-manylinux_2_34_x86_64.whl (20.6 MB)
+Collecting isaacsim-cortex==4.5.0.0 (from isaacsim[all,extscache]==4.5.0.0)
+  Downloading isaacsim_cortex-4.5.0.0-cp310-none-manylinux_2_34_x86_64.whl (3.4 MB)
+Collecting isaacsim-example==4.5.0.0 (from isaacsim[all,extscache]==4.5.0.0)
+  Downloading isaacsim_example-4.5.0.0-cp310-none-manylinux_2_34_x86_64.whl (6.3 MB)
+Collecting isaacsim-gui==4.5.0.0 (from isaacsim[all,extscache]==4.5.0.0)
+  Downloading isaacsim_gui-4.5.0.0-cp310-none-manylinux_2_34_x86_64.whl (20.9 MB)
+Collecting isaacsim-replicator==4.5.0.0 (from isaacsim[all,extscache]==4.5.0.0)
+  Downloading isaacsim_replicator-4.5.0.0-cp310-none-manylinux_2_34_x86_64.whl (11.1 MB)
+Collecting isaacsim-rl==4.5.0.0 (from isaacsim[all,extscache]==4.5.0.0)
+  Downloading isaacsim_rl-4.5.0.0-cp310-none-manylinux_2_34_x86_64.whl (17 kB)
+Collecting isaacsim-robot==4.5.0.0 (from isaacsim[all,extscache]==4.5.0.0)
+  Downloading isaacsim_robot-4.5.0.0-cp310-none-manylinux_2_34_x86_64.whl (20.3 MB)
+Collecting isaacsim-robot-motion==4.5.0.0 (from isaacsim[all,extscache]==4.5.0.0)
+  Downloading isaacsim_robot_motion-4.5.0.0-cp310-none-manylinux_2_34_x86_64.whl (8.8 MB)
+Collecting isaacsim-robot-setup==4.5.0.0 (from isaacsim[all,extscache]==4.5.0.0)
+  Downloading isaacsim_robot_setup-4.5.0.0-cp310-none-manylinux_2_34_x86_64.whl (9.7 MB)
+Collecting isaacsim-ros1==4.5.0.0 (from isaacsim[all,extscache]==4.5.0.0)
+  Downloading isaacsim_ros1-4.5.0.0-cp310-none-manylinux_2_34_x86_64.whl (36.0 MB)
+Collecting isaacsim-ros2==4.5.0.0 (from isaacsim[all,extscache]==4.5.0.0)
+  Downloading isaacsim_ros2-4.5.0.0-cp310-none-manylinux_2_34_x86_64.whl (45.4 MB)
+Collecting isaacsim-sensor==4.5.0.0 (from isaacsim[all,extscache]==4.5.0.0)
+  Downloading isaacsim_sensor-4.5.0.0-cp310-none-manylinux_2_34_x86_64.whl (17.4 MB)
+Collecting isaacsim-storage==4.5.0.0 (from isaacsim[all,extscache]==4.5.0.0)
+  Downloading isaacsim_storage-4.5.0.0-cp310-none-manylinux_2_34_x86_64.whl (3.3 MB)
+Collecting isaacsim-template==4.5.0.0 (from isaacsim[all,extscache]==4.5.0.0)
+  Downloading isaacsim_template-4.5.0.0-cp310-none-manylinux_2_34_x86_64.whl (851 kB)
+Collecting isaacsim-test==4.5.0.0 (from isaacsim[all,extscache]==4.5.0.0)
+  Downloading isaacsim_test-4.5.0.0-cp310-none-manylinux_2_34_x86_64.whl (3.3 MB)
+Collecting isaacsim-utils==4.5.0.0 (from isaacsim[all,extscache]==4.5.0.0)
+  Downloading isaacsim_utils-4.5.0.0-cp310-none-manylinux_2_34_x86_64.whl (8.7 MB)
+Collecting isaacsim-extscache-kit==4.5.0.0 (from isaacsim[all,extscache]==4.5.0.0)
+  Downloading isaacsim_extscache_kit-4.5.0.0-cp310-none-manylinux_2_34_x86_64.whl (2453.6 MB)
+ERROR: Operation cancelled by user
+EXIT 1
+END 2026-10-07T15:14:12+08:00
+=== 2026-10-07T15:21:56+08:00 ===
+恢复 Isaac Sim 4.5.0.0 后台安装（setsid + nohup），日志：isaacsim-install.log
+命令：/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/mini-cheetah-isaaclab/outputs/environment-install/run-isaacsim-install.sh
+=== 2026-10-07T16:15:45+08:00 ===
+接受 NVIDIA Omniverse EULA 并验证 import isaacsim（stdin 输入 yes，无凭据）
+printf "yes\n" | /home/pma213x/.venvs/minicheetah-isaaclab/bin/python -c "import isaacsim"
+=== 2026-10-07T16:15:59+08:00 ===
+/home/pma213x/.venvs/minicheetah-isaaclab/bin/python -c torch.cuda.is_available()
+=== 2026-10-07T16:21:02+08:00 ===
+/home/pma213x/.venvs/minicheetah-isaaclab/bin/python torch-only CUDA check
+=== 2026-10-07T16:21:28+08:00 ===
+git clone --recursive --depth 1 --branch v2.0.2 https://github.com/isaac-sim/IsaacLab.git /home/pma213x/IsaacLab
+=== 2026-10-07T16:23:07+08:00 ===
+/home/pma213x/.venvs/minicheetah-isaaclab/bin/python -m pip install torch==2.5.1 --index-url https://download.pytorch.org/whl/cu121
+=== 2026-10-07T16:36:25+08:00 ===
+torch CUDA check + import isaacsim (after official torch 2.5.1+cu121 downgrade)
+=== 2026-10-07T16:37:19+08:00 ===
+source /home/pma213x/.venvs/minicheetah-isaaclab/bin/activate; cd /home/pma213x/IsaacLab; TERM=xterm ./isaaclab.sh --install rsl_rl
+=== 2026-10-07T16:41:18+08:00 ===
+source /home/pma213x/.venvs/minicheetah-isaaclab/bin/activate; cd /home/pma213x/IsaacLab; TERM=xterm ./isaaclab.sh -p scripts/environments/list_envs.py
+=== 2026-10-07T16:41:41+08:00 ===
+source /home/pma213x/.venvs/minicheetah-isaaclab/bin/activate; cd /home/pma213x/IsaacLab; TERM=xterm timeout 600s ./isaaclab.sh -p source/isaaclab/test/envs/test_manager_based_env.py
+=== 2026-10-07T16:44:12+08:00 ===
+/home/pma213x/.venvs/minicheetah-isaaclab/bin/python -m pip install -e /home/pma213x/IsaacLab/source/isaaclab_rl[rl-games]
+=== 2026-10-07T16:45:40+08:00 ===
+import isaacsim; import isaaclab_rl; import RslRlVecEnvWrapper
+=== 2026-10-07T16:46:46+08:00 ===
+source /home/pma213x/.venvs/minicheetah-isaaclab/bin/activate; cd /home/pma213x/IsaacLab; TERM=xterm timeout 600s ./isaaclab.sh -p source/isaaclab/test/envs/test_manager_based_env.py
+=== 2026-10-07T16:47:28+08:00 ===
+/home/pma213x/.venvs/minicheetah-isaaclab/bin/python -m pip install -e /home/pma213x/IsaacLab/source/isaaclab_rl[all]
+=== 2026-10-07T16:48:17+08:00 ===
+source /home/pma213x/.venvs/minicheetah-isaaclab/bin/activate; cd /home/pma213x/IsaacLab; TERM=xterm timeout 600s ./isaaclab.sh -p source/isaaclab/test/envs/test_manager_based_env.py
+=== 2026-10-07T16:49:06+08:00 ===
+生成 environment-lock.txt（版本、GPU、Git SHA、pip freeze、测试退出码）
+=== 2026-10-07T16:49:45+08:00 ===
+重新生成 environment-lock.txt（仅使用不启动 Kit 的安全版本读取）
+=== 2026-10-07T16:50:53+08:00 ===
+文档/环境证据静态检查

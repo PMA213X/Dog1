@@ -1,0 +1,18 @@
+urdf=/run/media/pma213x/0C6A8CC86A8CAFCE/Ubuntu2/CodeU/Dog1/mini-cheetah-isaaclab/model/yobogo_mini_cheetah_v1/yobogo_mini_cheetah.urdf
+target_jpos=leg0[-0.6,-1,2.6999998092651367],leg1[0.6,-1,2.6999998092651367],leg2[-0.6,-1,2.6999998092651367],leg3[0.6,-1,2.6999998092651367]
+root_initial_z=0.300000000000000
+min_z_rel_root=-0.059207179031 link=leg0_shank_link collision=0 shape=cylinder(r=0.010000,l=0.100000) world_min_at_root0.30=0.240792820969
+min_z_rel_root=-0.059207179031 link=leg1_shank_link collision=0 shape=cylinder(r=0.010000,l=0.100000) world_min_at_root0.30=0.240792820969
+min_z_rel_root=-0.059207179031 link=leg2_shank_link collision=0 shape=cylinder(r=0.010000,l=0.100000) world_min_at_root0.30=0.240792820969
+min_z_rel_root=-0.059207179031 link=leg3_shank_link collision=0 shape=cylinder(r=0.010000,l=0.100000) world_min_at_root0.30=0.240792820969
+min_z_rel_root=-0.053938270646 link=leg0_foot_link collision=0 shape=sphere(r=0.020200) world_min_at_root0.30=0.246061729354
+min_z_rel_root=-0.053938270646 link=leg1_foot_link collision=0 shape=sphere(r=0.020200) world_min_at_root0.30=0.246061729354
+min_z_rel_root=-0.053938270646 link=leg2_foot_link collision=0 shape=sphere(r=0.020200) world_min_at_root0.30=0.246061729354
+min_z_rel_root=-0.053938270646 link=leg3_foot_link collision=0 shape=sphere(r=0.020200) world_min_at_root0.30=0.246061729354
+foot_min_rel_root=-0.053938270646
+base_min_rel_root=-0.040000000000
+foot_minus_base=-0.013938270646
+root_z_for_foot_ground_contact=0.053938270646
+root_z_for_base_ground_contact=0.040000000000
+ground_world_z=0.000000000000
+interpretation=target_jpos foot-contact root height is ~0.054m, incompatible with configured 0.30m spawn and ~0.26m expected stand height

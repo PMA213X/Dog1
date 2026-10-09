@@ -1,0 +1,279 @@
+[3gH    H    H    H    H    H    H    H    H    H    H    H    H    H    H    H    H    H    H    H   [INFO] Using python from: /home/pma213x/.venvs/minicheetah-isaaclab/bin/python
+[INFO][AppLauncher]: Loading experience file: /home/pma213x/IsaacLab/apps/isaaclab.python.headless.kit
+[Warning] [simulation_app.simulation_app] Modules: ['omni.kit_app'] were loaded before SimulationApp was started and might not be loaded correctly.
+[Warning] [simulation_app.simulation_app] Please check to make sure no extra omniverse or pxr modules are imported before the call to SimulationApp(...)
+Loading user config located at: '/home/pma213x/.venvs/minicheetah-isaaclab/lib/python3.10/site-packages/omni/data/Kit/Isaac-Sim/4.5/user.config.json'
+[Info] [carb] Logging to file: /home/pma213x/.venvs/minicheetah-isaaclab/lib/python3.10/site-packages/omni/logs/Kit/Isaac-Sim/4.5/kit_20261007_211332.log
+2026-10-07 13:13:32 [0ms] [Warning] [omni.kit.app.plugin] No crash reporter present, dumps uploading isn't available.
+2026-10-07 13:13:32 [106ms] [Warning] [omni.usd_config.extension] Enable omni.materialx.libs extension to use MaterialX
+2026-10-07 13:13:32 [359ms] [Warning] [omni.datastore] OmniHub is inaccessible
+2026-10-07 13:13:32 [466ms] [Warning] [omni.isaac.dynamic_control] omni.isaac.dynamic_control is deprecated as of Isaac Sim 4.5. No action is needed from end-users.
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+2026-10-07 13:13:35 [3,349ms] [Warning] [gpu.foundation.plugin] Skipping unsupported non-NVIDIA GPU: Intel(R) UHD Graphics (ADL-S GT0.5)
+2026-10-07 13:13:35 [3,350ms] [Warning] [gpu.foundation.plugin] Skipping unsupported non-NVIDIA GPU: Intel(R) UHD Graphics (ADL-S GT0.5)
+
+|---------------------------------------------------------------------------------------------|
+| Driver Version: 580.178.04    | Graphics API: Vulkan
+|=============================================================================================|
+| GPU | Name                             | Active | LDA | GPU Memory | Vendor-ID | LUID       |
+|     |                                  |        |     |            | Device-ID | UUID       |
+|     |                                  |        |     |            | Bus-ID    |            |
+|---------------------------------------------------------------------------------------------|
+| 0   | NVIDIA GeForce RTX 4060 Laptop.. | Yes: 0 |     | 8188    MB | 10de      | 0          |
+|     |                                  |        |     |            | 28e0      | 4d090564.. |
+|     |                                  |        |     |            | 1         |            |
+|---------------------------------------------------------------------------------------------|
+| 1   | Intel(R) UHD Graphics (ADL-S G.. |        |     | 11374   MB | 8086      | 0          |
+|     |                                  |        |     |            | 468b      | 86808b46.. |
+|     |                                  |        |     |            | 0         |            |
+|=============================================================================================|
+| OS: 26.04.1 LTS (Resolute Raccoon) ubuntu, Version: 26.04.1, Kernel: 7.0.0-34-generic
+| XServer Vendor: The X.Org Foundation, XServer Version: 12401010 (1.24.1.10)
+| Processor: 13th Gen Intel(R) Core(TM) i5-13500HX
+| Bare Metal Cores: 14 | Bare Metal Logical Cores: 28
+| Available Cores:  20 
+|---------------------------------------------------------------------------------------------|
+| Total Memory (MB): 15166 | Free Memory: 6568
+| Total Page/Swap (MB): 20479 | Free Page/Swap: 15848
+|---------------------------------------------------------------------------------------------|
+2026-10-07 13:13:35 [3,595ms] [Warning] [gpu.foundation.plugin] IOMMU is enabled.
+2026-10-07 13:13:35 [3,596ms] [Warning] [gpu.foundation.plugin] Detected IOMMU is enabled. Running CUDA peer-to-peer bandwidth and latency validation.
+Unidirectional P2P=Enabled Bandwidth (P2P Writes) Matrix (GB/s)
+   D\D     0 
+     0 226.88 
+P2P=Enabled Latency (P2P Writes) Matrix (us)
+   GPU     0 
+     0   1.46 
+
+   CPU     0 
+     0   2.30 
+[INFO]: Parsing configuration from: training.envs.velocity_flat_env_cfg:YoboGoVelocityFlatEnvCfg
+2026-10-07 13:13:35 [3,792ms] [Warning] [isaaclab.envs.manager_based_env] Seed not set for the environment. The environment creation may not be deterministic.
+[INFO]: Base environment:
+	Environment device    : cuda:0
+	Environment seed      : None
+	Physics step-size     : 0.0004
+	Rendering step-size   : 0.002
+	Environment step-size : 0.002
+2026-10-07 13:13:35 [3,896ms] [Warning] [isaaclab.terrains.terrain_importer] Visual material specified for ground plane but no diffuse color found. Using default color: (0.0, 0.0, 0.0)
+[INFO]: Time taken for scene creation : 2.067897 seconds
+[INFO]: Scene manager:  <class InteractiveScene>
+	Number of environments: 1
+	Environment spacing   : 2.5
+	Source prim name      : /World/envs/env_0
+	Global prim paths     : ['/World/ground']
+	Replicate physics     : True
+[INFO]: Starting the simulation. This may take a few seconds. Please wait...
+[INFO]: Time taken for simulation start : 0.517862 seconds
+2026-10-07 13:13:38 [6,660ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of /builds/omniverse/usd-ci/USD/pxr/usd/usdShade/shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPreviewSurface.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+2026-10-07 13:13:38 [6,660ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of /builds/omniverse/usd-ci/USD/pxr/usd/usdShade/shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdUVTexture.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+2026-10-07 13:13:38 [6,660ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of /builds/omniverse/usd-ci/USD/pxr/usd/usdShade/shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_float.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+2026-10-07 13:13:38 [6,660ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of /builds/omniverse/usd-ci/USD/pxr/usd/usdShade/shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_float2.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+2026-10-07 13:13:38 [6,660ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of /builds/omniverse/usd-ci/USD/pxr/usd/usdShade/shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_float3.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+2026-10-07 13:13:38 [6,660ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of /builds/omniverse/usd-ci/USD/pxr/usd/usdShade/shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_float4.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+2026-10-07 13:13:38 [6,660ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of /builds/omniverse/usd-ci/USD/pxr/usd/usdShade/shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_int.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+2026-10-07 13:13:38 [6,660ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of /builds/omniverse/usd-ci/USD/pxr/usd/usdShade/shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_string.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+2026-10-07 13:13:38 [6,660ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of /builds/omniverse/usd-ci/USD/pxr/usd/usdShade/shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_normal.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+2026-10-07 13:13:38 [6,660ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of /builds/omniverse/usd-ci/USD/pxr/usd/usdShade/shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_point.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+2026-10-07 13:13:38 [6,662ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of /builds/omniverse/usd-ci/USD/pxr/usd/usdShade/shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_vector.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+2026-10-07 13:13:38 [6,662ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of /builds/omniverse/usd-ci/USD/pxr/usd/usdShade/shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_matrix.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+2026-10-07 13:13:38 [6,662ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of /builds/omniverse/usd-ci/USD/pxr/usd/usdShade/shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdTransform2d.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+[INFO] Command Manager:  <CommandManager> contains 1 active terms.
++------------------------------------------------+
+|              Active Command Terms              |
++-------+---------------+------------------------+
+| Index | Name          |          Type          |
++-------+---------------+------------------------+
+|   0   | base_velocity | UniformVelocityCommand |
++-------+---------------+------------------------+
+
+[INFO] Recorder Manager:  <RecorderManager> contains 0 active terms.
++---------------------+
+| Active Recorder Terms |
++-----------+---------+
+|   Index   | Name    |
++-----------+---------+
++-----------+---------+
+
+[INFO] Action Manager:  <ActionManager> contains 1 active terms.
++------------------------------------+
+|  Active Action Terms (shape: 12)   |
++--------+-------------+-------------+
+| Index  | Name        |   Dimension |
++--------+-------------+-------------+
+|   0    | joint_pos   |          12 |
++--------+-------------+-------------+
+
+[INFO] Observation Manager: <ObservationManager> contains 1 groups.
++---------------------------------------------------------+
+| Active Observation Terms in Group: 'policy' (shape: (48,)) |
++-----------+---------------------------------+-----------+
+|   Index   | Name                            |   Shape   |
++-----------+---------------------------------+-----------+
+|     0     | base_lin_vel                    |    (3,)   |
+|     1     | base_ang_vel                    |    (3,)   |
+|     2     | projected_gravity               |    (3,)   |
+|     3     | velocity_commands               |    (3,)   |
+|     4     | joint_pos                       |   (12,)   |
+|     5     | joint_vel                       |   (12,)   |
+|     6     | actions                         |   (12,)   |
++-----------+---------------------------------+-----------+
+
+[INFO] Event Manager:  <EventManager> contains 3 active terms.
++--------------------------------------+
+| Active Event Terms in Mode: 'startup' |
++----------+---------------------------+
+|  Index   | Name                      |
++----------+---------------------------+
+|    0     | physics_material          |
++----------+---------------------------+
++---------------------------------------+
+|  Active Event Terms in Mode: 'reset'  |
++--------+------------------------------+
+| Index  | Name                         |
++--------+------------------------------+
+|   0    | base_external_force_torque   |
+|   1    | reset_base                   |
+|   2    | reset_robot_joints           |
++--------+------------------------------+
++----------------------------------------------+
+|    Active Event Terms in Mode: 'interval'    |
++-------+------------+-------------------------+
+| Index | Name       | Interval time range (s) |
++-------+------------+-------------------------+
+|   0   | push_robot |       (10.0, 15.0)      |
++-------+------------+-------------------------+
+
+[INFO] Termination Manager:  <TerminationManager> contains 2 active terms.
++---------------------------------+
+|     Active Termination Terms    |
++-------+--------------+----------+
+| Index | Name         | Time Out |
++-------+--------------+----------+
+|   0   | time_out     |   True   |
+|   1   | base_contact |  False   |
++-------+--------------+----------+
+
+[INFO] Reward Manager:  <RewardManager> contains 11 active terms.
++-----------------------------------------+
+|           Active Reward Terms           |
++-------+----------------------+----------+
+| Index | Name                 |   Weight |
++-------+----------------------+----------+
+|   0   | track_lin_vel_xy_exp |      1.0 |
+|   1   | track_ang_vel_z_exp  |      0.5 |
+|   2   | lin_vel_z_l2         |     -2.0 |
+|   3   | ang_vel_xy_l2        |    -0.05 |
+|   4   | dof_torques_l2       | -2.5e-05 |
+|   5   | dof_acc_l2           | -2.5e-07 |
+|   6   | action_rate_l2       |    -0.01 |
+|   7   | feet_air_time        |      0.5 |
+|   8   | undesired_contacts   |     -1.0 |
+|   9   | flat_orientation_l2  |     -5.0 |
+|   10  | dof_pos_limits       |      0.0 |
++-------+----------------------+----------+
+
+[INFO] Curriculum Manager:  <CurriculumManager> contains 0 active terms.
++----------------------+
+| Active Curriculum Terms |
++-----------+----------+
+|   Index   | Name     |
++-----------+----------+
++-----------+----------+
+
+[INFO]: Completed setting up the environment...
+Setting seed: 0
+SIM_ATTRS ['_gravity_tensor', '_initial_physics_dt', '_initial_physics_prim_path', '_on_post_physics_ready', '_on_post_physics_ready_callback', '_physics_callback_functions', '_physics_context', '_physics_functions', '_physics_timer_callback', '_physics_timer_callback_fn', 'add_physics_callback', 'clear_physics_callbacks', 'get_physics_context', 'get_physics_dt', 'initialize_physics', 'physics_callback_exists', 'physics_sim_view', 'remove_physics_callback']
+ROBOT fixed False root [0.0, 0.0, 0.30000001192092896]
+SCENE_ERR ground KeyError "Scene entity with key 'ground' not found. Available Entities: '['terrain', 'robot', 'contact_forces', 'sky_light']'"
+SCENE terrain <isaaclab.terrains.terrain_importer.TerrainImporter object at 0x77059932de70>
+SCENE_ERR scene KeyError "Scene entity with key 'scene' not found. Available Entities: '['terrain', 'robot', 'contact_forces', 'sky_light']'"
+STAGE Usd.Stage.Open(rootLayer=Sdf.Find('anon:0x6326b42400d0:World0.usd'), sessionLayer=Sdf.Find('anon:0x6326b4244570:World0-session.usda'), pathResolverContext=<invalid repr>)
+PRIM /World/envs/env_0 Xform
+PRIM /World/envs/env_0/Robot Xform
+PRIM /World/envs/env_0/Robot/base_link Xform
+PRIM /World/envs/env_0/Robot/base_link/visuals Xform
+PRIM /World/envs/env_0/Robot/base_link/collisions Xform
+PRIM /World/envs/env_0/Robot/leg0_hip_link Xform
+PRIM /World/envs/env_0/Robot/leg0_hip_link/visuals Xform
+PRIM /World/envs/env_0/Robot/leg0_hip_link/collisions Xform
+PRIM /World/envs/env_0/Robot/leg0_thigh_link Xform
+PRIM /World/envs/env_0/Robot/leg0_thigh_link/visuals Xform
+PRIM /World/envs/env_0/Robot/leg0_thigh_link/collisions Xform
+PRIM /World/envs/env_0/Robot/leg0_shank_link Xform
+PRIM /World/envs/env_0/Robot/leg0_shank_link/visuals Xform
+PRIM /World/envs/env_0/Robot/leg0_shank_link/collisions Xform
+PRIM /World/envs/env_0/Robot/leg0_foot_link Xform
+PRIM /World/envs/env_0/Robot/leg0_foot_link/visuals Xform
+PRIM /World/envs/env_0/Robot/leg0_foot_link/collisions Xform
+PRIM /World/envs/env_0/Robot/leg1_hip_link Xform
+PRIM /World/envs/env_0/Robot/leg1_hip_link/visuals Xform
+PRIM /World/envs/env_0/Robot/leg1_hip_link/collisions Xform
+PRIM /World/envs/env_0/Robot/leg1_thigh_link Xform
+PRIM /World/envs/env_0/Robot/leg1_thigh_link/visuals Xform
+PRIM /World/envs/env_0/Robot/leg1_thigh_link/collisions Xform
+PRIM /World/envs/env_0/Robot/leg1_shank_link Xform
+PRIM /World/envs/env_0/Robot/leg1_shank_link/visuals Xform
+PRIM /World/envs/env_0/Robot/leg1_shank_link/collisions Xform
+PRIM /World/envs/env_0/Robot/leg1_foot_link Xform
+PRIM /World/envs/env_0/Robot/leg1_foot_link/visuals Xform
+PRIM /World/envs/env_0/Robot/leg1_foot_link/collisions Xform
+PRIM /World/envs/env_0/Robot/leg2_hip_link Xform
+PRIM /World/envs/env_0/Robot/leg2_hip_link/visuals Xform
+PRIM /World/envs/env_0/Robot/leg2_hip_link/collisions Xform
+PRIM /World/envs/env_0/Robot/leg2_thigh_link Xform
+PRIM /World/envs/env_0/Robot/leg2_thigh_link/visuals Xform
+PRIM /World/envs/env_0/Robot/leg2_thigh_link/collisions Xform
+PRIM /World/envs/env_0/Robot/leg2_shank_link Xform
+PRIM /World/envs/env_0/Robot/leg2_shank_link/visuals Xform
+PRIM /World/envs/env_0/Robot/leg2_shank_link/collisions Xform
+PRIM /World/envs/env_0/Robot/leg2_foot_link Xform
+PRIM /World/envs/env_0/Robot/leg2_foot_link/visuals Xform
+PRIM /World/envs/env_0/Robot/leg2_foot_link/collisions Xform
+PRIM /World/envs/env_0/Robot/leg3_hip_link Xform
+PRIM /World/envs/env_0/Robot/leg3_hip_link/visuals Xform
+PRIM /World/envs/env_0/Robot/leg3_hip_link/collisions Xform
+PRIM /World/envs/env_0/Robot/leg3_thigh_link Xform
+PRIM /World/envs/env_0/Robot/leg3_thigh_link/visuals Xform
+PRIM /World/envs/env_0/Robot/leg3_thigh_link/collisions Xform
+PRIM /World/envs/env_0/Robot/leg3_shank_link Xform
+PRIM /World/envs/env_0/Robot/leg3_shank_link/visuals Xform
+PRIM /World/envs/env_0/Robot/leg3_shank_link/collisions Xform
+PRIM /World/envs/env_0/Robot/leg3_foot_link Xform
+PRIM /World/envs/env_0/Robot/leg3_foot_link/visuals Xform
+PRIM /World/envs/env_0/Robot/leg3_foot_link/collisions Xform
+PRIM /World/ground Xform
+PRIM /World/ground/GroundPlane Xform
+PRIM /World/ground/GroundPlane/CollisionPlane Plane
+PRIM /World/ground/Environment Xform
+PRIM /World/ground/Environment/Geometry Mesh
+PRIM /Visuals/Command/velocity_goal/arrow Xform
+PRIM /Visuals/Command/velocity_current/arrow Xform
+TRACK 0 rootz 0.2999766767024994 feet_z [0.2999766767024994, 0.3107048571109772, 0.24539576470851898, 0.26879051327705383] ratio 0.0 norms [[0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0]]
+TRACK 10 rootz 0.29758304357528687 feet_z [0.29758304357528687, 0.30831122398376465, 0.24300213158130646, 0.2663968801498413] ratio 0.0 norms [[0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0]]
+TRACK 50 rootz 0.24876871705055237 feet_z [0.24876870214939117, 0.25949692726135254, 0.19418783485889435, 0.2175825834274292] ratio 0.0 norms [[0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0]]
+TRACK 100 rootz 0.09946071356534958 feet_z [0.09946069866418839, 0.11018890887498856, 0.04487982392311096, 0.06827456504106522] ratio 0.0 norms [[0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0]]
+TRACK 200 rootz 0.15791261196136475 feet_z [0.15791259706020355, 0.16864080727100372, 0.10333171486854553, 0.12672646343708038] ratio 0.0 norms [[0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0]]
+TRACK 300 rootz 0.20631851255893707 feet_z [0.20631849765777588, 0.21704670786857605, 0.15173761546611786, 0.1751323640346527] ratio 0.0 norms [[0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0]]
+TRACK 400 rootz 0.2446797788143158 feet_z [0.2446797639131546, 0.25540798902511597, 0.19009889662265778, 0.21349364519119263] ratio 0.0 norms [[0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0]]
+TRACK 500 rootz 0.2729952931404114 feet_z [0.2729952931404114, 0.28372350335121155, 0.21841441094875336, 0.2418091595172882] ratio 0.0 norms [[0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0]]
+TRACK 599 rootz 0.2920737564563751 feet_z [0.2920737564563751, 0.3028019368648529, 0.23749284446239471, 0.26088759303092957] ratio 0.0 norms [[0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0]]
+BODY_PRIM leg0_foot_link None
+BODY_PRIM leg1_foot_link None
+BODY_PRIM leg2_foot_link None
+BODY_PRIM leg3_foot_link None

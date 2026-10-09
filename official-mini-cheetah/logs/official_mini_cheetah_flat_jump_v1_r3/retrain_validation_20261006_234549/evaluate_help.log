@@ -1,0 +1,33 @@
+usage: python3 -m rl.evaluate [-h] --phase {P0,P1,P2,P3,P4,P5,P6,P7}
+                              [--episodes EPISODES] [--max-steps MAX_STEPS]
+                              [--seed SEED] [--gate]
+                              [--gate-mode {legacy,rapid-finetune}]
+                              [--baseline-checkpoint BASELINE_CHECKPOINT]
+                              [--policy-mode {both,deterministic,stochastic}]
+                              [--connect-timeout CONNECT_TIMEOUT]
+                              [--socket-timeout SOCKET_TIMEOUT]
+                              [--bridge-port BRIDGE_PORT]
+                              [--device {cuda,cpu}] [--checkpoint CHECKPOINT]
+                              [--output OUTPUT] [--dry-run]
+
+official_mini_cheetah_flat_jump_v1_r3 evaluation
+
+options:
+  -h, --help            show this help message and exit
+  --phase {P0,P1,P2,P3,P4,P5,P6,P7}
+  --episodes EPISODES
+  --max-steps MAX_STEPS
+  --seed SEED
+  --gate
+  --gate-mode {legacy,rapid-finetune}
+                        legacy 保持 P0～P7 旧 Gate；rapid-finetune 仅用于 P2 微调
+  --baseline-checkpoint BASELINE_CHECKPOINT
+                        rapid-finetune 模式下用于 50k 固定基线对比的冻结 checkpoint
+  --policy-mode {both,deterministic,stochastic}
+  --connect-timeout CONNECT_TIMEOUT
+  --socket-timeout SOCKET_TIMEOUT
+  --bridge-port BRIDGE_PORT
+  --device {cuda,cpu}
+  --checkpoint CHECKPOINT
+  --output OUTPUT
+  --dry-run
